@@ -247,7 +247,7 @@ In a Block Grid, all blocks appear in the same flat `contentData` array, regardl
 
 ### Nested Block Values Are Expanded
 
-When a block property contains another block editor (for example, a block that has a Block List property), the inner block editor value is fully expanded into a nested JSON object. You can navigate into it by continuing the path through the inner block's `value`.
+When a block property contains another block editor, the inner value is fully expanded into a nested JSON object. You can navigate into it by continuing the path through the inner block's `value`.
 
 
 ## Rich Text Editor Specifics
