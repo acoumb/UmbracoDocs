@@ -16,11 +16,11 @@ When upgrading to a new minor or patch version, learn about the changes in the [
 
 ### v16.3.0 — Database Schema Alignment
 
-Engage 16.3.0 introduces a database schema alignment that brings existing installations in line with clean installs by adding missing foreign keys (with `ON DELETE CASCADE`), indexes, and constraints. This is a **manual post-upgrade step** that requires running two SQL scripts during a maintenance window.
+Engage 16.3.0 introduces a database schema alignment. This brings existing installations in line with clean installs by adding missing foreign keys (with `ON DELETE CASCADE`), indexes, and constraints. This is a **manual post-upgrade step** that requires running two SQL scripts during a maintenance window.
 
 #### What changed
 
-The analytics data cleanup has been rewritten with new configuration settings. The previous settings `StartAfterSeconds`, `IntervalInSeconds`, and `NumberOfRows` are deprecated and replaced by `Enabled`, `FirstRunTime`, `Delay`, `Period`, and `CommandTimeout`. See the [configuration](../developers/settings/configuration.md) page for details.
+The analytics data cleanup has been rewritten with new configuration settings. The previous settings `StartAfterSeconds`, `IntervalInSeconds`, and `NumberOfRows` are deprecated and replaced by `Enabled`, `FirstRunTime`, `StartupDelay`, `Interval`, and `CommandTimeout`. See the [configuration](../developers/settings/configuration.md) page for details.
 
 To support the new `ON DELETE CASCADE` foreign keys, the database schema must be aligned. This requires that all existing data satisfies the new constraints — which is not guaranteed on older installations that may have accumulated orphaned records over time.
 
@@ -38,7 +38,7 @@ Run the `GetDeleteAnalyticsDataAfterDays.sql` script against your database. This
 {% step %}
 ##### 2. Ensure data consistency
 
-Run the `EnsureDataConsistency.sql` script against your database. This script cleans up orphaned records across all Engage tables by removing or nullifying rows that reference non-existent parent records, and then re-validates all existing foreign key constraints.
+Run the `EnsureDataConsistency.sql` script against your database. This script cleans up orphaned records across all Engage tables. It removes or nullifies rows that reference non-existent parent records, and then re-validates all existing foreign key constraints.
 
 This step is **required** before running the schema alignment script — without it, the `CompleteAlignSchema.sql` script will fail if orphaned data violates the new constraints.
 {% endstep %}

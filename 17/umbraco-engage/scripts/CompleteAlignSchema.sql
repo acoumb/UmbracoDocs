@@ -1,7 +1,7 @@
 ﻿/* Validation and status update */
 IF OBJECT_ID('[umbracoKeyValue]', 'U') IS NULL
 BEGIN
-    RAISERROR ('The umbracoKeyValue table was not found in this database. The key "Umbraco.Engage+DatabaseSchemaStatus" should have value "Aligned" before running this script and be manually set to "Complete" afterwards. This is most likely because Engage data is stored in a separate database from Umbraco.', 16, 1);
+    RAISERROR ('The umbracoKeyValue table was not found in this database. The key "Umbraco.Engage+DatabaseSchemaStatus" should have value "Aligned" before running this script and will be set to "Complete" by this script once it has completed successfully. This is most likely because Engage data is stored in a separate database from Umbraco.', 16, 1);
 END
 ELSE IF EXISTS (SELECT 1 FROM [umbracoKeyValue] WHERE [key] = 'Umbraco.Engage+DatabaseSchemaStatus' AND [value] = 'Complete')
 BEGIN

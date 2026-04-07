@@ -12,7 +12,7 @@ DECLARE @DeleteAnalyticsDataAfterDays INT = (
 );
 
 -- Return the recommended configuration value and details
--- Note: if NumberOfRows is 0, the next day will clean up more than the maximum number of rows specified
+-- Note: if the returned NumberOfRows value is 0, the next day's cleanup may delete more than @MaxNumberOfRows rows
 SELECT
 	@DeleteAnalyticsDataAfterDays AS DeleteAnalyticsDataAfterDays,
 	DATEADD(day, -1 * @DeleteAnalyticsDataAfterDays, @CurrentUtcDate) AS DeleteBeforeTimestamp,

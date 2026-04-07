@@ -105,9 +105,9 @@ Consolidates duplicate page variant rows and reassigns pageviews. Run during a m
 
 #### [17.0.3](https://www.nuget.org/packages/Umbraco.Engage/17.0.3) (December 16th 2025)
 
-* Implements additional validation checks before assigning the visitor cookie, improving cookie handling reliability across various request scenarios.
+* Implements additional validation checks before assigning the visitor cookie, improving cookie handling reliability across different request scenarios.
 * Resolved an issue where headless API responses returned absolute URLs instead of relative paths for URL paths.
-* Resolved various bugs regarding A/B Test UI, including the editing and previewing of segments and validation around enabled segmentation on content.
+* Resolved multiple bugs regarding A/B Test UI, including the editing and previewing of segments and validation around enabled segmentation on content.
 * Resolved an issue where starting an A/B test did not immediately start the test due to timezone conversion problems.
 * Resolved multiple issues with reporting tabs, including segment personalization, goal performance, and segment potential displays.
 * Resolved heatmap display issues by ensuring the default culture is used for invariant documents, with minor style improvements.
@@ -129,4 +129,4 @@ Consolidates duplicate page variant rows and reassigns pageviews. Run during a m
 
 The major release of Engage V17 is here, including support for Umbraco Forms and Commerce add-ons. This release also introduces Deploy support for Engage, making it easier to move your setup between environments. You can transfer configuration items such as segments, personas, journey steps, and goals, while analytics data remains safely in each environment.
 
-This release includes many automatic migrations and changes to the database structure. See [version-specific-upgrade-notes.md](upgrading/version-specific-upgrade-notes.md "mention")for more information.
+This release includes many automatic migrations and changes to the database structure. See [version-specific-upgrade-notes.md](upgrading/version-specific-upgrade-notes.md "mention") for more information.
