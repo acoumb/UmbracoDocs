@@ -1,12 +1,14 @@
 ---
 description: >-
-  CLI reference for running Umbraco MCP servers built with the SDK, including
-  authentication, runtime modes, tool filtering, and introspection commands.
+  Use any Umbraco MCP server as a CLI tool for direct invocation,
+  debugging, and introspection.
 ---
 
 # CLI Reference
 
-Umbraco MCP servers built with `@umbraco-cms/mcp-server-sdk` run as CLI tools over stdio. The CLI handles authentication and configuration, then exposes tools that communicate with the Umbraco Management API. Your AI agent (Claude Code, Cursor, and others) calls these tools to read and manage content in your Umbraco instance.
+The SDK includes a CLI wrapper that turns any Umbraco MCP server into a command-line tool. This is an alternative way to interact with the same server. Instead of connecting through an MCP client, you run the server directly. CLI flags let you list tools, call tools, inspect configuration, and control runtime behavior.
+
+Both approaches use the same server and the same tools. Use the MCP connection when your AI host supports it. Use the CLI when you need direct invocation, scripting, or debugging.
 
 ## Claude Code Skills
 
@@ -30,15 +32,14 @@ For the full list of configuration fields, precedence rules, and custom field de
 
 ## Starting the Server
 
-```bash
-# Via .env file (recommended) — create .env with credentials, then:
-node dist/index.js
+The examples on this page use the Developer MCP Server (`@umbraco-cms/mcp-dev`) package. Replace the package name with your own MCP server package.
 
-# Via npx with .env file
+```bash
+# With a .env file in the current directory (recommended):
 npx @umbraco-cms/mcp-dev
 
-# Via custom .env path
-node dist/index.js --env /path/to/.env
+# With a custom .env path:
+npx @umbraco-cms/mcp-dev --env /path/to/.env
 ```
 
 ### Claude Code Configuration
@@ -69,13 +70,13 @@ You can control which tools are exposed to the LLM using modes, collections, sli
 # Read-only content browsing
 UMBRACO_INCLUDE_SLICES=read,list,search \
 UMBRACO_INCLUDE_TOOL_COLLECTIONS=content,media \
-node dist/index.js
+npx @umbraco-cms/mcp-dev
 
 # Everything except delete operations
-UMBRACO_EXCLUDE_SLICES=delete node dist/index.js
+UMBRACO_EXCLUDE_SLICES=delete npx @umbraco-cms/mcp-dev
 
 # Only specific tools
-UMBRACO_INCLUDE_TOOLS=get-content-by-id,list-content node dist/index.js
+UMBRACO_INCLUDE_TOOLS=get-content-by-id,list-content npx @umbraco-cms/mcp-dev
 ```
 
 For the full list of filter flags, available slices, and precedence rules, see [Tool Filtering](tool-filtering.md).
@@ -85,7 +86,7 @@ For the full list of filter flags, available slices, and precedence rules, see [
 ### Readonly Mode
 
 ```bash
-node dist/index.js --umbraco-readonly
+npx @umbraco-cms/mcp-dev --umbraco-readonly
 # or: UMBRACO_READONLY=true
 ```
 
@@ -94,7 +95,7 @@ Mutation tools are removed from the server. The agent cannot see or call them. O
 ### Dry-Run Mode
 
 ```bash
-node dist/index.js --umbraco-dry-run
+npx @umbraco-cms/mcp-dev --umbraco-dry-run
 # or: UMBRACO_DRY_RUN=true
 ```
 
@@ -170,24 +171,24 @@ delete-example   | example    | delete | N  | Y     | Deletes an example item by
 
 ```bash
 # See all tools
-node dist/index.js --list-tools
+npx @umbraco-cms/mcp-dev --list-tools
 
 # See only what the LLM sees with filtering
-UMBRACO_READONLY=true node dist/index.js --list-tools
-UMBRACO_INCLUDE_SLICES=read,list node dist/index.js --list-tools
+UMBRACO_READONLY=true npx @umbraco-cms/mcp-dev --list-tools
+UMBRACO_INCLUDE_SLICES=read,list npx @umbraco-cms/mcp-dev --list-tools
 
 # Get schema for a specific tool
-node dist/index.js --describe-tool get-content-by-id
+npx @umbraco-cms/mcp-dev --describe-tool get-content-by-id
 
 # Call a tool directly and print the result
-node dist/index.js --call get-content-by-id --call-args '{"id": "550e8400-e29b-41d4-a716-446655440000"}'
+npx @umbraco-cms/mcp-dev --call get-content-by-id --call-args '{"id": "550e8400-e29b-41d4-a716-446655440000"}'
 
 # Generate documentation
-node dist/index.js --generate-context > CONTEXT.md
+npx @umbraco-cms/mcp-dev --generate-context > CONTEXT.md
 
 # Debug configuration — see resolved values and their sources
-node dist/index.js --debug-config
-UMBRACO_READONLY=true UMBRACO_INCLUDE_SLICES=read node dist/index.js --debug-config
+npx @umbraco-cms/mcp-dev --debug-config
+UMBRACO_READONLY=true UMBRACO_INCLUDE_SLICES=read npx @umbraco-cms/mcp-dev --debug-config
 ```
 
 ### Debug Config Output
