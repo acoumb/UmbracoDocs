@@ -99,6 +99,17 @@ Each MCP-compatible host application has its own setup process. Below you can fi
 * [Cursor](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/cursor)
 * [OpenAI Codex](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/openai-codex)
 
+{% hint style="success" %}
+**Using Claude Code?** Install the `umbraco-mcp-server` plugin for guided setup, configuration, filtering, and debugging. The `/mcp-cli` skill walks you through each step interactively.
+
+```bash
+/plugin marketplace add umbraco/Umbraco-MCP-Base
+/plugin install umbraco-mcp-server@umbraco/Umbraco-MCP-Base
+```
+
+Once installed, run `/mcp-cli` to get started. For the full CLI reference, see the [CLI Reference](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/cli).
+{% endhint %}
+
 Although the details vary slightly, the general pattern is the same across all hosts:
 
 ```json
