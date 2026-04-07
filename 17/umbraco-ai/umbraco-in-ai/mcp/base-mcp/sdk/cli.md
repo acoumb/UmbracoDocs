@@ -12,23 +12,21 @@ Both approaches use the same server and the same tools. Use the MCP connection w
 
 ## Claude Code Skills
 
-Each Umbraco MCP server ships with its own Claude Code plugin that provides a `/mcp-cli` skill. The skill guides you interactively through setup, configuration, filtering, and debugging. This is the recommended way to work with the CLI.
+Each Umbraco MCP server ships with its own Claude Code plugin that provides a skill. The skill guides the agent interactively through setup, configuration, filtering, and debugging. This is the recommended way to work with the CLI.
 
 Check the documentation for your specific MCP server for plugin install instructions.
 
 The sections below provide the full reference for all CLI options. You do not need to read them when using the skill.
 
 {% hint style="info" %}
-The CLI is designed to be consumed by AI agents, not operated directly by humans. You configure the CLI with environment variables or flags, then your AI agent connects and interacts with Umbraco through the exposed tools. The introspection commands (`--list-tools`, `--debug-config`, and others) are the human-facing part. Use them to understand and verify what your agent sees.
+The CLI is designed to be consumed by AI agents, not operated directly by humans. You configure the CLI with environment variables and flags, then your AI agent connects and interacts with and understands about Umbraco through the exposed tools.
 {% endhint %}
 
-## Authentication and Configuration
+## Authentication
 
-The CLI requires three environment variables for authentication: `UMBRACO_CLIENT_ID`, `UMBRACO_CLIENT_SECRET`, and `UMBRACO_BASE_URL`. Create these credentials in the Umbraco backoffice under **Settings > Users** as an API user.
+The CLI connects to Umbraco the same way as the MCP server, using an API user. Credentials (`UMBRACO_CLIENT_ID`, `UMBRACO_CLIENT_SECRET`, and `UMBRACO_BASE_URL`) must always be set as environment variables via a `.env` file or your MCP config `env` block. They are never passed as CLI arguments.
 
-CLI arguments take precedence over environment variables, which take precedence over `.env` file values. A `.env` file in the current working directory is loaded automatically. Use `--env /path/to/.env` to specify a custom location.
-
-For the full list of configuration fields, precedence rules, and custom field definitions, see [Configuration](configuration.md).
+All other options can be set using CLI flags. The AI agent passes these as needed. For the full list of configuration fields, see [Configuration](configuration.md).
 
 ## Starting the Server
 
