@@ -22,4 +22,5 @@
 * [Extending the search backoffice](extending/backoffice-extensions.md)
 * [Index values for property editors](extending/index-values-for-property-editors.md)
 * [Gathering data with content indexers](extending/gathering-data-with-content-indexers.md)
+* [Indexing notification handling](extending/indexing-notification-handling.md)
 * [Database cache for index values](extending/database-cache-for-index-values.md)
