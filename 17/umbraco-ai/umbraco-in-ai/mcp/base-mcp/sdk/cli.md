@@ -40,26 +40,6 @@ npx @umbraco-cms/mcp-dev
 npx @umbraco-cms/mcp-dev --env /path/to/.env
 ```
 
-### Claude Code Configuration
-
-Use the `env` block for credentials. These are passed as environment variables to the process, not as CLI arguments:
-
-```json
-{
-  "mcpServers": {
-    "umbraco": {
-      "command": "npx",
-      "args": ["@umbraco-cms/mcp-dev"],
-      "env": {
-        "UMBRACO_CLIENT_ID": "your-client-id",
-        "UMBRACO_CLIENT_SECRET": "your-secret",
-        "UMBRACO_BASE_URL": "https://localhost:44391"
-      }
-    }
-  }
-}
-```
-
 ## Tool Filtering
 
 You can control which tools are exposed to the LLM using modes, collections, slices, and individual tool names. All filters accept comma-separated values via CLI flags or environment variables.
