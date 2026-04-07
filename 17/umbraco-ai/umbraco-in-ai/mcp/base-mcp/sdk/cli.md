@@ -8,20 +8,13 @@ description: >-
 
 Umbraco MCP servers built with `@umbraco-cms/mcp-server-sdk` run as CLI tools over stdio. The CLI handles authentication and configuration, then exposes tools that communicate with the Umbraco Management API. Your AI agent (Claude Code, Cursor, and others) calls these tools to read and manage content in your Umbraco instance.
 
-## Claude Code Plugin
+## Claude Code Skills
 
-If you are using Claude Code, install the `umbraco-mcp-server` plugin. The plugin provides a `/mcp-cli` skill that guides you interactively through setup, configuration, filtering, and debugging. This is the recommended way to work with the CLI.
+Each Umbraco MCP server ships with its own Claude Code plugin that provides a `/mcp-cli` skill. The skill guides you interactively through setup, configuration, filtering, and debugging. This is the recommended way to work with the CLI.
 
-To install the plugin, run the following commands in Claude Code:
+Check the documentation for your specific MCP server for plugin install instructions.
 
-```bash
-/plugin marketplace add umbraco/Umbraco-MCP-Base
-/plugin install umbraco-mcp-server@umbraco/Umbraco-MCP-Base
-```
-
-Once installed, run `/mcp-cli` at any time for guided help. The skill understands your current configuration and walks you through each step.
-
-The sections below provide the full reference for all CLI options. You do not need to read them when using the plugin.
+The sections below provide the full reference for all CLI options. You do not need to read them when using the skill.
 
 {% hint style="info" %}
 The CLI is designed to be consumed by AI agents, not operated directly by humans. You configure the CLI with environment variables or flags, then your AI agent connects and interacts with Umbraco through the exposed tools. The introspection commands (`--list-tools`, `--debug-config`, and others) are the human-facing part. Use them to understand and verify what your agent sees.
