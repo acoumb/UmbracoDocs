@@ -18,6 +18,7 @@
   * [Umbraco Setup](hosted-mcp/umbraco-setup.md)
 * [MCP Server SDK](sdk/README.md)
   * [API Helpers](sdk/api-helpers.md)
+  * [CLI Reference](sdk/cli.md)
   * [Configuration](sdk/configuration.md)
   * [Constants](sdk/constants.md)
   * [Coverage Tracking](sdk/coverage-tracking.md)
