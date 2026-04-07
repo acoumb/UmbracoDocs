@@ -2,6 +2,7 @@
 
 * [Developer Model Context Protocol (MCP) Server](README.md)
 * [Available Tools](available-tools.md)
+* [CLI Usage](cli-usage.md)
 * [Configuration Options](configuration.md)
 * [Excluded Tools](excluded-tools.md)
 * [Use Cases](scenarios.md)
