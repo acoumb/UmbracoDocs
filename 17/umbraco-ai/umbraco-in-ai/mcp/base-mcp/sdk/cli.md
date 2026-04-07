@@ -12,27 +12,22 @@ Umbraco MCP servers built with `@umbraco-cms/mcp-server-sdk` run as CLI tools ov
 The CLI is designed to be consumed by AI agents, not operated directly by humans. You configure the CLI with environment variables or flags, then your AI agent connects and interacts with Umbraco through the exposed tools. The introspection commands (`--list-tools`, `--debug-config`, and others) are the human-facing part. Use them to understand and verify what your agent sees.
 {% endhint %}
 
-## Authentication
+{% hint style="success" %}
+**Using Claude Code?** Install the `umbraco-mcp-server` plugin for interactive CLI guidance. Run `/mcp-cli` for help with setup, filtering, and debugging.
 
-| Env Var | Required | Description |
-|---------|----------|-------------|
-| `UMBRACO_CLIENT_ID` | Yes | OAuth client ID from Umbraco API user |
-| `UMBRACO_CLIENT_SECRET` | Yes | OAuth client secret |
-| `UMBRACO_BASE_URL` | Yes | Umbraco instance URL |
-
-Create auth credentials in the Umbraco backoffice under **Settings > Users** as an API user.
-
-{% hint style="danger" %}
-Never pass secrets as CLI arguments. CLI arguments are visible in terminal output, process listings, shell history, and AI conversation context. Use a `.env` file or the MCP config `env` block for credentials.
+```bash
+/plugin marketplace add umbraco/Umbraco-MCP-Base
+/plugin install umbraco-mcp-server@umbraco/Umbraco-MCP-Base
+```
 {% endhint %}
 
-### Configuration Precedence
+## Authentication and Configuration
 
-CLI arguments take precedence over environment variables, which take precedence over `.env` file values.
+The CLI requires three environment variables for authentication: `UMBRACO_CLIENT_ID`, `UMBRACO_CLIENT_SECRET`, and `UMBRACO_BASE_URL`. Create these credentials in the Umbraco backoffice under **Settings > Users** as an API user.
 
-A `.env` file in the current working directory is loaded automatically. Use `--env /path/to/.env` to specify a custom location.
+CLI arguments take precedence over environment variables, which take precedence over `.env` file values. A `.env` file in the current working directory is loaded automatically. Use `--env /path/to/.env` to specify a custom location.
 
-For a full list of configuration fields, see [Configuration](configuration.md).
+For the full list of configuration fields, precedence rules, and custom field definitions, see [Configuration](configuration.md).
 
 ## Starting the Server
 
@@ -69,36 +64,7 @@ Use the `env` block for credentials. These are passed as environment variables t
 
 ## Tool Filtering
 
-You can control which tools are exposed to the LLM. All filters accept comma-separated values via CLI flags or environment variables.
-
-| Flag | Env Var | Description |
-|------|---------|-------------|
-| `--umbraco-tool-modes` | `UMBRACO_TOOL_MODES` | Enable named groups of collections |
-| `--umbraco-include-tool-collections` | `UMBRACO_INCLUDE_TOOL_COLLECTIONS` | Expose only these collections |
-| `--umbraco-exclude-tool-collections` | `UMBRACO_EXCLUDE_TOOL_COLLECTIONS` | Hide these collections |
-| `--umbraco-include-slices` | `UMBRACO_INCLUDE_SLICES` | Expose only tools with these slices |
-| `--umbraco-exclude-slices` | `UMBRACO_EXCLUDE_SLICES` | Hide tools with these slices |
-| `--umbraco-include-tools` | `UMBRACO_INCLUDE_TOOLS` | Expose only these specific tools |
-| `--umbraco-exclude-tools` | `UMBRACO_EXCLUDE_TOOLS` | Hide these specific tools |
-
-### Available Slices
-
-`read`, `list`, `create`, `update`, `delete`, `search`, `tree`, `publish`, `move`, `copy`
-
-### Filter Precedence
-
-Filters combine in the following order, where the most specific filter wins:
-
-1. Tool exclusions — always excluded
-2. Tool inclusions — if set, only these tools pass
-3. Slice exclusions — tools with these slices are excluded
-4. Slice inclusions — if set, only tools with these slices pass
-5. Collection exclusions — entire collections are excluded
-6. Collection inclusions — if set, only these collections pass
-
-Exclude takes precedence over include at the same level.
-
-### Examples
+You can control which tools are exposed to the LLM using modes, collections, slices, and individual tool names. All filters accept comma-separated values via CLI flags or environment variables.
 
 ```bash
 # Read-only content browsing
@@ -113,7 +79,7 @@ UMBRACO_EXCLUDE_SLICES=delete node dist/index.js
 UMBRACO_INCLUDE_TOOLS=get-content-by-id,list-content node dist/index.js
 ```
 
-For more details on how filtering works, see [Tool Filtering](tool-filtering.md).
+For the full list of filter flags, available slices, and precedence rules, see [Tool Filtering](tool-filtering.md).
 
 ## Runtime Modes
 
@@ -154,7 +120,7 @@ Input validation still runs, so the LLM receives validation feedback. Use dry-ru
 | LLM sees mutation tools | No | Yes |
 | Mutation tools execute | N/A | No (preview only) |
 | Read tools execute | Yes | Yes |
-| Risk level | Zero | Very low |
+| Risk level | Zero | Minimal |
 
 ## Introspection Commands
 
@@ -166,6 +132,8 @@ Introspection respects all filtering configuration. If you set `UMBRACO_READONLY
 |------|-------------|
 | `--list-tools` | Print ASCII table of all tools (name, collection, slices, annotations) |
 | `--describe-tool <name>` | Print full JSON schema and metadata for a specific tool (exits 1 if not found or filtered out) |
+| `--call <name>` | Call a tool by name, print the result as JSON, and exit |
+| `--call-args <json>` | JSON arguments for `--call` (default: `{}`) |
 | `--generate-context` | Output structured CONTEXT.md documenting all tools (pipe to file) |
 | `--debug-config` | Print resolved configuration as JSON (values, sources, filter config) |
 
@@ -211,6 +179,9 @@ UMBRACO_INCLUDE_SLICES=read,list node dist/index.js --list-tools
 
 # Get schema for a specific tool
 node dist/index.js --describe-tool get-content-by-id
+
+# Call a tool directly and print the result
+node dist/index.js --call get-content-by-id --call-args '{"id": "550e8400-e29b-41d4-a716-446655440000"}'
 
 # Generate documentation
 node dist/index.js --generate-context > CONTEXT.md
