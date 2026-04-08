@@ -32,17 +32,7 @@ This section contains the release notes for Umbraco Engage 13, including all cha
 * Fixed `Anonymize IP Address` setting not showing in the UI.
 * Clean-up of orphaned page variants and bot visitor data.
 
-{% file src="scripts/EnsureDataConsistency.sql" %}
-Run during a maintenance window **before** `CompleteAlignSchema.sql` to clean up orphaned data and verify all foreign key constraints.
-{% endfile %}
-
-{% file src="scripts/CompleteAlignSchema.sql" %}
-Run during a maintenance window **after** `EnsureDataConsistency.sql` to add missing foreign keys, indexes, and constraints. **Execute each batch individually** — do not run the entire script at once. See [version-specific upgrade notes](upgrading/version-specific-upgrade-notes.md) for details.
-{% endfile %}
-
-{% file src="scripts/GetDeleteAnalyticsDataAfterDays.sql" %}
-Recommends a safe initial `DeleteAnalyticsDataAfterDays` value based on your data.
-{% endfile %}
+See the [Schema Alignment Guide](upgrading/schema-alignment-guide.md) for detailed post-upgrade steps and script downloads.
 
 [**13.7.5**](https://www.nuget.org/packages/Umbraco.Engage/13.7.5) **(March 4th 2026)**
 

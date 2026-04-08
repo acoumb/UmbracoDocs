@@ -39,21 +39,7 @@ Below are the release notes for Umbraco Engage 16, detailing all changes in this
 * Added a data cleanup log viewer in the backoffice, providing insight into cleanup job history, per-table statistics, and startpage data retention status.
 * Added `EngageDataCleanupProcessors()` extension method for registering [custom data cleanup processors](developers/analytics/extending-analytics/custom-data-cleanup-processors.md).
 
-{% file src="scripts/EnsureDataConsistency.sql" %}
-Run during a maintenance window **before** `CompleteAlignSchema.sql` to clean up orphaned data and verify all foreign key constraints.
-{% endfile %}
-
-{% file src="scripts/CompleteAlignSchema.sql" %}
-Run during a maintenance window **after** `EnsureDataConsistency.sql` to add missing foreign keys, indexes, and constraints. **Execute each batch individually** — do not run the entire script at once. See [version-specific upgrade notes](upgrading/version-specific-upgrade-notes.md) for details.
-{% endfile %}
-
-{% file src="scripts/GetDeleteAnalyticsDataAfterDays.sql" %}
-Recommends a safe initial `DeleteAnalyticsDataAfterDays` value based on your data.
-{% endfile %}
-
-{% file src="scripts/DeduplicatePageVariants.sql" %}
-Consolidates duplicate page variant rows and reassigns pageviews. Run during a maintenance window as the update on the pageviews table can take a while on large installations.
-{% endfile %}
+See the [Schema Alignment Guide](upgrading/schema-alignment-guide.md) for detailed post-upgrade steps and script downloads.
 
 #### [Engage Forms 16.2.2](https://www.nuget.org/packages/Umbraco.Engage.Forms/16.2.2) (April 2nd 2026)
 
