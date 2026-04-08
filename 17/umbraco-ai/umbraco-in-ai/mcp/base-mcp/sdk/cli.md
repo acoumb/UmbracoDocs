@@ -42,7 +42,7 @@ npx @umbraco-cms/mcp-dev --env /path/to/.env
 
 ## Tool Filtering
 
-Tha agent can control which tools are exposed to the LLM using modes, collections, slices, and individual tool names. All filters accept comma-separated values via CLI flags or environment variables.
+The agent can control which tools are exposed to the LLM using modes, collections, slices, and individual tool names. All filters accept comma-separated values via CLI flags or environment variables.
 
 ```bash
 # Read-only content browsing
