@@ -22,7 +22,7 @@ The `sectionSidebarApp` manifest supports the following properties:
 | `alias`       | string   | Yes      | A unique identifier for this extension |
 | `name`        | string   | Yes      | A human-readable name shown in Extension Insights |
 | `weight`      | number   | No       | Controls the display order when multiple sidebar apps are registered in the same section. Higher values display higher in the sidebar. |
-| `kind`        | string   | No       | Inherit a preset configuration, e.g. `"menu"`. See [Extension Kinds](../kind.md). |
+| `kind`        | string   | No       | Inherit a preset configuration, for example, `"menu"`. See [Extension Kinds](../kind.md). |
 | `element`     | string   | No       | Path to a custom web component file |
 | `elementName` | string   | No       | The custom element tag name (if not a default export) |
 | `meta`        | object   | No       | Additional configuration depending on the `kind` used |
