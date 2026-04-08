@@ -12,19 +12,19 @@ The MCP connection is more context-efficient because the host manages tool selec
 
 ## Claude Code Plugin
 
-If you are using Claude Code, install the Developer MCP plugin. The `/mcp-cli` skill lets you run queries against Umbraco directly from Claude Code.
+If you are using Claude Code, install the Developer MCP plugin. The `/umb-cms-dev-cli` skill lets you run queries against Umbraco directly from Claude Code.
 
 ```bash
 /plugin marketplace add umbraco/Umbraco-CMS-MCP-Dev
 /plugin install umbraco-cms-mcp-dev@umbraco/Umbraco-CMS-MCP-Dev
 ```
 
-Once installed, use `/mcp-cli` with a query to interact with Umbraco:
+Once installed, use `/umb-cms-dev-cli` with a query to interact with Umbraco:
 
 ```
-/mcp-cli tell me what properties the home document type has
-/mcp-cli list all published content under the homepage
-/mcp-cli show me the media library structure
+/umb-cms-dev-cli tell me what properties the home document type has
+/umb-cms-dev-cli list all published content under the homepage
+/umb-cms-dev-cli show me the media library structure
 ```
 
 ## CLI Reference
