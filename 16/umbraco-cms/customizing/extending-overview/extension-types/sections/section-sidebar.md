@@ -48,6 +48,7 @@ Sidebar Section extension authors may specify where the Section Sidebar app appe
 
 {% tabs %}
 {% tab title="JSON" %}
+{% code title="umbraco-package.json" %}
 
 ```json
 {
@@ -69,14 +70,17 @@ Sidebar Section extension authors may specify where the Section Sidebar app appe
 }
 ```
 
+{% endcode %}
 {% endtab %}
 
 {% tab title="TypeScript" %}
 
 These should be registered via a [Backoffice Entry Point](../backoffice-entry-point.md).
 
+{% code title="manifests.ts" %}
+
 ```ts
-import type { ManifestSectionSidebarApp } from '@umbraco-cms/backoffice/section-sidebar';
+import type { ManifestSectionSidebarApp } from '@umbraco-cms/backoffice/section';
 
 export const manifest: ManifestSectionSidebarApp = {
     type: 'sectionSidebarApp',
@@ -91,11 +95,12 @@ export const manifest: ManifestSectionSidebarApp = {
 };
 ```
 
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
-`Umb.Condition.SectionAlias` is a built-in condition type provided by Umbraco. Condition types are predefined. You must use the exact alias. Refer to the [Extension Conditions](../../extension-conditions.md) documentation for the complete list of available conditions and their parameters.
+`Umb.Condition.SectionAlias` is a built-in condition type provided by Umbraco. You must use the exact alias string. Refer to the [Extension Conditions](../../extension-conditions.md) documentation for the complete list of available conditions and their parameters.
 {% endhint %}
 
 ### Menu Sidebar App Examples
@@ -106,6 +111,7 @@ The menu sidebar app, provided by Umbraco, can be placed in Section Sidebar exte
 
 {% tabs %}
 {% tab title="JSON" %}
+{% code title="umbraco-package.json" %}
 
 ```json
 {
@@ -118,6 +124,7 @@ The menu sidebar app, provided by Umbraco, can be placed in Section Sidebar exte
         "kind": "menu",
         "alias": "My.SectionSidebarApp.MyMenu",
         "name": "My Menu Section Sidebar App",
+        "weight": 200,
         "meta": {
             "label": "My Sidebar Menu",
             "menu": "My.Menu"
@@ -130,14 +137,16 @@ The menu sidebar app, provided by Umbraco, can be placed in Section Sidebar exte
 }
 ```
 
+{% endcode %}
 {% endtab %}
-
 {% tab title="TypeScript" %}
 
 These should be registered via a [Backoffice Entry Point](../backoffice-entry-point.md).
 
+{% code title="manifests.ts" %}
+
 ```ts
-import type { ManifestSectionSidebarAppMenu } from '@umbraco-cms/backoffice/section-sidebar';
+import type { ManifestSectionSidebarAppMenu } from '@umbraco-cms/backoffice/menu';
 
 export const manifest: ManifestSectionSidebarAppMenu = {
     type: 'sectionSidebarApp',
@@ -156,10 +165,15 @@ export const manifest: ManifestSectionSidebarAppMenu = {
 };
 ```
 
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
-In the example below, a menu extension is created and bound to the `meta:menu` (My.Menu) property, which matches the menu extension’s `alias`. The _My.Menu_ alias is also used to attach a menu item extension.
+{% hint style="info" %}
+Umbraco also provides a menuWithEntityActions kind, which extends the menu kind to automatically surface registered Entity Actions for items in the menu. Use this kind when your menu items represent entities that have actions (such as create, delete, or move).
+{% endhint %}
+
+In the example below, a menu extension is created and bound to the `meta:menu` (`My.Menu`) property, which matches the menu extension’s `alias`. The _My.Menu_ alias is also used to attach a menu item extension.
 
 {% code title="umbraco-package.json" %}
 
@@ -190,6 +204,8 @@ For more information, see the documentation for the [menus](../menu.md) extensio
 
 Menu sidebar apps can coordinate navigation between subviews in the section extension by referencing [workspace extensions](../../extension-types/workspaces/README.md). Modify the menu item extension to include the `meta:entityType` property, and assign it the same value as a workspace view extensions' own `meta:entityType` property.
 
+{% tabs %}
+{% tab title="JSON" %}
 {% code title="umbraco-package.json" %}
 
 ```json
@@ -217,6 +233,38 @@ Menu sidebar apps can coordinate navigation between subviews in the section exte
 ```
 
 {% endcode %}
+{% endtab %}
+{% tab title="TypeScript" %}
+
+These should be registered via a Backoffice Entry Point.
+
+{% code title="manifests.ts" %}
+
+```ts
+import type { UmbExtensionManifest } from '@umbraco-cms/backoffice/extension-api';
+
+export const manifests: UmbExtensionManifest[] = [
+    {
+        type: 'menuItem',
+        alias: 'SectionSidebar.MenuItem1',
+        name: 'Menu Item 1',
+        meta: {
+            label: 'Menu Item 1',
+            menus: ['My.Menu'],
+            entityType: 'myCustomWorkspaceView'
+        }
+    },
+    {
+        type: 'workspace',
+        name: 'Workspace 1',
+        alias: 'SectionSidebar.Workspace1',
+        element: () => import('./my-custom-workspace.element.js'),
+        meta: {
+            entityType: 'myCustomWorkspaceView'
+        }
+    }
+];
+```
 
 Menu items and workspaces are linked by matching `entityType` values.
 
@@ -226,6 +274,8 @@ Authors can add their extensions to the sidebar of any Umbraco-provided section 
 
 <figure><img src="../../../../.gitbook/assets/section-sidebar-composed-apps.svg" alt=""><figcaption><p>Composed sidebar menu</p></figcaption></figure>
 
+{% tabs %}
+{% tab title="JSON" %}
 {% code title="umbraco-package.json" %}
 
 ```json
@@ -243,11 +293,38 @@ Authors can add their extensions to the sidebar of any Umbraco-provided section 
             "alias": "Umb.Condition.SectionAlias", 
             "match": "Umb.Section.Settings"
         }]
-    }
+    }]
 }
 ```
 
 {% endcode %}
+{% endtab %}
+{% tab title="TypeScript" %}
+
+These should be registered via a Backoffice Entry Point.
+
+{% code title="manifests.ts" %}
+
+```ts
+import type { ManifestSectionSidebarApp } from '@umbraco-cms/backoffice/section';
+
+export const manifest: ManifestSectionSidebarApp = {
+    type: 'sectionSidebarApp',
+    alias: 'My.SectionSidebarApp',
+    name: 'My Section Sidebar App',
+    element: () => import('./sidebar-app.element.js'),
+    conditions: [
+        {
+            alias: 'Umb.Condition.SectionAlias',
+            match: 'Umb.Section.Settings'
+        }
+    ]
+};
+```
+
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 ##### Section Aliases
 
