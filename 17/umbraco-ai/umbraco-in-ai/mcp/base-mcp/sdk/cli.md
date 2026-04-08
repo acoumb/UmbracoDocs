@@ -24,7 +24,7 @@ The CLI is designed to be consumed by AI agents, not operated directly by humans
 
 ## Authentication
 
-The CLI connects to Umbraco the same way as the MCP server, using an API user. Credentials (`UMBRACO_CLIENT_ID`, `UMBRACO_CLIENT_SECRET`, and `UMBRACO_BASE_URL`) must always be set as environment variables via a `.env` file or your MCP config `env` block. They are never passed as CLI arguments.
+The CLI connects to Umbraco the same way as the MCP server, using an API user. Credentials (`UMBRACO_CLIENT_ID`, `UMBRACO_CLIENT_SECRET`, and `UMBRACO_BASE_URL`) must always be set as environment variables via a `.env`. They are never passed as CLI arguments.
 
 All other options can be set using CLI flags. The AI agent passes these as needed. For the full list of configuration fields, see [Configuration](configuration.md).
 
@@ -42,7 +42,7 @@ npx @umbraco-cms/mcp-dev --env /path/to/.env
 
 ## Tool Filtering
 
-You can control which tools are exposed to the LLM using modes, collections, slices, and individual tool names. All filters accept comma-separated values via CLI flags or environment variables.
+Tha agent can control which tools are exposed to the LLM using modes, collections, slices, and individual tool names. All filters accept comma-separated values via CLI flags or environment variables.
 
 ```bash
 # Read-only content browsing

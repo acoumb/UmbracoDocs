@@ -1,25 +1,31 @@
 ---
 description: >-
-  Use the Developer MCP Server as a CLI for debugging, introspection, and
-  advanced configuration.
+  Use the Developer MCP Server as a CLI tool for a quick connection to
+  Umbraco without additional setup.
 ---
 
 # CLI Usage
 
-The Developer MCP Server is designed to run as an MCP server connected to your AI host. You do not need the CLI for normal usage.
+The Developer MCP Server can also be used as a CLI tool. This wraps the same MCP server and exposes the same tools, but runs them directly from the command line. It is a quick way to connect to Umbraco without any host setup.
 
-The CLI is useful when you want to inspect available tools, debug your configuration, or test tools outside of an MCP session. All MCP servers built on the Base MCP SDK share the same CLI interface.
+The MCP connection is more context-efficient because the host manages tool selection and conversation state. The CLI is a simpler alternative when you want to get started quickly or debug your configuration.
 
 ## Claude Code Plugin
 
-If you are using Claude Code, install the `umbraco-mcp-server` plugin. The `/mcp-cli` skill guides you interactively through configuration, filtering, and troubleshooting.
+If you are using Claude Code, install the Developer MCP plugin. The `/mcp-cli` skill lets you run queries against Umbraco directly from Claude Code.
 
 ```bash
-/plugin marketplace add umbraco/Umbraco-MCP-Base
-/plugin install umbraco-mcp-server@umbraco/Umbraco-MCP-Base
+/plugin marketplace add umbraco/Umbraco-CMS-MCP-Dev
+/plugin install umbraco-cms-mcp-dev@umbraco/Umbraco-CMS-MCP-Dev
 ```
 
-Once installed, run `/mcp-cli` for interactive help.
+Once installed, use `/mcp-cli` with a query to interact with Umbraco:
+
+```
+/mcp-cli tell me what properties the home document type has
+/mcp-cli list all published content under the homepage
+/mcp-cli show me the media library structure
+```
 
 ## CLI Reference
 
