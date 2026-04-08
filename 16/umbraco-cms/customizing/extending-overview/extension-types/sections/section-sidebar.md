@@ -18,18 +18,18 @@ The `sectionSidebarApp` manifest supports the following properties:
 
 | Property      | Type     | Required | Description |
 |---------------|----------|----------|-------------|
-| `type`        | string   | Yes      | Must be `"sectionSidebarApp"` |
+| `type`        | string   | Yes      | Must be `sectionSidebarApp` |
 | `alias`       | string   | Yes      | A unique identifier for this extension |
 | `name`        | string   | Yes      | A human-readable name shown in Extension Insights |
 | `weight`      | number   | No       | Controls the display order when multiple sidebar apps are registered in the same section. Higher values display higher in the sidebar. |
-| `kind`        | string   | No       | Inherit a preset configuration, for example, `"menu"`. See [Extension Kinds](../kind.md). |
+| `kind`        | string   | No       | Inherit a preset configuration, for example, `menu`. See [Extension Kinds](../kind.md). |
 | `element`     | string   | No       | Path to a custom web component file |
 | `elementName` | string   | No       | The custom element tag name (if not a default export) |
 | `meta`        | object   | No       | Additional configuration depending on the `kind` used |
 | `conditions`  | array    | No       | Conditions that must pass for the app to appear. See [Extension Conditions](../../extension-conditions.md). |
 | `overwrites`  | string \| string[] | No | Alias(es) of extensions this manifest replaces |
 
-For the full TypeScript interface, see [`ManifestSectionSidebarApp`](https://apidocs.umbraco.com/v17/ui-api/interfaces/packages_core_section.ManifestSectionSidebarApp.html) in the API documentation.
+For the full TypeScript interface, see [`ManifestSectionSidebarApp`](https://apidocs.umbraco.com/v16/ui-api/interfaces/packages_core_section.ManifestSectionSidebarApp.html) in the API documentation.
 
 For a general overview of manifest properties shared across all extension types, see [Extension Manifest Introduction](../../extension-registry/extension-manifest.md).
 
@@ -188,7 +188,7 @@ For more information, see the documentation for the [menus](../menu.md) extensio
 
 #### Coordinating subviews with menu items
 
-Menu sidebar apps can coordinate navigation between subviews in the section extension by referencing [workspace extensions](../workspaces/workspace.md). Modify the menu item extension to include the `meta:entityType` property, and assign it the same value as a workspace view extensions' own `meta:entityType` property.
+Menu sidebar apps can coordinate navigation between subviews in the section extension by referencing [workspace extensions](../../extension-types/workspaces/README.md). Modify the menu item extension to include the `meta:entityType` property, and assign it the same value as a workspace view extensions' own `meta:entityType` property.
 
 {% code title="umbraco-package.json" %}
 
@@ -253,10 +253,10 @@ Authors can add their extensions to the sidebar of any Umbraco-provided section 
 
 Common Umbraco-provided section aliases:
 
-- Umb.Section.Content
-- Umb.Section.Media
-- Umb.Section.Settings
-- Umb.Section.Packages
-- Umb.Section.Users
-- Umb.Section.Members
-- Umb.Section.Translation
+- `Umb.Section.Content`
+- `Umb.Section.Media`
+- `Umb.Section.Settings`
+- `Umb.Section.Packages`
+- `Umb.Section.Users`
+- `Umb.Section.Members`
+- `Umb.Section.Translation`
