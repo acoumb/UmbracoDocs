@@ -20,7 +20,7 @@ Below are the release notes for Umbraco UI Builder, detailing all changes in thi
 
 ### [**17.2.0**](https://github.com/umbraco/Umbraco.UIBuilder.Issues/issues?q=is%3Aissue+is%3Aclosed+label%3Arelease%2F17.2.0) **(April 7th 2026)**
 
-* Fixed builder for core sections tree registration [#216](https://github.com/umbraco/Umbraco.UIBuilder.Issues/issues/216)
+* Fixed builder for Core sections tree registration [#216](https://github.com/umbraco/Umbraco.UIBuilder.Issues/issues/216)
 
 ### [**17.1.0**](https://github.com/umbraco/Umbraco.UIBuilder.Issues/issues?q=is%3Aissue+is%3Aclosed+label%3Arelease%2F17.1.0) **(March 5th 2026)**
 
