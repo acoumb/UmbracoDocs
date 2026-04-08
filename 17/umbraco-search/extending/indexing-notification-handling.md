@@ -5,7 +5,7 @@ description: >-
 
 # Indexing notification handling
 
-Just before content is pushed to any content index, Umbraco Search fires the `ContentIndexingNotification`. This notification lets you manipulate the data going into an index, or entirely prevent it from being indexed.
+Before content is pushed to any content index, Umbraco Search fires the `ContentIndexingNotification`. This notification lets you manipulate the data going into an index, or entirely prevent it from being indexed.
 
 ## Keep it lightweight
 
@@ -22,7 +22,7 @@ If a notification handler performs expensive operations, this can introduce a la
 The notification contains a `Fields` collection with the fields aggregated from all the [content indexers](gathering-data-with-content-indexers.md). These fields can be manipulated by the notification handler.
 
 {% hint style="warning" %}
-Be _very_ careful if you change or remove any of the [system fields](../getting-started/system-fields.md), as this might corrupt the index.
+Be careful if you change or remove any of the [system fields](../getting-started/system-fields.md), as this might corrupt the index.
 {% endhint %}
 
 In the following example, the content being indexed might contain a `length` field. This is a radio button list property, and thus it [produces keywords](../getting-started/built-in-property-editors.md) for filtering and faceting.
