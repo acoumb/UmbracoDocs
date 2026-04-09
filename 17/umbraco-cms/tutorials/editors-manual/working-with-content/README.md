@@ -57,7 +57,7 @@ To apply pre-defined styles:
 1. Select the text you want to apply the style.
 2. Choose the style from the **Format** drop-down list.
 
-For more information on how to create the Styles, see the [Rich Text Editor Styles](https://docs.umbraco.com/umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/rte-styles) article.
+For more information on how to create the Styles, see the [Rich Text Editor Styles](../../../../fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/style-menu.md) article.
 
 ## Text Formatting
 
@@ -222,7 +222,7 @@ You can make images into clickable links in Umbraco:
 <img src="../../../.gitbook/assets/Link-from-Image-v11.png" alt="Create a Link from an Image" data-size="original">
 
 1. Insert an image into the Rich Text Editor.
-   * For more information, see the [Working with Images](./#working-with-images) section.
+   * For more information, see the [Working with Images](#working-with-images) section.
 2. Select the image that will form the hyperlink.
 3. Enter the URL of the web page you wish to link to in the **Link** field.
 4. Enter the text that will be displayed as the link title in the **Link Title** field.
@@ -340,4 +340,4 @@ There are other options available for modifying cells, rows, and columns such as
 
 The Rich Text Editor in Umbraco can be configured in many different ways.
 
-For more information, see the [Rich Text Editor Configuration](https://docs.umbraco.com/umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/configuration) article.
+For more information, see the [Rich Text Editor Configuration](../../../../fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/configuration.md) article.
