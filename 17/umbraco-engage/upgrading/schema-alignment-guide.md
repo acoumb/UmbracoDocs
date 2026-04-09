@@ -96,7 +96,7 @@ This step is **required** before running the schema alignment script. Without it
 {% step %}
 #### 3. Complete the schema alignment
 
-Run the `CompleteAlignSchema.sql` script against your database. This ensures `ON DELETE CASCADE` is set on all foreign keys by re-creating them, re-enables any disabled or untrusted constraints, and adds any missing indexes to align your schema with a clean install.
+Run the `CompleteAlignSchema.sql` script against your database. This re-creates all foreign keys with `ON DELETE CASCADE` and re-enables any disabled or untrusted constraints. It also adds any missing indexes to align your schema with a clean install.
 
 {% hint style="warning" %}
 The script contains 6 numbered batches separated by `GO` statements (besides validation and completion steps). Ensure each batch has completed successfully by inspecting the returned/printed messages.
