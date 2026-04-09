@@ -49,7 +49,7 @@ Blocks can be added as elements in the Rich Text Editor. Configuration and rende
 
 ## Accepted Media Types
 
-![Accepted media types configuration](images/rte-tiptap-accepted-media-types.png)
+![Accepted media types configuration](../../../../../.gitbook/assets/rte-tiptap-accepted-media-types.png)
 
 By default, only Image and Vector Graphics media types are accepted in the Rich Text Editor. You can change this by selecting specific types in the **Accepted media types** setting.
 
