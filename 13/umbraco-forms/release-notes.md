@@ -16,6 +16,13 @@ If you are upgrading to a new major version, you can find information about the 
 
 This section contains the release notes for Umbraco Forms 13 including all changes for this version.
 
+### [13.9.6](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F13.9.6) (April 9th 2026)
+
+* Update "Umbraco Forms scheduled record deletion task" log message grammar [#1683](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1683)
+* Fix `ManageSecurityWithUserGroups` not working [#1675](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1675)
+* Fix value failing to save [#1673](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1673)
+* Fix "Updated By" not updating accordingly [#1671](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1671)
+
 ### 13.9.5
 * Umbraco Licenses dependency updated to 13.3.4
 

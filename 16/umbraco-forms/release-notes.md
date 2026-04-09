@@ -18,6 +18,21 @@ If you are upgrading to a new major version, you can find information about the 
 
 This section contains the release notes for Umbraco Forms 16 including all changes for this version.
 
+### [16.5.2](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F16.5.2) (April 9th 2026)
+
+* Update "Umbraco Forms scheduled record deletion task" log message grammar [#1683](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1683)
+* Fix form entries not visible in Firefox [#1677](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1677) [#1678](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1678)
+* Fix `ManageSecurityWithUserGroups` not working [#1675](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1675)
+* Fix page-specific magic strings not working in delivery API [#1674](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1674)
+* Fix value failing to save [#1673](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1673)
+* Fix creating form inside folder adding the form to root [#1672](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1672)
+* Fix "Updated By" not updating accordingly [#1671](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1671)
+* Fix save & preview opening modal with blank node names [#1670](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1670)
+* Fix store records setting not respected from template [#1669](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1669)
+* Add validation for prevalue options on dropdown and similar fields [#1660](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1660)
+* Fix data consent field included when created from template [#1651](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1651)
+* Fix workflow failing to submit with decimal field [#1574](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1574)
+
 ### 16.5.1
 * Fix: string length validation for file upload fields
 
