@@ -16,6 +16,37 @@ If you are upgrading to a new major version, you can find information about the 
 
 This section contains the release notes for Umbraco Forms 17 including all changes for this version.
 
+### [17.3.0](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F17.3.0) (April 9th 2026)
+
+#### UTC date handling fix
+
+The v17.0.0 release included a migration (`MigrateSystemDatesToUtc`) that converted all existing system dates to UTC. However, the application code continued using `DateTime.Now` (local server time) when writing new records, causing inconsistent timestamps for form entries, workflow audit trails, and entity metadata.
+
+This release fixes the issue by:
+
+* Using `DateTime.UtcNow` consistently across all code paths that write to UTC-stored database columns [#1684](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1684)
+* Ensuring all date properties in API responses serialize with a UTC indicator (`Z` suffix), so the backoffice correctly converts to local time
+* Removing the legacy server-side timezone offset conversion in the entries list — the browser now handles UTC-to-local conversion consistently
+
+{% hint style="warning" %}
+
+Data written between v17.0.0 and this release may contain local server timestamps instead of UTC. A SQL script is provided below to correct historical data.
+
+Before running it, set `@TimeZone` to your server's Windows timezone name. Set `@UpgradeDate` to the approximate date you first upgraded to v17.0.0. The script excludes the `UFRecordDataDateTime` table, as those values represent user-entered dates that should not be shifted.
+
+The original `MigrateSystemDatesToUtc` migration contained a duplicate conversion for `UFPrevalueSource`. Created and Updated columns were converted twice. This has been fixed, but sites on v17.0–v17.2 may have double-converted PrevalueSource dates that require manual correction.
+
+{% endhint %}
+
+{% file src="scripts/correct-utc-timestamps.sql" %}
+Corrects historical data written with local server time instead of UTC between v17.0.0 and v17.3.0. Set the timezone and cutoff date before running.
+{% endfile %}
+
+#### Other
+
+* Mark `RecordFilter.LocalTimeOffset` as obsolete (will be removed in v18)
+* All items detailed under release candidates for 17.3.0.
+
 ### 17.3.0-rc2 (April 9th 2026)
 * Optimized startup performance when processing a large number of forms and records for analytics
 

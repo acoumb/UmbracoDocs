@@ -32,3 +32,4 @@ A unique **migration ID** is generated for each Umbraco Forms upgrade that requi
 | 3f4e5d6c-7b8a-4c9d-0e1f-2a3b4c5d6e7f | 17.1.0                | Updates the form picker property editor UI alias.                                  |
 | 6a094cba-aa2c-4254-aaff-ced3d09eccf3 | 17.3.0                | Adds pre-aggregated analytics tables.                                              |
 | a7b3c9d2-4e5f-6a1b-8c7d-9e0f1a2b3c4d | 17.3.0                | Adds an index on the Record table for form and created date.                       |
+| c3d4e5f6-7a8b-4c9d-0e1f-2a3b4c5d6e7f | 17.3.0                | Adds an index on the Workflow Audit table for executed date and status.             |
