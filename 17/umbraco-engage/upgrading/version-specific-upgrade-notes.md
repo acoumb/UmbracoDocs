@@ -20,15 +20,6 @@ Engage 17.2.0 introduces a rewritten analytics data cleanup system and a databas
 
 See the [Schema Alignment Guide](schema-alignment-guide.md) for full details on the cleanup changes, configuration settings, and step-by-step post-upgrade instructions.
 
-#### Health checks
-
-Two new health checks have been added to help monitor the upgrade process:
-
-- **Database Schema Status** — Reports whether the schema alignment has been completed. Also warns if analytics data cleanup is disabled.
-- **Constraint Integrity** — Verifies that all foreign key constraints are trusted and valid.
-
-These health checks are accessible from the Umbraco Health Check dashboard.
-
 ### 17.0.0 (Umbraco Engage v17 Launch)
 
 With the introduction of Engage version 17, breaking changes have been introduced to accommodate the transition between multiple major versions of the core CMS.

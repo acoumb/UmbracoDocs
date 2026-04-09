@@ -37,8 +37,8 @@ The cleanup schedule is configured under `Engage:Analytics:DataCleanup` in your 
 | Setting | Description | Default |
 | --- | --- | --- |
 | `Enabled` | Whether the data cleanup process runs at all. | `true` |
-| `FirstRunTime` | Optional crontab expression to schedule the first cleanup run. Takes precedence over `StartupDelay` when set. | `null` |
-| `StartupDelay` | Time after application startup before the first cleanup run. Only used when `FirstRunTime` is not set. | `00:05:00` (5 minutes) |
+| `FirstRunTime` | Optional crontab expression to schedule the first cleanup run. When set, the calculated delay must still be at least `StartupDelay`. | `null` |
+| `StartupDelay` | Minimum time after application startup before the first cleanup run. Used directly as the delay when `FirstRunTime` is not set. | `00:05:00` (5 minutes) |
 | `Interval` | Interval between cleanup runs. | `1.00:00:00` (24 hours) |
 | `CommandTimeout` | Database command timeout in seconds. | `1200` (20 minutes) |
 
@@ -94,17 +94,17 @@ This step is **required** before running the schema alignment script. Without it
 {% step %}
 #### 3. Complete the schema alignment
 
-Run the `CompleteAlignSchema.sql` script against your database. This adds the missing foreign keys, indexes, and constraints that align your schema with a clean install.
+Run the `CompleteAlignSchema.sql` script against your database. This ensures `ON DELETE CASCADE` is set on all foreign keys by re-creating them, re-enables any disabled or untrusted constraints, and adds any missing indexes to align your schema with a clean install.
 
 {% hint style="warning" %}
-The script contains 6 numbered batches separated by `GO` statements. Execute each batch separately and verify it completes successfully before proceeding to the next.
+The script contains 6 numbered batches separated by `GO` statements (besides validation and completion steps). Ensure each batch has completed successfully by inspecting the returned/printed messages.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
 
 ### Monitoring
 
-After completing the schema alignment, two health checks are available in the Umbraco Health Check dashboard:
+Two new Engage health checks are available in the Umbraco Health Check dashboard:
 
 * **Database Schema Status** — Verifies the `Umbraco.Engage+DatabaseSchemaStatus` key is set to `Complete`.
 * **Constraint Integrity** — Validates that all expected foreign keys and indexes are present.
@@ -120,5 +120,5 @@ Run during a maintenance window **before** `CompleteAlignSchema.sql` to clean up
 {% endfile %}
 
 {% file src="../scripts/CompleteAlignSchema.sql" %}
-Run during a maintenance window **after** `EnsureDataConsistency.sql` to add missing foreign keys, indexes, and constraints. **Execute each batch individually** — do not run the entire script at once.
+Run during a maintenance window **after** `EnsureDataConsistency.sql` to add missing foreign keys, indexes, and constraints.
 {% endfile %}

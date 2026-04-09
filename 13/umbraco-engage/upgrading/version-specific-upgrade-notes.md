@@ -18,15 +18,6 @@ Engage 13.8.0 introduces a rewritten analytics data cleanup system and a databas
 
 See the [Schema Alignment Guide](schema-alignment-guide.md) for full details on the cleanup changes, configuration settings, and step-by-step post-upgrade instructions.
 
-#### Health checks
-
-Two new health checks have been added to help monitor the upgrade process:
-
-- **Database Schema Status** — Reports whether the schema alignment has been completed. Also warns if analytics data cleanup is disabled.
-- **Constraint Integrity** — Verifies that all foreign key constraints are trusted and valid.
-
-These health checks are accessible from the Umbraco Health Check dashboard.
-
 #### v13.2.0 (Umbraco Engage) & v13.1.0 (Umbraco Engage Forms)
 Introduced Razor Class Library support to serve static files for Engage, removing physical backoffice, views, and assets files from development projects.
 
