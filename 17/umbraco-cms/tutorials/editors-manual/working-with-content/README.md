@@ -293,7 +293,7 @@ After inserting an image, you can edit its alt text, caption, and dimensions wit
 
 1. Click on the image in the Rich Text Editor to select it.
 2. Click the **Media Picker** button in the toolbar.
-   * The media picker is skipped and the **Edit selected media** panel opens directly.
+   * The Media Picker is skipped and the **Edit selected media** panel opens directly.
 3. Update any of the following properties:
    * **Alt text** — A description used by screen readers. Pre-filled with the media item name.
    * **Caption** — Optional text displayed below the image. Adding a caption wraps the image in a figure element.
