@@ -57,7 +57,7 @@ To apply pre-defined styles:
 1. Select the text you want to apply the style.
 2. Choose the style from the **Format** drop-down list.
 
-For more information on how to create the Styles, see the [Rich Text Editor Styles](../../../../fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/style-menu.md) article.
+For more information on how to create the Styles, see the [Rich Text Editor Styles](../../../fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/style-menu.md) article.
 
 ## Text Formatting
 
@@ -340,4 +340,4 @@ There are other options available for modifying cells, rows, and columns such as
 
 The Rich Text Editor in Umbraco can be configured in many different ways.
 
-For more information, see the [Rich Text Editor Configuration](../../../../fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/configuration.md) article.
+For more information, see the [Rich Text Editor Configuration](../../../fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/rich-text-editor/configuration.md) article.
