@@ -16,6 +16,9 @@ If you are upgrading to a new major version, you can find information about the 
 
 This section contains the release notes for Umbraco Forms 17 including all changes for this version.
 
+### 17.3.0-rc2 (April 9th 2026)
+* Optimized startup performance when processing a large number of forms and records for analytics
+
 ### [17.3.0-rc](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F17.3.0) (April 2nd 2026)
 
 #### Analytics
