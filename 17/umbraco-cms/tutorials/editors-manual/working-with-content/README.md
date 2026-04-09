@@ -287,6 +287,27 @@ You can upload images directly from the Rich Text Editor on the page you are edi
 
 <details>
 
+<summary>Editing an Inserted Image</summary>
+
+After inserting an image, you can edit its alt text, caption, and dimensions without removing and re-inserting it.
+
+1. Click on the image in the Rich Text Editor to select it.
+2. Click the **Media Picker** button in the toolbar.
+   * The media picker is skipped and the **Edit selected media** panel opens directly.
+3. Update any of the following properties:
+   * **Alt text** — A description used by screen readers. Pre-filled with the media item name.
+   * **Caption** — Optional text displayed below the image. Adding a caption wraps the image in a figure element.
+   * **Width** and **Height** — Display dimensions in pixels. A lock icon constrains the aspect ratio by default. Changing one value adjusts the other automatically. Click the lock icon to set each value independently. Click **Reset** to restore original dimensions.
+4. Click **Submit** to apply the changes.
+
+{% hint style="info" %}
+The maximum image dimensions may be limited by your Rich Text Editor configuration. Images exceeding the configured maximum size are scaled down proportionally.
+{% endhint %}
+
+</details>
+
+<details>
+
 <summary>Deleting an Image from the Page</summary>
 
 To delete an image from the page:
