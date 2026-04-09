@@ -301,7 +301,7 @@ After inserting an image, you can edit its alt text, caption, and dimensions wit
 4. Click **Submit** to apply the changes.
 
 {% hint style="info" %}
-The maximum image dimensions may be limited by your Rich Text Editor configuration. Images exceeding the configured maximum size are scaled down proportionally.
+The Rich Text Editor setting **Maximum size for inserted images** may limit image dimensions. Images exceeding the configured **Maximum size for inserted images** are scaled down proportionally.
 {% endhint %}
 
 </details>
