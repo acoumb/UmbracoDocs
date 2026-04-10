@@ -74,7 +74,7 @@ After upgrading to 16.3.0, follow these steps during a **maintenance window**:
 
 {% stepper %}
 {% step %}
-#### 1. Determine a safe DeleteAnalyticsDataAfterDays value
+#### Determine a safe DeleteAnalyticsDataAfterDays value
 
 Run the `GetDeleteAnalyticsDataAfterDays.sql` script against your database. This analyzes your data volume and recommends a safe initial value for the `DeleteAnalyticsDataAfterDays` setting.
 
@@ -86,7 +86,7 @@ This step is optional but recommended. It prevents the first cleanup run from pr
 {% endstep %}
 
 {% step %}
-#### 2. Ensure data consistency
+#### Ensure data consistency
 
 Run the `EnsureDataConsistency.sql` script against your database. This script cleans up orphaned records across all Engage tables. It removes or nullifies rows that reference non-existent parent records, and then re-validates all existing foreign key constraints.
 
@@ -94,7 +94,7 @@ This step is **required** before running the schema alignment script. Without it
 {% endstep %}
 
 {% step %}
-#### 3. Complete the schema alignment
+#### Complete the schema alignment
 
 Run the `CompleteAlignSchema.sql` script against your database. This re-creates all foreign keys with `ON DELETE CASCADE` and re-enables any disabled or untrusted constraints. It also adds any missing indexes to align your schema with a clean install.
 
@@ -104,7 +104,7 @@ The script contains 6 numbered batches separated by `GO` statements (besides val
 {% endstep %}
 
 {% step %}
-#### 4. Deduplicate page variants (optional)
+#### Deduplicate page variants (optional)
 
 Run the `DeduplicatePageVariants.sql` script against your database. This consolidates duplicate page variant rows. A previous bug caused new rows to be inserted per pageview instead of reusing existing data.
 
