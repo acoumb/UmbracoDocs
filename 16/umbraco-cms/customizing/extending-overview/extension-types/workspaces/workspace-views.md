@@ -128,7 +128,7 @@ declare global {
 Conditions control when a Workspace View is shown. Every condition entry has an `alias` that references a built-in or custom condition, and a `match` value that the condition evaluates against.
 
 {% hint style="info" %}
-UMB_WORKSPACE_CONDITION_ALIAS is a typed constant for Umb.Condition.WorkspaceAlias. Import it from `@umbraco-cms/backoffice/workspace` to get type safety when referencing workspace aliases in your manifest.
+`UMB_WORKSPACE_CONDITION_ALIAS` is a typed constant for `Umb.Condition.WorkspaceAlias`. Import it from `@umbraco-cms/backoffice/workspace` to get type safety when referencing workspace aliases in your manifest.
 {% endhint %}
 
 ### Built-in Workspace-relevant Conditions
