@@ -66,7 +66,7 @@ The schema alignment brings existing installations in line with a clean install 
 
 ### Why this is needed
 
-Older installations may have accumulated orphaned records over time. The new foreign key constraints with `ON DELETE CASCADE` require that all existing data satisfies these relationships. Running the scripts ensures your database is consistent before the constraints are added.
+Older installations may have accumulated orphaned records over time. The new foreign key constraints with `ON DELETE CASCADE` require that all existing data satisfy these relationships. Running the scripts ensures your database is consistent before the constraints are added.
 
 ### Post-upgrade steps
 
