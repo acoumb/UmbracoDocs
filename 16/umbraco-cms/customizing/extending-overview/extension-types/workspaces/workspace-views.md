@@ -51,11 +51,11 @@ Workspace Views provide:
 
 ### Key Properties
 
-- `weight` - Tab ordering (higher weight appears first)
-- `meta.label` - Text displayed on the tab
-- `meta.pathname` - URL segment for the view
-- `meta.icon` - Icon displayed on the tab
-- `conditions` - Determines workspace availability
+- `weight` - Tab ordering (higher weight appears first).
+- `meta.label` - Text displayed on the tab.
+- `meta.pathname` - URL segment for the view.
+- `meta.icon` - Icon displayed on the tab.
+- `conditions` - Determines workspace availability.
 
 ## Implementation
 
