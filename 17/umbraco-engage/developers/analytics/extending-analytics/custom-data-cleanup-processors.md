@@ -6,7 +6,7 @@ description: >-
 
 # Custom Data Cleanup Processors
 
-Umbraco Engage includes a data cleanup pipeline that periodically anonymizes and deletes analytics data based on the configured retention periods. You can extend this pipeline with custom processors to perform additional cleanup or anonymization logic.
+Umbraco Engage includes a data-cleanup pipeline that periodically anonymizes and deletes analytics data based on the configured retention periods. You can extend this pipeline with custom processors to perform additional cleanup or anonymization logic.
 
 ## The IAnalyticsDataCleanupProcessor interface
 
