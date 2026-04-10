@@ -20,7 +20,7 @@ This tutorial uses TypeScript and Lit. Make sure your package is already [set up
 
 o set up an extension using TypeScript and Lit, see the [Creating your first extension](../creating-your-first-extension.md) article.
 
-### Resourcesdd
+### Resources
 
 This tutorial will not go in-depth on how TypeScript and Lit work. To learn about TypeScript and Lit, you can find their documentation below:
 

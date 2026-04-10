@@ -602,7 +602,11 @@ declare global {
 
 </details>
 
-With all of these in place, the editor will show a live character counter, display a validation message when the limit is exceeded, and block saving or publishing until the value is within the limit.
+With all of these in place, the editor will:
+
+* Show a live character counter.
+* Display a validation message when the limit is exceeded.
+* Block saving or publishing until the value is within the limit.
 
 <figure><img src="../../.gitbook/assets/block-publishing.png" alt=""><figcaption><p>Block Saving or Publishing when max length value is exceeded.</p></figcaption></figure>
 
