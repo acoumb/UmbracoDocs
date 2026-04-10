@@ -5,9 +5,11 @@ description: >-
 
 # Workspace Views
 
+{% hint style="info" %}
 If you have worked with Umbraco versions prior to version 14, you likely know this feature as Content Apps. In the new Management API and Web Component-based backoffice, this concept is unified under Workspaces.
 
 While Content Apps implied they only lived on Content nodes, Workspace Views can be attached to any entity (Media, Members, Document Types, and so on.). A Workspace is the entire editing environment, and a View is a specific tab within that environment.
+{% endhint %}
 
 Workspace Views provide tab-based content areas within workspaces, allowing you to organize different aspects of entity editing into focused interfaces. They appear as tabs alongside the default content editing interface.
 

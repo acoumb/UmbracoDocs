@@ -5,9 +5,11 @@ description: >-
 
 # Workspace Views
 
-If you have worked with Umbraco versions prior to v14, you likely know this feature as Content Apps. In the new Management API and Web Component-based backoffice, this concept is unified under Workspaces.
+{% hint style="info" %}
+If you have worked with Umbraco versions prior to version 14, you likely know this feature as Content Apps. In the new Management API and Web Component-based backoffice, this concept is unified under Workspaces.
 
 While Content Apps implied they only lived on Content nodes, Workspace Views can be attached to any entity (Media, Members, Document Types, and so on.). A Workspace is the entire editing environment, and a View is a specific tab within that environment.
+{% endhint %}
 
 Workspace Views provide tab-based content areas within workspaces, allowing you to organize different aspects of entity editing into focused interfaces. They appear as tabs alongside the default content editing interface.
 
@@ -34,15 +36,15 @@ Workspace Views provide:
   element: () => import('./counter-workspace-view.js'),
   weight: 900,
   meta: {
-    label: 'Counter',
-    pathname: 'counter',
-    icon: 'icon-lab',
+  label: 'Counter',
+  pathname: 'counter',
+  icon: 'icon-lab',
   },
   conditions: [
-    {
-      alias: UMB_WORKSPACE_CONDITION_ALIAS,
-      match: 'Umb.Workspace.Document',
-    },
+  {
+    alias: UMB_WORKSPACE_CONDITION_ALIAS,
+    match: 'Umb.Workspace.Document',
+  },
   ],
 }
 ```
@@ -51,11 +53,11 @@ Workspace Views provide:
 
 ### Key Properties
 
-- `weight` - Tab ordering (higher weight appears first)
-- `meta.label` - Text displayed on the tab
-- `meta.pathname` - URL segment for the view
-- `meta.icon` - Icon displayed on the tab
-- `conditions` - Determines workspace availability
+- `weight` - Tab ordering (higher weight appears first).
+- `meta.label` - Text displayed on the tab.
+- `meta.pathname` - URL segment for the view.
+- `meta.icon` - Icon displayed on the tab.
+- `conditions` - Determines workspace availability.
 
 ## Implementation
 
@@ -77,38 +79,38 @@ export class ExampleCounterWorkspaceView extends UmbElementMixin(LitElement) {
   private count = 0;
 
   constructor() {
-    super();
-    this.consumeContext(EXAMPLE_COUNTER_CONTEXT, (instance) => {
-      this.#counterContext = instance;
-      this.#observeCounter();
-    });
+  super();
+  this.consumeContext(EXAMPLE_COUNTER_CONTEXT, (instance) => {
+    this.#counterContext = instance;
+    this.#observeCounter();
+  });
   }
 
   #observeCounter(): void {
-    if (!this.#counterContext) return;
-    this.observe(this.#counterContext.counter, (count) => {
-      this.count = count;
-    });
+  if (!this.#counterContext) return;
+  this.observe(this.#counterContext.counter, (count) => {
+    this.count = count;
+  });
   }
 
   override render() {
-    return html`
-      <uui-box class="uui-text">
-        <h1 class="uui-h2">Counter Example</h1>
-        <p class="uui-lead">Current count value: ${this.count}</p>
-        <p>This workspace view consumes the Counter Context and displays the current count.</p>
-      </uui-box>
-    `;
+  return html`
+    <uui-box class="uui-text">
+    <h1 class="uui-h2">Counter Example</h1>
+    <p class="uui-lead">Current count value: ${this.count}</p>
+    <p>This workspace view consumes the Counter Context and displays the current count.</p>
+    </uui-box>
+  `;
   }
 
   static override styles = [
-    UmbTextStyles,
-    css`
-      :host {
-        display: block;
-        padding: var(--uui-size-layout-1);
-      }
-    `,
+  UmbTextStyles,
+  css`
+    :host {
+    display: block;
+    padding: var(--uui-size-layout-1);
+    }
+  `,
   ];
 }
 
@@ -116,7 +118,7 @@ export default ExampleCounterWorkspaceView;
 
 declare global {
   interface HTMLElementTagNameMap {
-    'example-counter-workspace-view': ExampleCounterWorkspaceView;
+  'example-counter-workspace-view': ExampleCounterWorkspaceView;
   }
 }
 ```
@@ -128,7 +130,7 @@ declare global {
 Conditions control when a Workspace View is shown. Every condition entry has an `alias` that references a built-in or custom condition, and a `match` value that the condition evaluates against.
 
 {% hint style="info" %}
-UMB_WORKSPACE_CONDITION_ALIAS is a typed constant for Umb.Condition.WorkspaceAlias. Import it from `@umbraco-cms/backoffice/workspace` to get type safety when referencing workspace aliases in your manifest.
+`UMB_WORKSPACE_CONDITION_ALIAS` is a typed constant for `Umb.Condition.WorkspaceAlias`. Import it from `@umbraco-cms/backoffice/workspace` to get type safety when referencing workspace aliases in your manifest.
 {% endhint %}
 
 ### Built-in Workspace-relevant Conditions
@@ -156,12 +158,12 @@ To show a workspace view only for a specific Document Type (for example, "Blog P
 ```typescript
 conditions: [
   {
-    alias: UMB_WORKSPACE_CONDITION_ALIAS,
-    match: 'Umb.Workspace.Document',
+  alias: UMB_WORKSPACE_CONDITION_ALIAS,
+  match: 'Umb.Workspace.Document',
   },
   {
-    alias: 'Umb.Condition.WorkspaceContentTypeAlias',
-    match: 'blogPost', // Only show for blog posts
+  alias: 'Umb.Condition.WorkspaceContentTypeAlias',
+  match: 'blogPost', // Only show for blog posts
   },
 ],
 ```
@@ -194,11 +196,11 @@ constructor() {
   
   // Consume multiple contexts
   this.consumeContext(ENTITY_CONTEXT, (context) => {
-    this.observe(context.entity, (entity) => this.requestUpdate());
+  this.observe(context.entity, (entity) => this.requestUpdate());
   });
   
   this.consumeContext(VALIDATION_CONTEXT, (context) => {
-    this.observe(context.errors, (errors) => this.requestUpdate());
+  this.observe(context.errors, (errors) => this.requestUpdate());
   });
 }
 ```
@@ -213,25 +215,25 @@ export class EntityInfoView extends UmbElementMixin(LitElement) {
   #entityContext?: EntityWorkspaceContext;
 
   constructor() {
-    super();
-    this.consumeContext(ENTITY_CONTEXT, (context) => {
-      this.#entityContext = context;
-    });
+  super();
+  this.consumeContext(ENTITY_CONTEXT, (context) => {
+    this.#entityContext = context;
+  });
   }
 
   override render() {
-    const entity = this.#entityContext?.getCurrentEntity();
-    
-    return html`
-      <uui-box headline="Entity Information">
-        <dl>
-          <dt>Name</dt>
-          <dd>${entity?.name}</dd>
-          <dt>Created</dt>
-          <dd>${entity?.createDate}</dd>
-        </dl>
-      </uui-box>
-    `;
+  const entity = this.#entityContext?.getCurrentEntity();
+  
+  return html`
+    <uui-box headline="Entity Information">
+    <dl>
+      <dt>Name</dt>
+      <dd>${entity?.name}</dd>
+      <dt>Created</dt>
+      <dd>${entity?.createDate}</dd>
+    </dl>
+    </uui-box>
+  `;
   }
 }
 ```
@@ -244,19 +246,19 @@ export class ConfigView extends UmbElementMixin(LitElement) {
   #configContext?: ConfigWorkspaceContext;
 
   #handleConfigChange(property: string, value: any) {
-    this.#configContext?.updateConfig(property, value);
+  this.#configContext?.updateConfig(property, value);
   }
 
   override render() {
-    return html`
-      <uui-box headline="Configuration">
-        <uui-toggle 
-          .checked=${this.#configContext?.isEnabled}
-          @change=${(e) => this.#handleConfigChange('enabled', e.target.checked)}>
-          Enable Feature
-        </uui-toggle>
-      </uui-box>
-    `;
+  return html`
+    <uui-box headline="Configuration">
+    <uui-toggle 
+      .checked=${this.#configContext?.isEnabled}
+      @change=${(e) => this.#handleConfigChange('enabled', e.target.checked)}>
+      Enable Feature
+    </uui-toggle>
+    </uui-box>
+  `;
   }
 }
 ```
@@ -270,33 +272,33 @@ export class AnalyticsView extends UmbElementMixin(LitElement) {
   private analytics?: AnalyticsData;
 
   constructor() {
-    super();
-    this.#loadAnalytics();
+  super();
+  this.#loadAnalytics();
   }
 
   async #loadAnalytics() {
-    const entityContext = await this.getContext(ENTITY_CONTEXT);
-    const entityId = entityContext.getEntityId();
-    
-    const analyticsService = await this.getContext(ANALYTICS_SERVICE);
-    this.analytics = await analyticsService.getAnalytics(entityId);
+  const entityContext = await this.getContext(ENTITY_CONTEXT);
+  const entityId = entityContext.getEntityId();
+  
+  const analyticsService = await this.getContext(ANALYTICS_SERVICE);
+  this.analytics = await analyticsService.getAnalytics(entityId);
   }
 
   override render() {
-    if (!this.analytics) {
-      return html`<uui-loader></uui-loader>`;
-    }
+  if (!this.analytics) {
+    return html`<uui-loader></uui-loader>`;
+  }
 
-    return html`
-      <uui-box headline="Analytics">
-        <div class="stats-grid">
-          <div class="stat">
-            <span class="value">${this.analytics.pageViews}</span>
-            <span class="label">Page Views</span>
-          </div>
-        </div>
-      </uui-box>
-    `;
+  return html`
+    <uui-box headline="Analytics">
+    <div class="stats-grid">
+      <div class="stat">
+      <span class="value">${this.analytics.pageViews}</span>
+      <span class="label">Page Views</span>
+      </div>
+    </div>
+    </uui-box>
+  `;
   }
 }
 ```
