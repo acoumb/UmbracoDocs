@@ -10,6 +10,10 @@ Output caching is an opt-in feature in the Delivery API. It can be configured in
 
 Under the hood, the Delivery API utilizes the built-in [output caching middleware in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/performance/caching/output) to handle the cache.
 
+{% hint style="info" %}
+This article covers output caching for the Content Delivery API. For output caching of server-side rendered (Razor) pages, see the [Website Output Caching](../website-output-caching.md) article.
+{% endhint %}
+
 ## Why use output caching?
 
 Output caching is primarily designed to increase performance. While the Delivery API is performant on its own, output caching takes the performance to another level.
