@@ -58,7 +58,7 @@ When you are configuring an external login for **backoffice users** with basic a
 This redirects users to a standalone server-rendered login page where external provider buttons are displayed. Without this setting, the browser shows a native authentication popup that does not support external login providers.
 
 {% hint style="info" %}
-External login providers also work in frontend-only deployments where the backoffice is not available. Register `AddBackOfficeSignIn()` in your `Program.cs` to enable this. See the [Service Registration](../service-registration.md) article for details.
+External login providers also work in frontend-only deployments where the backoffice is not available. Register `AddBackOfficeSignIn()` in your `Program.cs` to enable this. See the [Basic Authentication](basic-authentication.md) article for details.
 {% endhint %}
 
 ## Try it out

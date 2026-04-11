@@ -1,12 +1,12 @@
 ---
 description: >-
-  Configure basic authentication settings for protecting the Umbraco
-  website with backoffice credentials.
+  Configuration reference for the Umbraco basic authentication settings
+  section in appsettings.json.
 ---
 
 # Basic Authentication Settings
 
-Basic authentication protects the front-end of your Umbraco website using backoffice user credentials. When enabled, visitors must authenticate before accessing any page.
+This article is a reference for the `Umbraco:CMS:BasicAuth` configuration section. For an overview of the feature, including the login flow, frontend-only deployments, and view customization, see the [Basic Authentication](../security/basic-authentication.md) article.
 
 A basic authentication section with all default values:
 
@@ -62,82 +62,8 @@ The value of the shared secret. Must be a non-empty string to be enabled. The de
 
 ## LoginViewPath
 
-Path to a custom Razor view for the login page. When omitted, the built-in login view is used.
-
-See [Customizing the login views](basicauthsettings.md#customizing-the-login-views) for details.
+Path to a custom Razor view for the login page. When omitted, the built-in login view is used. See [Customizing the login views](../security/basic-authentication.md#customizing-the-login-views) for details.
 
 ## TwoFactorViewPath
 
-Path to a custom Razor view for the two-factor authentication (2FA) page. When omitted, the built-in 2FA view is used.
-
-See [Customizing the login views](basicauthsettings.md#customizing-the-login-views) for details.
-
-## Login flow
-
-When `RedirectToLoginPage` is set to `true`, the login flow works as follows:
-
-1. A visitor requests a protected page.
-2. The middleware redirects to `/umbraco/basic-auth/login?returnPath=...`.
-3. The visitor enters their backoffice credentials.
-4. If two-factor authentication is required, the visitor is redirected to `/umbraco/basic-auth/2fa`.
-5. On successful authentication, the visitor is redirected back to the original page.
-
-External login providers appear as buttons on the login page when configured. See the [External login providers](../security/external-login-providers.md) article for setup instructions.
-
-## Frontend-only deployments
-
-Basic authentication works in frontend-only deployments where the backoffice is not available. To enable this, register `AddBackOfficeSignIn()` in your `Program.cs`:
-
-{% code title="Program.cs" %}
-```csharp
-builder.CreateUmbracoBuilder()
-    .AddCore()
-    .AddBackOfficeSignIn()
-    .AddWebsite()
-    .AddComposers()
-    .Build();
-```
-{% endcode %}
-
-`AddBackOfficeSignIn()` registers backoffice identity and cookie authentication without the full backoffice. For details on the available configurations, see the [Service Registration](../service-registration.md) article.
-
-{% hint style="info" %}
-When using the full backoffice setup with `AddBackOffice()`, backoffice sign-in is included automatically. You do not need to add `AddBackOfficeSignIn()` separately.
-{% endhint %}
-
-## Customizing the login views
-
-The built-in login and 2FA pages use minimal styling and work without customization. To match your site's design, you can provide custom Razor views.
-
-Set the view paths in `appsettings.json`:
-
-{% code title="appsettings.json" %}
-```json
-"Umbraco": {
-  "CMS": {
-    "BasicAuth": {
-      "Enabled": true,
-      "RedirectToLoginPage": true,
-      "LoginViewPath": "~/Views/BasicAuth/Login.cshtml",
-      "TwoFactorViewPath": "~/Views/BasicAuth/TwoFactor.cshtml"
-    }
-  }
-}
-```
-{% endcode %}
-
-The login view receives a `BasicAuthLoginModel` with the following properties:
-
-- `ReturnPath` — the URL to redirect to after login.
-- `ErrorMessage` — an error message to display (null when no error).
-- `ExternalLoginProviders` — a list of configured external login providers to render as buttons.
-
-The 2FA view receives a `BasicAuthTwoFactorModel` with the following properties:
-
-- `ReturnPath` — the URL to redirect to after verification.
-- `ErrorMessage` — an error message to display (null when no error).
-- `TwoFactorProviders` — a list of available 2FA providers.
-
-{% hint style="info" %}
-Use the built-in views at `/umbraco/BasicAuthLogin/Login.cshtml` and `/umbraco/BasicAuthLogin/TwoFactor.cshtml` as a reference when creating custom views.
-{% endhint %}
+Path to a custom Razor view for the two-factor authentication (2FA) page. When omitted, the built-in 2FA view is used. See [Customizing the login views](../security/basic-authentication.md#customizing-the-login-views) for details.
