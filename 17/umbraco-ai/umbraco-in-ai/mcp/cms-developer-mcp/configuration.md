@@ -6,6 +6,8 @@ description: Configuration options for the Developer MCP server
 
 The Developer MCP Server uses the same configuration fields as any Umbraco MCP server built on the Base MCP SDK. For authentication, environment variables, CLI arguments, precedence rules, and all built-in fields, see the [SDK Configuration reference](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/configuration).
 
+For a complete reference of CLI flags, runtime modes (readonly and dry-run), introspection commands, and input sanitization, see the [CLI Reference](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/cli).
+
 This page lists the specific tool modes and slices that the Developer MCP ships with.
 
 ## Tool Filtering

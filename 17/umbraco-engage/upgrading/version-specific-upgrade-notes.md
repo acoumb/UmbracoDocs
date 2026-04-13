@@ -14,6 +14,12 @@ When upgrading to a new minor or patch version, learn about the changes in the [
 
 ## Breaking changes
 
+### 17.2.0 — Database Schema Alignment
+
+Engage 17.2.0 introduces a rewritten analytics data cleanup system and a database schema alignment. This is a **manual post-upgrade step** that requires running SQL scripts during a maintenance window.
+
+See the [Schema Alignment Guide](schema-alignment-guide.md) for full details on the cleanup changes, configuration settings, and step-by-step post-upgrade instructions.
+
 ### 17.0.0 (Umbraco Engage v17 Launch)
 
 With the introduction of Engage version 17, breaking changes have been introduced to accommodate the transition between multiple major versions of the core CMS.
