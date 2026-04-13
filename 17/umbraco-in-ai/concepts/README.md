@@ -4,7 +4,7 @@ description: >-
   engineering, and agent skills.
 ---
 
-# Umbraco in AI
+# Concepts
 
 Umbraco in AI depends on more than prompts. It depends on tools, context, and instructions working together.
 
