@@ -4,7 +4,6 @@
 
 ## Concepts
 
-* [Umbraco in AI](concepts/README.md)
 * [Model Context Protocol (MCP)](concepts/model-context-protocol.md)
 * [Context Engineering](concepts/context-enginerring.md)
 * [Agent Skills](concepts/agent-skills.md)
