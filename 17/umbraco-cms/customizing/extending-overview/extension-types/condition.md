@@ -58,8 +58,7 @@ Conditions that depend on the current entity.
 - `Umb.Condition.EntityHasChildren` - Requires the current entity to have one or more children.
 - `Umb.Condition.EntityContentType.Unique` - Requires the current entity's Content Type unique identifier to match the one specified.
 - `Umb.Condition.EntityIsTrashed` - Requires the current entity to be trashed.
-- `Umb.Condition.EntityIsNotTrashed` - Requires the current entity not to be trashed.  
-
+- `Umb.Condition.EntityIsNotTrashed` - Requires the current entity not to be trashed.
 
 ### Collection
 
@@ -73,8 +72,7 @@ Conditions that depend on the currently active collection.
 Conditions that depend on the currently active property.
 
 - `Umb.Condition.Property.HasValue` - Requires the current property to have a value.
-- `Umb.Condition.Property.Writable` - Requires the current property to be writable (not read-only).  
-
+- `Umb.Condition.Property.Writable` - Requires the current property to be writable (not read-only).
 
 ### Current User
 
@@ -84,8 +82,9 @@ Conditions based on the user who is currently signed in.
 - `Umb.Condition.CurrentUser.GroupId` - Requires the current user to belong to a specific group by GUID. Accepts `match` (GUID), `oneOf` (array), `allOf` (array), and `noneOf` (array).
   Example: '8d2b3c4d-4f1f-4b1f-8e3d-4a6b7b8c4f1e'.
 - `Umb.Condition.CurrentUser.AllowChangePassword` - Requires the current user to be allowed to change their password.
-- `Umb.Condition.CurrentUser.AllowMfaAction` - Requires the current user to be allowed to manage Multi-Factor Authentication.  
-
+- `Umb.Condition.CurrentUser.AllowMfaAction` - Requires the current user to be allowed to manage Multi-Factor Authentication.
+- `Umb.Condition.CurrentUser.AllowDocumentRecycleBin` - Requires the current user to be allowed to access the Document recycle bin.
+- `Umb.Condition.CurrentUser.AllowMediaRecycleBin` - Requires the current user to be allowed to access the Media recycle bin.
 
 ### User Management Actions
 
@@ -98,8 +97,8 @@ Conditions used by entity actions in the Users workspace. They apply to the user
 - `Umb.Condition.User.AllowUnlockAction` - Requires the selected user to be allowed to be unlocked.
 - `Umb.Condition.User.AllowExternalLoginAction` - Requires external-login actions to be available for the selected user.
 - `Umb.Condition.User.AllowMfaAction` - Requires Multi-Factor Authentication actions to be available for the selected user.
-- `Umb.Condition.User.IsDefaultKind` - Requires the selected user to be of the default user kind.  
-
+- `Umb.Condition.User.IsDefaultKind` - Requires the selected user to be of the default user kind.
+- `Umb.Condition.User.AllowResendInviteAction` - Requires the selected user to be allowed to have an invite resent.
 
 ### User Permissions
 
@@ -107,8 +106,7 @@ Conditions that check whether the current user has a specific permission.
 
 - `Umb.Condition.UserPermission.Document` - Requires the current user to have specific Document permissions. Example: 'Umb.Document.Save'.
 - `Umb.Condition.UserPermission.Document.PropertyValue` - Requires the current user to have the required permission for the Document's property values.
-- `Umb.Condition.UserPermission.Language` - Requires the current user to have the required permission for the given Language.  
-
+- `Umb.Condition.UserPermission.Language` - Requires the current user to have the required permission for the given Language.
 
 ### Templating & Data Types
 
@@ -121,8 +119,7 @@ Conditions related to template and data type management.
 
 Conditions specific to property editor extensions.
 
-- `Umb.Condition.EntityDataPicker.SupportsTextFilter` - Requires the current Entity Data Picker to support text filtering.  
-
+- `Umb.Condition.EntityDataPicker.SupportsTextFilter` - Requires the current Entity Data Picker to support text filtering.
 
 ### Block
 
