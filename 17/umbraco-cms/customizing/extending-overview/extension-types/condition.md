@@ -21,6 +21,8 @@ These conditions don't depend on a specific area of the backoffice.
 - `Umb.Condition.MultipleAppLanguages` - Requires the app to have more than one language, such as a multi-language site.
 - `Umb.Condition.InModal` - Requires the extension to be rendered inside a modal.
 - `Umb.Condition.Server.IsProductionMode` - Requires the server to be running in production mode.
+- `Umb.Condition.Delay` - Delays availability of the extension by the number of milliseconds set in `offset`.
+- `Umb.Condition.IsRoutableContext` - Requires (or excludes) the extension being rendered within a routable context. Accepts `match` (boolean, defaults to `true`).
 
 ### Section
 
@@ -48,6 +50,7 @@ Conditions that depend on the currently active workspace.
 - `Umb.Condition.WorkspaceHasContentCollection` - Requires the current Workspace to have a Content Collection.
 - `Umb.Condition.Workspace.DocumentIsTrashed` - Requires the document in the current Workspace to be in the recycle bin.
 - `Umb.Condition.Workspace.DocumentIsNotTrashed` - Requires the document in the current Workspace not to be in the recycle bin.
+- `Umb.Condition.Workspace.ContentIsLoaded` - Requires the entity in the current Workspace to have finished loading.
 
 ### Entity
 
@@ -107,6 +110,8 @@ Conditions that check whether the current user has a specific permission.
 - `Umb.Condition.UserPermission.Document` - Requires the current user to have specific Document permissions. Example: 'Umb.Document.Save'.
 - `Umb.Condition.UserPermission.Document.PropertyValue` - Requires the current user to have the required permission for the Document's property values.
 - `Umb.Condition.UserPermission.Language` - Requires the current user to have the required permission for the given Language.
+- `Umb.Condition.UserPermission.Fallback` - Requires the current user to have specific fallback permissions. Accepts `allOf` (array of permission verbs) and `oneOf` (array of permission
+  verbs).
 
 ### Templating & Data Types
 
