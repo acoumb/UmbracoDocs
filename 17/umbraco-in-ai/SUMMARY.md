@@ -6,8 +6,8 @@
 
 * [Umbraco in AI](concepts/README.md)
 * [Model Context Protocol (MCP)](concepts/model-context-protocol.md)
-* [Context Engineering](context-enginerring.md)
-* [Agent Skills](agent-skills.md)
+* [Context Engineering](concepts/context-enginerring.md)
+* [Agent Skills](concepts/agent-skills.md)
 
 ## MCP
 
@@ -56,8 +56,8 @@
 ## Agent Skills
 
 * [Backoffice Skills](agents-skills/backoffice-skills/README.md)
-  * [Overview](backoffice-skills.md)
-  * [How It Works](how-it-works.md)
-  * [Quickstart](quickstart.md)
-  * [Testing Skills](testing-skills.md)
-  * [Tips for Best Results](tips.md)
+  * [Overview](agents-skills/backoffice-skills/backoffice-skills.md)
+  * [How It Works](agents-skills/backoffice-skills/how-it-works.md)
+  * [Quickstart](agents-skills/backoffice-skills/quickstart.md)
+  * [Testing Skills](agents-skills/backoffice-skills/testing-skills.md)
+  * [Tips for Best Results](agents-skills/backoffice-skills/tips.md)
