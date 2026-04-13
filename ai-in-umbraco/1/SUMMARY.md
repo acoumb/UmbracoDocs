@@ -5,33 +5,33 @@
 ## Getting Started
 
 * [Overview](getting-started/README.md)
-  * [Installation](getting-started/installation.md)
-  * [Your First Connection](getting-started/first-connection.md)
-  * [Your First Profile](getting-started/first-profile.md)
+* [Installation](getting-started/installation.md)
+* [Your First Connection](getting-started/first-connection.md)
+* [Your First Profile](getting-started/first-profile.md)
 
 ## Concepts
 
 * [Core Concepts](concepts/README.md)
-  * [Providers](concepts/providers.md)
-  * [Connections](concepts/connections.md)
-  * [Profiles](concepts/profiles.md)
-  * [Contexts](concepts/contexts.md)
-  * [Context Picker](concepts/context-picker.md)
-  * [Guardrails](concepts/guardrails.md)
-  * [Capabilities](concepts/capabilities.md)
-  * [Middleware](concepts/middleware.md)
-  * [Observability](concepts/observability.md)
-  * [Settings](concepts/settings.md)
-  * [Version History](concepts/versioning.md)
+* [Providers](concepts/providers.md)
+* [Connections](concepts/connections.md)
+* [Profiles](concepts/profiles.md)
+* [Contexts](concepts/contexts.md)
+* [Context Picker](concepts/context-picker.md)
+* [Guardrails](concepts/guardrails.md)
+* [Capabilities](concepts/capabilities.md)
+* [Middleware](concepts/middleware.md)
+* [Observability](concepts/observability.md)
+* [Settings](concepts/settings.md)
+* [Version History](concepts/versioning.md)
 
 ## Providers
 
 * [Overview](providers/README.md)
-  * [OpenAI](providers/openai.md)
-  * [Anthropic](providers/anthropic.md)
-  * [Google Gemini](providers/google.md)
-  * [Amazon Bedrock](providers/amazon.md)
-  * [Microsoft AI Foundry](providers/microsoft-foundry.md)
+* [OpenAI](providers/openai.md)
+* [Anthropic](providers/anthropic.md)
+* [Google Gemini](providers/google.md)
+* [Amazon Bedrock](providers/amazon.md)
+* [Microsoft AI Foundry](providers/microsoft-foundry.md)
 
 ## Add-ons
 
@@ -92,23 +92,25 @@
   * [Streaming](using-the-api/chat/streaming.md)
   * [System Prompts](using-the-api/chat/system-prompts.md)
   * [Advanced Options](using-the-api/chat/advanced-options.md)
+  * [Structured Output](using-the-api/chat/structured-output.md)
 * [Embeddings](using-the-api/embeddings/README.md)
   * [Generating Embeddings](using-the-api/embeddings/generating-embeddings.md)
   * [Batch Embeddings](using-the-api/embeddings/batch-embeddings.md)
+* [Speech-to-Text](using-the-api/speech-to-text.md)
 * [Tools](using-the-api/tools/README.md)
   * [Using Tools](using-the-api/tools/using-tools.md)
 
 ## Backoffice
 
 * [Overview](backoffice/README.md)
-  * [Managing Connections](backoffice/managing-connections.md)
-  * [Managing Profiles](backoffice/managing-profiles.md)
-  * [Managing Contexts](backoffice/managing-contexts.md)
-  * [Managing Guardrails](backoffice/managing-guardrails.md)
-  * [Managing Settings](backoffice/managing-settings.md)
-  * [Version History](backoffice/version-history.md)
-  * [Audit Logs](backoffice/audit-logs.md)
-  * [Usage Analytics](backoffice/usage-analytics.md)
+* [Managing Connections](backoffice/managing-connections.md)
+* [Managing Profiles](backoffice/managing-profiles.md)
+* [Managing Contexts](backoffice/managing-contexts.md)
+* [Managing Guardrails](backoffice/managing-guardrails.md)
+* [Managing Settings](backoffice/managing-settings.md)
+* [Version History](backoffice/version-history.md)
+* [Audit Logs](backoffice/audit-logs.md)
+* [Usage Analytics](backoffice/usage-analytics.md)
 
 ## Testing and Evaluation
 
@@ -137,6 +139,7 @@
   * [Provider Settings](extending/providers/provider-settings.md)
   * [Chat Capability](extending/providers/chat-capability.md)
   * [Embedding Capability](extending/providers/embedding-capability.md)
+  * [Speech-to-Text Capability](extending/providers/speech-to-text-capability.md)
 * [Middleware](extending/middleware/README.md)
   * [Chat Middleware](extending/middleware/chat-middleware.md)
   * [Embedding Middleware](extending/middleware/embedding-middleware.md)
@@ -219,9 +222,12 @@
 ## Frontend
 
 * [Overview](frontend/README.md)
-  * [Chat Controller](frontend/chat-controller.md)
-  * [Chat Repository](frontend/chat-repository.md)
-  * [Types](frontend/types.md)
+* [Chat Controller](frontend/chat-controller.md)
+* [Speech-to-Text Controller](frontend/speech-to-text-controller.md)
+* [Embeddings Controller](frontend/embeddings-controller.md)
+* [Tool Controller](frontend/tool-controller.md)
+* [Chat Repository](frontend/chat-repository.md)
+* [Types](frontend/types.md)
 
 ## Reference
 
