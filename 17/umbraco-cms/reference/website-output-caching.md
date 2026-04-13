@@ -474,3 +474,17 @@ The output cache policy logs all cache decisions at `Debug` level. Enable debug 
 Log messages include why caching was skipped (preview mode, authenticated member, no-store header, feature disabled). When caching is applied, the logs show the content key, duration, and tag count.
 
 The `Age` response header on cached responses indicates how long the response has been served from cache.
+
+## Additional considerations
+
+While output caching is a great way to boost performance, it should never be used as a band-aid to solve poor uncached performance. Umbraco's Razor rendering pipeline is generally performant without caching.
+
+If you experience performance issues with page rendering, your first step should be to diagnose and fix the root cause. This could be any number of things, like:
+
+- Expensive or un-performant value converters.
+- Slow external API calls made during rendering.
+- Inefficient queries or excessive database access in views or controllers.
+- Overly complex Razor view logic.
+- ...or something else entirely.
+
+Hiding such problems behind output caching should only ever be considered as a short-term solution. In the long run it will not be a sustainable fix.
