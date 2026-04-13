@@ -11,7 +11,7 @@ This is the third step in the Property Editor tutorial. This part shows how to i
 This part covers:
 
 * [Setting up the contexts](integrating-context-with-a-property-editor.md#setting-up-the-contexts)
-* [Using the modal and notification context](integrating-context-with-a-property-editor.md#using-the-modal-and-notification-context)
+* [Using the notification context](integrating-context-with-a-property-editor.md#using-the-notification-context)
 * [Adding more logic to the context](integrating-context-with-a-property-editor.md#adding-more-logic-to-the-context)
 
 ## Setting up the contexts
@@ -90,7 +90,7 @@ Use the `NotificationContext`'s `peek` method here. It has two parameters `UmbNo
 
 If the input length is less or equal to the maxLength configuration, a notification is displayed when clicking on the Trim button.
 
-<figure><img src="../../.gitbook/assets/nothing-to-trim.png" alt=""><figcaption><p>Trim Button Notification</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/nothing-to-trim.png" alt="A danger notification reading 'Nothing to trim!' displayed in the Umbraco backoffice."><figcaption><p>Trim Button Notification</p></figcaption></figure>
 
 ## Adding more logic to the context
 
@@ -334,33 +334,55 @@ declare global {
 
 ## Enforcing the Character Limit
 
-The `maxlength` attribute on `uui-input` only provides visual feedback. It highlights the input red when the limit is exceeded, but does not prevent saving or publishing. To enforce the limit properly, your property editor needs to be a form control.
+{% hint style="info" %}
+The `maxlength` attribute on `uui-input` only provides visual feedback. It highlights the input red when the limit is exceeded, but does not prevent saving or publishing.
+{% endhint %}
+
+To enforce the limit properly, your property editor needs to be a form control.
 
 ### Making the editor a Form Control
 
-1. Import `UmbLitElement` and `UmbFormControlMixin` in the `suggestions-property-editor-ui.element.ts` file.
+{% stepper %}
+{% step %}
+### Import `UmbLitElement` and `UmbFormControlMixin`
 
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
 import { UmbFormControlMixin } from '@umbraco-cms/backoffice/validation';
 ```
+{% endcode %}
+{% endstep %}
+{% step %}
+### Update the Lit import
 
-2. Remove `UmbElementMixin` and `LitElement` from the `@umbraco-cms/backoffice/external/lit` import as they are no longer needed.
+Remove `UmbElementMixin` and `LitElement` from the `@umbraco-cms/backoffice/external/lit` import as they are no longer needed.
 
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 import { css, customElement, html, ifDefined, property, state } from '@umbraco-cms/backoffice/external/lit';
 ```
+{% endcode %}
+{% endstep %}
+{% step %}
+### Update the class declaration
 
-3. Update the class declaration to extend `UmbFormControlMixin` wrapping `UmbLitElement`:
+Extend `UmbFormControlMixin` wrapping `UmbLitElement`:
 
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 export default class MySuggestionsPropertyEditorUIElement
     extends UmbFormControlMixin<string | undefined, typeof UmbLitElement, undefined>(UmbLitElement, undefined)
     implements UmbPropertyEditorUiElement {
 ```
+{% endcode %}
+{% endstep %}
+{% step %}
+### Replace `value` with a getter/setter
 
-4. Replace `public value = ''` with a getter/setter. `UmbFormControlMixin` already defines `value` as an accessor:
+`UmbFormControlMixin` already defines `value` as an accessor:
 
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 @property({ type: String })
 public override set value(value: string | undefined) {
@@ -370,9 +392,14 @@ public override get value(): string | undefined {
     return super.value;
 }
 ```
+{% endcode %}
+{% endstep %}
+{% step %}
+### Add a validation rule
 
-5. Add a validation rule in the constructor that blocks saving when the character limit is exceeded:
+Add this in the constructor to block saving when the character limit is exceeded:
 
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 this.addValidator(
     'tooLong',
@@ -380,19 +407,32 @@ this.addValidator(
     () => !!this._maxChars && (this.value?.length ?? 0) > this._maxChars,
 );
 ```
+{% endcode %}
+{% endstep %}
+{% step %}
+### Register the input as a form control
 
-6. Add `firstUpdated()` to register the input as a form control element:
+Add `firstUpdated()` to register the input:
 
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 protected override firstUpdated() {
     this.addFormControlElement(this.shadowRoot!.querySelector('#suggestion-input')!);
 }
 ```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
 
 ### Adding a character counter
 
-1. Add a character counter below the `uui-input` in your `render()` method:
+{% stepper %}
+{% step %}
+### Add the character counter
 
+Add a character counter below the `uui-input` in your `render()` method:
+
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 ${this._maxChars !== undefined
     ? html`<p class="${(this.value?.length ?? 0) > this._maxChars ? 'over-limit' : ''}">
@@ -400,9 +440,12 @@ ${this._maxChars !== undefined
         </p>`
     : ''}
 ```
+{% endcode %}
+{% endstep %}
+{% step %}
+### Add the styles
 
-2. Add the corresponding styles:
-
+{% code title="suggestions-property-editor-ui.element.ts" %}
 ```typescript
 p {
     font-size: 0.8em;
@@ -413,6 +456,9 @@ p.over-limit {
     color: var(--uui-color-danger);
 }
 ```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
 
 <details>
 
