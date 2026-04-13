@@ -27,9 +27,9 @@ Enable basic authentication in `appsettings.json`:
 ```
 {% endcode %}
 
-With `RedirectToLoginPage` set to `true`, visitors are redirected to a login page at `/umbraco/basic-auth/login`. With it set to `false`, the browser shows its native authentication popup.
+With `RedirectToLoginPage` set to `true`, visitors are redirected to a login page at `/umbraco/basic-auth/login`. With it set to `false`, the browser shows its native authentication pop-up.
 
-Set `RedirectToLoginPage` to `true` when using external login providers or two-factor authentication. The browser's native popup cannot complete these flows.
+Set `RedirectToLoginPage` to `true` when using external login providers or two-factor authentication. The browser's native pop-up cannot complete these flows.
 
 For the full list of configuration options, see the [Basic Authentication Settings](../configuration/basicauthsettings.md) article.
 
@@ -46,7 +46,7 @@ When `RedirectToLoginPage` is set to `true`, the login flow works as follows:
 External login providers appear as buttons on the login page when configured. See the [External login providers](external-login-providers.md) article for setup instructions.
 
 {% hint style="info" %}
-When two-factor authentication is required for a user, the login flow redirects to the 2FA page automatically. This happens even when `RedirectToLoginPage` is set to `false`, because the browser's native popup cannot complete a 2FA flow.
+When two-factor authentication is required for a user, the login flow redirects to the 2FA page automatically. This happens even when `RedirectToLoginPage` is set to `false`, because the browser's native pop-up cannot complete a 2FA flow.
 {% endhint %}
 
 ## Frontend-only deployments
