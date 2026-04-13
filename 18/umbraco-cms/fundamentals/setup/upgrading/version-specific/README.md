@@ -19,6 +19,14 @@ Use the [general upgrade guide](../) to complete the upgrade of your project.
 
 <details>
 
+<summary>Umbraco 18</summary>
+
+*Add details about breaking changes in Umbraco 18 here.*
+
+</details>
+
+<details>
+
 <summary>Umbraco 17</summary>
 
 **System dates are updated to UTC**
