@@ -1,7 +1,7 @@
 ---
 description: >-
   Boost website performance with opt-in server-side output caching for
-  Umbraco pages rendered with Razor templates.
+  Umbraco pages that are rendered with Razor templates.
 ---
 
 # Website Output Caching
@@ -29,7 +29,7 @@ The Content Delivery API has its own output caching support. For details, see th
 
 Every front-end page request on a typical Umbraco site runs the full Razor rendering pipeline. For most sites, content changes infrequently relative to how often it is read. A site might be published a few times a day but serve thousands of requests per hour.
 
-Even a short cache duration is effective. A 10-second cache collapses all concurrent requests within that window into a single Razor execution. During traffic spikes, server CPU stays flat instead of scaling linearly with requests.
+Even a short cache duration is effective. A 10-second cache collapses all concurrent requests within that window into a single Razor execution. During traffic spikes, the server CPU stays flat instead of scaling linearly with requests.
 
 However, output caching does come with trade-offs:
 
@@ -104,7 +104,7 @@ Each cached page is automatically tagged with:
 These tags enable eviction at multiple levels:
 
 - **By content item**: When a content item is published, unpublished, moved, or deleted, the cached page for that item is evicted via its content key tag.
-- **By branch**: Branch operations such as moving a node with children evict all descendants via the ancestor tags.
+- **By branch**: Branch operations, such as moving a node with children, evict all descendants via the ancestor tags.
 - **By relations**: When content, media, or a member is saved, any pages that reference the changed item are evicted via the relation tags.
 - **By content type**: All pages of a given content type can be evicted via the content type tag.
 - **Global**: A full content cache refresh evicts all cached pages.
