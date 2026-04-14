@@ -300,7 +300,7 @@ export default class MySuggestionsPropertyEditorUIElement
 		`;
 	}
 
-	static override readonly styles = [
+	static override styles = [
 		UmbTextStyles,
 		css`
 			#wrapper {
@@ -615,7 +615,7 @@ export default class MySuggestionsPropertyEditorUIElement
 		`;
 	}
 
-	static readonly styles = [
+	static override styles = [
 		UmbTextStyles,
 		css`
 			#wrapper {

@@ -192,7 +192,7 @@ The property can now be edited using the new Property Editor.
 
 2. Check out the content where you will see the property editor that looks like this:
 
-<figure><img src="../../.gitbook/assets/NewPropertyEditor.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/NewPropertyEditor.png" alt="The Suggestions property editor displayed in the Umbraco content editor."><figcaption><p>The Suggestions property editor in the content editor.</p></figcaption></figure>
 
 ## Adding styling and setting up events in the Web Components
 
@@ -353,7 +353,7 @@ npm run build
 
 It should now look something like this:
 
-<figure><img src="../../.gitbook/assets/NewPropertyEditorButtons.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/NewPropertyEditorButtons.png" alt="The Suggestions property editor with an input field and two buttons."><figcaption><p>The property editor after adding the input field and buttons.</p></figcaption></figure>
 
 Next, set up the event logic.
 
@@ -562,7 +562,7 @@ npm run build
 5. Clear your cache and reload the backoffice.
 6. Click on the **Give me suggestions** button to see the Suggestions Data Type in action.
 
-<figure><img src="../../.gitbook/assets/NewPropertyEditorSuggestions.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/NewPropertyEditorSuggestions.png" alt="The Suggestions property editor displaying a randomly selected suggestion value."><figcaption><p>The completed Suggestions property editor with event logic in place.</p></figcaption></figure>
 
 When saving or publishing, the value of the Data Type is automatically synced to the current content object and sent to the server.
 
