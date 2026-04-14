@@ -37,8 +37,8 @@ Rules specify when they run in the AI pipeline:
 
 | Phase          | Description                                                      |
 | -------------- | ---------------------------------------------------------------- |
-| `PreGenerate`  | Evaluated before the request is sent to the AI provider          |
-| `PostGenerate` | Evaluated after the AI provider returns a response               |
+| `PreGenerate`  | Evaluated before the request is sent to the AI provider.          |
+| `PostGenerate` | Evaluated after the AI provider returns a response.               |
 
 ### Actions
 
@@ -46,9 +46,9 @@ Rules specify what happens when content is flagged:
 
 | Action   | Description                                                                       |
 | -------- | --------------------------------------------------------------------------------- |
-| `Block`  | Stop processing and throw `AIGuardrailBlockedException`                           |
-| `Warn`   | Allow the content through unchanged and log a warning                             |
-| `Redact` | Replace flagged content with `[REDACTED]` before it reaches the AI model or caller |
+| `Block`  | Stop processing and throw `AIGuardrailBlockedException`.                           |
+| `Warn`   | Allow the content through unchanged and log a warning.                             |
+| `Redact` | Replace flagged content with `[REDACTED]` before it reaches the AI model or caller. |
 
 ## Example Guardrail Configurations
 
@@ -179,11 +179,11 @@ When an AI operation executes, the guardrail middleware resolves all applicable 
 
 During streaming responses:
 
-- **Code-based** evaluators run on chunks as they arrive, using a sliding buffer to catch patterns split across chunk boundaries
-- **Model-based** evaluators run after the stream completes on the full aggregated response
-- If a code-based evaluator flags content during streaming, the stream is stopped immediately
-- **Pre-generate Redact** rules work normally during streaming (redaction happens before the stream starts)
-- **Post-generate Redact** rules degrade to Warn during streaming, because chunks have already been yielded to the caller and cannot be retroactively modified
+- **Code-based** evaluators run on chunks as they arrive, using a sliding buffer to catch patterns split across chunk boundaries.
+- **Model-based** evaluators run after the stream completes on the full aggregated response.
+- If a code-based evaluator flags content during streaming, the stream is stopped immediately.
+- **Pre-generate Redact** rules work normally during streaming (redaction happens before the stream starts).
+- **Post-generate Redact** rules degrade to Warn during streaming, because chunks have already been yielded to the caller and cannot be retroactively modified.
 
 ### Handling Blocked Content
 
@@ -216,9 +216,9 @@ You can create, edit, and delete guardrails through the backoffice. See [Managin
 
 Guardrails support version history. Every time you save a guardrail, a new version is created. You can:
 
-- View the version history
-- Compare different versions
-- Roll back to a previous version
+- View the version history.
+- Compare different versions.
+- Roll back to a previous version.
 
 See [Version History](versioning.md) for more information.
 

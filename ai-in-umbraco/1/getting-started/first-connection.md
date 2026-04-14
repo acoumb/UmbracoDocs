@@ -3,7 +3,7 @@ description: >-
     Create your first AI connection to start using AI services in Umbraco.
 ---
 
-# Your First Connection
+# The First Connection
 
 A connection stores the credentials and settings needed to communicate with an AI provider. Before you can use AI features, you need to create at least one connection.
 

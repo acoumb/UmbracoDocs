@@ -9,8 +9,8 @@ Every AI operation (chat completion, embedding generation) is logged with detail
 
 ## Accessing Audit Logs
 
-1. Navigate to the **AI** section in the main navigation
-2. Click **Audit Logs** in the tree
+1. Navigate to the **AI** section in the main navigation.
+2. Click **Audit Logs** in the tree.
 
 ## Understanding the Log List
 
@@ -46,7 +46,7 @@ Use the filter options to narrow results:
 ### Example Filters
 
 - **Failed operations today**: Status = Failed, Date = Today
-- **High token usage**: Sort by Tokens descending
+- **High token usage**: Sort by Tokens descending.
 - **Specific user activity**: User = john@example.com
 
 ## Viewing Log Details
@@ -88,12 +88,12 @@ Content snapshots are controlled by the `PersistPrompts` and `PersistResponses` 
 
 | Status             | Description                       |
 | ------------------ | --------------------------------- |
-| **Succeeded**      | Operation completed successfully  |
-| **Failed**         | Operation encountered an error    |
-| **Running**        | Operation is in progress          |
-| **Blocked**        | Blocked by a guardrail rule       |
-| **Cancelled**      | Operation was cancelled           |
-| **PartialSuccess** | Some parts succeeded, some failed |
+| **Succeeded**      | Operation completed successfully.  |
+| **Failed**         | Operation encountered an error.    |
+| **Running**        | Operation is in progress.          |
+| **Blocked**        | Blocked by a guardrail rule.       |
+| **Cancelled**      | Operation was cancelled.           |
+| **PartialSuccess** | Some parts succeeded, some failed. |
 
 ## Error Categories
 
@@ -116,9 +116,9 @@ When operations fail, the error category helps diagnose the issue:
 
 To delete a specific log:
 
-1. Select the log entry
-2. Click **Delete**
-3. Confirm the deletion
+1. Select the log entry.
+2. Click **Delete**.
+3. Confirm the deletion.
 
 {% hint style="warning" %}
 Deleting audit logs is permanent. Consider your compliance requirements before deletion.
@@ -128,9 +128,9 @@ Deleting audit logs is permanent. Consider your compliance requirements before d
 
 To remove old logs:
 
-1. Click **Cleanup** in the toolbar
-2. Specify how old logs should be (e.g., 90 days)
-3. Confirm the cleanup
+1. Click **Cleanup** in the toolbar.
+2. Specify how old logs should be (e.g., 90 days).
+3. Confirm the cleanup.
 
 ### Automatic Cleanup
 

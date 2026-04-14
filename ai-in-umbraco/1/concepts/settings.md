@@ -68,8 +68,8 @@ public async Task UpdateDefaultProfile(Guid chatProfileId)
 
 When you call an AI service without specifying a profile:
 
-1. The service checks for a default profile in AI Settings (database)
-2. If not found, an exception is thrown
+1. The service checks for a default profile in AI Settings (database).
+2. If not found, an exception is thrown.
 
 {% code title="Example.cs" %}
 

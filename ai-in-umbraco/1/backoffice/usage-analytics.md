@@ -9,8 +9,8 @@ The Usage Analytics dashboard provides aggregated insights into AI operations, h
 
 ## Accessing Analytics
 
-1. Navigate to the **AI** section in the main navigation
-2. Click **Analytics** in the tree
+1. Navigate to the **AI** section in the main navigation.
+2. Click **Analytics** in the tree.
 
 ## Dashboard Overview
 

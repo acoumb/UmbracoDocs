@@ -3,7 +3,7 @@ description: >-
     Create a profile to configure how AI requests are made and use it in your code.
 ---
 
-# Your First Profile
+# The First Profile
 
 A profile combines a connection with model settings for a specific use case. Profiles let you configure temperature, model selection, and system prompts once and reuse them throughout your application.
 
