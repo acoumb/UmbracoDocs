@@ -5,14 +5,14 @@ description: >-
 
 # UaiAgentRepository
 
-The `UaiAgentRepository` is a lightweight, read-only repository for fetching active agents in frontend components. It provides a simple API for consumers that only need to read active agent data without the complexity of full CRUD operations.
+The `UaiAgentRepository` is a lightweight, read-only repository for fetching active agents in frontend components. The repository provides an API for consumers that only need to read active agent data without the complexity of full CRUD operations.
 
 ## Overview
 
 This repository is useful when you need to:
 
 - Display a list of active agents in a dropdown or picker
-- Filter agents by scope (e.g., "copilot" agents only)
+- Filter agents by scope (for example "copilot" agents only)
 - Build custom UI components that consume agent data
 
 **Key features:**
@@ -517,7 +517,7 @@ if (result.error) {
 
 **Use `UaiAgentRepository` when:**
 
-- You need a simple read-only list of active agents
+- You need a read-only list of active agents
 - You're building pickers, dropdowns, or read-only lists
 - You want to filter agents by scope
 - You don't need full CRUD operations
@@ -537,7 +537,7 @@ if (result.error) {
 
 | Repository                     | Purpose                  | Use Case                               |
 | ------------------------------ | ------------------------ | -------------------------------------- |
-| `UaiAgentRepository`           | Read-only active agents  | Pickers, dropdowns, simple lists       |
+| `UaiAgentRepository`           | Read-only active agents  | Pickers, dropdowns, lists       |
 | `UaiAgentDetailRepository`     | Full CRUD operations     | Agent editor, management dashboard     |
 | `UaiAgentCollectionRepository` | Collection view patterns | Agent list view with sorting/filtering |
 

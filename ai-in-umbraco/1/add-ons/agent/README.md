@@ -119,7 +119,7 @@ eventSource.addEventListener("run_finished", () => {
 
 ## AG-UI Protocol
 
-The Agent Runtime uses the AG-UI (Agent UI) protocol for streaming responses. This protocol defines event types for:
+The Agent Runtime uses the AG-UI (Agent UI) protocol for streaming responses. The protocol defines event types for:
 
 - **Lifecycle events** - `run_started`, `run_finished`, `run_error`
 - **Text streaming** - `text_message_start`, `text_message_content`, `text_message_end`

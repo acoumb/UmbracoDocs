@@ -29,7 +29,7 @@ For multilingual content, the indexer generates separate embeddings per culture.
 
 ### Text Chunking
 
-The recursive text chunker splits content by trying paragraph boundaries first, then sentences, then words. This preserves semantic coherence within each chunk.
+The recursive text chunker splits content by trying paragraph boundaries first, then sentences, then words. Text chunking preserves semantic coherence within each chunk.
 
 Overlap between chunks ensures that concepts spanning a boundary are captured in both chunks. Configure chunk size and overlap in `appsettings.json` under `Umbraco:AI:Search`.
 

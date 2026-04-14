@@ -1,6 +1,6 @@
 ---
 description: >-
-    Copilot chat UI add-on for AI agents with sidebar, tool execution, and Human-in-the-Loop (HITL) support.
+    Copilot chat UI add-on for AI agents with sidebar, tool execution, and Human In The Loop (HITL) support.
 ---
 
 # Agent Copilot

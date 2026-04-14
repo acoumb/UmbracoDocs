@@ -59,7 +59,7 @@ When `true`, blocks encrypted values (starting with `ENC:`) from being deployed,
 | `ENC:abc123...` | ❌ No (encrypted value) |
 | `https://api.openai.com` | ✅ Yes (plain value) |
 
-**When to set to `false`:** Only if you need to deploy encrypted values. This is rarely needed and not recommended.
+**When to set to `false`:** Only if you need to deploy encrypted values which is rarely needed and not recommended.
 
 ### IgnoreSensitive
 

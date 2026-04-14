@@ -98,7 +98,7 @@ Scoping controls which content types can use a prompt:
 | **Deny List**  | All except specified content types            |
 
 {% hint style="info" %}
-Scoping is enforced in the backoffice UI but can be bypassed via code. Use it for editorial guidance rather than strict security.
+Scoping is enforced in the backoffice UI but can be bypassed via code. Use scoping for editorial guidance rather than strict security.
 {% endhint %}
 
 ## Version History
