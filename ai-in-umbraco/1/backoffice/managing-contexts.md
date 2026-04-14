@@ -9,14 +9,14 @@ AI Contexts allow you to define reusable content collections like brand voice gu
 
 ## Accessing Contexts
 
-1. Navigate to the **AI** section in the main navigation
-2. Click **Contexts** in the tree
+1. Navigate to the **AI** section in the main navigation.
+2. Click **Contexts** in the tree.
 
 ![The contexts list showing the Brand Voice context](../.gitbook/assets/backoffice-contexts-list.png)
 
 ## Creating a Context
 
-1. Click **Create Context** in the toolbar
+1. Click **Create Context** in the toolbar.
 2. Fill in the required fields:
 
 | Field | Description                                                 |
@@ -24,7 +24,7 @@ AI Contexts allow you to define reusable content collections like brand voice gu
 | Alias | Unique identifier for code references (URL-safe, no spaces) |
 | Name  | Display name shown in the backoffice                        |
 
-3. Click **Create**
+3. Click **Create**.
 
 ![The Create Context form with resource editor](../.gitbook/assets/backoffice-create-context-form.png)
 
@@ -32,7 +32,7 @@ AI Contexts allow you to define reusable content collections like brand voice gu
 
 Contexts contain one or more resources. Each resource represents a piece of content to inject:
 
-1. In the context editor, click **Add Resource**
+1. In the context editor, click **Add Resource**.
 2. Configure the resource:
 
 | Field          | Description                         |
@@ -43,7 +43,7 @@ Contexts contain one or more resources. Each resource represents a piece of cont
 | Content        | The actual content to inject        |
 | Injection Mode | When to inject: Always or On Demand |
 
-3. Click **Add**
+3. Click **Add**.
 
 ![The Select Resource Type dialog](../.gitbook/assets/backoffice-context-add-resource.png)
 
@@ -60,10 +60,10 @@ Contexts contain one or more resources. Each resource represents a piece of cont
 
 ## Editing a Context
 
-1. Select the context from the list
-2. Modify fields as needed
-3. Add, edit, or remove resources
-4. Click **Save**
+1. Select the context from the list.
+2. Modify fields as needed.
+3. Add, edit, or remove resources.
+4. Click **Save**.
 
 {% hint style="info" %}
 Every save creates a new version. You can view and rollback to previous versions.
@@ -71,9 +71,9 @@ Every save creates a new version. You can view and rollback to previous versions
 
 ## Deleting a Context
 
-1. Select the context from the list
-2. Click **Delete** in the toolbar
-3. Confirm the deletion
+1. Select the context from the list.
+2. Click **Delete** in the toolbar.
+3. Confirm the deletion.
 
 {% hint style="warning" %}
 Deleting a context also removes all version history. Consider whether any prompts or agents reference this context before deletion.
@@ -119,18 +119,18 @@ A typical brand voice context might include:
 
 Contexts are used by:
 
-- **Prompts** - Associate contexts to inject guidelines
-- **Agents** - Include context in agent instructions
-- **Profiles** - System prompts can reference context content
+- **Prompts** - Associate contexts to inject guidelines.
+- **Agents** - Include context in agent instructions.
+- **Profiles** - System prompts can reference context content.
 
 ### Associating with a Prompt
 
 When editing a prompt:
 
-1. Expand the **Contexts** section
-2. Click **Add Context**
-3. Select the context(s) to include
-4. Save the prompt
+1. Expand the **Contexts** section.
+2. Click **Add Context**.
+3. Select the context(s) to include.
+4. Save the prompt.
 
 ## Version History
 

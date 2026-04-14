@@ -11,10 +11,10 @@ Middleware wraps AI clients to add functionality like logging, caching, rate lim
 
 Middleware uses the decorator pattern. Each middleware wraps the client and can:
 
-- Modify requests before they're sent
-- Modify responses before they're returned
-- Add side effects (logging, metrics)
-- Short-circuit requests (caching)
+- Modify requests before they're sent.
+- Modify responses before they're returned.
+- Add side effects (logging, metrics).
+- Short-circuit requests (caching).
 
 ```
 Request → [Middleware 1] → [Middleware 2] → [Middleware 3] → Provider

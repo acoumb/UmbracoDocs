@@ -9,16 +9,16 @@ Profiles combine a connection with model settings for specific use cases. Create
 
 ## Viewing Profiles
 
-1. Navigate to the **AI** section > **Profiles**
-2. The profile list shows all configured profiles
-3. Use filters to find profiles by capability (Chat, Embedding)
-4. Click a profile to view or edit its details
+1. Navigate to the **AI** section > **Profiles**.
+2. The profile list shows all configured profiles.
+3. Use filters to find profiles by capability (Chat, Embedding).
+4. Click a profile to view or edit its details.
 
 ![The profiles list showing the Default Chat profile](../.gitbook/assets/backoffice-profiles-list.png)
 
 ## Creating a Profile
 
-1. Click **Create Profile** in the Profiles section
+1. Click **Create Profile** in the Profiles section.
 2. Fill in the required fields:
 
 | Field          | Description                                     |
@@ -29,8 +29,8 @@ Profiles combine a connection with model settings for specific use cases. Create
 | **Connection** | Which connection to use                         |
 | **Model**      | The specific AI model                           |
 
-3. Configure capability-specific settings
-4. Click **Save**
+3. Configure capability-specific settings.
+4. Click **Save**.
 
 ![The Create Profile capability selection](../.gitbook/assets/backoffice-create-profile-modal.png)
 
@@ -85,10 +85,10 @@ Embedding profiles currently use model defaults. Select the appropriate embeddin
 
 Chat profiles have a **Governance** tab where you can assign [guardrails](managing-guardrails.md) to enforce safety, compliance, and quality rules on all AI operations using that profile.
 
-1. Open a chat profile
-2. Go to the **Governance** tab
-3. Click **Add Guardrail** to select guardrails
-4. Save the profile
+1. Open a chat profile.
+2. Go to the **Governance** tab.
+3. Click **Add Guardrail** to select guardrails.
+4. Save the profile.
 
 ![The Governance tab showing assigned guardrails](../.gitbook/assets/backoffice-profile-governance-tab.png)
 
@@ -100,10 +100,10 @@ The Governance tab is only available for **Chat** profiles. Embedding profiles d
 
 To use a profile as the default when no profile is specified in code:
 
-1. Navigate to the **AI** section > **Settings**
-2. Select your chat profile via the **Default Chat Profile** picker
-3. Select your embedding profile via the **Default Embedding Profile** picker
-4. Click **Save**
+1. Navigate to the **AI** section > **Settings**.
+2. Select your chat profile via the **Default Chat Profile** picker.
+3. Select your embedding profile via the **Default Embedding Profile** picker.
+4. Click **Save**.
 
 {% hint style="info" %}
 See [Managing Settings](managing-settings.md) for more details on configuring default profiles.
@@ -111,9 +111,9 @@ See [Managing Settings](managing-settings.md) for more details on configuring de
 
 ## Editing a Profile
 
-1. Click on the profile in the list
-2. Modify the desired fields
-3. Click **Save**
+1. Click on the profile in the list.
+2. Modify the desired fields.
+3. Click **Save**.
 
 {% hint style="warning" %}
 Changing a profile's capability is not supported after creation. Create a new profile instead.
@@ -121,9 +121,9 @@ Changing a profile's capability is not supported after creation. Create a new pr
 
 ## Deleting a Profile
 
-1. Open the profile you want to delete
-2. Click **Delete** in the actions menu
-3. Confirm the deletion
+1. Open the profile you want to delete.
+2. Click **Delete** in the actions menu.
+3. Confirm the deletion.
 
 {% hint style="warning" %}
 Ensure no code depends on this profile before deleting. Check for usages of the profile alias in your codebase.
@@ -133,9 +133,9 @@ Ensure no code depends on this profile before deleting. Check for usages of the 
 
 Tags help organize profiles:
 
-1. Add tags when creating or editing a profile
-2. Use tags to categorize by team, project, or purpose
-3. Tags are visible in the profile list
+1. Add tags when creating or editing a profile.
+2. Use tags to categorize by team, project, or purpose.
+3. Tags are visible in the profile list.
 
 Example tags: `production`, `content-team`, `experimental`
 

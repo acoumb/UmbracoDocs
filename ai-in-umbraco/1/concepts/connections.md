@@ -65,9 +65,9 @@ API Key: $OpenAI:ApiKey
 
 Benefits of configuration references:
 
-- Sensitive values stay out of the database
+- Sensitive values stay out of the database.
 - Different values per environment (dev/staging/prod)
-- Works with Azure Key Vault, environment variables, and more
+- Works with Azure Key Vault, environment variables, and more.
 
 ## Accessing Connections in Code
 

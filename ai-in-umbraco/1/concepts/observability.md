@@ -82,9 +82,9 @@ M.E.AI automatically emits the following metrics:
 
 When both OpenTelemetry and audit logging are enabled, audit log entries include a `TraceId` property. This allows you to:
 
-- Navigate from an audit record to the full distributed trace in your APM dashboard
-- Find the audit record for a specific trace
-- Correlate AI usage data with infrastructure performance data
+- Navigate from an audit record to the full distributed trace in your APM dashboard.
+- Find the audit record for a specific trace.
+- Correlate AI usage data with infrastructure performance data.
 
 ## Example: Application Insights
 

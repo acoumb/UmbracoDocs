@@ -9,9 +9,9 @@ Umbraco.AI automatically tracks version history for connections, profiles, conte
 
 ## Viewing Version History
 
-1. Navigate to the entity (e.g., the **AI** section > **Profiles**)
-2. Select the entity you want to view
-3. Click the **Version History** tab (or icon)
+1. Navigate to the entity (e.g., the **AI** section > **Profiles**).
+2. Select the entity you want to view.
+3. Click the **Version History** tab (or icon).
 
 ![The Version History tab showing version list for a profile](../.gitbook/assets/backoffice-version-history.png)
 
@@ -28,9 +28,9 @@ The version history shows:
 
 To see what changed between versions:
 
-1. Open the version history
-2. Select two versions to compare
-3. Click **Compare**
+1. Open the version history.
+2. Select two versions to compare.
+3. Click **Compare**.
 
 ![Version comparison showing changes between two versions](../.gitbook/assets/backoffice-version-compare.png)
 
@@ -61,10 +61,10 @@ tags[1]
 
 To restore an entity to a previous version:
 
-1. Open the version history
-2. Find the version you want to restore
-3. Click **Rollback** (or **Restore**)
-4. Confirm the action
+1. Open the version history.
+2. Find the version you want to restore.
+3. Click **Rollback** (or **Restore**).
+4. Confirm the action.
 
 {% hint style="info" %}
 Rollback creates a new version with the restored content. No versions are deleted - the complete history is preserved.
@@ -128,10 +128,10 @@ POST /umbraco/ai/management/api/v1/versions/cleanup
 
 ## Best Practices
 
-1. **Review before rollback** - Compare versions to understand what will change
-2. **Use meaningful descriptions** - When updating via code, include change descriptions
-3. **Configure cleanup** - Set appropriate retention for your needs
-4. **Monitor storage** - Versions can accumulate significant data
+1. **Review before rollback** - Compare versions to understand what will change.
+2. **Use meaningful descriptions** - When updating via code, include change descriptions.
+3. **Configure cleanup** - Set appropriate retention for your needs.
+4. **Monitor storage** - Versions can accumulate significant data.
 
 ## Programmatic Access
 
