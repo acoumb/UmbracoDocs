@@ -4,9 +4,9 @@ description: >-
     built on Microsoft.Extensions.AI.
 ---
 
-# Umbraco.AI
+# AI in Umbraco
 
-Umbraco.AI brings AI capabilities to your Umbraco CMS installation through a flexible, provider-agnostic architecture. Whether you want to integrate OpenAI, Azure OpenAI, or other AI services, Umbraco.AI provides a consistent API and backoffice experience.
+`Umbraco.AI` brings AI capabilities to your Umbraco CMS installation through a flexible, provider-agnostic architecture. Whether you want to integrate OpenAI, Azure OpenAI, or other AI services, Umbraco.AI provides a consistent API and backoffice experience.
 
 ## Key Features
 
