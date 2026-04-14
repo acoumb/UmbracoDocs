@@ -29,4 +29,4 @@ Once installed, use `/umb-cms-dev-cli` with a query to interact with Umbraco:
 
 ## CLI Reference
 
-For the full reference of CLI flags, runtime modes (readonly and dry-run), introspection commands, and input sanitization, see the [CLI Reference](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/cli).
+For the full reference of CLI flags, runtime modes (readonly and dry-run), introspection commands, and input sanitization, see the [CLI Reference](../base-mcp/sdk/cli.md).

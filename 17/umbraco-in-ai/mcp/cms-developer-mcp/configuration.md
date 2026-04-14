@@ -4,15 +4,15 @@ description: Configuration options for the Developer MCP server
 
 # Configuration Options
 
-The Developer MCP Server uses the same configuration fields as any Umbraco MCP server built on the Base MCP SDK. For authentication, environment variables, CLI arguments, precedence rules, and all built-in fields, see the [SDK Configuration reference](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/configuration).
+The Developer MCP Server uses the same configuration fields as any Umbraco MCP server built on the Base MCP SDK. For authentication, environment variables, CLI arguments, precedence rules, and all built-in fields, see the [SDK Configuration reference](../base-mcp/sdk/configuration.md).
 
-For a complete reference of CLI flags, runtime modes (readonly and dry-run), introspection commands, and input sanitization, see the [CLI Reference](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/cli).
+For a complete reference of CLI flags, runtime modes (readonly and dry-run), introspection commands, and input sanitization, see the [CLI Reference](../base-mcp//sdk/cli.md).
 
 This page lists the specific tool modes and slices that the Developer MCP ships with.
 
 ## Tool Filtering
 
-The Developer MCP Server uses the SDK [tool filtering system](https://app.gitbook.com/s/qRBjeReNuznLmI2zTKUq/sdk/tool-filtering) to control which tools are registered. Filtering is built around three concepts: **modes**, **collections**, and **slices**. See the SDK documentation for how these compose and the available configuration keys.
+The Developer MCP Server uses the SDK [tool filtering system](../base-mcp/sdk/tool-filtering.md) to control which tools are registered. Filtering is built around three concepts: **modes**, **collections**, and **slices**. See the SDK documentation for how these compose and the available configuration keys.
 
 ### Available Modes
 
