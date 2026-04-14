@@ -99,11 +99,11 @@ public async Task<AIContext> CreateContext()
 
 When an AI operation executes with contexts:
 
-1. All associated contexts are retrieved
-2. Resources are sorted by `SortOrder`
-3. Resources with matching `InjectionMode` are selected
-4. Resource content is formatted and injected into the system message
-5. The AI model receives the enriched request
+1. All associated contexts are retrieved.
+2. Resources are sorted by `SortOrder`.
+3. Resources with matching `InjectionMode` are selected.
+4. Resource content is formatted and injected into the system message.
+5. The AI model receives the enriched request.
 
 When multiple contexts are used, they are processed in the order they are listed. Within each context, resources are processed by `SortOrder`, and all resource content is concatenated into the system context.
 
@@ -121,9 +121,9 @@ For programmatic context management, see the [IAIContextService](../reference/se
 
 Contexts support version history. Every time you save a context, a new version is created. You can:
 
-- View the version history
-- Compare different versions
-- Roll back to a previous version
+- View the version history.
+- Compare different versions.
+- Roll back to a previous version.
 
 See [Version History](versioning.md) for more information.
 

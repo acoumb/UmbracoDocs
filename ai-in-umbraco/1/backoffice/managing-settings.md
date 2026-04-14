@@ -9,8 +9,8 @@ AI Settings provide a central place to configure system-wide defaults, including
 
 ## Accessing Settings
 
-1. Navigate to the **AI** section in the main navigation
-2. Click **Settings** in the tree
+1. Navigate to the **AI** section in the main navigation.
+2. Click **Settings** in the tree.
 
 ![The AI Settings page with Default Chat, Classifier, and Embedding profile pickers](../.gitbook/assets/backoffice-ai-settings-page.png)
 
@@ -58,9 +58,9 @@ When set, this profile is used by:
 
 ## Configuring Settings
 
-1. Navigate to the **AI** section > **Settings**
-2. Select the desired profiles via the pickers
-3. Click **Save**
+1. Navigate to the **AI** section > **Settings**.
+2. Select the desired profiles via the pickers.
+3. Click **Save**.
 
 ## Settings Precedence
 
@@ -88,13 +88,13 @@ For advanced scenarios like CI/CD or infrastructure-as-code, defaults can also b
 
 To remove a default:
 
-1. Open the picker
-2. Select the empty option
-3. Save
+1. Open the picker.
+2. Select the empty option.
+3. Save.
 
 When no default is configured:
 
-- Operations without an explicit profile will fail with an error
+- Operations without an explicit profile will fail with an error.
 
 ## Related
 

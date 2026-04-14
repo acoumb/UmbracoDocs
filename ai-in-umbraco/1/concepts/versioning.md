@@ -21,10 +21,10 @@ Umbraco.AI automatically tracks version history for key entities. Every time you
 
 When you save an entity:
 
-1. The entity's `Version` property is incremented
-2. A complete JSON snapshot of the entity is created
-3. The snapshot is stored with metadata (timestamp, user, description)
-4. The current entity is updated in the main table
+1. The entity's `Version` property is incremented.
+2. A complete JSON snapshot of the entity is created.
+3. The snapshot is stored with metadata (timestamp, user, description).
+4. The current entity is updated in the main table.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -125,8 +125,8 @@ public async Task<AIVersionComparison?> CompareVersions(
 
 To roll back to a previous version:
 
-1. Retrieve the snapshot from the desired version
-2. Save the restored entity (which creates a new version)
+1. Retrieve the snapshot from the desired version.
+2. Save the restored entity (which creates a new version).
 
 {% code title="Example.cs" %}
 
