@@ -39,7 +39,9 @@ To create a Child project from a Baseline, follow these steps:
 13. Click **Create Project**.
 
 {% hint style="info" %}
+
 The Child project creation time depends on the size of the Baseline project.
+
 {% endhint %}
 
 ### Restore content from the Baseline project
@@ -63,7 +65,7 @@ If you do not see the content, reload the content tree once the restore is compl
 {% endcontent-ref %}
 
 {% content-ref url="../../optimize-and-maintain-your-site/monitor-and-troubleshoot/resolve-issues-quickly-and-efficiently/baseline-merge-conflicts/configuration-files.md" %}
-[Handling configuration files](../../optimize-and-maintain-your-site/monitor-and-troubleshoot/resolve-issues-quickly-and-efficiently/baseline-merge-conflicts/configuration-files.md)
+[Configuration files](../../optimize-and-maintain-your-site/monitor-and-troubleshoot/resolve-issues-quickly-and-efficiently/baseline-merge-conflicts/configuration-files.md)
 {% endcontent-ref %}
 
 {% content-ref url="../../optimize-and-maintain-your-site/monitor-and-troubleshoot/resolve-issues-quickly-and-efficiently/baseline-merge-conflicts/" %}
