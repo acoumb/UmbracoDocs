@@ -72,9 +72,9 @@ Test with mocked backend APIs using MSW (Mock Service Worker). Simulate errors, 
 
 Full acceptance tests against a running Umbraco instance using Playwright.
 
-* Requires running an Umbraco instance
-* Tests real API calls and UI interaction
-* Great for: complete workflows, regression testing, acceptance criteria
+* Requires running an Umbraco instance.
+* Tests real API calls and UI interaction.
+* Great for: complete workflows, regression testing, acceptance criteria.
 
 ### The "Never Raw Playwright" Rule
 
@@ -89,9 +89,9 @@ Using raw Playwright selectors against the Umbraco backoffice is fragile and mis
 
 ## Testing Workflow
 
-1. **Start with unit tests** — Test your components and logic in isolation
-2. **Add MSW tests** for API interactions — Verify your code handles success, errors, and edge cases
-3. **Add E2E tests** for critical user workflows that need to run against real Umbraco
+1. **Start with unit tests** — Test your components and logic in isolation.
+2. **Add MSW tests** for API interactions — Verify your code handles success, errors, and edge cases.
+3. **Add E2E tests** for critical user workflows that need to run against real Umbraco.
 
 ## Next Steps
 

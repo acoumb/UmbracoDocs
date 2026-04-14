@@ -17,7 +17,7 @@ Add the marketplace and install the plugin:
 /plugin install umbraco-mcp-skills@umbraco-mcp-server-sdk-plugins
 ```
 
-The plugin requires a project built with `@umbraco-cms/mcp-server-sdk`. See [Project Template](./project-template.md) for the expected project structure.
+The plugin requires a project built with `@umbraco-cms/mcp-server-sdk`. See [Project Template](project-template.md) for the expected project structure.
 
 ## Skills
 
@@ -115,15 +115,15 @@ Adds a new tool to an existing collection. Use this when a new API endpoint has 
 
 **What it does:**
 
-1. Reads the existing collection to match patterns and conventions
-2. Reads the Swagger spec to find the new endpoint
-3. Delegates to the `mcp-tool-creator` agent to create the tool file
-4. Delegates to the `mcp-tool-description-writer` agent to write the description
-5. Updates the collection `index.ts` to export the new tool
-6. Compiles with `npm run compile` to verify types
-7. Delegates to the `mcp-tool-reviewer` agent to check LLM-readiness
-8. Adds an integration test if the collection already has tests
-9. Updates eval tests if the collection already has evals
+1. Reads the existing collection to match patterns and conventions.
+2. Reads the Swagger spec to find the new endpoint.
+3. Delegates to the `mcp-tool-creator` agent to create the tool file.
+4. Delegates to the `mcp-tool-description-writer` agent to write the description.
+5. Updates the collection `index.ts` to export the new tool.
+6. Compiles with `npm run compile` to verify types.
+7. Delegates to the `mcp-tool-reviewer` agent to check LLM-readiness.
+8. Adds an integration test if the collection already has tests.
+9. Updates eval tests if the collection already has evals.
 
 This skill fills the gap between `/build-tools` (which generates entire collections from scratch) and manual tool creation. It reuses the same agents but operates on a single tool within an existing collection.
 
@@ -142,12 +142,12 @@ Adds an integration test for a specific tool in an existing collection.
 
 **What it does:**
 
-1. Reads the existing test infrastructure (setup, builders, helpers)
-2. Identifies the tool to test and reads its schema and handler
-3. Updates the builder or helper if the new tool needs additional methods
-4. Delegates to the `integration-test-creator` agent to create the test file
-5. Compiles and runs the test
-6. Delegates to the `integration-test-validator` agent to check quality
+1. Reads the existing test infrastructure (setup, builders, helpers).
+2. Identifies the tool to test and reads its schema and handler.
+3. Updates the builder or helper if the new tool needs additional methods.
+4. Delegates to the `integration-test-creator` agent to create the test file.
+5. Compiles and runs the test.
+6. Delegates to the `integration-test-validator` agent to check quality.
 
 Requires existing test infrastructure (`__tests__/setup.ts`). If it doesn't exist, run `/build-tools-tests` first.
 
@@ -166,10 +166,10 @@ Adds or updates an LLM eval test for a specific tool or collection.
 
 **What it does:**
 
-1. Compares collection tools against existing eval scenarios to find gaps
-2. Decides whether to update an existing scenario or create a new one
-3. Delegates to the `eval-test-creator` agent to create or update the test file
-4. Builds and runs the eval test, iterating on the prompt if needed
+1. Compares collection tools against existing eval scenarios to find gaps.
+2. Decides whether to update an existing scenario or create a new one.
+3. Delegates to the `eval-test-creator` agent to create or update the test file.
+4. Builds and runs the eval test, iterating on the prompt if needed.
 
 Requires existing eval infrastructure (`tests/evals/helpers/e2e-setup.ts`). If it doesn't exist, run `/build-evals` first.
 
@@ -220,10 +220,10 @@ Writes LLM-optimized tool descriptions. Focuses on making descriptions clear and
 
 **What it does:**
 
-* Writes descriptions using action verbs (Gets, Creates, Deletes)
-* Includes parameter constraints and valid values
-* Specifies when not to use the tool
-* Keeps descriptions concise but informative
+* Writes descriptions using action verbs (Gets, Creates, Deletes).
+* Includes parameter constraints and valid values.
+* Specifies when not to use the tool.
+* Keeps descriptions concise but informative.
 
 ### mcp-tool-reviewer
 

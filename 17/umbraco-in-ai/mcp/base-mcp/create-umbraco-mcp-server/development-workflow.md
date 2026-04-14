@@ -23,7 +23,7 @@ The command creates a complete MCP server project with:
 * Example tool collection and tests
 * Optional features: mocks (MSW), MCP chaining, evals
 
-See the [Project Template](./project-template.md) for full details on what is included.
+See the [Project Template](project-template.md) for full details on what is included.
 
 ## Phase 2: Init
 
@@ -133,7 +133,7 @@ After discovery, review the generated registries and refine as needed:
 
 ## Phase 4: Tool Implementation
 
-Build tool collections using the [Claude Code plugin](./claude-code-plugin.md). Install the plugin first:
+Build tool collections using the [Claude Code plugin](claude-code-plugin.md). Install the plugin first:
 
 ```
 /plugin marketplace add umbraco/Umbraco-MCP-Base
@@ -149,7 +149,7 @@ Generate tool collections from the `.discover.json` manifest:
 /build-tools form         # Build a single collection
 ```
 
-For each collection, the skill reads the Swagger spec and maps operations to Orval-generated client functions. The skill creates tool files with correct slices and annotations, then compiles to verify types. Collections that already have an `index.ts` file are skipped — use [`/add-tool`](./claude-code-plugin.md#add-tool) to add new tools to existing collections. See [`/build-tools`](./claude-code-plugin.md#build-tools) for full details.
+For each collection, the skill reads the Swagger spec and maps operations to Orval-generated client functions. The skill creates tool files with correct slices and annotations, then compiles to verify types. Collections that already have an `index.ts` file are skipped — use [`/add-tool`](claude-code-plugin.md#add-tool) to add new tools to existing collections. See [`/build-tools`](claude-code-plugin.md#build-tools) for full details.
 
 ### Build Tests
 
@@ -160,11 +160,11 @@ Generate integration tests per collection:
 /build-tools-tests form   # Generate tests for a single collection
 ```
 
-For each collection, the skill creates test setup, builders, helpers, and integration test files. Tests run sequentially against the real API. Collections that already have a `__tests__/setup.ts` file are skipped — use [`/add-test`](./claude-code-plugin.md#add-test) to add tests for new tools in existing collections. See [`/build-tools-tests`](./claude-code-plugin.md#build-tools-tests) for full details.
+For each collection, the skill creates test setup, builders, helpers, and integration test files. Tests run sequentially against the real API. Collections that already have a `__tests__/setup.ts` file are skipped — use [`/add-test`](claude-code-plugin.md#add-test) to add tests for new tools in existing collections. See [`/build-tools-tests`](claude-code-plugin.md#build-tools-tests) for full details.
 
 ### Tool Review
 
-After tools are built, the `mcp-tool-reviewer` agent checks each tool against an [LLM-readiness checklist](./claude-code-plugin.md#mcp-tool-reviewer). Address any issues flagged by the reviewer before moving to Phase 5.
+After tools are built, the `mcp-tool-reviewer` agent checks each tool against an [LLM-readiness checklist](claude-code-plugin.md#mcp-tool-reviewer). Address any issues flagged by the reviewer before moving to Phase 5.
 
 ## Phase 5: Evaluation and Iteration
 
@@ -179,7 +179,7 @@ Generate eval tests for tool collections:
 /build-evals form         # Generate eval tests for a single collection
 ```
 
-For each collection, the skill designs workflow scenarios, creates eval test files, builds, and runs them. Collections that already have eval test files in `tests/evals/` are skipped — use [`/add-eval`](./claude-code-plugin.md#add-eval) to add evals for new tools or workflows. See [`/build-evals`](./claude-code-plugin.md#build-evals) for full details.
+For each collection, the skill designs workflow scenarios, creates eval test files, builds, and runs them. Collections that already have eval test files in `tests/evals/` are skipped — use [`/add-eval`](claude-code-plugin.md#add-eval) to add evals for new tools or workflows. See [`/build-evals`](claude-code-plugin.md#build-evals) for full details.
 
 {% hint style="info" %}
 Eval tests differ from integration tests. Integration tests verify each tool individually. Eval tests group related tools into workflow scenarios (1-2 files per collection) and verify that an LLM can use them together effectively.
