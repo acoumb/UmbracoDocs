@@ -95,7 +95,7 @@ Always be helpful and concise.
 
 ## Auto Mode and Agent Routing
 
-When multiple agents are available on a surface, the Copilot uses "Auto" mode to automatically select the best agent for each user message. This works by sending the user's prompt to a classifier model that picks the most appropriate agent based on each agent's name and description.
+When multiple agents are available on a surface, the Copilot uses "Auto" mode to automatically select the best agent for each user message. Auto mode works by sending the user's prompt to a classifier model that picks an agent based on each agent's name and description.
 
 ### Classifier Profile
 
