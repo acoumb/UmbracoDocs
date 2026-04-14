@@ -78,7 +78,7 @@ Additional MCP servers tailored to other roles, such as editors and content mana
 
 ### Umbraco Setup
 
-Before connecting the MCP Server, you need to create an [API User](../../fundamentals/data/users/api-users.md) in Umbraco. This user allows the MCP Server to communicate securely with the Management API.
+Before connecting the MCP Server, you need to create an [API User](https://docs.umbraco.com/umbraco-cms/fundamentals/data/users/api-users) in Umbraco. This user allows the MCP Server to communicate securely with the Management API.
 
 The level of access you assign to this API user determines what actions your AI agent can perform:
 
