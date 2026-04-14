@@ -115,7 +115,7 @@ Conditions that check whether the current user has a specific permission.
 
 ### Templating & Data Types
 
-Conditions related to template and data type management.
+Conditions related to template and Data Type management.
 
 - `Umb.Condition.Template.AllowDeleteAction` - Requires the selected Template to be allowed to be deleted.
 - `Umb.Condition.DataType.AllowDeleteAction` - Requires the selected Data Type to be allowed to be deleted.
