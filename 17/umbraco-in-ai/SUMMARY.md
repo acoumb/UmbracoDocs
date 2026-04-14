@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Umbraco AI Documentation](README.md)
+* [Umbraco in AI](README.md)
 
 ## Concepts
 

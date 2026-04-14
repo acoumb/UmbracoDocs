@@ -28,6 +28,6 @@ When these parts work together, AI can help with content operations, schema plan
 
 ### What you will learn
 
-* How AI connects to Umbraco through MCP
-* How context engineering improves relevance and reduces hallucinations
-* How agent skills help AI assistants follow current Umbraco patterns
+* How AI connects to Umbraco through MCP.
+* How context engineering improves relevance and reduces hallucinations.
+* How agent skills help AI assistants follow current Umbraco patterns.
