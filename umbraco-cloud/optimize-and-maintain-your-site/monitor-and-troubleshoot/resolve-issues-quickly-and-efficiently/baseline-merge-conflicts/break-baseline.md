@@ -7,16 +7,17 @@ description: Learn how to break the connection between a Baseline project and on
 To remove the connection between a Baseline and a Child project, you need admin privileges. Once disconnected, the Child project becomes a standalone project and will no longer receive updates from the Baseline.
 
 {% hint style="warning" %}
-This action cannot be undone.
+Breaking the connection cannot be undone.
 {% endhint %}
 
-![Baseline child project](../../../../.gitbook/assets/manage-child-projects.png)
-
 1. Go to the Baseline project in the Umbraco Cloud portal.
-2. Click the **Baseline** label at the bottom of the left-side menu. Alternatively, go to **Management** > **Baselines**.
+2. Click the **Baseline** label at the bottom of the left-side menu.
+   * Alternatively, go to **Management** > **Baselines**.
+
+   ![The Baselines management page showing connected Child projects](../../../../.gitbook/assets/manage-child-projects.png)
 3. Click the ![Disconnect icon](../../../../.gitbook/assets/disconnect-icon.png) next to the Child project you want to disconnect.
 
-   A window displaying the consequences of this action appears.
+   A confirmation window appears, showing the consequences of disconnecting.
 4. Enter the Child project name you wish to disconnect.
 5. Click **Disconnect**.
 
