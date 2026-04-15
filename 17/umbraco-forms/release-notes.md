@@ -45,7 +45,9 @@ Corrects historical data written with local server time instead of UTC between v
 #### Other
 
 * Mark `RecordFilter.LocalTimeOffset` as obsolete (will be removed in v18)
+* Improved performance of Analytics database queries
 * Update "Umbraco Forms scheduled record deletion task" log message grammar [#1683](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1683)
+* Allow any integer for textarea `NumberOfRows` setting [#1685](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1685)
 * All items detailed under release candidates for 17.3.0.
 
 ### 17.3.0-rc2 (April 9th 2026)

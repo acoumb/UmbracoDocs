@@ -32,6 +32,7 @@ This section contains the release notes for Umbraco Forms 16 including all chang
 * Add validation for prevalue options on dropdown and similar fields [#1660](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1660)
 * Fix data consent field included when created from template [#1651](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1651)
 * Fix workflow failing to submit with decimal field [#1574](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1574)
+* Allow any integer for textarea `NumberOfRows` setting [#1685](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1685)
 
 ### 16.5.1
 * Fix: string length validation for file upload fields
