@@ -5,7 +5,7 @@ description: >-
 
 # Prompt Scoping
 
-Scoping allows you to control which content types can use a prompt. This helps organize prompts for specific editorial workflows.
+Scoping allows you to control which content types can use a prompt and helps to organize prompts for specific editorial workflows.
 
 ## Scope Modes
 

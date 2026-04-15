@@ -6,7 +6,7 @@ description: A guide to creating a property editor in Umbraco.
 
 ## Overview
 
-This guide explains how to set up a property editor and hook it into Umbraco's Data Types. It also covers the creation of a basic property editor and how to test the property editor.
+This guide covers setting up a Property Editor and registering it as a Data Type in Umbraco
 
 The steps covered in part one are:
 
@@ -16,11 +16,11 @@ The steps covered in part one are:
 * [Adding styling and setting up events in Web Components](./#adding-styling-and-setting-up-events-in-the-web-components)
 * [Setup Event Logic](./#setup-event-logic)
 
-This tutorial uses TypeScript and Lit with Umbraco. It is expected that your package is already [set up to use TypeScript and Lit](../../customizing/development-flow/vite-package-setup.md).
+This tutorial uses TypeScript and Lit. Make sure your package is already [set up before continuing](../../customizing/development-flow/vite-package-setup.md).
 
-To see how to set up an extension in Umbraco using TypeScript and Lit, read the article [Creating your first extension](../creating-your-first-extension.md).
+o set up an extension using TypeScript and Lit, see the [Creating your first extension](../creating-your-first-extension.md) article.
 
-### **Resources**
+### Resources
 
 This tutorial will not go in-depth on how TypeScript and Lit work. To learn about TypeScript and Lit, you can find their documentation below:
 
@@ -29,10 +29,10 @@ This tutorial will not go in-depth on how TypeScript and Lit work. To learn abou
 
 ### The End Result
 
-At the tutorial's end, the result is a Umbraco Suggestions Data Type, registered in the backoffice, and assigned to a Document Type. This Data Type can create and suggest values.
+By the end of this tutorial, you will have a Suggestions Data Type, registered in the backoffice, and assigned to a Document Type. This Data Type can create and suggest values.
 
 {% hint style="info" %}
-At each step, you will find a dropdown for `suggestions-property-editor-ui.element.ts and umbraco-package.json` to confirm your placement for code snippets.
+At the end of the final step, a dropdown displaying the entire `suggestions-property-editor-ui.element.ts` and `umbraco-package.json` files is available.
 {% endhint %}
 
 ## Setting up a plugin
@@ -106,7 +106,7 @@ The `umbraco-package.json` files are cached by the server. When creating new `um
 {% hint style="info" %}
 It is important to select the right `propertyEditorSchemaAlias` as it affects how the Property Editor data is made available when rendering the website.
 
-In this example, we selected the `Umbraco.Plain.String` because we want a string value. For more options, see the [default Property Editor Schema aliases](default-property-editor-schema-aliases.md) article.
+In this example, `Umbraco.Plain.String` is selected because a string value is expected. For more options, see the [default Property Editor Schema aliases](default-property-editor-schema-aliases.md) article.
 {% endhint %}
 
 ## Creating a Web Component
@@ -139,18 +139,48 @@ declare global {
 ```
 {% endcode %}
 
-3.  In the `vite.config.ts` file replace the `entry` to the newly created `.ts` file:
+3.  In the `vite.config.ts` file, replace the following:
 
-    ```typescript
-    entry: "src/suggestions-property-editor-ui.element.ts"
-    ```
+  - `entry` to the newly created `.ts` file.
+  - `outDir: 'dist'` so the output lands in `App_Plugins/suggestions/dist/`.
 
-The basic parts of the editor are now complete, namely:
+{% code title="vite.config.ts" lineNumbers="true" %}
+
+```typescript
+	import { defineConfig } from "vite";
+	
+	export default defineConfig({
+	    build: {
+	        lib: {
+				entry: "src/suggestions-property-editor-ui.element.ts", // your web component source file
+				formats: ["es"],
+				fileName: "suggestions",
+	        },
+	        outDir: "dist", // all compiled files will be placed here
+	        emptyOutDir: true,
+	        sourcemap: true,
+	        rollupOptions: {
+				external: [/^@umbraco-cms\/.*/], // ignore the Umbraco Backoffice package in the build
+	        },
+	    },
+	    base: "/App_Plugins/client/", // the base path of the app in the browser (used for assets)
+	});
+```
+
+{% endcode %}
+
+The basic parts of the editor are now in place:
 
 * The package manifest, telling Umbraco what to load
 * The web component for the editor
 
-4. Reload the backoffice.
+4. Run the build. In your terminal, go to the `suggestions` folder and run:
+
+```cs
+npm run build
+```
+
+5. Reload the backoffice.
 
 ## Registering the Data Type in Umbraco
 
@@ -158,11 +188,11 @@ The basic parts of the editor are now complete, namely:
 
 ![Suggestions Property Editor](../../.gitbook/assets/suggestions-property-editor.png)
 
-The assigned property's value can now be edited with the new property editor.
+The property can now be edited using the new Property Editor.
 
 2. Check out the content where you will see the property editor that looks like this:
 
-<figure><img src="../../.gitbook/assets/NewPropertyEditor.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/NewPropertyEditor.png" alt="The Suggestions property editor displayed in the Umbraco content editor."><figcaption><p>The Suggestions property editor in the content editor.</p></figcaption></figure>
 
 ## Adding styling and setting up events in the Web Components
 
@@ -241,13 +271,9 @@ static override readonly styles = [
 ```
 {% endcode %}
 
-It should now look something like this:
-
-<figure><img src="../../.gitbook/assets/NewPropertyEditorButtons.png" alt=""><figcaption></figcaption></figure>
-
 <details>
 
-<summary>See the file: suggestions-property-editor-ui.element.ts</summary>
+<summary>See the entire `suggestions-property-editor-ui.element.ts` file</summary>
 
 {% code title="suggestions-property-editor-ui.element.ts" lineNumbers="true" %}
 ```typescript
@@ -317,7 +343,19 @@ declare global {
 
 </details>
 
-It's starting to look good! Next, set up the event logic.
+4. Run the build. In your terminal, go to the `suggestions` folder and run:
+
+```cs
+npm run build
+```
+
+5. Reload the backoffice.
+
+It should now look something like this:
+
+<figure><img src="../../.gitbook/assets/NewPropertyEditorButtons.png" alt="The Suggestions property editor with an input field and two buttons."><figcaption><p>The property editor after adding the input field and buttons.</p></figcaption></figure>
+
+Next, set up the event logic.
 
 ## Setup Event Logic
 
@@ -325,7 +363,7 @@ It's starting to look good! Next, set up the event logic.
 
 Start with the input field. When typing something in the input field, the property editor's value should change to the input field's current value.
 
-A `change` event must be dispatched, which can be done in two ways:
+Dispatch a `change` event using one of two approaches:
 
 * Using `new CustomEvent('change')` or
 * Using `new UmbChangeEvent()` which is recommended as you can leverage the core class
@@ -515,16 +553,21 @@ declare global {
 
 </details>
 
-4. Clear your cache, reload the document, and see the Suggestions Data Type running.
+4. Run the build. In your terminal, go to the `suggestions` folder and run:
 
-<figure><img src="../../.gitbook/assets/NewPropertyEditorSuggestions.png" alt=""><figcaption></figcaption></figure>
+```cs
+npm run build
+```
+
+5. Clear your cache and reload the backoffice.
+6. Click on the **Give me suggestions** button to see the Suggestions Data Type in action.
+
+<figure><img src="../../.gitbook/assets/NewPropertyEditorSuggestions.png" alt="The Suggestions property editor displaying a randomly selected suggestion value."><figcaption><p>The completed Suggestions property editor with event logic in place.</p></figcaption></figure>
 
 When saving or publishing, the value of the Data Type is automatically synced to the current content object and sent to the server.
 
-Learn more about extending this service by visiting the [Property Editors](../../customizing/property-editors/composition/) page.
+To learn more, visit the [Property Editors](../../customizing/property-editors/composition/) page.
 
 ## Going further
 
-With all the steps completed, a Suggestion Data Type is now running in the property editor.
-
-The next part covers adding configurations to the property editor.
+The Suggestions Data Type is now set up and running. The next part covers adding configurations to the property editor.

@@ -21,7 +21,7 @@ Every agent has an **agent type** that determines its configuration shape and be
 
 ### Standard Agent
 
-A **standard agent** is a single AI agent with instructions, context injection, and tool permissions. This is the default agent type and is suitable for most use cases.
+A **standard agent** is a single AI agent with instructions, context injection, and tool permissions. The standard agent is the default agent type and is suitable for most use cases.
 
 Standard agents have:
 - Custom instructions (system prompt)
@@ -35,8 +35,9 @@ Standard agents have:
 An **orchestrated agent** composes multiple agents into a workflow graph using a registered [workflow](workflows.md). Instead of instructions and tools, orchestrated agents reference a workflow implementation that defines how sub-agents collaborate.
 
 Orchestrated agents have:
-- A workflow ID referencing a registered workflow implementation
-- Optional workflow-specific settings (configured in the backoffice)
+
+- A workflow ID referencing a registered workflow implementation.
+- Optional workflow-specific settings (configured in the backoffice).
 
 {% hint style="info" %}
 Workflows are code-based extension points. See [Creating Workflows](workflows.md) for how to build custom workflows.

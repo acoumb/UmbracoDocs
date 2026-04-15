@@ -5,7 +5,7 @@ description: >-
 
 # Frontend Client (UaiAgentClient)
 
-The `UaiAgentClient` is a TypeScript client for building custom agent-driven user interfaces in the Umbraco backoffice. It provides a callback-based interface for consuming the AG-UI protocol with automatic event handling and message management.
+The `UaiAgentClient` is a TypeScript client for building custom agent-driven user interfaces in the Umbraco backoffice. The client provides a callback-based interface for consuming the AG-UI protocol with automatic event handling and message management.
 
 ## Overview
 
