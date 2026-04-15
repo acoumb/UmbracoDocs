@@ -85,6 +85,6 @@ If the upgrade of a Child project fails or leaves the project in a bad state, th
 
 When updating Child projects from a Baseline, the Child project configuration takes precedence over the Baseline configuration. The configuration file may not change when the update runs.
 
-Follow the flow shown in [Handling configuration files](configuration-files.md) to prevent Child projects from overwriting configuration files and ensure the best flow between the Baseline and Child projects.
+Follow the flow shown in [Handling configuration files](configuration-files.md). It prevents Child projects from overwriting configuration files and ensures the best flow between the Baseline and Child projects.
 
 If the flow is not used, the repository will have updated code but outdated configuration files. Fix the outdated files by manually comparing the configuration files on the Baseline and Child project. Make sure all changes from the Baseline are applied to the Child project's configuration files.
