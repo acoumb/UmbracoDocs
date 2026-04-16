@@ -8,7 +8,7 @@ description: >-
 
 For a general introduction to agent skills and the `SKILL.md` format, see [What Are Skills?](../../concepts/agent-skills.md) article.
 
-This page explains how the Umbraco backoffice skills use that format to guide AI agents through extension development.
+This page explains how the Umbraco backoffice skills use that format to guide AI agents through extension development. 
 
 ## Progressive Discovery
 
