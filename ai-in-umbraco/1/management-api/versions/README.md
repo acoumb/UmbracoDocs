@@ -9,13 +9,13 @@ The Versions API provides centralized access to version history for all versione
 
 ## Endpoints
 
-| Method | Endpoint                                                              | Description                               |
-| ------ | --------------------------------------------------------------------- | ----------------------------------------- |
-| GET    | [`/versions/supported-types`](supported-types.md)                     | List entity types that support versioning |
-| GET    | [`/versions/{entityType}/{entityId}`](history.md)                     | Get version history for an entity         |
-| GET    | [`/versions/{entityType}/{entityId}/{version}`](get-version.md)       | Get a specific version snapshot           |
-| GET    | [`/versions/{entityType}/{entityId}/{from}/compare/{to}`](compare.md) | Compare two versions                      |
-| POST   | [`/versions/{entityType}/{entityId}/{version}/rollback`](rollback.md) | Rollback to a previous version            |
+| Method | Endpoint                                                                                                         | Description                               |
+| ------ | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| GET    | [`/umbraco/ai/management/api/v1/versions/supported-types`](supported-types.md)                                   | List entity types that support versioning |
+| GET    | [`/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}`](history.md)                                   | Get version history for an entity         |
+| GET    | [`/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}/{version}`](get-version.md)                     | Get a specific version snapshot           |
+| GET    | [`/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}/{from}/compare/{to}`](compare.md)               | Compare two versions                      |
+| POST   | [`/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}/{version}/rollback`](rollback.md)               | Rollback to a previous version            |
 
 ## Base URL
 

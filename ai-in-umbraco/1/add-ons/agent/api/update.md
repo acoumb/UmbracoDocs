@@ -36,7 +36,7 @@ PUT /umbraco/ai/management/api/v1/agent/{id}
     "surfaceIds": ["copilot"],
     "config": {
         "$type": "standard",
-        "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859g1962"],
+        "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859a1962"],
         "instructions": "Updated instructions...",
         "allowedToolScopeIds": ["content-read", "content-write", "search"],
         "allowedToolIds": [],

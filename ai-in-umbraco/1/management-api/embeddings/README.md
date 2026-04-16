@@ -19,7 +19,7 @@ Embeddings convert text into numerical vectors that capture semantic meaning. Si
 ## Base URL
 
 ```
-/umbraco/ai/management/api/v1/embedding
+/umbraco/ai/management/api/v1/embeddings
 ```
 
 ## Authentication
@@ -28,9 +28,9 @@ All endpoints require backoffice authentication with the `Umb.AI.Management.Api`
 
 ## Endpoints
 
-| Method | Endpoint              | Description                        |
-| ------ | --------------------- | ---------------------------------- |
-| POST   | `/embedding/generate` | [Generate embeddings](generate.md) |
+| Method | Endpoint                                                      | Description                        |
+| ------ | ------------------------------------------------------------- | ---------------------------------- |
+| POST   | `/umbraco/ai/management/api/v1/embeddings/generate`           | [Generate embeddings](generate.md) |
 
 ## Response Model
 

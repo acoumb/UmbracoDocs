@@ -10,7 +10,7 @@ Creates a new context for storing brand voice, guidelines, or content resources.
 ## Request
 
 ```http
-POST /umbraco/ai/management/api/v1/context
+POST /umbraco/ai/management/api/v1/contexts
 ```
 
 ### Request Body
@@ -107,7 +107,7 @@ POST /umbraco/ai/management/api/v1/context
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/context" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/contexts" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -143,7 +143,7 @@ var context = new
     }
 };
 
-var response = await httpClient.PostAsJsonAsync("/umbraco/ai/management/api/v1/context", context);
+var response = await httpClient.PostAsJsonAsync("/umbraco/ai/management/api/v1/contexts", context);
 ```
 
 {% endcode %}

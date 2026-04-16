@@ -12,7 +12,7 @@ Retrieve a list of all tool scopes. Scopes define categories of tools and determ
 {% code title="Endpoint" %}
 
 ```
-GET /tool-scopes
+GET /umbraco/ai/management/api/v1/tools/scopes
 ```
 
 {% endcode %}
@@ -141,7 +141,7 @@ Destructive scopes (`content-write`, `media-write`, `entity-write`) are flagged 
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/tool-scopes"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/tools/scopes"
 ```
 
 {% endcode %}
@@ -151,7 +151,7 @@ curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/tool-scopes"
 {% code title="JavaScript" %}
 
 ```javascript
-const response = await fetch("/umbraco/ai/management/api/v1/tool-scopes", {
+const response = await fetch("/umbraco/ai/management/api/v1/tools/scopes", {
     credentials: "include",
 });
 

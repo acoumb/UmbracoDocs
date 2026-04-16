@@ -30,7 +30,7 @@ PUT /umbraco/ai/management/api/v1/tests/{id}
     "description": "Validates summarization output with stricter criteria",
     "testFeatureId": "prompt",
     "testTargetId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
     "runCount": 5,
     "graders": [
         {

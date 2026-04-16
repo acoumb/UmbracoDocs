@@ -10,7 +10,7 @@ Returns all AI providers registered in the system.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/provider
+GET /umbraco/ai/management/api/v1/providers
 ```
 
 ### Headers
@@ -70,7 +70,7 @@ Possible capability values:
 ### cURL
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/provider" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/providers" \
   -H "Authorization: Bearer {token}"
 ```
 
@@ -84,7 +84,7 @@ client.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", token);
 
 var response = await client.GetAsync(
-    "https://localhost:44331/umbraco/ai/management/api/v1/provider");
+    "https://your-site.com/umbraco/ai/management/api/v1/providers");
 
 var providers = await response.Content
     .ReadFromJsonAsync<ProviderItemResponseModel[]>();
@@ -102,7 +102,7 @@ foreach (var provider in providers)
 {% code title="Example" %}
 
 ```javascript
-const response = await fetch("/umbraco/ai/management/api/v1/provider", {
+const response = await fetch("/umbraco/ai/management/api/v1/providers", {
     headers: {
         Authorization: `Bearer ${token}`,
     },

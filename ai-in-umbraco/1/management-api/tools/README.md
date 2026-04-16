@@ -11,10 +11,10 @@ You can use the tool endpoints to list all user-configurable tools and their sco
 
 ## Available Endpoints
 
-| Method | Endpoint       | Description                                    |
-| ------ | -------------- | ---------------------------------------------- |
-| GET    | `/tools`       | List all user-configurable tools grouped by scope |
-| GET    | `/tool-scopes` | List all tool scopes                           |
+| Method | Endpoint                                              | Description                                       |
+| ------ | ----------------------------------------------------- | ------------------------------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/tools`                 | List all user-configurable tools grouped by scope |
+| GET    | `/umbraco/ai/management/api/v1/tools/scopes`          | List all tool scopes                              |
 
 ## Tool Model
 

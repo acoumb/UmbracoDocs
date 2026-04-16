@@ -10,7 +10,7 @@ Permanently deletes a specific audit log entry.
 ## Request
 
 ```http
-DELETE /umbraco/ai/management/api/v1/audit-log/{id}
+DELETE /umbraco/ai/management/api/v1/audit-logs/{id}
 ```
 
 ### Path Parameters
@@ -55,7 +55,7 @@ Deleting audit logs is permanent and cannot be undone. This action may affect co
 {% code title="cURL" %}
 
 ```bash
-curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/audit-log/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/audit-logs/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -65,7 +65,7 @@ curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/audit-log/3fa
 
 ```csharp
 var response = await httpClient.DeleteAsync(
-    "/umbraco/ai/management/api/v1/audit-log/3fa85f64-5717-4562-b3fc-2c963f66afa6");
+    "/umbraco/ai/management/api/v1/audit-logs/3fa85f64-5717-4562-b3fc-2c963f66afa6");
 
 if (response.StatusCode == HttpStatusCode.NoContent)
 {

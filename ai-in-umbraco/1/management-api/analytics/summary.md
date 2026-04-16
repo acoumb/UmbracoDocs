@@ -12,7 +12,7 @@ Returns aggregated usage statistics for the specified time period.
 {% code title="Endpoint" %}
 
 ```http
-GET /umbraco/ai/management/api/v1/analytics/summary
+GET /umbraco/ai/management/api/v1/analytics/usage-summary
 ```
 
 {% endcode %}
@@ -55,7 +55,7 @@ GET /umbraco/ai/management/api/v1/analytics/summary
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/summary?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-summary?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -66,7 +66,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/summar
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/summary?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&providerId=openai" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-summary?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&providerId=openai" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -79,7 +79,7 @@ var from = DateTime.UtcNow.AddDays(-30);
 var to = DateTime.UtcNow;
 
 var response = await httpClient.GetAsync(
-    $"/umbraco/ai/management/api/v1/analytics/summary?from={from:O}&to={to:O}");
+    $"/umbraco/ai/management/api/v1/analytics/usage-summary?from={from:O}&to={to:O}");
 
 var summary = await response.Content.ReadFromJsonAsync<AIUsageSummary>();
 

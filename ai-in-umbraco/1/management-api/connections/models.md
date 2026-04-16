@@ -10,7 +10,7 @@ Retrieve the list of AI models available through a specific connection. This is 
 ## Endpoint
 
 ```
-GET /connections/{idOrAlias}/models
+GET /umbraco/ai/management/api/v1/connections/{idOrAlias}/models
 ```
 
 ## Path Parameters
@@ -80,7 +80,8 @@ GET /connections/{idOrAlias}/models
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections/openai-prod/models"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections/openai-prod/models" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}

@@ -10,7 +10,7 @@ Removes audit log entries older than the configured retention period.
 ## Request
 
 ```http
-POST /umbraco/ai/management/api/v1/audit-log/cleanup
+POST /umbraco/ai/management/api/v1/audit-logs/cleanup
 ```
 
 ### Request Body (Optional)
@@ -52,7 +52,7 @@ POST /umbraco/ai/management/api/v1/audit-log/cleanup
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-log/cleanup" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-logs/cleanup" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -63,7 +63,7 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-log/clean
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-log/cleanup" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-logs/cleanup" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{ "olderThanDays": 30 }'
@@ -82,9 +82,8 @@ Configure default retention in `appsettings.json`:
     "Umbraco": {
         "AI": {
             "AuditLog": {
-                "RetentionDays": 90,
-                "AutoCleanupEnabled": true,
-                "AutoCleanupIntervalHours": 24
+                "Enabled": true,
+                "RetentionDays": 14
             }
         }
     }
@@ -93,14 +92,13 @@ Configure default retention in `appsettings.json`:
 
 {% endcode %}
 
-| Setting                    | Default | Description                |
-| -------------------------- | ------- | -------------------------- |
-| `RetentionDays`            | 90      | Days to retain audit logs  |
-| `AutoCleanupEnabled`       | true    | Enable automatic cleanup   |
-| `AutoCleanupIntervalHours` | 24      | Hours between cleanup runs |
+| Setting         | Default | Description                                  |
+| --------------- | ------- | -------------------------------------------- |
+| `Enabled`       | `true`  | Whether audit logging is enabled             |
+| `RetentionDays` | `14`    | Days to retain audit logs before cleanup     |
 
 {% hint style="info" %}
-When `AutoCleanupEnabled` is true, cleanup runs automatically on a background schedule. Manual cleanup is useful for immediate cleanup or using a different retention period.
+When `Enabled` is `true`, cleanup runs automatically on a background schedule. Manual cleanup via this endpoint is useful for immediate cleanup or to override the retention period. See [Audit Logs](../../backoffice/audit-logs.md) for the complete list of audit log configuration options.
 {% endhint %}
 
 ## Response Properties

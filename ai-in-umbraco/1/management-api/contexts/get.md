@@ -10,7 +10,7 @@ Returns the full details of a specific context.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/context/{idOrAlias}
+GET /umbraco/ai/management/api/v1/contexts/{idOrAlias}
 ```
 
 ### Path Parameters
@@ -73,7 +73,7 @@ GET /umbraco/ai/management/api/v1/context/{idOrAlias}
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/contexts/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -84,7 +84,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context/3fa85f64
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context/brand-voice" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/contexts/brand-voice" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

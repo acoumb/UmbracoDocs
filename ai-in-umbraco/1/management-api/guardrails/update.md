@@ -10,14 +10,14 @@ Updates an existing guardrail. A new version is created automatically.
 ## Request
 
 ```http
-PUT /umbraco/ai/management/api/v1/guardrails/{id}
+PUT /umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description                 |
-| --------- | ---- | --------------------------- |
-| `id`      | guid | Guardrail unique identifier |
+| Parameter             | Type   | Description             |
+| --------------------- | ------ | ----------------------- |
+| `guardrailIdOrAlias`  | string | Guardrail GUID or alias |
 
 ### Request Body
 

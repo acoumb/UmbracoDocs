@@ -5,26 +5,21 @@ description: >-
 
 # Get Entity Audit History
 
-Returns audit logs related to a specific content item or entity.
+Returns audit logs related to a specific content item or entity by filtering the audit logs list on `entityId`.
 
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/audit-log/entity/{entityType}/{entityId}
+GET /umbraco/ai/management/api/v1/audit-logs?entityId={entityId}
 ```
-
-### Path Parameters
-
-| Parameter    | Type   | Description                                |
-| ------------ | ------ | ------------------------------------------ |
-| `entityType` | string | Type of entity (e.g., `document`, `media`) |
-| `entityId`   | string | Entity identifier                          |
 
 ### Query Parameters
 
-| Parameter | Type | Default | Description                         |
-| --------- | ---- | ------- | ----------------------------------- |
-| `limit`   | int  | 20      | Maximum number of records to return |
+| Parameter    | Type   | Default | Description                                    |
+| ------------ | ------ | ------- | ---------------------------------------------- |
+| `entityId`   | string | -       | Entity identifier to filter audit logs by      |
+| `skip`       | int    | 0       | Number of records to skip                      |
+| `take`       | int    | 100     | Maximum number of records to return            |
 
 ## Response
 
@@ -55,7 +50,8 @@ GET /umbraco/ai/management/api/v1/audit-log/entity/{entityType}/{entityId}
             "featureType": null,
             "totalTokens": 890
         }
-    ]
+    ],
+    "total": 2
 }
 ```
 
@@ -66,7 +62,7 @@ GET /umbraco/ai/management/api/v1/audit-log/entity/{entityType}/{entityId}
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log/entity/document/content-guid?limit=10" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-logs?entityId=content-guid&take=10" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -75,12 +71,11 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log/entity
 {% code title="C#" %}
 
 ```csharp
-var entityType = "document";
 var entityId = "content-guid";
 
 var response = await httpClient.GetAsync(
-    $"/umbraco/ai/management/api/v1/audit-log/entity/{entityType}/{entityId}?limit=10");
-var history = await response.Content.ReadFromJsonAsync<AIEntityAuditHistoryModel>();
+    $"/umbraco/ai/management/api/v1/audit-logs?entityId={entityId}&take=10");
+var history = await response.Content.ReadFromJsonAsync<PagedResult<AIAuditLogModel>>();
 ```
 
 {% endcode %}

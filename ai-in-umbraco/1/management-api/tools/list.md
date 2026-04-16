@@ -12,7 +12,7 @@ Retrieve a list of all user-configurable tools grouped by scope. Tools are regis
 {% code title="Endpoint" %}
 
 ```
-GET /tools
+GET /umbraco/ai/management/api/v1/tools
 ```
 
 {% endcode %}
@@ -75,7 +75,7 @@ GET /tools
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/tools"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/tools"
 ```
 
 {% endcode %}

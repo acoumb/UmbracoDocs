@@ -24,7 +24,7 @@ POST /umbraco/ai/management/api/v1/prompt
     "description": "Creates SEO-friendly meta descriptions",
     "instructions": "Write a meta description for:\n\nTitle: {{title}}\nContent: {{content}}\n\nRequirements:\n- Maximum 155 characters\n- Be compelling",
     "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859g1962"],
+    "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859a1962"],
     "tags": ["seo", "content"],
     "isActive": true,
     "includeEntityContext": true,

@@ -18,7 +18,7 @@ Providers are read-only resources - they're installed as NuGet packages and disc
 ## Base URL
 
 ```
-/umbraco/ai/management/api/v1/provider
+/umbraco/ai/management/api/v1/providers
 ```
 
 ## Authentication
@@ -27,10 +27,10 @@ All endpoints require backoffice authentication with the `Umb.AI.Management.Api`
 
 ## Endpoints
 
-| Method | Endpoint         | Description                    |
-| ------ | ---------------- | ------------------------------ |
-| GET    | `/provider`      | [List all providers](list.md)  |
-| GET    | `/provider/{id}` | [Get provider details](get.md) |
+| Method | Endpoint                                              | Description                    |
+| ------ | ----------------------------------------------------- | ------------------------------ |
+| GET    | `/umbraco/ai/management/api/v1/providers`             | [List all providers](list.md)  |
+| GET    | `/umbraco/ai/management/api/v1/providers/{id}`        | [Get provider details](get.md) |
 
 ## Response Models
 

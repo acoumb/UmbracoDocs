@@ -12,7 +12,7 @@ Retrieve a list of all available context resource types. Resource types define w
 {% code title="Endpoint" %}
 
 ```
-GET /context-resource-types
+GET /umbraco/ai/management/api/v1/context-resource-types
 ```
 
 {% endcode %}
@@ -67,7 +67,8 @@ GET /context-resource-types
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/context-resource-types"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context-resource-types" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}

@@ -9,12 +9,10 @@ The chat endpoints provide access to AI chat completions through the Management 
 
 ## Available Endpoints
 
-| Method | Endpoint                            | Description                                        |
-| ------ | ----------------------------------- | -------------------------------------------------- |
-| POST   | `/chat/complete`                    | Get a chat completion using the default profile    |
-| POST   | `/chat/{profileIdOrAlias}/complete` | Get a chat completion using a specific profile     |
-| POST   | `/chat/stream`                      | Stream a chat completion using the default profile |
-| POST   | `/chat/{profileIdOrAlias}/stream`   | Stream a chat completion using a specific profile  |
+| Method | Endpoint                                                            | Description                                     |
+| ------ | ------------------------------------------------------------------- | ----------------------------------------------- |
+| POST   | `/umbraco/ai/management/api/v1/chat/complete`                       | Get a chat completion using the default profile |
+| POST   | `/umbraco/ai/management/api/v1/chat/{profileIdOrAlias}/complete`    | Get a chat completion using a specific profile  |
 
 ## Request Format
 
@@ -49,8 +47,6 @@ All chat endpoints accept the same request body:
 
 ## Response Format
 
-### Non-Streaming Response
-
 {% code title="Response" %}
 
 ```json
@@ -70,30 +66,8 @@ All chat endpoints accept the same request body:
 
 {% endcode %}
 
-### Streaming Response
-
-Streaming endpoints return Server-Sent Events (SSE):
-
-```
-data: {"content":"Hello"}
-
-data: {"content":"!"}
-
-data: {"content":" I'm"}
-
-data: {"content":" doing"}
-
-data: {"finishReason":"stop"}
-
-data: [DONE]
-```
-
 ## In This Section
 
 {% content-ref url="complete.md" %}
 [Complete](complete.md)
-{% endcontent-ref %}
-
-{% content-ref url="stream.md" %}
-[Stream](stream.md)
 {% endcontent-ref %}

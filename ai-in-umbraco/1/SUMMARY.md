@@ -156,7 +156,6 @@
   * [Authentication](management-api/authentication.md)
 * [Chat](management-api/chat/README.md)
   * [Complete](management-api/chat/complete.md)
-  * [Stream](management-api/chat/stream.md)
 * [Connections](management-api/connections/README.md)
   * [List Connections](management-api/connections/list.md)
   * [Get Connection](management-api/connections/get.md)

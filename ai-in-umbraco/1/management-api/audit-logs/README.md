@@ -9,13 +9,13 @@ The Audit Logs API provides access to operational audit records for AI operation
 
 ## Endpoints
 
-| Method | Endpoint                                                         | Description                     |
-| ------ | ---------------------------------------------------------------- | ------------------------------- |
-| GET    | [`/audit-log`](list.md)                                          | List audit logs with filtering  |
-| GET    | [`/audit-log/{id}`](get.md)                                      | Get a specific audit log entry  |
-| GET    | [`/audit-log/entity/{entityType}/{entityId}`](entity-history.md) | Get audit history for an entity |
-| DELETE | [`/audit-log/{id}`](delete.md)                                   | Delete a specific audit log     |
-| POST   | [`/audit-log/cleanup`](cleanup.md)                               | Clean up old audit logs         |
+| Method | Endpoint                                                                            | Description                     |
+| ------ | ----------------------------------------------------------------------------------- | ------------------------------- |
+| GET    | [`/umbraco/ai/management/api/v1/audit-logs`](list.md)                               | List audit logs with filtering  |
+| GET    | [`/umbraco/ai/management/api/v1/audit-logs/{id}`](get.md)                           | Get a specific audit log entry  |
+| GET    | [`/umbraco/ai/management/api/v1/audit-logs?entityId={entityId}`](entity-history.md) | Get audit history for an entity |
+| DELETE | [`/umbraco/ai/management/api/v1/audit-logs/{id}`](delete.md)                        | Delete a specific audit log     |
+| POST   | [`/umbraco/ai/management/api/v1/audit-logs/cleanup`](cleanup.md)                    | Clean up old audit logs         |
 
 ## Base URL
 

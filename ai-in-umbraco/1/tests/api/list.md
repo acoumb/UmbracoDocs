@@ -43,12 +43,12 @@ GET /umbraco/ai/management/api/v1/tests
             "version": 1
         },
         {
-            "id": "b4c96a75-6828-5673-c4gd-3d074g77bfb7",
+            "id": "b4c96a75-6828-5673-c4ad-3d074a77bfb7",
             "alias": "test-seo-length",
             "name": "SEO Description Length",
             "description": "Validates meta descriptions are 50-160 characters",
             "testFeatureId": "prompt",
-            "testTargetId": "e512h3ii-7e65-6d12-d2h8-g923960i2073",
+            "testTargetId": "e512a3aa-7e65-6d12-d2a8-a923960a2073",
             "tags": ["seo", "format"],
             "isActive": true,
             "runCount": 1,

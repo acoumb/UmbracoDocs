@@ -122,7 +122,7 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/tests/run-by-ta
   -H "Content-Type: application/json" \
   -d '{
     "tags": ["seo"],
-    "profileIdOverride": "e401f2ff-7d65-5c12-a1f7-e812859g1962"
+    "profileIdOverride": "e401f2ff-7d65-5c12-a1f7-e812859a1962"
   }'
 ```
 

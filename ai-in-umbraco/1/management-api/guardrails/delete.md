@@ -10,14 +10,14 @@ Permanently deletes a guardrail and all its rules.
 ## Request
 
 ```http
-DELETE /umbraco/ai/management/api/v1/guardrails/{id}
+DELETE /umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description                 |
-| --------- | ---- | --------------------------- |
-| `id`      | guid | Guardrail unique identifier |
+| Parameter             | Type   | Description             |
+| --------------------- | ------ | ----------------------- |
+| `guardrailIdOrAlias`  | string | Guardrail GUID or alias |
 
 ## Response
 

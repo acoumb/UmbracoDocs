@@ -46,7 +46,7 @@ The Test API provides endpoints for creating, managing, and executing AI tests, 
     "description": "Validates summarization output quality and format",
     "testFeatureId": "prompt",
     "testTargetId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
     "contextIds": [],
     "testFeatureConfig": {
         "variables": {

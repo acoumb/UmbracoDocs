@@ -12,7 +12,7 @@ Creates a new profile with the specified settings.
 {% code title="Endpoint" %}
 
 ```http
-POST /umbraco/ai/management/api/v1/profile
+POST /umbraco/ai/management/api/v1/profiles
 ```
 
 {% endcode %}
@@ -71,7 +71,7 @@ POST /umbraco/ai/management/api/v1/profile
 {% code title="201 Created" %}
 
 ```
-Location: /umbraco/ai/management/api/v1/profile/3fa85f64-5717-4562-b3fc-2c963f66afa6
+Location: /umbraco/ai/management/api/v1/profiles/3fa85f64-5717-4562-b3fc-2c963f66afa6
 
 "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 ```
@@ -115,7 +115,7 @@ Location: /umbraco/ai/management/api/v1/profile/3fa85f64-5717-4562-b3fc-2c963f66
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profiles" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -146,7 +146,7 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profiles" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -171,7 +171,7 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profiles" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{

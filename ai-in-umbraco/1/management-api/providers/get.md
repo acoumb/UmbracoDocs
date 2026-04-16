@@ -10,7 +10,7 @@ Returns detailed information about a specific provider, including its settings s
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/provider/{id}
+GET /umbraco/ai/management/api/v1/providers/{id}
 ```
 
 ### Headers
@@ -118,7 +118,7 @@ Returned when the provider ID doesn't exist.
 ### cURL
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/provider/openai" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/providers/openai" \
   -H "Authorization: Bearer {token}"
 ```
 
@@ -132,7 +132,7 @@ client.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", token);
 
 var response = await client.GetAsync(
-    "https://localhost:44331/umbraco/ai/management/api/v1/provider/openai");
+    "https://your-site.com/umbraco/ai/management/api/v1/providers/openai");
 
 if (response.IsSuccessStatusCode)
 {
@@ -156,7 +156,7 @@ if (response.IsSuccessStatusCode)
 {% code title="Example" %}
 
 ```javascript
-const response = await fetch("/umbraco/ai/management/api/v1/provider/openai", {
+const response = await fetch("/umbraco/ai/management/api/v1/providers/openai", {
     headers: {
         Authorization: `Bearer ${token}`,
     },

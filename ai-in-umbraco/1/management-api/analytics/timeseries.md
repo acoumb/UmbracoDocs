@@ -10,7 +10,7 @@ Returns usage metrics grouped by time intervals for trend analysis.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/analytics/timeseries
+GET /umbraco/ai/management/api/v1/analytics/usage-time-series
 ```
 
 ### Query Parameters
@@ -64,7 +64,7 @@ GET /umbraco/ai/management/api/v1/analytics/timeseries
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/timeseries?from=2024-01-18T00:00:00Z&to=2024-01-25T23:59:59Z&granularity=day" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-time-series?from=2024-01-18T00:00:00Z&to=2024-01-25T23:59:59Z&granularity=day" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -75,7 +75,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/timese
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/timeseries?from=2024-01-25T00:00:00Z&to=2024-01-25T23:59:59Z&granularity=hour" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-time-series?from=2024-01-25T00:00:00Z&to=2024-01-25T23:59:59Z&granularity=hour" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -88,7 +88,7 @@ var from = DateTime.UtcNow.Date.AddDays(-7);
 var to = DateTime.UtcNow;
 
 var response = await httpClient.GetAsync(
-    $"/umbraco/ai/management/api/v1/analytics/timeseries?from={from:O}&to={to:O}&granularity=day");
+    $"/umbraco/ai/management/api/v1/analytics/usage-time-series?from={from:O}&to={to:O}&granularity=day");
 
 var timeSeries = await response.Content.ReadFromJsonAsync<AIUsageTimeSeriesResult>();
 

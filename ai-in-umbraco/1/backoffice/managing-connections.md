@@ -37,10 +37,11 @@ Connections store the credentials needed to communicate with AI providers. Manag
 
 When using the OpenAI provider:
 
-| Setting          | Description                     | Required |
-| ---------------- | ------------------------------- | -------- |
-| **API Key**      | Your OpenAI API key             | Yes      |
-| **Organization** | Organization ID (if applicable) | No       |
+| Setting             | Description                                               | Required |
+| ------------------- | --------------------------------------------------------- | -------- |
+| **API Key**         | Your OpenAI API key                                       | Yes      |
+| **Organization ID** | Organization ID (if applicable)                           | No       |
+| **Base URL**        | Override the default OpenAI endpoint (for proxies or compatible providers) | No       |
 
 ## Using Configuration References
 

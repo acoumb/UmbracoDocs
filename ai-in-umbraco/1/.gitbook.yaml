@@ -6,3 +6,4 @@ structure:
 
 redirects:
     getting-started/configuration: getting-started/first-profile.md
+    management-api/chat/stream: management-api/chat/complete.md

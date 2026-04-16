@@ -10,7 +10,7 @@ Returns usage distribution across AI profiles.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/analytics/breakdown/profile
+GET /umbraco/ai/management/api/v1/analytics/usage-by-profile
 ```
 
 ### Query Parameters
@@ -61,7 +61,7 @@ GET /umbraco/ai/management/api/v1/analytics/breakdown/profile
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/breakdown/profile?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-by-profile?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -74,7 +74,7 @@ var from = DateTime.UtcNow.AddDays(-30);
 var to = DateTime.UtcNow;
 
 var response = await httpClient.GetAsync(
-    $"/umbraco/ai/management/api/v1/analytics/breakdown/profile?from={from:O}&to={to:O}");
+    $"/umbraco/ai/management/api/v1/analytics/usage-by-profile?from={from:O}&to={to:O}");
 
 var breakdown = await response.Content.ReadFromJsonAsync<AIUsageBreakdownResult>();
 

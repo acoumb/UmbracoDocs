@@ -12,7 +12,7 @@ Retrieve a specific context resource type by its ID, including the full settings
 {% code title="Endpoint" %}
 
 ```
-GET /context-resource-types/{id}
+GET /umbraco/ai/management/api/v1/context-resource-types/{id}
 ```
 
 {% endcode %}
@@ -95,7 +95,8 @@ Returned when the specified resource type ID does not exist.
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/context-resource-types/content"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context-resource-types/content" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}

@@ -27,7 +27,7 @@ POST /umbraco/ai/management/api/v1/agent
     "surfaceIds": ["copilot"],
     "config": {
         "$type": "standard",
-        "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859g1962"],
+        "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859a1962"],
         "instructions": "You are a helpful content assistant.\n\nYour role is to help users write and improve content.",
         "allowedToolScopeIds": ["content-read", "search"],
         "allowedToolIds": [],

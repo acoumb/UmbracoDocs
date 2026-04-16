@@ -66,7 +66,7 @@ POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
         "outputTokens": 42,
         "totalTokens": 127
     },
-    "auditLogId": "f512g3hh-8e76-6d23-b2g8-f923960h2073"
+    "auditLogId": "f512a3aa-8e76-6d23-b2a8-f923960a2073"
 }
 ```
 

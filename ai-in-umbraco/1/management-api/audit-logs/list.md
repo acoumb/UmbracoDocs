@@ -10,7 +10,7 @@ Returns a paginated list of audit logs with optional filtering.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/audit-log
+GET /umbraco/ai/management/api/v1/audit-logs
 ```
 
 ### Query Parameters
@@ -68,7 +68,7 @@ GET /umbraco/ai/management/api/v1/audit-log
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?skip=0&take=20" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-logs?skip=0&take=20" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -79,7 +79,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?skip=0
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-logs?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -90,7 +90,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?from=2
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?status=Failed" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-logs?status=Failed" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -101,7 +101,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?status
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log?capability=Chat&providerId=openai&status=Succeeded" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-logs?capability=Chat&providerId=openai&status=Succeeded" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -119,7 +119,7 @@ var queryParams = new Dictionary<string, string>
 };
 
 var query = string.Join("&", queryParams.Select(kv => $"{kv.Key}={kv.Value}"));
-var response = await httpClient.GetAsync($"/umbraco/ai/management/api/v1/audit-log?{query}");
+var response = await httpClient.GetAsync($"/umbraco/ai/management/api/v1/audit-logs?{query}");
 var result = await response.Content.ReadFromJsonAsync<PagedResult<AIAuditLogModel>>();
 ```
 

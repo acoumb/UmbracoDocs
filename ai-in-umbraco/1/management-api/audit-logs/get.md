@@ -10,7 +10,7 @@ Returns the full details of a specific audit log entry.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/audit-log/{id}
+GET /umbraco/ai/management/api/v1/audit-logs/{id}
 ```
 
 ### Path Parameters
@@ -83,7 +83,7 @@ GET /umbraco/ai/management/api/v1/audit-log/{id}
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-log/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/audit-logs/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

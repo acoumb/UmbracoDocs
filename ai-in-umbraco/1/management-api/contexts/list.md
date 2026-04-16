@@ -10,7 +10,7 @@ Returns a paginated list of all contexts.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/context
+GET /umbraco/ai/management/api/v1/contexts
 ```
 
 ### Query Parameters
@@ -60,7 +60,7 @@ GET /umbraco/ai/management/api/v1/context
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context?skip=0&take=10" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/contexts?skip=0&take=10" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -69,7 +69,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context?skip=0&t
 {% code title="C#" %}
 
 ```csharp
-var response = await httpClient.GetAsync("/umbraco/ai/management/api/v1/context?skip=0&take=10");
+var response = await httpClient.GetAsync("/umbraco/ai/management/api/v1/contexts?skip=0&take=10");
 var result = await response.Content.ReadFromJsonAsync<PagedResult<AIContextModel>>();
 ```
 

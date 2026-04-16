@@ -10,7 +10,7 @@ Update an existing connection's settings.
 ## Endpoint
 
 ```
-PUT /connections/{id}
+PUT /umbraco/ai/management/api/v1/connections/{id}
 ```
 
 ## Path Parameters
@@ -113,7 +113,8 @@ The `providerId` cannot be changed after creation.
 {% code title="cURL" %}
 
 ```bash
-curl -X PUT "https://localhost:44331/umbraco/ai/management/api/v1/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "OpenAI Production (Updated)",

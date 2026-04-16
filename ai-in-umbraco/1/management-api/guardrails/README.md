@@ -9,14 +9,14 @@ Guardrails define rules that evaluate AI inputs and responses for safety, compli
 
 ## Endpoints
 
-| Method | Endpoint                                 | Description                       |
-| ------ | ---------------------------------------- | --------------------------------- |
-| GET    | [`/guardrails`](list.md)                 | List all guardrails               |
-| GET    | [`/guardrails/{id}`](get.md)             | Get a guardrail by ID             |
-| POST   | [`/guardrails`](create.md)               | Create a new guardrail            |
-| PUT    | [`/guardrails/{id}`](update.md)          | Update an existing guardrail      |
-| DELETE | [`/guardrails/{id}`](delete.md)          | Delete a guardrail                |
-| GET    | [`/guardrails/evaluators`](evaluators.md)| List available evaluators         |
+| Method | Endpoint                                                                              | Description                       |
+| ------ | ------------------------------------------------------------------------------------- | --------------------------------- |
+| GET    | [`/umbraco/ai/management/api/v1/guardrails`](list.md)                                 | List all guardrails               |
+| GET    | [`/umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}`](get.md)             | Get a guardrail by ID or alias    |
+| POST   | [`/umbraco/ai/management/api/v1/guardrails`](create.md)                               | Create a new guardrail            |
+| PUT    | [`/umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}`](update.md)          | Update an existing guardrail      |
+| DELETE | [`/umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}`](delete.md)          | Delete a guardrail                |
+| GET    | [`/umbraco/ai/management/api/v1/guardrail-evaluators`](evaluators.md)                 | List available evaluators         |
 
 ## Base URL
 

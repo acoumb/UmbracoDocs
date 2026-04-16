@@ -10,7 +10,7 @@ Retrieve a single connection by its ID or alias.
 ## Endpoint
 
 ```
-GET /connections/{idOrAlias}
+GET /umbraco/ai/management/api/v1/connections/{idOrAlias}
 ```
 
 ## Path Parameters
@@ -68,7 +68,8 @@ GET /connections/{idOrAlias}
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}
@@ -78,7 +79,8 @@ curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections/3f
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections/openai-prod"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections/openai-prod" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}

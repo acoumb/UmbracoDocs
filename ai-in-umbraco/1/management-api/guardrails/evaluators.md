@@ -12,7 +12,7 @@ Returns all registered guardrail evaluators with their configuration schemas. Us
 {% code title="Endpoint" %}
 
 ```http
-GET /umbraco/ai/management/api/v1/guardrails/evaluators
+GET /umbraco/ai/management/api/v1/guardrail-evaluators
 ```
 
 {% endcode %}
@@ -125,7 +125,7 @@ GET /umbraco/ai/management/api/v1/guardrails/evaluators
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/guardrails/evaluators" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/guardrail-evaluators" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -134,7 +134,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/guardrails/evalu
 {% code title="C#" %}
 
 ```csharp
-var response = await httpClient.GetAsync("/umbraco/ai/management/api/v1/guardrails/evaluators");
+var response = await httpClient.GetAsync("/umbraco/ai/management/api/v1/guardrail-evaluators");
 var evaluators = await response.Content.ReadFromJsonAsync<ItemsResult<GuardrailEvaluatorInfoModel>>();
 ```
 
