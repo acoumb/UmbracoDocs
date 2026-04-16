@@ -56,6 +56,19 @@ When set, this profile is used by:
 
 - `IAIEmbeddingService.GenerateEmbeddingsAsync()` without a profile ID
 
+### Default Speech-to-Text Profile
+
+The profile used for speech-to-text operations when no profile is explicitly specified.
+
+| Field                          | Description                                   |
+| ------------------------------ | --------------------------------------------- |
+| Default Speech-to-Text Profile | Select from available speech-to-text profiles |
+
+When set, this profile is used by:
+
+- `IAISpeechToTextService.TranscribeAsync()` without a profile ID
+- The Copilot voice input button
+
 ## Configuring Settings
 
 1. Navigate to the **AI** section > **Settings**.

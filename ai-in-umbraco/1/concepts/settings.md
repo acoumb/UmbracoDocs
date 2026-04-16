@@ -12,9 +12,10 @@ AI Settings provide a central place to configure system-wide defaults for Umbrac
 | Property                    | Description                                                            |
 | --------------------------- | ---------------------------------------------------------------------- |
 | `Id`                        | Fixed identifier (always the same GUID)                                |
-| `DefaultChatProfileId`      | The profile used when no profile is specified for chat operations      |
-| `DefaultEmbeddingProfileId` | The profile used when no profile is specified for embedding operations |
-| `ClassifierChatProfileId`   | Optional profile for internal classification tasks (e.g., agent routing). Falls back to default chat profile |
+| `DefaultChatProfileId`           | The profile used when no profile is specified for chat operations           |
+| `DefaultEmbeddingProfileId`      | The profile used when no profile is specified for embedding operations      |
+| `DefaultSpeechToTextProfileId`   | The profile used when no profile is specified for speech-to-text operations |
+| `ClassifierChatProfileId`        | Optional profile for internal classification tasks (e.g., agent routing). Falls back to default chat profile |
 
 {% hint style="info" %}
 Settings are a singleton entity - there is only one settings record for the entire application.
@@ -113,6 +114,7 @@ For advanced scenarios like Continuous Integration/Continuous Deployment (CI/CD)
         "AI": {
             "DefaultChatProfileAlias": "content-writer",
             "DefaultEmbeddingProfileAlias": "embeddings",
+            "DefaultSpeechToTextProfileAlias": "transcription",
             "ClassifierChatProfileAlias": "fast-classifier"
         }
     }
