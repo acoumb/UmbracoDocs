@@ -30,12 +30,12 @@ MyProvider/
 {% code title="MyProviderSettings.cs" %}
 
 ```csharp
-using Umbraco.AI.Core.Settings;
+using Umbraco.AI.Core.EditableModels;
 
 public class MyProviderSettings
 {
-    [AIField(Label = "API Key", Description = "Your API key")]
-    public required string ApiKey { get; set; }
+    [AIField(Label = "API Key", Description = "Your API key", IsSensitive = true)]
+    public string? ApiKey { get; set; }
 
     [AIField(Label = "Endpoint", Description = "API endpoint URL")]
     public string? Endpoint { get; set; }

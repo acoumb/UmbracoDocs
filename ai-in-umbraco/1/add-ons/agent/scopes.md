@@ -38,7 +38,7 @@ When creating or editing an agent in the backoffice, you can assign scopes in th
 
 ### Via API
 
-Include `scopeIds` when creating or updating an agent:
+Include `surfaceIds` when creating or updating an agent:
 
 {% code title="Request" %}
 
@@ -46,7 +46,7 @@ Include `scopeIds` when creating or updating an agent:
 {
     "alias": "content-assistant",
     "name": "Content Assistant",
-    "scopeIds": ["copilot"],
+    "surfaceIds": ["copilot"],
     "instructions": "You are a helpful content assistant."
 }
 ```
@@ -62,7 +62,7 @@ var agent = new AIAgent
 {
     Alias = "content-assistant",
     Name = "Content Assistant",
-    ScopeIds = ["copilot", "content-editing"],
+    SurfaceIds = ["copilot", "content-editing"],
     Instructions = "You are a helpful content assistant."
 };
 

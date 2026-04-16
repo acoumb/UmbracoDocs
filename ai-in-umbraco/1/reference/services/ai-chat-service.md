@@ -56,6 +56,7 @@ All methods accept an `Action<AIChatBuilder>` to configure the request. The buil
 | `.WithGuardrails(params Guid[] guardrailIds)` | Applies guardrails by ID. |
 | `.WithGuardrails(params string[] guardrailAliases)` | Applies guardrails by alias. |
 | `.WithContextItems(IEnumerable<AIRequestContextItem> contextItems)` | Attaches context items to the request. |
+| `.WithOutputSchema(AIOutputSchema schema)` | Sets a structured output schema for the response. |
 
 {% code title="Builder example" %}
 
@@ -185,7 +186,7 @@ var client = await _chatService.CreateChatClientAsync(
     chat => chat.WithAlias("advanced-client").WithProfile("default-chat"));
 
 // Use M.E.AI methods directly
-var response = await client.GetChatResponseAsync(
+var response = await client.GetResponseAsync(
     messages,
     new ChatOptions { Temperature = 0.5f });
 ```

@@ -1,11 +1,11 @@
 ---
 description: >-
-    TypeScript type definitions for chat operations.
+    TypeScript type definitions for all frontend AI operations.
 ---
 
 # Types
 
-The Umbraco.AI frontend exports TypeScript types for type-safe chat integration.
+The Umbraco.AI frontend exports TypeScript types for type-safe AI integration across chat, embeddings, speech-to-text, and tools.
 
 ## Import
 
@@ -20,6 +20,13 @@ import type {
     UaiChatStreamChunk,
     UaiChatOptions,
     UaiChatRequest,
+    UaiEmbeddingOptions,
+    UaiEmbeddingResult,
+    UaiEmbeddingItem,
+    UaiTranscriptionOptions,
+    UaiTranscriptionResult,
+    UaiToolScope,
+    UaiToolItem,
 } from "@umbraco-ai/backoffice";
 ```
 
@@ -287,6 +294,127 @@ if (data) {
     convo.addAssistant(data.message.content);
     // Continue conversation...
     convo.addUser("Tell me more");
+}
+```
+
+{% endcode %}
+
+## Embedding Types
+
+### UaiEmbeddingOptions
+
+Options for the `UaiEmbeddingsController` methods.
+
+{% code title="UaiEmbeddingOptions" %}
+
+```typescript
+interface UaiEmbeddingOptions {
+    /** Profile ID (GUID) or alias. If omitted, uses the default embedding profile. */
+    profileIdOrAlias?: string;
+    /** AbortSignal for cancellation. */
+    signal?: AbortSignal;
+}
+```
+
+{% endcode %}
+
+### UaiEmbeddingResult
+
+The result of a batch embedding generation.
+
+{% code title="UaiEmbeddingResult" %}
+
+```typescript
+interface UaiEmbeddingResult {
+    embeddings: UaiEmbeddingItem[];
+}
+```
+
+{% endcode %}
+
+### UaiEmbeddingItem
+
+A single embedding vector with its index in the batch.
+
+{% code title="UaiEmbeddingItem" %}
+
+```typescript
+interface UaiEmbeddingItem {
+    index: number;
+    vector: number[];
+}
+```
+
+{% endcode %}
+
+## Speech-to-Text Types
+
+### UaiTranscriptionOptions
+
+Options for the `UaiSpeechToTextController.transcribe` method.
+
+{% code title="UaiTranscriptionOptions" %}
+
+```typescript
+interface UaiTranscriptionOptions {
+    /** Profile ID (GUID) or alias. If omitted, uses the default speech-to-text profile. */
+    profileIdOrAlias?: string;
+    /** BCP-47 language hint (e.g., "en", "de"). */
+    language?: string;
+    /** AbortSignal for cancellation. */
+    signal?: AbortSignal;
+}
+```
+
+{% endcode %}
+
+### UaiTranscriptionResult
+
+The result of a speech-to-text transcription.
+
+{% code title="UaiTranscriptionResult" %}
+
+```typescript
+interface UaiTranscriptionResult {
+    text: string;
+}
+```
+
+{% endcode %}
+
+## Tool Types
+
+### UaiToolScope
+
+Represents a tool scope that groups related tools.
+
+{% code title="UaiToolScope" %}
+
+```typescript
+interface UaiToolScope {
+    id: string;
+    icon: string;
+    isDestructive: boolean;
+    domain: string;
+}
+```
+
+{% endcode %}
+
+### UaiToolItem
+
+Represents a single AI tool.
+
+{% code title="UaiToolItem" %}
+
+```typescript
+interface UaiToolItem {
+    id: string;
+    name: string;
+    description: string;
+    scopeId: string;
+    isDestructive: boolean;
+    tags: string[];
 }
 ```
 

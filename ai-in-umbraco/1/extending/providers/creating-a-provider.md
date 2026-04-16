@@ -44,9 +44,10 @@ public class MyProviderSettings
     [AIField(
         Label = "API Key",
         Description = "Your MyProvider API key. Use $Config:Key for config reference.",
+        IsSensitive = true,
         SortOrder = 1)]
     [Required]
-    public required string ApiKey { get; set; }
+    public string? ApiKey { get; set; }
 
     [AIField(
         Label = "Base URL",
@@ -101,9 +102,9 @@ public class MyProviderChatCapability : AIChatCapabilityBase<MyProviderSettings>
         // Fetch models from your API, or return a static list
         var models = new List<AIModelDescriptor>
         {
-            new(new AIModelRef(Provider.Id, "model-standard"), "Standard Model"),
-            new(new AIModelRef(Provider.Id, "model-advanced"), "Advanced Model"),
-            new(new AIModelRef(Provider.Id, "model-fast"), "Fast Model")
+            new("model-standard", "Standard Model"),
+            new("model-advanced", "Advanced Model"),
+            new("model-fast", "Fast Model")
         };
 
         return models;

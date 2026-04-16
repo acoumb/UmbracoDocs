@@ -35,7 +35,9 @@ POST /umbraco/ai/management/api/v1/profile
         "$type": "chat",
         "temperature": 0.7,
         "maxTokens": 4096,
-        "systemPromptTemplate": "You are a helpful content assistant."
+        "systemPromptTemplate": "You are a helpful content assistant.",
+        "contextIds": [],
+        "guardrailIds": []
     },
     "tags": ["content", "assistant"]
 }
@@ -129,7 +131,9 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
       "$type": "chat",
       "temperature": 0.7,
       "maxTokens": 4096,
-      "systemPromptTemplate": "You are a helpful content assistant for an Umbraco website."
+      "systemPromptTemplate": "You are a helpful content assistant for an Umbraco website.",
+      "contextIds": [],
+      "guardrailIds": []
     },
     "tags": ["content", "assistant"]
   }'
@@ -194,6 +198,8 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/profile" \
 | `temperature`          | float  | Response randomness (0.0-1.0) |
 | `maxTokens`            | int    | Maximum output tokens         |
 | `systemPromptTemplate` | string | Default system prompt         |
+| `contextIds`           | array  | Context IDs to include        |
+| `guardrailIds`         | array  | Guardrail IDs to apply        |
 
 ### Embedding Settings
 

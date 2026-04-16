@@ -94,6 +94,8 @@ Use `$` prefix to reference values from `appsettings.json`:
     "version": 1,
     "dateCreated": "2024-01-15T10:30:00Z",
     "dateModified": "2024-01-15T10:30:00Z",
+    "createdByUserId": null,
+    "modifiedByUserId": null,
     "settings": {
         "apiKey": "sk-***",
         "organization": null

@@ -48,12 +48,13 @@ PUT /connections/{id}
 
 | Field      | Type    | Description                   |
 | ---------- | ------- | ----------------------------- |
+| `alias`    | string  | Unique alias (URL-safe)       |
 | `name`     | string  | Display name                  |
 | `isActive` | boolean | Whether connection is enabled |
 | `settings` | object  | Provider-specific settings    |
 
 {% hint style="warning" %}
-The `alias` and `providerId` cannot be changed after creation.
+The `providerId` cannot be changed after creation.
 {% endhint %}
 
 ## Response
@@ -69,8 +70,11 @@ The `alias` and `providerId` cannot be changed after creation.
     "name": "OpenAI Production (Updated)",
     "providerId": "openai",
     "isActive": true,
+    "version": 1,
     "dateCreated": "2024-01-15T10:30:00Z",
     "dateModified": "2024-01-16T14:00:00Z",
+    "createdByUserId": null,
+    "modifiedByUserId": "user-guid",
     "settings": {
         "apiKey": "sk-***",
         "organization": "org-123"

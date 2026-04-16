@@ -44,7 +44,7 @@ GET /umbraco/ai/management/api/v1/analytics/breakdown/profile
             "percentage": 0.29
         },
         {
-            "dimension": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+            "dimension": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
             "dimensionName": "search-embeddings",
             "requestCount": 2680,
             "totalTokens": 345000,

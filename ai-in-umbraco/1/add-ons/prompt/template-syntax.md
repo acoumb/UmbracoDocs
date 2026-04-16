@@ -111,53 +111,50 @@ var result = await _promptService.ExecutePromptAsync(
     promptId,
     new AIPromptExecutionRequest
     {
-        EntityId = contentId,
+        EntityId = contentId.ToString(),
         EntityType = "document",
-        PropertyAlias = "bodyText",
-        Culture = "en-US",
-        Context = new List<AIRequestContextItem>
+        EntityContext = content.GetValue<string>("bodyText"),
+        Variables = new Dictionary<string, string>
         {
-            new() { Description = "Target language", Value = "French" },
-            new() { Description = "Current content", Value = content.GetValue<string>("bodyText") }
+            ["language"] = "French",
+            ["culture"] = "en-US"
         }
     });
 ```
 
 {% endcode %}
 
-The `AIPromptExecutionRequest` requires:
+The `AIPromptExecutionRequest` properties:
 
-| Property        | Type     | Description                  |
-| --------------- | -------- | ---------------------------- |
-| `EntityId`      | `Guid`   | The content or media item ID |
-| `EntityType`    | `string` | "document" or "media"        |
-| `PropertyAlias` | `string` | The property being edited    |
+| Property        | Type                          | Description                           |
+| --------------- | ----------------------------- | ------------------------------------- |
+| `EntityId`      | `string?`                     | The content or media item ID          |
+| `EntityType`    | `string?`                     | "document" or "media"                 |
+| `EntityContext`  | `string?`                     | Contextual data about the entity      |
+| `Variables`     | `IDictionary<string, string>` | Variables to resolve in the template  |
 
-Optional properties:
+## Variables
 
-| Property  | Type                                   | Description              |
-| --------- | -------------------------------------- | ------------------------ |
-| `Culture` | `string?`                              | Culture variant code     |
-| `Segment` | `string?`                              | Segment variant          |
-| `Context` | `IReadOnlyList<AIRequestContextItem>?` | Additional context items |
+Variables provide additional information to the prompt template. Pass a dictionary of key-value pairs that map to `{{variable}}` placeholders:
 
-## Context Items
-
-Context items provide additional information to the prompt:
-
-{% code title="AIRequestContextItem.cs" %}
+{% code title="Variables Example" %}
 
 ```csharp
-public class AIRequestContextItem
-{
-    public required string Description { get; init; }
-    public string? Value { get; init; }
-}
+var result = await _promptService.ExecutePromptAsync(
+    promptId,
+    new AIPromptExecutionRequest
+    {
+        Variables = new Dictionary<string, string>
+        {
+            ["language"] = "French",
+            ["tone"] = "professional"
+        }
+    });
 ```
 
 {% endcode %}
 
-The `Description` provides a human-readable label, while `Value` contains the actual data that can be referenced in templates.
+Each key in the `Variables` dictionary can be referenced in the template using the `{{key}}` syntax.
 
 ## Combining Variables
 

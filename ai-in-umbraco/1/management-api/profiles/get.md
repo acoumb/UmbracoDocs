@@ -40,7 +40,9 @@ GET /umbraco/ai/management/api/v1/profile/{idOrAlias}
         "$type": "chat",
         "temperature": 0.7,
         "maxTokens": 4096,
-        "systemPromptTemplate": "You are a helpful content assistant for a website."
+        "systemPromptTemplate": "You are a helpful content assistant for a website.",
+        "contextIds": [],
+        "guardrailIds": []
     },
     "tags": ["content", "assistant"],
     "version": 1,
@@ -118,7 +120,9 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile/content-
         "$type": "chat",
         "temperature": 0.7,
         "maxTokens": 4096,
-        "systemPromptTemplate": "You are a helpful assistant."
+        "systemPromptTemplate": "You are a helpful assistant.",
+        "contextIds": [],
+        "guardrailIds": []
     }
 }
 ```

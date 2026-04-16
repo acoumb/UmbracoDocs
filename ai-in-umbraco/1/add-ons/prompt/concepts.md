@@ -25,7 +25,6 @@ A prompt is a reusable template that defines instructions for an AI operation. P
 | `ProfileId`            | Associated AI profile (optional)      |
 | `ContextIds`           | AI Contexts to inject                 |
 | `Tags`                 | Organization tags                     |
-| `GuardrailIds`         | Guardrails applied during execution   |
 | `IsActive`             | Whether the prompt is available       |
 | `IncludeEntityContext` | Include entity info in system message |
 | `Scope`                | Content type rules                    |

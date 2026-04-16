@@ -46,7 +46,7 @@ Property actions appear on text-based editors:
 
 ## Scoping Property Actions
 
-Control where a prompt appears using allow and deny rules. Each rule can match on content type aliases, property aliases, and property editor UI aliases. Rules use AND logic between properties and OR logic within each property array.
+Control where a prompt appears using its scope mode. The scope's `Mode` determines whether specified content types are allowed or denied, and `ContentTypeAliases` lists the content types.
 
 ### Allow on Specific Content Types
 
@@ -60,13 +60,8 @@ var prompt = new AIPrompt
     Instructions = "...",
     Scope = new AIPromptScope
     {
-        AllowRules =
-        [
-            new AIPromptScopeRule
-            {
-                ContentTypeAliases = ["blogPost", "article"]
-            }
-        ]
+        Mode = AIPromptScopeMode.Allow,
+        ContentTypeAliases = new[] { "blogPost", "article" }
     }
 };
 ```
@@ -85,13 +80,8 @@ var prompt = new AIPrompt
     Instructions = "...",
     Scope = new AIPromptScope
     {
-        AllowRules =
-        [
-            new AIPromptScopeRule
-            {
-                PropertyEditorUiAliases = ["Umb.PropertyEditorUi.TextArea", "Umb.PropertyEditorUi.TextBox"]
-            }
-        ]
+        Mode = AIPromptScopeMode.Allow,
+        ContentTypeAliases = new[] { "textPage", "article" }
     }
 };
 ```
@@ -100,7 +90,7 @@ var prompt = new AIPrompt
 
 ### Deny Specific Content Types
 
-Deny rules take precedence over allow rules:
+Use the `Deny` mode to exclude specific content types:
 
 {% code title="DenyScope.cs" %}
 
@@ -112,17 +102,8 @@ var prompt = new AIPrompt
     Instructions = "...",
     Scope = new AIPromptScope
     {
-        AllowRules =
-        [
-            new AIPromptScopeRule() // Empty rule matches everything
-        ],
-        DenyRules =
-        [
-            new AIPromptScopeRule
-            {
-                ContentTypeAliases = ["settings", "folder"]
-            }
-        ]
+        Mode = AIPromptScopeMode.Deny,
+        ContentTypeAliases = new[] { "settings", "folder" }
     }
 };
 ```
@@ -130,7 +111,7 @@ var prompt = new AIPrompt
 {% endcode %}
 
 {% hint style="info" %}
-A prompt with no scope or empty allow rules is not displayed anywhere. Add at least one allow rule for the prompt to appear.
+A prompt with no scope defaults to `AIPromptScopeMode.None`, which means it is available for all content types.
 {% endhint %}
 
 ## Rich Text Editor Integration
@@ -204,7 +185,8 @@ Property actions can apply results in multiple ways:
 Replace or append to the current property:
 
 ```csharp
-// Result replaces the property value
+// Apply result to property (implementation depends on your backoffice integration)
+// e.g. update the property value via the content service or frontend event
 await ApplyToPropertyAsync(propertyAlias, result);
 ```
 
@@ -220,6 +202,7 @@ var changes = new Dictionary<string, object>
     ["summary"] = generatedSummary
 };
 
+// Apply changes to properties (implementation depends on your backoffice integration)
 await ApplyChangesAsync(changes);
 ```
 

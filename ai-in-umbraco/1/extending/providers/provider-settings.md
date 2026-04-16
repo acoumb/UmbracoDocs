@@ -28,14 +28,16 @@ public string? MyProperty { get; set; }
 
 ## Properties
 
-| Property        | Type   | Description                                     |
-| --------------- | ------ | ----------------------------------------------- |
-| `Label`         | string | Display label in the UI                         |
-| `Description`   | string | Help text shown below the field                 |
-| `EditorUiAlias` | string | Umbraco property editor UI alias                |
-| `SortOrder`     | int    | Order in which settings are displayed            |
-| `IsSensitive`   | bool   | Marks the field as sensitive (value masked in UI) |
-| `Group`         | string | Groups settings under a collapsible heading      |
+| Property        | Type      | Description                                      |
+| --------------- | --------- | ------------------------------------------------ |
+| `Label`         | `string`  | Display label in the UI                          |
+| `Description`   | `string`  | Help text shown below the field                  |
+| `EditorUiAlias` | `string`  | Umbraco property editor UI alias                 |
+| `SortOrder`     | `int`     | Order in which settings are displayed            |
+| `IsSensitive`   | `bool`    | Marks the field as sensitive (value masked in UI) |
+| `Group`         | `string`  | Groups settings under a collapsible heading      |
+| `DefaultValue`  | `object?` | Default value for the field                      |
+| `EditorConfig`  | `string?` | JSON configuration for the editor UI             |
 
 ## Automatic Type Inference
 

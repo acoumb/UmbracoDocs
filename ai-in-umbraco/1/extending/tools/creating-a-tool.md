@@ -167,7 +167,8 @@ public class ContentSearchToolTests
         var tool = new ContentSearchTool(contextFactory);
 
         // Act
-        var result = await tool.ExecuteAsync(
+        // ExecuteAsync is protected; invoke through the public InvokeAsync method
+        var result = await tool.InvokeAsync(
             new ContentSearchArgs("test"),
             CancellationToken.None);
 

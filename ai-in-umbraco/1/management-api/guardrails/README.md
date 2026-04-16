@@ -75,7 +75,7 @@ Guardrails define rules that evaluate AI inputs and responses for safety, compli
 | `evaluatorId` | string | Registered evaluator ID (e.g., "contains", "regex")  |
 | `name`        | string | Display name                                         |
 | `phase`       | string | `PreGenerate` or `PostGenerate`                      |
-| `action`      | string | `Block` or `Warn`                                    |
+| `action`      | string | `Block`, `Warn`, or `Redact`                         |
 | `config`      | object | Evaluator-specific configuration (nullable)          |
 | `sortOrder`   | int    | Controls evaluation order                            |
 

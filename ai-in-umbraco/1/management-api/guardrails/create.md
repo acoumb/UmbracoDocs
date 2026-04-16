@@ -65,7 +65,7 @@ POST /umbraco/ai/management/api/v1/guardrails
 | `evaluatorId` | string | Yes      | Registered evaluator ID (e.g., "contains")     |
 | `name`        | string | Yes      | Display name                                   |
 | `phase`       | string | Yes      | `PreGenerate` or `PostGenerate`                |
-| `action`      | string | Yes      | `Block` or `Warn`                              |
+| `action`      | string | Yes      | `Block`, `Warn`, or `Redact`                   |
 | `config`      | object | No       | Evaluator-specific configuration               |
 | `sortOrder`   | int    | No       | Evaluation order (default: 0)                  |
 

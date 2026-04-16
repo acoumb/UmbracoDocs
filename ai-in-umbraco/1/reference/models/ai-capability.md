@@ -21,7 +21,8 @@ using Umbraco.AI.Core.Models;
 public enum AICapability
 {
     Chat = 0,
-    Embedding = 1
+    Embedding = 1,
+    SpeechToText = 2
 }
 ```
 
@@ -29,10 +30,11 @@ public enum AICapability
 
 ## Values
 
-| Value        | Int | Description                          | Status    |
-| ------------ | --- | ------------------------------------ | --------- |
-| `Chat`       | 0   | Conversational AI / chat completions | Available |
-| `Embedding`  | 1   | Text to vector embeddings            | Available |
+| Value          | Int | Description                          | Status    |
+| -------------- | --- | ------------------------------------ | --------- |
+| `Chat`         | 0   | Conversational AI / chat completions | Available |
+| `Embedding`    | 1   | Text to vector embeddings            | Available |
+| `SpeechToText` | 2   | Audio transcription and voice input  | Available |
 
 ## Usage
 
@@ -110,5 +112,5 @@ var embeddingConnections = await connectionService.GetConnectionsByCapabilityAsy
 
 ## Notes
 
-- `Chat` and `Embedding` are currently implemented
+- `Chat`, `Embedding`, and `SpeechToText` are currently implemented
 - Capability is set on profile creation and cannot be changed

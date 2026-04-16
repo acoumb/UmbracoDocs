@@ -139,7 +139,14 @@ public async Task<string?> ExecuteWithScopeCheckAsync(
     if (prompt == null) return null;
 
     // Check scope
-    if (!prompt.Scope.IsAllowed(contentTypeAlias))
+    var isAllowed = prompt.Scope.Mode switch
+    {
+        AIPromptScopeMode.Allow => prompt.Scope.ContentTypeAliases.Contains(contentTypeAlias),
+        AIPromptScopeMode.Deny => !prompt.Scope.ContentTypeAliases.Contains(contentTypeAlias),
+        _ => true
+    };
+
+    if (!isAllowed)
     {
         throw new InvalidOperationException(
             $"Prompt '{prompt.Alias}' is not allowed for content type '{contentTypeAlias}'");

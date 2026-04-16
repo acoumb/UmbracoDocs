@@ -27,21 +27,21 @@ GET /context-resource-types
 {
     "items": [
         {
-            "id": "content",
-            "name": "Content",
-            "description": "Adds content items as context resources.",
+            "id": "text",
+            "name": "Text",
+            "description": "Plain text content.",
             "icon": "icon-document"
         },
         {
-            "id": "media",
-            "name": "Media",
-            "description": "Adds media items as context resources.",
+            "id": "document",
+            "name": "Document",
+            "description": "Document/content node reference.",
             "icon": "icon-picture"
         },
         {
             "id": "url",
             "name": "URL",
-            "description": "Adds web page content from a URL as a context resource.",
+            "description": "Web URL resource.",
             "icon": "icon-link"
         }
     ],

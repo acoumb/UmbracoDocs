@@ -58,7 +58,6 @@ These properties are shared by all agent types:
 | `ProfileId`   | Associated AI profile (or uses default)     |
 | `SurfaceIds`  | Surface IDs for categorization (e.g., "copilot") |
 | `Scope`       | Optional scoping rules (sections, entity types) |
-| `GuardrailIds`| Guardrails applied during agent execution   |
 | `IsActive`    | Whether the agent is available              |
 
 ### Standard Agent Configuration

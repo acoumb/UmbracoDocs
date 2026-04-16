@@ -281,6 +281,8 @@ public class MyService
         var agent = await _agentService.GetAgentAsync(agentId, cancellationToken);
         if (agent == null) return false;
 
+        // Check if tool ID is in the agent's allowed list or its scope is allowed
+        // Available via Umbraco.AI.Agent permission extensions
         return await _agentService.IsToolEnabledAsync(
             agent,
             toolId,
@@ -304,6 +306,7 @@ public async Task<IReadOnlyList<string>> GetAllowedToolsAsync(
     var agent = await _agentService.GetAgentAsync(agentId, cancellationToken);
     if (agent == null) return Array.Empty<string>();
 
+    // Available via Umbraco.AI.Agent permission extensions
     return await _agentService.GetAllowedToolIdsAsync(
         agent,
         userGroupIds: null, // Uses current user's groups

@@ -111,6 +111,9 @@ Register middleware in a Composer using the collection builder:
 {% code title="AIComposer.cs" %}
 
 ```csharp
+using Umbraco.AI.Extensions;
+using Umbraco.Cms.Core.Composing;
+
 public class AIComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
@@ -161,8 +164,8 @@ public class OpenTelemetryMiddleware : IAIChatMiddleware
 {
     public IChatClient Apply(IChatClient client)
     {
-        return new ChatClientBuilder(client)
-            .UseOpenTelemetry()
+        return client.AsBuilder()
+            .UseOpenTelemetry(_loggerFactory)
             .Build();
     }
 }

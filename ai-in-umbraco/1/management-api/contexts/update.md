@@ -77,7 +77,7 @@ Include existing resource IDs to update them. Resources without IDs are created 
             "injectionMode": "Always"
         },
         {
-            "id": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+            "id": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
             "resourceTypeId": "text",
             "name": "Key Messages",
             "sortOrder": 1,

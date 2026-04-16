@@ -34,9 +34,17 @@ The Agent Runtime API provides endpoints for creating, managing, and running AI 
     "alias": "content-assistant",
     "name": "Content Assistant",
     "description": "Helps users write and improve content",
+    "agentType": "standard",
     "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859g1962"],
-    "instructions": "You are a helpful content assistant...",
+    "surfaceIds": ["copilot"],
+    "config": {
+        "$type": "standard",
+        "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859g1962"],
+        "instructions": "You are a helpful content assistant...",
+        "allowedToolScopeIds": ["content-read", "search"],
+        "allowedToolIds": [],
+        "userGroupPermissions": {}
+    },
     "isActive": true,
     "version": 2,
     "dateCreated": "2024-01-15T10:30:00Z",
@@ -48,17 +56,37 @@ The Agent Runtime API provides endpoints for creating, managing, and running AI 
 
 ## Properties
 
-| Property       | Type   | Description                               |
-| -------------- | ------ | ----------------------------------------- |
-| `id`           | guid   | Unique identifier                         |
-| `alias`        | string | Unique alias for code references          |
-| `name`         | string | Display name                              |
-| `description`  | string | Optional description                      |
-| `profileId`    | guid   | Associated AI profile (null uses default) |
-| `contextIds`   | guid[] | AI Contexts to inject                     |
-| `instructions` | string | Agent system prompt                       |
-| `isActive`     | bool   | Whether the agent is available            |
-| `version`      | int    | Current version number                    |
+| Property       | Type     | Description                               |
+| -------------- | -------- | ----------------------------------------- |
+| `id`           | guid     | Unique identifier                         |
+| `alias`        | string   | Unique alias for code references          |
+| `name`         | string   | Display name                              |
+| `description`  | string   | Optional description                      |
+| `agentType`    | string   | `standard` or `orchestrated`              |
+| `profileId`    | guid     | Associated AI profile (null uses default) |
+| `surfaceIds`   | string[] | Surface IDs for categorization            |
+| `config`       | object   | Type-specific configuration (see below)   |
+| `isActive`     | bool     | Whether the agent is available            |
+| `version`      | int      | Current version number                    |
+
+### Standard Config (`config` when `agentType` is `standard`)
+
+| Property               | Type     | Description                         |
+| ---------------------- | -------- | ----------------------------------- |
+| `$type`                | string   | Always `"standard"`                 |
+| `contextIds`           | guid[]   | AI Contexts to inject               |
+| `instructions`         | string   | Agent system prompt                 |
+| `allowedToolScopeIds`  | string[] | Scope-based tool permissions        |
+| `allowedToolIds`       | string[] | Explicit tool permissions           |
+| `userGroupPermissions` | object   | Per-user-group permission overrides |
+
+### Orchestrated Config (`config` when `agentType` is `orchestrated`)
+
+| Property     | Type   | Description                       |
+| ------------ | ------ | --------------------------------- |
+| `$type`      | string | Always `"orchestrated"`           |
+| `workflowId` | string | ID of the registered workflow     |
+| `settings`   | object | Workflow-specific settings (JSON) |
 
 ## Related
 
