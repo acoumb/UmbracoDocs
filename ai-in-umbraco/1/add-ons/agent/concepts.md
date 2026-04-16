@@ -51,15 +51,15 @@ These properties are shared by all agent types:
 
 | Property      | Description                                 |
 | ------------- | ------------------------------------------- |
-| `Alias`       | Unique identifier for code references       |
-| `Name`        | Display name in the backoffice              |
-| `Description` | Optional description                        |
-| `AgentType`   | `Standard` or `Orchestrated` (immutable)    |
-| `ProfileId`   | Associated AI profile (or uses default)     |
-| `SurfaceIds`  | Surface IDs for categorization (e.g., "copilot") |
-| `Scope`       | Optional scoping rules (sections, entity types) |
-| `GuardrailIds`| Guardrails applied during agent execution   |
-| `IsActive`    | Whether the agent is available              |
+| `Alias`        | Unique identifier for code references           |
+| `Name`         | Display name in the backoffice                  |
+| `Description`  | Optional description                            |
+| `AgentType`    | `Standard` or `Orchestrated` (immutable)        |
+| `ProfileId`    | Associated AI profile (or uses default)         |
+| `GuardrailIds` | Guardrails applied during agent execution       |
+| `SurfaceIds`   | Surface IDs for categorization (e.g., "copilot")|
+| `Scope`        | Optional scoping rules (sections, entity types) |
+| `IsActive`     | Whether the agent is available                  |
 
 ### Standard Agent Configuration
 
@@ -69,6 +69,7 @@ These properties are shared by all agent types:
 | `ContextIds`           | AI Contexts to inject                          |
 | `AllowedToolIds`       | Explicit tool permissions                      |
 | `AllowedToolScopeIds`  | Scope-based tool permissions                   |
+| `OutputSchema`         | Optional JSON Schema constraining output       |
 | `UserGroupPermissions` | Per-user-group permission overrides            |
 
 ### Orchestrated Agent Configuration
@@ -88,15 +89,15 @@ Agents communicate using the AG-UI (Agent UI) protocol, a standardized event for
 ┌─────────────────────────────────────────────────────────────┐
 │                    AG-UI Event Flow                         │
 │                                                             │
-│  run_started                                                │
+│  RUN_STARTED                                                │
 │       │                                                     │
-│       ├──► text_message_start ──► content* ──► end          │
+│       ├──► TEXT_MESSAGE_START ──► CONTENT* ──► END          │
 │       │                                                     │
-│       ├──► tool_call_start ──► args* ──► end                │
+│       ├──► TOOL_CALL_START ──► ARGS* ──► END                │
 │       │         │                                           │
-│       │         └──► tool_call_result                       │
+│       │         └──► TOOL_CALL_RESULT                       │
 │       │                                                     │
-│       └──► run_finished / run_error                         │
+│       └──► RUN_FINISHED / RUN_ERROR                         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -104,33 +105,33 @@ Agents communicate using the AG-UI (Agent UI) protocol, a standardized event for
 
 | Event          | Description                      |
 | -------------- | -------------------------------- |
-| `run_started`  | Agent run has begun              |
-| `run_finished` | Agent run completed successfully |
-| `run_error`    | Agent run failed with error      |
+| `RUN_STARTED`  | Agent run has begun              |
+| `RUN_FINISHED` | Agent run completed successfully |
+| `RUN_ERROR`    | Agent run failed with error      |
 
 ### Text Message Events
 
 | Event                  | Description                 |
 | ---------------------- | --------------------------- |
-| `text_message_start`   | Beginning of a text message |
-| `text_message_content` | Text content chunk          |
-| `text_message_end`     | End of a text message       |
+| `TEXT_MESSAGE_START`   | Beginning of a text message |
+| `TEXT_MESSAGE_CONTENT` | Text content chunk          |
+| `TEXT_MESSAGE_END`     | End of a text message       |
 
 ### Tool Events
 
 | Event              | Description           |
 | ------------------ | --------------------- |
-| `tool_call_start`  | Tool call initiated   |
-| `tool_call_args`   | Tool argument chunk   |
-| `tool_call_end`    | Tool call complete    |
-| `tool_call_result` | Tool execution result |
+| `TOOL_CALL_START`  | Tool call initiated   |
+| `TOOL_CALL_ARGS`   | Tool argument chunk   |
+| `TOOL_CALL_END`    | Tool call complete    |
+| `TOOL_CALL_RESULT` | Tool execution result |
 
 ### State Events
 
 | Event            | Description              |
 | ---------------- | ------------------------ |
-| `state_snapshot` | Complete state update    |
-| `state_delta`    | Incremental state change |
+| `STATE_SNAPSHOT` | Complete state update    |
+| `STATE_DELTA`    | Incremental state change |
 
 ## Agent vs Prompt
 

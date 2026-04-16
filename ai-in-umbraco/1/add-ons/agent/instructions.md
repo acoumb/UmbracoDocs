@@ -70,7 +70,10 @@ var agent = new AIAgent
 {
     Alias = "brand-writer",
     Name = "Brand Writer",
-    Instructions = @"You are a content writer for our brand.
+    AgentType = AIAgentType.Standard,
+    Config = new AIStandardAgentConfig
+    {
+        Instructions = @"You are a content writer for our brand.
 
 ## Your task
 Write engaging content that follows our brand guidelines.
@@ -79,7 +82,8 @@ Write engaging content that follows our brand guidelines.
 - Use headings and bullet points
 - Keep paragraphs short
 - Include calls to action",
-    ContextIds = new[] { brandVoiceContextId, styleGuideContextId }
+        ContextIds = new[] { brandVoiceContextId, styleGuideContextId }
+    }
 };
 ```
 

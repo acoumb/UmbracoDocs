@@ -20,10 +20,10 @@ using Umbraco.AI.Core.AuditLog;
 ```csharp
 public sealed class AIAuditLog
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; internal set; }
 
     // Timing
-    public DateTime StartTime { get; set; }
+    public DateTime StartTime { get; init; }
     public DateTime? EndTime { get; set; }
     public TimeSpan? Duration => EndTime.HasValue ? EndTime.Value - StartTime : null;
 
@@ -33,25 +33,25 @@ public sealed class AIAuditLog
     public string? ErrorMessage { get; set; }
 
     // User context
-    public string? UserId { get; set; }
-    public string? UserName { get; set; }
+    public string? UserId { get; init; }
+    public string? UserName { get; init; }
 
     // Entity context (content being processed)
-    public string? EntityId { get; set; }
-    public string? EntityType { get; set; }
+    public string? EntityId { get; init; }
+    public string? EntityType { get; init; }
 
     // AI configuration
-    public AICapability Capability { get; set; }
-    public Guid ProfileId { get; set; }
-    public string ProfileAlias { get; set; } = string.Empty;
-    public int? ProfileVersion { get; set; }
-    public string ProviderId { get; set; } = string.Empty;
-    public string ModelId { get; set; } = string.Empty;
+    public AICapability Capability { get; init; }
+    public Guid ProfileId { get; init; }
+    public string ProfileAlias { get; init; } = string.Empty;
+    public int? ProfileVersion { get; init; }
+    public string ProviderId { get; init; } = string.Empty;
+    public string ModelId { get; init; } = string.Empty;
 
     // Feature context (prompt or agent)
-    public string? FeatureType { get; set; }
-    public Guid? FeatureId { get; set; }
-    public int? FeatureVersion { get; set; }
+    public string? FeatureType { get; init; }
+    public Guid? FeatureId { get; init; }
+    public int? FeatureVersion { get; init; }
 
     // Token usage
     public int? InputTokens { get; set; }
@@ -66,8 +66,8 @@ public sealed class AIAuditLog
     public string? TraceId { get; set; }
 
     // Relationships
-    public Guid? ParentAuditLogId { get; set; }
-    public IReadOnlyDictionary<string, string>? Metadata { get; set; }
+    public Guid? ParentAuditLogId { get; internal set; }
+    public IReadOnlyDictionary<string, string>? Metadata { get; init; }
 }
 ```
 
@@ -190,19 +190,19 @@ Used to filter audit log queries.
 ```csharp
 public class AIAuditLogFilter
 {
-    public DateTime? FromDate { get; set; }
-    public DateTime? ToDate { get; set; }
-    public AIAuditLogStatus? Status { get; set; }
-    public AICapability? Capability { get; set; }
-    public Guid? ProfileId { get; set; }
-    public string? ProviderId { get; set; }
-    public string? UserId { get; set; }
-    public string? FeatureType { get; set; }
-    public Guid? FeatureId { get; set; }
-    public string? EntityId { get; set; }
-    public string? EntityType { get; set; }
-    public Guid? ParentAuditLogId { get; set; }
-    public string? SearchText { get; set; }
+    public DateTime? FromDate { get; init; }
+    public DateTime? ToDate { get; init; }
+    public AIAuditLogStatus? Status { get; init; }
+    public AICapability? Capability { get; init; }
+    public Guid? ProfileId { get; init; }
+    public string? ProviderId { get; init; }
+    public string? UserId { get; init; }
+    public string? FeatureType { get; init; }
+    public Guid? FeatureId { get; init; }
+    public string? EntityId { get; init; }
+    public string? EntityType { get; init; }
+    public Guid? ParentAuditLogId { get; init; }
+    public string? SearchText { get; init; }
 }
 ```
 

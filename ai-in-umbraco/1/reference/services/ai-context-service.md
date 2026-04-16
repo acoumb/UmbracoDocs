@@ -162,7 +162,7 @@ var context = new AIContext
             ResourceTypeId = "text",
             Name = "Tone of Voice",
             SortOrder = 0,
-            Data = "Always use a friendly, professional tone..."
+            Settings = "Always use a friendly, professional tone..."
         }
     }
 };
@@ -243,7 +243,7 @@ var (versions, total) = await _contextService.GetContextVersionHistoryAsync(
 
 foreach (var version in versions)
 {
-    Console.WriteLine($"Version {version.Version} at {version.CreatedUtc}");
+    Console.WriteLine($"Version {version.Version} at {version.DateCreated}");
 }
 ```
 

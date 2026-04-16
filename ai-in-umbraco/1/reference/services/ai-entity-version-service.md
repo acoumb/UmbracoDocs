@@ -41,10 +41,19 @@ public interface IAIEntityVersionService
 
     Task SaveVersionAsync<TEntity>(
         TEntity entity,
-        Guid? userId = null,
+        Guid? userId,
         string? changeDescription = null,
         CancellationToken cancellationToken = default)
         where TEntity : class, IAIVersionableEntity;
+
+    Task SaveVersionAsync(
+        Guid entityId,
+        string entityType,
+        int version,
+        string snapshot,
+        Guid? userId,
+        string? changeDescription = null,
+        CancellationToken cancellationToken = default);
 
     Task DeleteVersionsAsync(
         Guid entityId,
@@ -147,7 +156,20 @@ if (previousProfile != null)
 
 ### SaveVersionAsync
 
-Saves a version snapshot for an entity. This is typically called automatically by entity services.
+Saves a version snapshot for an entity. This is typically called automatically by entity services. Two overloads are available: a generic one that snapshots a typed entity, and a non-generic one that accepts raw snapshot data.
+
+{% code title="Generic overload" %}
+
+```csharp
+Task SaveVersionAsync<TEntity>(
+    TEntity entity,
+    Guid? userId,
+    string? changeDescription = null,
+    CancellationToken cancellationToken = default)
+    where TEntity : class, IAIVersionableEntity;
+```
+
+{% endcode %}
 
 | Parameter           | Type                | Description              |
 | ------------------- | ------------------- | ------------------------ |
@@ -155,6 +177,31 @@ Saves a version snapshot for an entity. This is typically called automatically b
 | `userId`            | `Guid?`             | User who made the change |
 | `changeDescription` | `string?`           | Description of changes   |
 | `cancellationToken` | `CancellationToken` | Cancellation token       |
+
+{% code title="Raw-snapshot overload" %}
+
+```csharp
+Task SaveVersionAsync(
+    Guid entityId,
+    string entityType,
+    int version,
+    string snapshot,
+    Guid? userId,
+    string? changeDescription = null,
+    CancellationToken cancellationToken = default);
+```
+
+{% endcode %}
+
+| Parameter           | Type                | Description                                    |
+| ------------------- | ------------------- | ---------------------------------------------- |
+| `entityId`          | `Guid`              | The entity ID                                  |
+| `entityType`        | `string`            | The entity type name (e.g., "Profile")         |
+| `version`           | `int`               | The version number                             |
+| `snapshot`          | `string`            | The raw JSON snapshot                          |
+| `userId`            | `Guid?`             | User who made the change                       |
+| `changeDescription` | `string?`           | Description of changes                         |
+| `cancellationToken` | `CancellationToken` | Cancellation token                             |
 
 ### DeleteVersionsAsync
 

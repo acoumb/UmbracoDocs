@@ -35,13 +35,14 @@ Contexts contain one or more resources. Each resource represents a piece of cont
 1. In the context editor, click **Add Resource**.
 2. Configure the resource:
 
-| Field          | Description                         |
-| -------------- | ----------------------------------- |
-| Type           | The type of resource (e.g., Text)   |
-| Name           | Display name for organization       |
-| Description    | Optional description                |
-| Content        | The actual content to inject        |
-| Injection Mode | When to inject: Always or On Demand |
+| Field          | Description                                       |
+| -------------- | ------------------------------------------------- |
+| Type           | The type of resource (e.g., Text)                 |
+| Name           | Display name for organization                     |
+| Description    | Optional description                              |
+| Content        | The actual content to inject                      |
+| Injection Mode | When to inject: Always or On Demand               |
+| Sort Order     | Order in which the resource is injected (ascending) |
 
 3. Click **Add**.
 
@@ -55,6 +56,7 @@ Contexts contain one or more resources. Each resource represents a piece of cont
 | ------------ | ------------------------------------------------- |
 | **Text**     | Plain text content like guidelines or terminology |
 | **Document** | Structured content with metadata                  |
+| **URL**      | Web URL resource                                  |
 
 ![Brand Voice context detail showing resources and settings](../.gitbook/assets/backoffice-manage-contexts.png)
 
@@ -119,13 +121,13 @@ A typical brand voice context might include:
 
 Contexts are used by:
 
-- **Prompts** - Associate contexts to inject guidelines.
-- **Agents** - Include context in agent instructions.
+- **Prompts** - Associate contexts to inject guidelines (requires Prompt add-on).
+- **Agents** - Include context in agent instructions (requires Agent add-on).
 - **Profiles** - System prompts can reference context content.
 
 ### Associating with a Prompt
 
-When editing a prompt:
+When editing a prompt (requires Prompt add-on):
 
 1. Expand the **Contexts** section.
 2. Click **Add Context**.

@@ -10,7 +10,7 @@ Generates vector embeddings for one or more text values.
 ## Request
 
 ```http
-POST /umbraco/ai/management/api/v1/embedding/generate
+POST /umbraco/ai/management/api/v1/embeddings/generate
 ```
 
 ### Headers
@@ -111,7 +111,7 @@ Returned when the specified profile doesn't exist.
 ### cURL
 
 ```bash
-curl -X POST "https://localhost:44331/umbraco/ai/management/api/v1/embedding/generate" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/embeddings/generate" \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
   -d '{
@@ -136,7 +136,7 @@ var request = new
 };
 
 var response = await client.PostAsJsonAsync(
-    "https://localhost:44331/umbraco/ai/management/api/v1/embedding/generate",
+    "https://your-site.com/umbraco/ai/management/api/v1/embeddings/generate",
     request);
 
 var result = await response.Content.ReadFromJsonAsync<EmbeddingResponseModel>();
@@ -154,7 +154,7 @@ foreach (var embedding in result.Embeddings)
 {% code title="Example" %}
 
 ```javascript
-const response = await fetch("/umbraco/ai/management/api/v1/embedding/generate", {
+const response = await fetch("/umbraco/ai/management/api/v1/embeddings/generate", {
     method: "POST",
     headers: {
         Authorization: `Bearer ${token}`,
@@ -188,7 +188,7 @@ public async Task IndexContentAsync(IContent content)
     var text = $"{content.Name} {content.GetValue<string>("bodyText")}";
 
     var response = await _httpClient.PostAsJsonAsync(
-        "/umbraco/ai/management/api/v1/embedding/generate",
+        "/umbraco/ai/management/api/v1/embeddings/generate",
         new { values = new[] { text } });
 
     var result = await response.Content.ReadFromJsonAsync<EmbeddingResponseModel>();
@@ -219,7 +219,7 @@ public async Task<IEnumerable<IContent>> FindSimilarContentAsync(
 {
     // Generate embedding for search text
     var response = await _httpClient.PostAsJsonAsync(
-        "/umbraco/ai/management/api/v1/embedding/generate",
+        "/umbraco/ai/management/api/v1/embeddings/generate",
         new { values = new[] { text } });
 
     var result = await response.Content.ReadFromJsonAsync<EmbeddingResponseModel>();
@@ -254,7 +254,7 @@ public async Task IndexAllContentAsync(IEnumerable<IContent> contents)
             $"{c.Name} {c.GetValue<string>("bodyText")}").ToList();
 
         var response = await _httpClient.PostAsJsonAsync(
-            "/umbraco/ai/management/api/v1/embedding/generate",
+            "/umbraco/ai/management/api/v1/embeddings/generate",
             new { values = texts });
 
         var result = await response.Content.ReadFromJsonAsync<EmbeddingResponseModel>();

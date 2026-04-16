@@ -12,7 +12,7 @@ Retrieve a list of all tool scopes. Scopes define categories of tools and determ
 {% code title="Endpoint" %}
 
 ```
-GET /tool-scopes
+GET /umbraco/ai/management/api/v1/tools/scopes
 ```
 
 {% endcode %}
@@ -24,94 +24,54 @@ GET /tool-scopes
 {% code title="Response" %}
 
 ```json
-{
-    "items": [
-        {
-            "id": "content-read",
-            "icon": "icon-document",
-            "isDestructive": false,
-            "domain": "content",
-            "forEntityTypes": ["document"]
-        },
-        {
-            "id": "content-write",
-            "icon": "icon-edit",
-            "isDestructive": true,
-            "domain": "content",
-            "forEntityTypes": ["document"]
-        },
-        {
-            "id": "media-read",
-            "icon": "icon-picture",
-            "isDestructive": false,
-            "domain": "media",
-            "forEntityTypes": ["media"]
-        },
-        {
-            "id": "media-write",
-            "icon": "icon-picture",
-            "isDestructive": true,
-            "domain": "media",
-            "forEntityTypes": ["media"]
-        },
-        {
-            "id": "search",
-            "icon": "icon-search",
-            "isDestructive": false,
-            "domain": "search",
-            "forEntityTypes": []
-        },
-        {
-            "id": "navigation",
-            "icon": "icon-nodes",
-            "isDestructive": false,
-            "domain": "navigation",
-            "forEntityTypes": []
-        },
-        {
-            "id": "translation",
-            "icon": "icon-globe",
-            "isDestructive": false,
-            "domain": "translation",
-            "forEntityTypes": []
-        },
-        {
-            "id": "web",
-            "icon": "icon-link",
-            "isDestructive": false,
-            "domain": "web",
-            "forEntityTypes": []
-        },
-        {
-            "id": "entity-read",
-            "icon": "icon-item-arrangement",
-            "isDestructive": false,
-            "domain": "entity",
-            "forEntityTypes": []
-        },
-        {
-            "id": "entity-write",
-            "icon": "icon-item-arrangement",
-            "isDestructive": true,
-            "domain": "entity",
-            "forEntityTypes": []
-        }
-    ],
-    "total": 10
-}
+[
+    {
+        "id": "content-read",
+        "icon": "icon-document",
+        "isDestructive": false,
+        "domain": "content"
+    },
+    {
+        "id": "content-write",
+        "icon": "icon-edit",
+        "isDestructive": true,
+        "domain": "content"
+    },
+    {
+        "id": "media-read",
+        "icon": "icon-picture",
+        "isDestructive": false,
+        "domain": "media"
+    },
+    {
+        "id": "media-write",
+        "icon": "icon-picture",
+        "isDestructive": true,
+        "domain": "media"
+    },
+    {
+        "id": "search",
+        "icon": "icon-search",
+        "isDestructive": false,
+        "domain": "search"
+    }
+]
 ```
 
 {% endcode %}
 
 ### Item Properties
 
-| Property         | Type     | Description                                           |
-| ---------------- | -------- | ----------------------------------------------------- |
-| `id`             | string   | Unique identifier for the scope                       |
-| `icon`           | string   | Icon identifier for the backoffice UI                 |
-| `isDestructive`  | boolean  | Whether the scope contains destructive tools          |
-| `domain`         | string   | The functional domain of the scope                    |
-| `forEntityTypes` | string[] | Entity types this scope applies to                    |
+| Property        | Type    | Description                                  |
+| --------------- | ------- | -------------------------------------------- |
+| `id`            | string  | Unique identifier for the scope              |
+| `icon`          | string  | Icon identifier for the backoffice UI        |
+| `isDestructive` | boolean | Whether the scope contains destructive tools |
+| `domain`        | string  | The functional domain of the scope           |
+
+{% hint style="info" %}
+Scope name and description are localized on the frontend using the keys `uaiToolScope_{scopeId}Label` and `uaiToolScope_{scopeId}Description`.
+{% endhint %}
 
 ## Built-in Scopes
 
@@ -141,7 +101,7 @@ Destructive scopes (`content-write`, `media-write`, `entity-write`) are flagged 
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/tool-scopes"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/tools/scopes"
 ```
 
 {% endcode %}
@@ -151,14 +111,14 @@ curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/tool-scopes"
 {% code title="JavaScript" %}
 
 ```javascript
-const response = await fetch("/umbraco/ai/management/api/v1/tool-scopes", {
+const response = await fetch("/umbraco/ai/management/api/v1/tools/scopes", {
     credentials: "include",
 });
 
-const { items } = await response.json();
+const scopes = await response.json();
 
 // Find destructive scopes
-const destructiveScopes = items.filter((scope) => scope.isDestructive);
+const destructiveScopes = scopes.filter((scope) => scope.isDestructive);
 console.log(`${destructiveScopes.length} destructive scopes found`);
 ```
 

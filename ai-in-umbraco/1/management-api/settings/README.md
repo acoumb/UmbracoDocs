@@ -9,10 +9,10 @@ The Settings API allows you to configure system-wide defaults for Umbraco.AI.
 
 ## Endpoints
 
-| Method | Endpoint                 | Description          |
-| ------ | ------------------------ | -------------------- |
-| GET    | [`/settings`](get.md)    | Get current settings |
-| PUT    | [`/settings`](update.md) | Update settings      |
+| Method | Endpoint                                                  | Description          |
+| ------ | --------------------------------------------------------- | -------------------- |
+| GET    | [`/umbraco/ai/management/api/v1/settings`](get.md)        | Get current settings |
+| PUT    | [`/umbraco/ai/management/api/v1/settings`](update.md)     | Update settings      |
 
 ## Base URL
 

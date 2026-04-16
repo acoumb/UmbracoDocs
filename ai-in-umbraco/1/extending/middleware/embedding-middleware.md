@@ -45,12 +45,15 @@ public class SimpleEmbeddingMiddleware : IAIEmbeddingMiddleware
 
 ## Creating a Custom Wrapper
 
+Derive from `DelegatingEmbeddingGenerator<TInput, TEmbedding>` (provided by `Microsoft.Extensions.AI`) to handle pass-through for any members you don't override:
+
 {% code title="MetricsEmbeddingMiddleware.cs" %}
 
 ```csharp
 using System.Diagnostics;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
+using Umbraco.AI.Core.Embeddings;
 
 public class MetricsEmbeddingMiddleware : IAIEmbeddingMiddleware
 {
@@ -68,22 +71,20 @@ public class MetricsEmbeddingMiddleware : IAIEmbeddingMiddleware
     }
 }
 
-internal class MetricsEmbeddingGenerator : IEmbeddingGenerator<string, Embedding<float>>
+internal sealed class MetricsEmbeddingGenerator
+    : DelegatingEmbeddingGenerator<string, Embedding<float>>
 {
-    private readonly IEmbeddingGenerator<string, Embedding<float>> _inner;
     private readonly ILogger _logger;
 
     public MetricsEmbeddingGenerator(
-        IEmbeddingGenerator<string, Embedding<float>> inner,
+        IEmbeddingGenerator<string, Embedding<float>> innerGenerator,
         ILogger logger)
+        : base(innerGenerator)
     {
-        _inner = inner;
         _logger = logger;
     }
 
-    public EmbeddingGeneratorMetadata Metadata => _inner.Metadata;
-
-    public async Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
+    public override async Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
         IEnumerable<string> values,
         EmbeddingGenerationOptions? options = null,
         CancellationToken cancellationToken = default)
@@ -93,7 +94,7 @@ internal class MetricsEmbeddingGenerator : IEmbeddingGenerator<string, Embedding
 
         try
         {
-            var result = await _inner.GenerateAsync(inputList, options, cancellationToken);
+            var result = await base.GenerateAsync(inputList, options, cancellationToken);
             stopwatch.Stop();
 
             _logger.LogInformation(
@@ -114,11 +115,6 @@ internal class MetricsEmbeddingGenerator : IEmbeddingGenerator<string, Embedding
             throw;
         }
     }
-
-    public object? GetService(Type serviceType, object? serviceKey = null)
-        => _inner.GetService(serviceType, serviceKey);
-
-    public void Dispose() => _inner.Dispose();
 }
 ```
 
@@ -188,6 +184,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Caching.Memory;
+using Umbraco.AI.Core.Embeddings;
 
 public class CachingEmbeddingMiddleware : IAIEmbeddingMiddleware
 {
@@ -205,22 +202,20 @@ public class CachingEmbeddingMiddleware : IAIEmbeddingMiddleware
     }
 }
 
-internal class CachingEmbeddingGenerator : IEmbeddingGenerator<string, Embedding<float>>
+internal sealed class CachingEmbeddingGenerator
+    : DelegatingEmbeddingGenerator<string, Embedding<float>>
 {
-    private readonly IEmbeddingGenerator<string, Embedding<float>> _inner;
     private readonly IMemoryCache _cache;
 
     public CachingEmbeddingGenerator(
-        IEmbeddingGenerator<string, Embedding<float>> inner,
+        IEmbeddingGenerator<string, Embedding<float>> innerGenerator,
         IMemoryCache cache)
+        : base(innerGenerator)
     {
-        _inner = inner;
         _cache = cache;
     }
 
-    public EmbeddingGeneratorMetadata Metadata => _inner.Metadata;
-
-    public async Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
+    public override async Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
         IEnumerable<string> values,
         EmbeddingGenerationOptions? options = null,
         CancellationToken cancellationToken = default)
@@ -247,7 +242,7 @@ internal class CachingEmbeddingGenerator : IEmbeddingGenerator<string, Embedding
         // Generate uncached embeddings
         if (uncachedInputs.Count > 0)
         {
-            var generated = await _inner.GenerateAsync(
+            var generated = await base.GenerateAsync(
                 uncachedInputs.Select(x => x.Value),
                 options,
                 cancellationToken);
@@ -270,11 +265,6 @@ internal class CachingEmbeddingGenerator : IEmbeddingGenerator<string, Embedding
         var hash = SHA256.HashData(Encoding.UTF8.GetBytes(input));
         return $"embedding:{Convert.ToBase64String(hash)}";
     }
-
-    public object? GetService(Type serviceType, object? serviceKey = null)
-        => _inner.GetService(serviceType, serviceKey);
-
-    public void Dispose() => _inner.Dispose();
 }
 ```
 
@@ -288,6 +278,7 @@ Normalize embedding vectors to unit length:
 
 ```csharp
 using Microsoft.Extensions.AI;
+using Umbraco.AI.Core.Embeddings;
 
 public class NormalizationEmbeddingMiddleware : IAIEmbeddingMiddleware
 {
@@ -298,23 +289,20 @@ public class NormalizationEmbeddingMiddleware : IAIEmbeddingMiddleware
     }
 }
 
-internal class NormalizingEmbeddingGenerator : IEmbeddingGenerator<string, Embedding<float>>
+internal sealed class NormalizingEmbeddingGenerator
+    : DelegatingEmbeddingGenerator<string, Embedding<float>>
 {
-    private readonly IEmbeddingGenerator<string, Embedding<float>> _inner;
-
-    public NormalizingEmbeddingGenerator(IEmbeddingGenerator<string, Embedding<float>> inner)
+    public NormalizingEmbeddingGenerator(IEmbeddingGenerator<string, Embedding<float>> innerGenerator)
+        : base(innerGenerator)
     {
-        _inner = inner;
     }
 
-    public EmbeddingGeneratorMetadata Metadata => _inner.Metadata;
-
-    public async Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
+    public override async Task<GeneratedEmbeddings<Embedding<float>>> GenerateAsync(
         IEnumerable<string> values,
         EmbeddingGenerationOptions? options = null,
         CancellationToken cancellationToken = default)
     {
-        var result = await _inner.GenerateAsync(values, options, cancellationToken);
+        var result = await base.GenerateAsync(values, options, cancellationToken);
 
         var normalized = result.Select(e => new Embedding<float>(Normalize(e.Vector.ToArray()))
         {
@@ -335,11 +323,6 @@ internal class NormalizingEmbeddingGenerator : IEmbeddingGenerator<string, Embed
 
         return vector.Select(x => x / magnitude).ToArray();
     }
-
-    public object? GetService(Type serviceType, object? serviceKey = null)
-        => _inner.GetService(serviceType, serviceKey);
-
-    public void Dispose() => _inner.Dispose();
 }
 ```
 

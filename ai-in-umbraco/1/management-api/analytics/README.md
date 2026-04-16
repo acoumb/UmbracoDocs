@@ -9,14 +9,14 @@ The Analytics API provides aggregated usage statistics derived from audit logs. 
 
 ## Endpoints
 
-| Method | Endpoint                                                 | Description                    |
-| ------ | -------------------------------------------------------- | ------------------------------ |
-| GET    | [`/analytics/summary`](summary.md)                       | Get usage summary for a period |
-| GET    | [`/analytics/timeseries`](timeseries.md)                 | Get usage over time            |
-| GET    | [`/analytics/breakdown/provider`](breakdown-provider.md) | Usage breakdown by provider    |
-| GET    | [`/analytics/breakdown/model`](breakdown-model.md)       | Usage breakdown by model       |
-| GET    | [`/analytics/breakdown/profile`](breakdown-profile.md)   | Usage breakdown by profile     |
-| GET    | [`/analytics/breakdown/user`](breakdown-user.md)         | Usage breakdown by user        |
+| Method | Endpoint                                                                          | Description                    |
+| ------ | --------------------------------------------------------------------------------- | ------------------------------ |
+| GET    | [`/umbraco/ai/management/api/v1/analytics/usage-summary`](summary.md)             | Get usage summary for a period |
+| GET    | [`/umbraco/ai/management/api/v1/analytics/usage-time-series`](timeseries.md)      | Get usage over time            |
+| GET    | [`/umbraco/ai/management/api/v1/analytics/usage-by-provider`](breakdown-provider.md) | Usage breakdown by provider |
+| GET    | [`/umbraco/ai/management/api/v1/analytics/usage-by-model`](breakdown-model.md)    | Usage breakdown by model       |
+| GET    | [`/umbraco/ai/management/api/v1/analytics/usage-by-profile`](breakdown-profile.md) | Usage breakdown by profile    |
+| GET    | [`/umbraco/ai/management/api/v1/analytics/usage-by-user`](breakdown-user.md)      | Usage breakdown by user        |
 
 ## Base URL
 
@@ -75,15 +75,15 @@ var query = $"from={from:O}&to={to:O}";
 
 // Get overall summary
 var summary = await httpClient.GetFromJsonAsync<AIUsageSummary>(
-    $"/umbraco/ai/management/api/v1/analytics/summary?{query}");
+    $"/umbraco/ai/management/api/v1/analytics/usage-summary?{query}");
 
 // Get daily time series
 var timeSeries = await httpClient.GetFromJsonAsync<List<AIUsageTimeSeriesPoint>>(
-    $"/umbraco/ai/management/api/v1/analytics/timeseries?{query}&granularity=day");
+    $"/umbraco/ai/management/api/v1/analytics/usage-time-series?{query}&granularity=day");
 
 // Get provider breakdown
 var byProvider = await httpClient.GetFromJsonAsync<List<AIUsageBreakdownItem>>(
-    $"/umbraco/ai/management/api/v1/analytics/breakdown/provider?{query}");
+    $"/umbraco/ai/management/api/v1/analytics/usage-by-provider?{query}");
 ```
 
 {% endcode %}

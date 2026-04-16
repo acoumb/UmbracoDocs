@@ -21,7 +21,7 @@ POST /umbraco/ai/management/api/v1/tests/run-batch
 {
     "testIds": [
         "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "b4c96a75-6828-5673-c4gd-3d074g77bfb7"
+        "b4c96a75-6828-5673-c4ad-3d074a77bfb7"
     ],
     "profileIdOverride": null,
     "contextIdsOverride": null,
@@ -73,12 +73,12 @@ The response contains a dictionary mapping each test ID to its execution result.
                 "runIds": ["run-1", "run-2", "run-3"]
             }
         },
-        "b4c96a75-6828-5673-c4gd-3d074g77bfb7": {
-            "testId": "b4c96a75-6828-5673-c4gd-3d074g77bfb7",
+        "b4c96a75-6828-5673-c4ad-3d074a77bfb7": {
+            "testId": "b4c96a75-6828-5673-c4ad-3d074a77bfb7",
             "executionId": "e2f3a4b5-c6d7-8901-fedc-ba9876543210",
             "batchId": "f1e2d3c4-b5a6-9870-fedc-ba0987654321",
             "defaultMetrics": {
-                "testId": "b4c96a75-6828-5673-c4gd-3d074g77bfb7",
+                "testId": "b4c96a75-6828-5673-c4ad-3d074a77bfb7",
                 "totalRuns": 1,
                 "passedRuns": 0,
                 "passAtK": 0.0,
@@ -87,7 +87,7 @@ The response contains a dictionary mapping each test ID to its execution result.
             },
             "variationMetrics": [],
             "aggregateMetrics": {
-                "testId": "b4c96a75-6828-5673-c4gd-3d074g77bfb7",
+                "testId": "b4c96a75-6828-5673-c4ad-3d074a77bfb7",
                 "totalRuns": 1,
                 "passedRuns": 0,
                 "passAtK": 0.0,
@@ -131,7 +131,7 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/tests/run-batch
   -d '{
     "testIds": [
       "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "b4c96a75-6828-5673-c4gd-3d074g77bfb7"
+      "b4c96a75-6828-5673-c4ad-3d074a77bfb7"
     ]
   }'
 ```

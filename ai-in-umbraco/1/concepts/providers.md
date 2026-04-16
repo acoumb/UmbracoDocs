@@ -28,7 +28,7 @@ Providers are discovered automatically when you install their NuGet package. The
 
 | Provider             | Package                       | Capabilities    |
 | -------------------- | ----------------------------- | --------------- |
-| OpenAI               | `Umbraco.AI.OpenAI`           | Chat, Embedding |
+| OpenAI               | `Umbraco.AI.OpenAI`           | Chat, Embedding, Speech-to-Text |
 | Anthropic            | `Umbraco.AI.Anthropic`        | Chat            |
 | Google Gemini        | `Umbraco.AI.Google`           | Chat            |
 | Amazon Bedrock       | `Umbraco.AI.Amazon`           | Chat, Embedding |
@@ -95,6 +95,7 @@ A provider can support multiple capabilities:
 
 - **Chat** - Conversational AI and text generation
 - **Embedding** - Vector embeddings for semantic search
+- **Speech-to-Text** - Audio transcription and voice input
 
 Each capability is implemented as a separate class and registered in the provider constructor.
 

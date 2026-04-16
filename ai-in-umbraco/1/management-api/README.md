@@ -27,112 +27,120 @@ The API uses URL-based versioning. The current version is `v1`.
 
 ### Chat Operations
 
-| Method | Endpoint                            | Description                                 |
-| ------ | ----------------------------------- | ------------------------------------------- |
-| POST   | `/chat/complete`                    | Get a chat completion (default profile)     |
-| POST   | `/chat/{profileIdOrAlias}/complete` | Get a chat completion (specific profile)    |
-| POST   | `/chat/stream`                      | Stream a chat completion (default profile)  |
-| POST   | `/chat/{profileIdOrAlias}/stream`   | Stream a chat completion (specific profile) |
+| Method | Endpoint                                                                  | Description                              |
+| ------ | ------------------------------------------------------------------------- | ---------------------------------------- |
+| POST   | `/umbraco/ai/management/api/v1/chat/complete`                             | Get a chat completion (default profile)  |
+| POST   | `/umbraco/ai/management/api/v1/chat/{profileIdOrAlias}/complete`          | Get a chat completion (specific profile) |
 
 ### Connection Management
 
-| Method | Endpoint                                 | Description                   |
-| ------ | ---------------------------------------- | ----------------------------- |
-| GET    | `/connections`                           | List all connections          |
-| GET    | `/connections/{idOrAlias}`               | Get a specific connection     |
-| POST   | `/connections`                           | Create a connection           |
-| PUT    | `/connections/{id}`                      | Update a connection           |
-| DELETE | `/connections/{id}`                      | Delete a connection           |
-| POST   | `/connections/{idOrAlias}/test`          | Test a connection             |
-| GET    | `/connections/capabilities`              | List available capabilities   |
-| GET    | `/connections/capabilities/{capability}` | Get connections by capability |
-| GET    | `/connections/{idOrAlias}/models`        | Get available models          |
+| Method | Endpoint                                                                             | Description                   |
+| ------ | ------------------------------------------------------------------------------------ | ----------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/connections`                                          | List all connections          |
+| GET    | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}`                    | Get a specific connection     |
+| POST   | `/umbraco/ai/management/api/v1/connections`                                          | Create a connection           |
+| PUT    | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}`                    | Update a connection           |
+| DELETE | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}`                    | Delete a connection           |
+| POST   | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}/test`               | Test a connection             |
+| GET    | `/umbraco/ai/management/api/v1/connections/capabilities`                             | List available capabilities   |
+| GET    | `/umbraco/ai/management/api/v1/connections/capabilities/{capability}`                | Get connections by capability |
+| GET    | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}/models`             | Get available models          |
 
 ### Profile Management
 
-| Method | Endpoint                | Description            |
-| ------ | ----------------------- | ---------------------- |
-| GET    | `/profiles`             | List all profiles      |
-| GET    | `/profiles/{idOrAlias}` | Get a specific profile |
-| POST   | `/profiles`             | Create a profile       |
-| PUT    | `/profiles/{id}`        | Update a profile       |
-| DELETE | `/profiles/{id}`        | Delete a profile       |
+| Method | Endpoint                                                              | Description            |
+| ------ | --------------------------------------------------------------------- | ---------------------- |
+| GET    | `/umbraco/ai/management/api/v1/profiles`                              | List all profiles      |
+| GET    | `/umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}`           | Get a specific profile |
+| POST   | `/umbraco/ai/management/api/v1/profiles`                              | Create a profile       |
+| PUT    | `/umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}`           | Update a profile       |
+| DELETE | `/umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}`           | Delete a profile       |
 
 ### Context Management
 
-| Method | Endpoint                | Description            |
-| ------ | ----------------------- | ---------------------- |
-| GET    | `/contexts`             | List all contexts      |
-| GET    | `/contexts/{idOrAlias}` | Get a specific context |
-| POST   | `/contexts`             | Create a context       |
-| PUT    | `/contexts/{id}`        | Update a context       |
-| DELETE | `/contexts/{id}`        | Delete a context       |
+| Method | Endpoint                                                              | Description            |
+| ------ | --------------------------------------------------------------------- | ---------------------- |
+| GET    | `/umbraco/ai/management/api/v1/contexts`                              | List all contexts      |
+| GET    | `/umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}`           | Get a specific context |
+| POST   | `/umbraco/ai/management/api/v1/contexts`                              | Create a context       |
+| PUT    | `/umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}`           | Update a context       |
+| DELETE | `/umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}`           | Delete a context       |
+
+### Guardrails
+
+| Method | Endpoint                                                              | Description               |
+| ------ | --------------------------------------------------------------------- | ------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/guardrails`                            | List all guardrails       |
+| GET    | `/umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}`       | Get a specific guardrail  |
+| POST   | `/umbraco/ai/management/api/v1/guardrails`                            | Create a guardrail        |
+| PUT    | `/umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}`       | Update a guardrail        |
+| DELETE | `/umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}`       | Delete a guardrail        |
+| GET    | `/umbraco/ai/management/api/v1/guardrail-evaluators`                  | List available evaluators |
 
 ### Settings
 
-| Method | Endpoint    | Description          |
-| ------ | ----------- | -------------------- |
-| GET    | `/settings` | Get current settings |
-| PUT    | `/settings` | Update settings      |
+| Method | Endpoint                                  | Description          |
+| ------ | ----------------------------------------- | -------------------- |
+| GET    | `/umbraco/ai/management/api/v1/settings`  | Get current settings |
+| PUT    | `/umbraco/ai/management/api/v1/settings`  | Update settings      |
 
 ### Version History
 
-| Method | Endpoint                                                | Description                               |
-| ------ | ------------------------------------------------------- | ----------------------------------------- |
-| GET    | `/versions/supported-types`                             | List entity types that support versioning |
-| GET    | `/versions/{entityType}/{entityId}`                     | Get version history                       |
-| GET    | `/versions/{entityType}/{entityId}/{version}`           | Get specific version                      |
-| GET    | `/versions/{entityType}/{entityId}/{from}/compare/{to}` | Compare versions                          |
-| POST   | `/versions/{entityType}/{entityId}/{version}/rollback`  | Rollback to version                       |
+| Method | Endpoint                                                                                         | Description                               |
+| ------ | ------------------------------------------------------------------------------------------------ | ----------------------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/versions/supported-types`                                         | List entity types that support versioning |
+| GET    | `/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}`                                 | Get version history                       |
+| GET    | `/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}/{version}`                       | Get specific version                      |
+| GET    | `/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}/{from}/compare/{to}`             | Compare versions                          |
+| POST   | `/umbraco/ai/management/api/v1/versions/{entityType}/{entityId}/{version}/rollback`              | Rollback to version                       |
 
 ### Audit Logs
 
-| Method | Endpoint                                     | Description            |
-| ------ | -------------------------------------------- | ---------------------- |
-| GET    | `/audit-logs`                                | List audit logs        |
-| GET    | `/audit-logs/{id}`                           | Get specific audit log |
-| GET    | `/audit-logs/entity/{entityType}/{entityId}` | Get entity history     |
-| DELETE | `/audit-logs/{id}`                           | Delete audit log       |
-| POST   | `/audit-logs/cleanup`                        | Cleanup old logs       |
+| Method | Endpoint                                                          | Description            |
+| ------ | ----------------------------------------------------------------- | ---------------------- |
+| GET    | `/umbraco/ai/management/api/v1/audit-logs`                        | List audit logs        |
+| GET    | `/umbraco/ai/management/api/v1/audit-logs/{id}`                   | Get specific audit log |
+| GET    | `/umbraco/ai/management/api/v1/audit-logs?entityId={entityId}`    | Get entity history     |
+| DELETE | `/umbraco/ai/management/api/v1/audit-logs/{id}`                   | Delete audit log       |
+| POST   | `/umbraco/ai/management/api/v1/audit-logs/cleanup`                | Cleanup old logs       |
 
 ### Usage Analytics
 
-| Method | Endpoint                 | Description           |
-| ------ | ------------------------ | --------------------- |
-| GET    | `/analytics/summary`     | Get usage summary     |
-| GET    | `/analytics/timeseries`  | Get time series data  |
-| GET    | `/analytics/by-provider` | Breakdown by provider |
-| GET    | `/analytics/by-model`    | Breakdown by model    |
-| GET    | `/analytics/by-profile`  | Breakdown by profile  |
-| GET    | `/analytics/by-user`     | Breakdown by user     |
+| Method | Endpoint                                                          | Description           |
+| ------ | ----------------------------------------------------------------- | --------------------- |
+| GET    | `/umbraco/ai/management/api/v1/analytics/usage-summary`           | Get usage summary     |
+| GET    | `/umbraco/ai/management/api/v1/analytics/usage-time-series`       | Get time series data  |
+| GET    | `/umbraco/ai/management/api/v1/analytics/usage-by-provider`       | Breakdown by provider |
+| GET    | `/umbraco/ai/management/api/v1/analytics/usage-by-model`          | Breakdown by model    |
+| GET    | `/umbraco/ai/management/api/v1/analytics/usage-by-profile`        | Breakdown by profile  |
+| GET    | `/umbraco/ai/management/api/v1/analytics/usage-by-user`           | Breakdown by user     |
 
 ### Tools
 
-| Method | Endpoint       | Description                                    |
-| ------ | -------------- | ---------------------------------------------- |
-| GET    | `/tools`       | List all user-configurable tools grouped by scope |
-| GET    | `/tool-scopes` | List all tool scopes                           |
+| Method | Endpoint                                           | Description                                       |
+| ------ | -------------------------------------------------- | ------------------------------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/tools`              | List all user-configurable tools grouped by scope |
+| GET    | `/umbraco/ai/management/api/v1/tools/scopes`       | List all tool scopes                              |
 
 ### Context Resource Types
 
-| Method | Endpoint                      | Description                                  |
-| ------ | ----------------------------- | -------------------------------------------- |
-| GET    | `/context-resource-types`      | List all resource types                      |
-| GET    | `/context-resource-types/{id}` | Get a resource type with its settings schema |
+| Method | Endpoint                                                              | Description                                  |
+| ------ | --------------------------------------------------------------------- | -------------------------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/context-resource-types`                | List all resource types                      |
+| GET    | `/umbraco/ai/management/api/v1/context-resource-types/{id}`           | Get a resource type with its settings schema |
 
 ### Provider Information
 
-| Method | Endpoint          | Description             |
-| ------ | ----------------- | ----------------------- |
-| GET    | `/providers`      | List all providers      |
-| GET    | `/providers/{id}` | Get a specific provider |
+| Method | Endpoint                                              | Description             |
+| ------ | ----------------------------------------------------- | ----------------------- |
+| GET    | `/umbraco/ai/management/api/v1/providers`             | List all providers      |
+| GET    | `/umbraco/ai/management/api/v1/providers/{id}`        | Get a specific provider |
 
 ### Embedding Operations
 
-| Method | Endpoint                                  | Description                            |
-| ------ | ----------------------------------------- | -------------------------------------- |
-| POST   | `/embeddings/generate`                    | Generate embeddings (default profile)  |
-| POST   | `/embeddings/{profileIdOrAlias}/generate` | Generate embeddings (specific profile) |
+| Method | Endpoint                                                                      | Description         |
+| ------ | ----------------------------------------------------------------------------- | ------------------- |
+| POST   | `/umbraco/ai/management/api/v1/embeddings/generate`                           | Generate embeddings |
 
 ## IdOrAlias Pattern
 

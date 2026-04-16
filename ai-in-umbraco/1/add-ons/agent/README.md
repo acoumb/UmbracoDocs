@@ -71,26 +71,37 @@ public class AgentRunner
         _agentService = agentService;
     }
 
-    public async Task RunAsync(HttpResponse response)
+    public async Task RunAsync(HttpResponse response, CancellationToken cancellationToken)
     {
-        var agent = await _agentService.GetAgentByAliasAsync("content-assistant");
+        var agent = await _agentService.GetAgentByAliasAsync("content-assistant", cancellationToken);
 
         response.ContentType = "text/event-stream";
 
-        await foreach (var evt in _agentService.StreamAgentAsync(
-            agent!.Id,
-            new AIAgentRunRequest
-            {
-                Messages = new[]
-                {
-                    new AIAgentMessage { Role = "user", Content = "Help me write a blog post about AI" }
-                }
-            }))
+        var request = new AGUIRunRequest
         {
-            // Write SSE events
-            await response.WriteAsync($"event: {evt.Type}\n");
-            await response.WriteAsync($"data: {JsonSerializer.Serialize(evt)}\n\n");
-            await response.Body.FlushAsync();
+            ThreadId = Guid.NewGuid().ToString(),
+            RunId = Guid.NewGuid().ToString(),
+            Messages =
+            [
+                new AGUIMessage
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Role = AGUIMessageRole.User,
+                    Content = "Help me write a blog post about AI"
+                }
+            ]
+        };
+
+        await foreach (var evt in _agentService.StreamAgentAGUIAsync(
+            agent!.Id,
+            request,
+            frontendTools: null,
+            cancellationToken))
+        {
+            // Write as a single SSE data line; the event type is embedded in the JSON payload.
+            var json = JsonSerializer.Serialize(evt, typeof(BaseAGUIEvent));
+            await response.WriteAsync($"data: {json}\n\n", cancellationToken);
+            await response.Body.FlushAsync(cancellationToken);
         }
     }
 }
@@ -103,15 +114,22 @@ public class AgentRunner
 {% code title="agent-event-listener.ts" %}
 
 ```typescript
-const eventSource = new EventSource("/api/agent/content-assistant/run");
+// AG-UI events arrive as a single SSE `data:` line each. The event type is
+// embedded in the JSON payload as the `type` property.
+const eventSource = new EventSource(
+    "/umbraco/ai/management/api/v1/agents/content-assistant/stream-agui",
+);
 
-eventSource.addEventListener("text_message_content", (e) => {
-    const data = JSON.parse(e.data);
-    console.log("Content:", data.content);
-});
-
-eventSource.addEventListener("run_finished", () => {
-    eventSource.close();
+eventSource.addEventListener("message", (e) => {
+    const evt = JSON.parse(e.data);
+    switch (evt.type) {
+        case "TEXT_MESSAGE_CONTENT":
+            console.log("Content:", evt.delta);
+            break;
+        case "RUN_FINISHED":
+            eventSource.close();
+            break;
+    }
 });
 ```
 
@@ -121,10 +139,10 @@ eventSource.addEventListener("run_finished", () => {
 
 The Agent Runtime uses the AG-UI (Agent UI) protocol for streaming responses. The protocol defines event types for:
 
-- **Lifecycle events** - `run_started`, `run_finished`, `run_error`
-- **Text streaming** - `text_message_start`, `text_message_content`, `text_message_end`
-- **Tool calls** - `tool_call_start`, `tool_call_args`, `tool_call_end`
-- **State updates** - `state_snapshot`, `state_delta`
+- **Lifecycle events** - `RUN_STARTED`, `RUN_FINISHED`, `RUN_ERROR`
+- **Text streaming** - `TEXT_MESSAGE_START`, `TEXT_MESSAGE_CONTENT`, `TEXT_MESSAGE_END`
+- **Tool calls** - `TOOL_CALL_START`, `TOOL_CALL_ARGS`, `TOOL_CALL_END`
+- **State updates** - `STATE_SNAPSHOT`, `STATE_DELTA`
 
 ## Documentation
 

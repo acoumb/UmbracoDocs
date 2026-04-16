@@ -12,7 +12,7 @@ description: >-
 {% code title="Import" %}
 
 ```typescript
-import { UaiChatController } from "@umbraco-ai/backoffice";
+import { UaiChatController } from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -59,7 +59,7 @@ async complete(
 
 ```typescript
 import { LitElement } from "lit";
-import { UaiChatController, UaiChatMessage } from "@umbraco-ai/backoffice";
+import { UaiChatController, UaiChatMessage } from "@umbraco-ai/core";
 
 class MyElement extends LitElement {
     #chat = new UaiChatController(this);
@@ -79,55 +79,6 @@ class MyElement extends LitElement {
 
         console.log("Response:", data.message.content);
         console.log("Tokens used:", data.usage?.totalTokens);
-    }
-}
-```
-
-{% endcode %}
-
-### stream
-
-Performs a streaming chat completion, yielding chunks as they arrive.
-
-{% code title="Signature" %}
-
-```typescript
-stream(
-    messages: UaiChatMessage[],
-    options?: UaiChatOptions
-): AsyncGenerator<UaiChatStreamChunk>
-```
-
-{% endcode %}
-
-| Parameter  | Type               | Description               |
-| ---------- | ------------------ | ------------------------- |
-| `messages` | `UaiChatMessage[]` | The conversation messages |
-| `options`  | `UaiChatOptions`   | Optional configuration    |
-
-**Returns**: AsyncGenerator yielding `UaiChatStreamChunk` objects
-
-{% hint style="warning" %}
-Streaming is currently under development. Check the release notes for availability.
-{% endhint %}
-
-{% code title="Example (Future)" %}
-
-```typescript
-async streamResponse(question: string) {
-    const messages: UaiChatMessage[] = [
-        { role: 'user', content: question }
-    ];
-
-    let fullResponse = '';
-
-    for await (const chunk of this.#chat.stream(messages)) {
-        fullResponse += chunk.content;
-        this.updateUI(fullResponse);
-
-        if (chunk.finishReason) {
-            console.log('Finished:', chunk.finishReason);
-        }
     }
 }
 ```
@@ -156,7 +107,7 @@ interface UaiChatOptions {
 ```typescript
 import { LitElement, html, css } from "lit";
 import { customElement, state, property } from "lit/decorators.js";
-import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/backoffice";
+import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/core";
 
 @customElement("ai-assistant")
 export class AIAssistantElement extends LitElement {

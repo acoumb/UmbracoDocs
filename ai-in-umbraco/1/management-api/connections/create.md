@@ -12,7 +12,7 @@ Create a new connection to an AI provider.
 {% code title="Endpoint" %}
 
 ```
-POST /connections
+POST /umbraco/ai/management/api/v1/connections
 ```
 
 {% endcode %}
@@ -94,6 +94,8 @@ Use `$` prefix to reference values from `appsettings.json`:
     "version": 1,
     "dateCreated": "2024-01-15T10:30:00Z",
     "dateModified": "2024-01-15T10:30:00Z",
+    "createdByUserId": null,
+    "modifiedByUserId": null,
     "settings": {
         "apiKey": "sk-***",
         "organization": null
@@ -157,7 +159,8 @@ Use `$` prefix to reference values from `appsettings.json`:
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://localhost:44331/umbraco/ai/management/api/v1/connections" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/connections" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "alias": "openai-prod",

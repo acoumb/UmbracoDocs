@@ -212,11 +212,22 @@ Sends messages to the agent and starts a new run.
 
 **Parameters:**
 
-| Parameter  | Type                                          | Required | Description                     |
-| ---------- | --------------------------------------------- | -------- | ------------------------------- |
-| `messages` | `UaiChatMessage[]`                            | Yes      | Conversation messages           |
-| `tools`    | `AGUITool[]`                                  | No       | Available tools for the agent   |
-| `context`  | `Array<{description: string, value: string}>` | No       | Context items for LLM awareness |
+| Parameter  | Type                                          | Required | Description                                                             |
+| ---------- | --------------------------------------------- | -------- | ----------------------------------------------------------------------- |
+| `messages` | `UaiChatMessage[]`                            | Yes      | Conversation messages                                                   |
+| `tools`    | `UaiFrontendTool[]`                           | No       | Available frontend tools (extends AG-UI `Tool` with `scope`/`isDestructive`) |
+| `context`  | `Array<{description: string, value: string}>` | No       | Context items for LLM awareness                                         |
+
+`UaiFrontendTool` extends the AG-UI `Tool` type with two optional metadata fields used for backend permission filtering:
+
+```typescript
+interface UaiFrontendTool extends Tool {
+    /** Tool scope for permission grouping (e.g., 'entity-write', 'navigation') */
+    scope?: string;
+    /** Whether the tool performs destructive operations (e.g., delete, publish) */
+    isDestructive?: boolean;
+}
+```
 
 **Returns:** `void`
 
@@ -252,7 +263,7 @@ client.setCallbacks({
 
 #### `reset()`
 
-Resets the client state. Clears pending tool arguments.
+Resets the client state. Clears pending tool arguments and generates a new thread ID so file references and other thread-scoped data from the previous conversation are not reused.
 
 **Returns:** `void`
 
@@ -298,6 +309,12 @@ The `AgentClientCallbacks` interface defines all available event handlers:
 | `onStateDelta`       | `(delta: Partial<UaiAgentState>) => void` | Called when a state delta is received     |
 | `onMessagesSnapshot` | `(messages: UaiChatMessage[]) => void`    | Called when messages snapshot is received |
 
+### Custom Events
+
+| Callback        | Parameters                               | Description                                                                                   |
+| --------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `onCustomEvent` | `(name: string, value: unknown) => void` | Called when the agent emits an AG-UI `CUSTOM` event (application-specific streaming events). |
+
 ## Message Format
 
 Messages use the `UaiChatMessage` interface:
@@ -307,9 +324,38 @@ interface UaiChatMessage {
     id: string;
     role: "user" | "assistant" | "tool";
     content: string;
+    /** Multimodal content parts (text + binary). When present, `content` is a text summary. */
+    contentParts?: UaiInputContent[];
     toolCalls?: UaiToolCallInfo[];
-    toolCallId?: string; // Required for tool role messages
+    /** Required for `tool` role messages - the ID of the tool call this is responding to */
+    toolCallId?: string;
+    /** Optional agent name for attribution (set when auto mode selects an agent) */
+    agentName?: string;
     timestamp: Date;
+}
+```
+
+For multimodal inputs, `contentParts` can contain text or binary parts:
+
+```typescript
+type UaiInputContent = UaiTextInputContent | UaiBinaryInputContent;
+
+interface UaiTextInputContent {
+    type: "text";
+    text: string;
+}
+
+interface UaiBinaryInputContent {
+    type: "binary";
+    mimeType: string;
+    /** Base64-encoded binary data (initial upload) */
+    data?: string;
+    /** URL where the binary content can be retrieved */
+    url?: string;
+    /** Server-side reference ID (after snapshot, for subsequent turns) */
+    id?: string;
+    /** Original filename */
+    filename?: string;
 }
 ```
 

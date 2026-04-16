@@ -30,12 +30,12 @@ MyProvider/
 {% code title="MyProviderSettings.cs" %}
 
 ```csharp
-using Umbraco.AI.Core.Settings;
+using Umbraco.AI.Core.EditableModels;
 
 public class MyProviderSettings
 {
-    [AIField(Label = "API Key", Description = "Your API key")]
-    public required string ApiKey { get; set; }
+    [AIField(Label = "API Key", Description = "Your API key", IsSensitive = true)]
+    public string? ApiKey { get; set; }
 
     [AIField(Label = "Endpoint", Description = "API endpoint URL")]
     public string? Endpoint { get; set; }
@@ -70,8 +70,8 @@ public class MyChatCapability : AIChatCapabilityBase<MyProviderSettings>
         // Return available models
         var models = new List<AIModelDescriptor>
         {
-            new("my-model-1", "My Model 1"),
-            new("my-model-2", "My Model 2")
+            new(new AIModelRef(Provider.Id, "my-model-1"), "My Model 1"),
+            new(new AIModelRef(Provider.Id, "my-model-2"), "My Model 2")
         };
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(models);
     }

@@ -10,7 +10,7 @@ Returns a paginated list of all profiles with optional filtering.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/profile
+GET /umbraco/ai/management/api/v1/profiles
 ```
 
 ### Query Parameters
@@ -73,7 +73,7 @@ GET /umbraco/ai/management/api/v1/profile
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profiles" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -84,7 +84,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile" \
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile?filter=assistant" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profiles?filter=assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -95,7 +95,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile?filter=a
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile?capability=Chat" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profiles?capability=Chat" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -106,7 +106,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile?capabili
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile?skip=10&take=5" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profiles?skip=10&take=5" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

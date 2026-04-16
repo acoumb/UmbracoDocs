@@ -63,7 +63,8 @@ Add options under `Umbraco:AI:Search` in `appsettings.json`:
       "Search": {
         "ChunkSize": 512,
         "ChunkOverlap": 50,
-        "DefaultTopK": 100
+        "DefaultTopK": 100,
+        "MinScore": 0.3
       }
     }
   }
@@ -77,18 +78,19 @@ Add options under `Umbraco:AI:Search` in `appsettings.json`:
 | `ChunkSize` | `512` | Maximum tokens per text chunk |
 | `ChunkOverlap` | `50` | Token overlap between consecutive chunks |
 | `DefaultTopK` | `100` | Maximum candidates from vector search before deduplication |
+| `MinScore` | `0.3` | Minimum cosine similarity (0.0–1.0) required for a result to be returned |
 
 ### Separate database
 
-To store vectors in a separate database, add an `umbracoAiDbDSN` connection string:
+To store vectors in a separate database, add an `umbracoAIDbDSN` connection string:
 
 {% code title="appsettings.json" %}
 
 ```json
 {
   "ConnectionStrings": {
-    "umbracoAiDbDSN": "Server=ai-db;Database=UmbracoAI;...",
-    "umbracoAiDbDSN_ProviderName": "Microsoft.Data.SqlClient"
+    "umbracoAIDbDSN": "Server=ai-db;Database=UmbracoAI;...",
+    "umbracoAIDbDSN_ProviderName": "Microsoft.Data.SqlClient"
   }
 }
 ```

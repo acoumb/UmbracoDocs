@@ -44,9 +44,10 @@ public class MyProviderSettings
     [AIField(
         Label = "API Key",
         Description = "Your MyProvider API key. Use $Config:Key for config reference.",
+        IsSensitive = true,
         SortOrder = 1)]
     [Required]
-    public required string ApiKey { get; set; }
+    public string? ApiKey { get; set; }
 
     [AIField(
         Label = "Base URL",

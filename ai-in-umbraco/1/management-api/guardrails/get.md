@@ -10,14 +10,14 @@ Returns the full details of a specific guardrail including all its rules.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/guardrails/{id}
+GET /umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description                 |
-| --------- | ---- | --------------------------- |
-| `id`      | guid | Guardrail unique identifier |
+| Parameter             | Type   | Description             |
+| --------------------- | ------ | ----------------------- |
+| `guardrailIdOrAlias`  | string | Guardrail GUID or alias |
 
 ## Response
 

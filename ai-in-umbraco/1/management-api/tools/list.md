@@ -12,7 +12,7 @@ Retrieve a list of all user-configurable tools grouped by scope. Tools are regis
 {% code title="Endpoint" %}
 
 ```
-GET /tools
+GET /umbraco/ai/management/api/v1/tools
 ```
 
 {% endcode %}
@@ -24,35 +24,32 @@ GET /tools
 {% code title="Response" %}
 
 ```json
-{
-    "items": [
-        {
-            "id": "get-content-by-id",
-            "name": "Get Content By Id",
-            "description": "Retrieves a content item by its unique identifier.",
-            "scopeId": "content-read",
-            "isDestructive": false,
-            "tags": ["content", "read"]
-        },
-        {
-            "id": "update-content",
-            "name": "Update Content",
-            "description": "Updates an existing content item with new property values.",
-            "scopeId": "content-write",
-            "isDestructive": true,
-            "tags": ["content", "write"]
-        },
-        {
-            "id": "search-content",
-            "name": "Search Content",
-            "description": "Searches for content items matching the given query.",
-            "scopeId": "search",
-            "isDestructive": false,
-            "tags": ["search"]
-        }
-    ],
-    "total": 3
-}
+[
+    {
+        "id": "get-content-by-id",
+        "name": "Get Content By Id",
+        "description": "Retrieves a content item by its unique identifier.",
+        "scopeId": "content-read",
+        "isDestructive": false,
+        "tags": ["content", "read"]
+    },
+    {
+        "id": "update-content",
+        "name": "Update Content",
+        "description": "Updates an existing content item with new property values.",
+        "scopeId": "content-write",
+        "isDestructive": true,
+        "tags": ["content", "write"]
+    },
+    {
+        "id": "search-content",
+        "name": "Search Content",
+        "description": "Searches for content items matching the given query.",
+        "scopeId": "search",
+        "isDestructive": false,
+        "tags": ["search"]
+    }
+]
 ```
 
 {% endcode %}
@@ -75,7 +72,7 @@ GET /tools
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/tools"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/tools"
 ```
 
 {% endcode %}
@@ -89,11 +86,11 @@ const response = await fetch("/umbraco/ai/management/api/v1/tools", {
     credentials: "include",
 });
 
-const { items, total } = await response.json();
-console.log(`Found ${total} tools`);
+const tools = await response.json();
+console.log(`Found ${tools.length} tools`);
 
 // Group by scope
-const toolsByScope = items.reduce((acc, tool) => {
+const toolsByScope = tools.reduce((acc, tool) => {
     acc[tool.scopeId] = acc[tool.scopeId] || [];
     acc[tool.scopeId].push(tool);
     return acc;

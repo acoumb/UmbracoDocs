@@ -5,12 +5,12 @@ description: >-
 
 # Execute Prompt
 
-Executes a prompt with the provided variables and returns the AI response.
+Executes a prompt against an entity/property and returns the AI response.
 
 ## Request
 
 ```http
-POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
+POST /umbraco/ai/management/api/v1/prompts/{idOrAlias}/execute
 ```
 
 ### Path Parameters
@@ -25,12 +25,17 @@ POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
 
 ```json
 {
-    "variables": {
-        "title": "How to Bake Sourdough Bread",
-        "content": "This comprehensive guide covers everything from creating your starter..."
-    },
-    "entityId": "content-guid",
-    "entityType": "document"
+    "entityId": "8c9a4e8f-2e89-4b3e-9a6f-1c2d3e4f5a6b",
+    "entityType": "document",
+    "propertyAlias": "metaDescription",
+    "contentTypeAlias": "article",
+    "culture": "en-US",
+    "context": [
+        {
+            "description": "Currently editing: How to Bake Sourdough Bread",
+            "value": "{\"documentName\":\"How to Bake Sourdough Bread\"}"
+        }
+    ]
 }
 ```
 
@@ -38,12 +43,17 @@ POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
 
 ### Request Properties
 
-| Property        | Type   | Required | Description                            |
-| --------------- | ------ | -------- | -------------------------------------- |
-| `variables`     | object | No       | Key-value pairs for template variables |
-| `entityId`      | string | No       | ID of the content entity               |
-| `entityType`    | string | No       | Type of the content entity             |
-| `entityContext` | string | No       | Additional context about the entity    |
+| Property           | Type     | Required | Description                                                                                   |
+| ------------------ | -------- | -------- | --------------------------------------------------------------------------------------------- |
+| `entityId`         | guid     | Yes      | The entity (document, media, etc.) key. Used for scope validation and entity context lookup. |
+| `entityType`       | string   | Yes      | The entity type (for example `document` or `media`).                                          |
+| `propertyAlias`    | string   | Yes      | The property alias being edited.                                                              |
+| `contentTypeAlias` | string   | Yes      | The content type alias (or the element type alias when editing a block).                      |
+| `elementId`        | guid     | No       | Block content key when executing inside a block element. `entityId` then refers to the parent document. |
+| `elementType`      | string   | No       | Element type identifier when executing inside a block element.                                |
+| `culture`          | string   | No       | Culture/language variant (for example `en-US`).                                               |
+| `segment`          | string   | No       | Segment variant.                                                                              |
+| `context`          | object[] | No       | Flexible context items. Each item has `description` (required) and `value` (optional JSON string). |
 
 ## Response
 
@@ -53,24 +63,46 @@ POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
 
 ```json
 {
-    "response": "Discover the art of sourdough baking with our comprehensive guide. From creating your starter to achieving a perfect crust, learn expert techniques for homemade bread.",
-    "promptId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "promptVersion": 3,
-    "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "model": {
-        "providerId": "openai",
-        "modelId": "gpt-4o"
-    },
+    "content": "Discover the art of sourdough baking with our guide. From creating your starter to achieving a perfect crust, learn expert techniques for homemade bread.",
     "usage": {
         "inputTokens": 85,
         "outputTokens": 42,
         "totalTokens": 127
     },
-    "auditLogId": "f512g3hh-8e76-6d23-b2g8-f923960h2073"
+    "resultOptions": [
+        {
+            "label": "Result",
+            "displayValue": "Discover the art of sourdough baking with our guide...",
+            "description": null,
+            "valueChange": {
+                "path": "metaDescription",
+                "value": "Discover the art of sourdough baking with our guide...",
+                "culture": "en-US",
+                "segment": null
+            }
+        }
+    ]
 }
 ```
 
 {% endcode %}
+
+### Response Properties
+
+| Property        | Type     | Description                                                                                                 |
+| --------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `content`       | string   | The generated response content.                                                                             |
+| `usage`         | object   | Token usage information (may be omitted if the provider does not report usage).                             |
+| `resultOptions` | object[] | Available result options. Empty for informational prompts, a single entry for single-value prompts, multiple entries when the prompt is configured to generate options. |
+
+Each item in `resultOptions` contains:
+
+| Property       | Type   | Description                                                                    |
+| -------------- | ------ | ------------------------------------------------------------------------------ |
+| `label`        | string | Short label/title for the option.                                              |
+| `displayValue` | string | Value displayed in the UI.                                                     |
+| `description`  | string | Optional explanation for the option.                                           |
+| `valueChange`  | object | The change to apply when the option is selected. `null` for informational options. |
 
 ### Not Found
 
@@ -79,39 +111,26 @@ POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-    "title": "Not Found",
+    "title": "AIPrompt not found",
     "status": 404,
-    "detail": "Prompt not found"
+    "detail": "The specified prompt could not be found."
 }
 ```
 
 {% endcode %}
 
-### Prompt Inactive
+### Execution Failure
 
 {% code title="400 Bad Request" %}
+
+Returned when the prompt cannot be executed (for example when scope validation blocks the request).
 
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-    "title": "Bad Request",
+    "title": "Prompt execution failed",
     "status": 400,
-    "detail": "Prompt is not active"
-}
-```
-
-{% endcode %}
-
-### AI Error
-
-{% code title="502 Bad Gateway" %}
-
-```json
-{
-    "type": "https://tools.ietf.org/html/rfc7231#section-6.6.3",
-    "title": "Bad Gateway",
-    "status": 502,
-    "detail": "AI provider returned an error: Rate limit exceeded"
+    "detail": "..."
 }
 ```
 
@@ -119,51 +138,18 @@ POST /umbraco/ai/management/api/v1/prompt/{idOrAlias}/execute
 
 ## Examples
 
-### Basic Execution
-
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/prompt/meta-description/execute" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/prompts/meta-description/execute" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "variables": {
-      "title": "How to Bake Sourdough Bread",
-      "content": "This guide covers everything..."
-    }
-  }'
-```
-
-{% endcode %}
-
-### With Entity Context
-
-{% code title="cURL" %}
-
-```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/prompt/summarize-article/execute" \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "entityId": "1234",
+    "entityId": "8c9a4e8f-2e89-4b3e-9a6f-1c2d3e4f5a6b",
     "entityType": "document",
-    "variables": {
-      "format": "bullet points"
-    }
+    "propertyAlias": "metaDescription",
+    "contentTypeAlias": "article"
   }'
 ```
 
 {% endcode %}
-
-## Response Properties
-
-| Property        | Type   | Description                      |
-| --------------- | ------ | -------------------------------- |
-| `response`      | string | The AI-generated response        |
-| `promptId`      | guid   | Prompt that was executed         |
-| `promptVersion` | int    | Prompt version at execution time |
-| `profileId`     | guid   | Profile used for execution       |
-| `model`         | object | Model reference                  |
-| `usage`         | object | Token usage statistics           |
-| `auditLogId`    | guid   | Reference to the audit log entry |

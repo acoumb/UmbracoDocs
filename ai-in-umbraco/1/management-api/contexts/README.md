@@ -9,13 +9,13 @@ Contexts define collections of resources (brand voice, guidelines, content) that
 
 ## Endpoints
 
-| Method | Endpoint                         | Description                  |
-| ------ | -------------------------------- | ---------------------------- |
-| GET    | [`/context`](list.md)            | List all contexts            |
-| GET    | [`/context/{idOrAlias}`](get.md) | Get a context by ID or alias |
-| POST   | [`/context`](create.md)          | Create a new context         |
-| PUT    | [`/context/{id}`](update.md)     | Update an existing context   |
-| DELETE | [`/context/{id}`](delete.md)     | Delete a context             |
+| Method | Endpoint                                                                          | Description                  |
+| ------ | --------------------------------------------------------------------------------- | ---------------------------- |
+| GET    | [`/umbraco/ai/management/api/v1/contexts`](list.md)                               | List all contexts            |
+| GET    | [`/umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}`](get.md)             | Get a context by ID or alias |
+| POST   | [`/umbraco/ai/management/api/v1/contexts`](create.md)                             | Create a new context         |
+| PUT    | [`/umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}`](update.md)          | Update an existing context   |
+| DELETE | [`/umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}`](delete.md)          | Delete a context             |
 
 ## Base URL
 

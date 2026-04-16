@@ -27,6 +27,7 @@ public sealed class AIAgent : IAIVersionableEntity
     public AIAgentType AgentType { get; init; } = AIAgentType.Standard;
     public IAIAgentConfig? Config { get; set; }
     public Guid? ProfileId { get; set; }
+    public IReadOnlyList<Guid> GuardrailIds { get; set; } = [];
     public IReadOnlyList<string> SurfaceIds { get; set; } = [];
     public AIAgentScope? Scope { get; set; }
     public bool IsActive { get; set; } = true;
@@ -55,6 +56,7 @@ public sealed class AIAgent : IAIVersionableEntity
 | `AgentType`      | `AIAgentType`           | `Standard` or `Orchestrated` (immutable)         |
 | `Config`         | `IAIAgentConfig?`       | Type-specific configuration (see below)          |
 | `ProfileId`      | `Guid?`                 | Associated AI profile (null uses default)        |
+| `GuardrailIds`   | `IReadOnlyList<Guid>`   | Guardrails applied during agent execution        |
 | `SurfaceIds`     | `IReadOnlyList<string>` | Surface IDs for categorization                   |
 | `Scope`          | `AIAgentScope?`         | Optional scoping rules                           |
 | `IsActive`       | `bool`                  | Whether agent is available                       |
@@ -101,6 +103,7 @@ public sealed class AIStandardAgentConfig : IAIAgentConfig
     public string? Instructions { get; set; }
     public IReadOnlyList<string> AllowedToolIds { get; set; } = [];
     public IReadOnlyList<string> AllowedToolScopeIds { get; set; } = [];
+    public JsonElement? OutputSchema { get; set; }
     public IReadOnlyDictionary<Guid, AIAgentUserGroupPermissions> UserGroupPermissions { get; set; }
         = new Dictionary<Guid, AIAgentUserGroupPermissions>();
 }
@@ -114,6 +117,7 @@ public sealed class AIStandardAgentConfig : IAIAgentConfig
 | `Instructions`         | `string?`                                              | Agent system prompt                 |
 | `AllowedToolIds`       | `IReadOnlyList<string>`                                | Explicit tool permissions           |
 | `AllowedToolScopeIds`  | `IReadOnlyList<string>`                                | Scope-based tool permissions        |
+| `OutputSchema`         | `JsonElement?`                                         | Optional JSON Schema to constrain the agent's output |
 | `UserGroupPermissions` | `IReadOnlyDictionary<Guid, AIAgentUserGroupPermissions>` | Per-user-group permission overrides |
 
 ### Orchestrated Agent Config

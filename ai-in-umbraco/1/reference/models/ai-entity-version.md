@@ -53,6 +53,7 @@ public sealed class AIEntityVersion
 | `"connection"` | `AIConnection` | Umbraco.AI        |
 | `"profile"`    | `AIProfile`    | Umbraco.AI        |
 | `"context"`    | `AIContext`    | Umbraco.AI        |
+| `"guardrail"`  | `AIGuardrail`  | Umbraco.AI        |
 | `"prompt"`     | `AIPrompt`     | Umbraco.AI.Prompt |
 | `"agent"`      | `AIAgent`      | Umbraco.AI.Agent  |
 
@@ -87,7 +88,7 @@ Result of comparing two entity versions.
 {% code title="AIVersionComparison" %}
 
 ```csharp
-public class AIVersionComparison
+public sealed class AIVersionComparison
 {
     public Guid EntityId { get; init; }
     public string EntityType { get; init; } = string.Empty;
@@ -108,7 +109,7 @@ Represents a single change between two versions.
 {% code title="AIValueChange" %}
 
 ```csharp
-public class AIValueChange
+public sealed class AIValueChange
 {
     public string Path { get; init; } = string.Empty;
     public string? OldValue { get; init; }
@@ -127,7 +128,7 @@ Result of version cleanup operation.
 {% code title="AIVersionCleanupResult" %}
 
 ```csharp
-public class AIVersionCleanupResult
+public sealed class AIVersionCleanupResult
 {
     public int DeletedByAge { get; init; }
     public int DeletedByCount { get; init; }

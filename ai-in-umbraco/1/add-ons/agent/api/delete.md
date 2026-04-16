@@ -10,14 +10,14 @@ Permanently deletes an agent and all its version history.
 ## Request
 
 ```http
-DELETE /umbraco/ai/management/api/v1/agent/{id}
+DELETE /umbraco/ai/management/api/v1/agents/{agentIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description             |
-| --------- | ---- | ----------------------- |
-| `id`      | guid | Agent unique identifier |
+| Parameter        | Type   | Description         |
+| ---------------- | ------ | ------------------- |
+| `agentIdOrAlias` | string | Agent GUID or alias |
 
 ## Response
 
@@ -38,9 +38,9 @@ DELETE /umbraco/ai/management/api/v1/agent/{id}
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-    "title": "Not Found",
+    "title": "AIAgent not found",
     "status": 404,
-    "detail": "Agent not found"
+    "detail": "The specified agent could not be found."
 }
 ```
 
@@ -55,7 +55,12 @@ Deleting an agent also removes all version history. Consider deactivating (`isAc
 {% code title="cURL" %}
 
 ```bash
-curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/agent/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+# By ID
+curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/agents/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+
+# By alias
+curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/agents/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

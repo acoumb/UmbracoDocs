@@ -11,10 +11,10 @@ You can use these endpoints to discover available resource types when building c
 
 ## Available Endpoints
 
-| Method | Endpoint                      | Description                                      |
-| ------ | ----------------------------- | ------------------------------------------------ |
-| GET    | `/context-resource-types`      | List all resource types                          |
-| GET    | `/context-resource-types/{id}` | Get a resource type with its settings schema     |
+| Method | Endpoint                                                              | Description                                  |
+| ------ | --------------------------------------------------------------------- | -------------------------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/context-resource-types`                | List all resource types                      |
+| GET    | `/umbraco/ai/management/api/v1/context-resource-types/{id}`           | Get a resource type with its settings schema |
 
 ## Resource Type Model
 

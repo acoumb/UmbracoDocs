@@ -9,7 +9,7 @@ Override profile defaults on a per-request basis using `ChatOptions`. These opti
 
 ## ChatOptions
 
-Pass `ChatOptions` as the second parameter to any chat method:
+Pass `ChatOptions` through the builder to configure chat behavior:
 
 {% code title="WithOptions.cs" %}
 

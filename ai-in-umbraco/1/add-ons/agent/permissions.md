@@ -21,10 +21,10 @@ The permission system operates at three levels:
 
 1. **Tool Scope Permissions** - Grant access to all tools within specific scopes (e.g., "content-read", "navigation")
 2. **Explicit Tool Permissions** - Grant access to individual tools by their ID
-3. **User Group Overrides** - Customize tool permissions per user group
+3. **User Group Overrides** - Add or remove tools per user group (additive and subtractive)
 
 {% hint style="info" %}
-A tool is **enabled** if it appears in the agent's explicit tool list **OR** if its scope is in the agent's allowed scopes list.
+A tool is **allowed** if it appears in the agent's explicit tool list **OR** if its scope is in the agent's allowed scopes list, and it is not denied by a user group override. System tools are always allowed and cannot be denied.
 {% endhint %}
 
 ## Tool Scopes
@@ -51,7 +51,7 @@ Umbraco.AI provides built-in scopes for common tool categories:
 
 ### Configuring Scope Permissions
 
-Scope permissions can be configured in the **Governance** tab of the agent workspace in the backoffice, or via code:
+Scope permissions are defined on `AIStandardAgentConfig` (accessed via `AIAgent.Config`). They can be configured in the **Governance** tab of the agent workspace in the backoffice, or via code:
 
 {% code title="AgentWithToolScopes.cs" %}
 
@@ -60,8 +60,11 @@ var agent = new AIAgent
 {
     Alias = "content-assistant",
     Name = "Content Assistant",
-    AllowedToolScopeIds = new List<string> { "content-read", "search", "navigation" },
-    Instructions = "You help users find and read content."
+    Config = new AIStandardAgentConfig
+    {
+        Instructions = "You help users find and read content.",
+        AllowedToolScopeIds = new List<string> { "content-read", "search", "navigation" }
+    }
 };
 
 await _agentService.SaveAgentAsync(agent);
@@ -79,7 +82,7 @@ Use explicit tool permissions when you need to:
 
 - Grant access to a single tool from a scope without enabling the entire scope
 - Create custom combinations of tools for specialized agents
-- Override scope-based permissions for specific tools
+- Supplement scope-based permissions with individual tools
 
 ### Configuring Explicit Tool Permissions
 
@@ -92,12 +95,15 @@ var agent = new AIAgent
 {
     Alias = "search-only-agent",
     Name = "Search Only Agent",
-    AllowedToolIds = new List<string>
+    Config = new AIStandardAgentConfig
     {
-        "search_umbraco",
-        "get_page_info"
-    },
-    Instructions = "You can search content and get page information."
+        Instructions = "You can search content and get page information.",
+        AllowedToolIds = new List<string>
+        {
+            "search_umbraco",
+            "get_page_info"
+        }
+    }
 };
 
 await _agentService.SaveAgentAsync(agent);
@@ -107,7 +113,7 @@ await _agentService.SaveAgentAsync(agent);
 
 ## Combining Scopes and Explicit Permissions
 
-An agent can use both scope-based and explicit permissions together. A tool is enabled if **either** condition is met:
+An agent can use both scope-based and explicit permissions together. A tool is allowed if **either** condition is met:
 
 {% code title="HybridPermissionsAgent.cs" %}
 
@@ -116,11 +122,14 @@ var agent = new AIAgent
 {
     Alias = "hybrid-agent",
     Name = "Hybrid Agent",
-    // Allow all tools in the "content-read" scope
-    AllowedToolScopeIds = new List<string> { "content-read" },
-    // Plus this specific tool from the "media-write" scope
-    AllowedToolIds = new List<string> { "get_umbraco_media_item" },
-    Instructions = "You can read content and fetch specific media items."
+    Config = new AIStandardAgentConfig
+    {
+        Instructions = "You can read content and fetch specific media items.",
+        // Allow all tools in the "content-read" scope
+        AllowedToolScopeIds = new List<string> { "content-read" },
+        // Plus this specific tool from the "media-write" scope
+        AllowedToolIds = new List<string> { "get_umbraco_media_item" }
+    }
 };
 ```
 
@@ -136,18 +145,22 @@ User group overrides allow you to customize an agent's tool permissions for spec
 
 ### Use Cases
 
-- **Content Editors** - Allow `content-write` scope for editors, but only `content-read` for contributors
-- **Administrators** - Grant full access to admin users while restricting others
+- **Content Editors** - Allow `content-write` scope for editors in addition to the base permissions
+- **Administrators** - Grant broader access to admin users while restricting others via deny rules
 - **Department-Specific** - Customize tools based on organizational structure
 
 ### How Overrides Work
 
-1. **Base Permissions** - The agent's `allowedToolScopeIds` and `allowedToolIds` define the default permissions
-2. **Override Applied** - When a user from a specific user group runs the agent, their group's override is applied
-3. **Override Replaces** - The override **completely replaces** the base permissions for that user group
+User group overrides are **additive and subtractive**, not replacement:
 
-{% hint style="warning" %}
-User group overrides **replace** the agent's base permissions entirely. They do not merge with base permissions.
+1. **Base Permissions** - The agent's `AllowedToolScopeIds` and `AllowedToolIds` define the default allowed tools for everyone.
+2. **User Group Allow** - `AllowedToolIds` and `AllowedToolScopeIds` from the user group override are **added** to the base permissions.
+3. **User Group Deny** - `DeniedToolIds` and `DeniedToolScopeIds` from the user group override **subtract** from the combined set. Deny rules take precedence over allow rules.
+4. **System Tools** - System tools are always included and cannot be denied.
+5. **Multiple Groups** - When a user belongs to multiple groups, allow lists from all matching groups are combined, and deny lists from all matching groups are combined.
+
+{% hint style="info" %}
+`UserGroupPermissions` is an `IReadOnlyDictionary<Guid, AIAgentUserGroupPermissions>` keyed by user group ID. The user group ID is the dictionary key, not a property on `AIAgentUserGroupPermissions`.
 {% endhint %}
 
 ### Configuring User Group Overrides
@@ -161,25 +174,28 @@ var agent = new AIAgent
 {
     Alias = "content-agent",
     Name = "Content Agent",
-    // Base permissions (applies to users without overrides)
-    AllowedToolScopeIds = new List<string> { "content-read" },
-    // User group overrides
-    UserGroupPermissions = new List<AIAgentUserGroupPermissions>
+    Config = new AIStandardAgentConfig
     {
-        new AIAgentUserGroupPermissions
+        Instructions = "You help manage content.",
+        // Base permissions (applies to all users)
+        AllowedToolScopeIds = new List<string> { "content-read" },
+        // User group overrides (keyed by user group ID)
+        UserGroupPermissions = new Dictionary<Guid, AIAgentUserGroupPermissions>
         {
-            UserGroupId = editorGroupId,
-            AllowedToolScopeIds = new List<string> { "content-read", "content-write" },
-            AllowedToolIds = new List<string>()
-        },
-        new AIAgentUserGroupPermissions
-        {
-            UserGroupId = contributorGroupId,
-            AllowedToolScopeIds = new List<string> { "content-read" },
-            AllowedToolIds = new List<string> { "search_umbraco" }
+            [editorGroupId] = new AIAgentUserGroupPermissions
+            {
+                // Editors additionally get content-write
+                AllowedToolScopeIds = new List<string> { "content-write" }
+            },
+            [contributorGroupId] = new AIAgentUserGroupPermissions
+            {
+                // Contributors also get the search_umbraco tool explicitly
+                AllowedToolIds = new List<string> { "search_umbraco" },
+                // ...but are denied all media-write tools
+                DeniedToolScopeIds = new List<string> { "media-write" }
+            }
         }
-    },
-    Instructions = "You help manage content."
+    }
 };
 
 await _agentService.SaveAgentAsync(agent);
@@ -187,23 +203,35 @@ await _agentService.SaveAgentAsync(agent);
 
 {% endcode %}
 
+### User Group Permission Properties
+
+The `AIAgentUserGroupPermissions` model has four collections:
+
+| Property               | Type                    | Description                                                                          |
+| ---------------------- | ----------------------- | ------------------------------------------------------------------------------------ |
+| `AllowedToolIds`       | `IReadOnlyList<string>` | Tool IDs added to the allowed set for this user group.                               |
+| `AllowedToolScopeIds`  | `IReadOnlyList<string>` | Tool scope IDs added to the allowed set for this user group.                         |
+| `DeniedToolIds`        | `IReadOnlyList<string>` | Tool IDs removed from the allowed set. Takes precedence over allow rules.            |
+| `DeniedToolScopeIds`   | `IReadOnlyList<string>` | Tool scope IDs removed from the allowed set. Takes precedence over allow rules.      |
+
 ### Permission Resolution Flow
 
 When a user runs an agent, permissions are resolved in this order:
 
 ```
-1. Is the user in any user groups?
-   ├─ No  → Use agent's base permissions
-   └─ Yes → Continue to step 2
+1. Start with system tools (always allowed, cannot be denied).
 
-2. Does the user belong to a group with an override?
-   ├─ No  → Use agent's base permissions
-   └─ Yes → Use the override's permissions (replaces base)
+2. Add agent base AllowedToolIds.
 
-3. Is the tool enabled by the resolved permissions?
-   ├─ Tool ID in allowedToolIds? → ✅ Enabled
-   ├─ Tool scope in allowedToolScopeIds? → ✅ Enabled
-   └─ Otherwise → ❌ Disabled
+3. Add tools from agent base AllowedToolScopeIds.
+
+4. For each user group the user belongs to with a configured override:
+   ├─ Add AllowedToolIds from the override
+   ├─ Add tools from AllowedToolScopeIds in the override
+   ├─ Collect DeniedToolIds
+   └─ Collect tools from DeniedToolScopeIds
+
+5. Remove denied tools from the allowed set (except system tools).
 ```
 
 ## Frontend Tool Metadata
@@ -259,7 +287,9 @@ Agent Runtime (filters by permissions)
 
 ## Checking Permissions Programmatically
 
-### Check if Tool is Enabled
+`IAIAgentService` exposes two methods for inspecting the resolved permissions for an agent.
+
+### Check if a Tool is Allowed
 
 {% code title="CheckToolPermission.cs" %}
 
@@ -281,7 +311,7 @@ public class MyService
         var agent = await _agentService.GetAgentAsync(agentId, cancellationToken);
         if (agent == null) return false;
 
-        return await _agentService.IsToolEnabledAsync(
+        return await _agentService.IsToolAllowedAsync(
             agent,
             toolId,
             userGroupIds: null, // Uses current user's groups
@@ -315,23 +345,24 @@ public async Task<IReadOnlyList<string>> GetAllowedToolsAsync(
 
 ## Permission Filtering at Runtime
 
-When an agent runs, `IAIAgentService.StreamAgentAsync` automatically filters frontend tools based on the resolved permissions -- a tool is included only if its ID is in `AllowedToolIds` or its scope is in `AllowedToolScopeIds`; unpermitted tools are silently excluded.
+When an agent runs, `IAIAgentService.StreamAgentAsync` and related methods automatically filter frontend tools based on the resolved permissions -- a tool is included only if its ID is in the resolved allowed list. Unpermitted tools are silently excluded.
 
 ## Security Considerations
 
 ### Best Practices
 
-1. **Principle of Least Privilege** - Only grant the minimum permissions needed
+1. **Principle of Least Privilege** - Only grant the minimum permissions needed.
 2. **Review Destructive Scopes** - Carefully consider before granting `content-write`, `media-write`, etc.
-3. **Test with Different User Groups** - Verify overrides work as expected
-4. **Document Agent Permissions** - Clearly document why permissions are granted
-5. **Audit Permission Changes** - Track changes to agent permissions over time
+3. **Use Deny Rules for Safety** - Use `DeniedToolIds`/`DeniedToolScopeIds` to subtract risky tools from specific user groups even when broader scopes are granted.
+4. **Test with Different User Groups** - Verify overrides behave as expected for each role.
+5. **Document Agent Permissions** - Clearly document why permissions are granted.
+6. **Audit Permission Changes** - Track changes to agent permissions over time.
 
 Avoid granting all scopes by default -- instead, grant only the specific scopes each agent needs. Use user group overrides to provide role-based access rather than giving broad permissions to all users.
 
 ## Related
 
-- [Agent Scopes](scopes.md) - Categorizing agents (different from tool scopes)
+- [Agent Surfaces](scopes.md) - Categorizing agents by surface (different from tool scopes)
 - [Frontend Tools](../agent-copilot/frontend-tools.md) - Creating custom frontend tools
 - [Getting Started](getting-started.md) - Agent setup guide
 - [API Reference](reference/ai-agent-service.md) - IAIAgentService methods

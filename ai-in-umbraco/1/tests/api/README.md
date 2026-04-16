@@ -14,8 +14,8 @@ The Test API provides endpoints for creating, managing, and executing AI tests, 
 | GET    | [`/tests`](list.md)                               | List all tests            |
 | GET    | [`/tests/{idOrAlias}`](get.md)                    | Get a test by ID or alias |
 | POST   | [`/tests`](create.md)                             | Create a new test         |
-| PUT    | [`/tests/{id}`](update.md)                        | Update an existing test   |
-| DELETE | [`/tests/{id}`](delete.md)                        | Delete a test             |
+| PUT    | [`/tests/{idOrAlias}`](update.md)                 | Update an existing test   |
+| DELETE | [`/tests/{idOrAlias}`](delete.md)                 | Delete a test             |
 | POST   | [`/tests/{idOrAlias}/run`](run.md)                | Execute a single test     |
 | POST   | [`/tests/run-batch`](run-batch.md)                | Execute multiple tests    |
 | POST   | [`/tests/run-by-tags`](run-by-tags.md)            | Execute tests by tags     |
@@ -25,6 +25,12 @@ The Test API provides endpoints for creating, managing, and executing AI tests, 
 | Method | Endpoint                                          | Description                      |
 | ------ | ------------------------------------------------- | -------------------------------- |
 | GET    | [`/test-runs`](runs.md)                           | List test runs (filtered)        |
+| GET    | `/test-runs/{id}`                                 | Get a test run by ID             |
+| GET    | `/test-runs/{id}/transcript`                      | Get the transcript for a run     |
+| GET    | `/test-runs/latest/{testId}`                      | Get the most recent run for a test |
+| GET    | `/test-runs/executions/{executionId}`             | Get execution summary with per-variation metrics |
+| DELETE | `/test-runs/{id}`                                 | Delete a test run                |
+| POST   | `/test-runs/baseline/{testId}/{testRunId}`        | Set a run as the test baseline   |
 | POST   | [`/test-runs/compare`](compare.md)                | Compare two test runs            |
 | POST   | [`/test-runs/compare-variations`](compare.md)     | Compare two variation groups     |
 
@@ -46,7 +52,7 @@ The Test API provides endpoints for creating, managing, and executing AI tests, 
     "description": "Validates summarization output quality and format",
     "testFeatureId": "prompt",
     "testTargetId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
     "contextIds": [],
     "testFeatureConfig": {
         "variables": {
@@ -94,6 +100,8 @@ The Test API provides endpoints for creating, managing, and executing AI tests, 
 | `runCount`          | int      | Number of runs per execution                   |
 | `tags`              | string[] | Organization tags                              |
 | `baselineRunId`     | guid     | Baseline run for regression detection          |
+| `dateCreated`       | date     | When the test was created (UTC)                |
+| `dateModified`      | date     | When the test was last modified (UTC)          |
 | `version`           | int      | Current version number                         |
 
 ## Related

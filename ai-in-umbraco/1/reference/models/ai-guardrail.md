@@ -120,6 +120,7 @@ public sealed class AIGuardrailRule
     public AIGuardrailPhase Phase { get; set; } = AIGuardrailPhase.PostGenerate;
     public AIGuardrailAction Action { get; set; } = AIGuardrailAction.Block;
     public JsonElement? Config { get; set; }
+    public string? GuardrailName { get; set; }
     public int SortOrder { get; set; }
 }
 ```
@@ -136,6 +137,7 @@ public sealed class AIGuardrailRule
 | `Phase`       | `AIGuardrailPhase`  | When to evaluate (default: PostGenerate)               |
 | `Action`      | `AIGuardrailAction` | What to do when flagged: Block, Warn, or Redact (default: Block) |
 | `Config`      | `JsonElement?`      | Evaluator-specific configuration                       |
+| `GuardrailName` | `string?`         | Name of the parent guardrail (set during resolution)   |
 | `SortOrder`   | `int`               | Controls evaluation order within the guardrail         |
 
 ## Enums

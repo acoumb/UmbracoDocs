@@ -12,7 +12,7 @@ description: >-
 {% code title="Import" %}
 
 ```typescript
-import { UaiEmbeddingsController, UaiEmbeddingOptions } from "@umbraco-ai/backoffice";
+import { UaiEmbeddingsController, UaiEmbeddingOptions } from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -116,7 +116,7 @@ interface UaiEmbeddingItem {
 ```typescript
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { UaiEmbeddingsController } from "@umbraco-ai/backoffice";
+import { UaiEmbeddingsController } from "@umbraco-ai/core";
 
 @customElement("similarity-checker")
 export class SimilarityCheckerElement extends LitElement {

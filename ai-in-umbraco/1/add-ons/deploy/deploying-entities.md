@@ -46,13 +46,55 @@ data/Revision/umbraco-ai-profile__chat-assistant_abcd1234.uda
 
 **Contains:**
 - Profile name and alias
-- Model selection
-- Chat/embedding settings
-- Connection reference
+- Capability (Chat, Embedding, or SpeechToText)
+- Model provider ID and model ID
+- Capability-specific settings
+- Connection reference (UDI)
 - Tags
 
 **Dependencies:**
 - Automatically deploys the referenced Connection first
+- For chat profiles, any referenced Guardrails are deployed first
+
+### Contexts
+
+When you save a Context, Deploy creates a file like:
+
+```
+data/Revision/umbraco-ai-context__brand-voice_abcd1234.uda
+```
+
+**Contains:**
+- Context name and alias
+- Context resources (serialized as JSON)
+
+### Guardrails
+
+When you save a Guardrail, Deploy creates a file like:
+
+```
+data/Revision/umbraco-ai-guardrail__safety-checks_abcd1234.uda
+```
+
+**Contains:**
+- Guardrail name and alias
+- Rules (serialized as JSON)
+
+### Settings
+
+AI Settings is a singleton entity. When saved, Deploy creates a file like:
+
+```
+data/Revision/umbraco-ai-settings__ai-settings_abcd1234.uda
+```
+
+**Contains:**
+- Default chat profile reference (optional)
+- Default embedding profile reference (optional)
+- Classifier chat profile reference (optional)
+
+**Dependencies:**
+- Any referenced profiles are deployed first
 
 ### Prompts (Requires Umbraco.AI.Prompt.Deploy)
 
@@ -63,14 +105,17 @@ data/Revision/umbraco-ai-prompt__article-summarizer_abcd1234.uda
 ```
 
 **Contains:**
-- Prompt name and alias
-- Template content
-- Scoping rules
+- Prompt name, alias, and description
+- Instructions (template content, may include `{{placeholders}}`)
 - Profile reference (if specified)
+- Context IDs and Guardrail IDs
+- Scoping rules
+- Option count, IncludeEntityContext flag, IsActive flag
 - Tags
 
 **Dependencies:**
 - If linked to a Profile, deploys the Profile first
+- Any referenced Guardrails are deployed first
 
 ### Agents (Requires Umbraco.AI.Agent.Deploy)
 
@@ -81,18 +126,25 @@ data/Revision/umbraco-ai-agent__content-helper_abcd1234.uda
 ```
 
 **Contains:**
-- Agent name, alias, and agent type (`Standard` or `Orchestrated`)
-- Type-specific configuration:
-  - **Standard agents**: Instructions, tool permissions, user group permissions, context IDs
+- Agent name, alias, description, and agent type (`Standard` or `Orchestrated`)
+- Type-specific configuration (serialized as JSON):
+  - **Standard agents**: Instructions, allowed tool IDs, allowed tool scope IDs, context IDs, per-user-group permission overrides, optional output schema
   - **Orchestrated agents**: Workflow ID and workflow-specific settings
 - Surface IDs and scoping rules
+- Guardrail IDs
 - Profile reference (if specified)
+- IsActive flag
 
 **Dependencies:**
 - If linked to a Profile, deploys the Profile first
+- Any referenced Guardrails are deployed first
 
 {% hint style="warning" %}
 For **orchestrated agents**, the workflow implementation must be registered in the target environment. Deploy transfers the workflow ID and settings, but the workflow code itself must be deployed as part of the application.
+{% endhint %}
+
+{% hint style="info" %}
+Standard agent `UserGroupPermissions` are keyed by user group GUID. Referenced user groups must exist in the target environment with matching GUIDs. These are not added as explicit Deploy dependencies, so ensure user groups are deployed before agents that reference them.
 {% endhint %}
 
 ## Step-by-Step: Deploying a Connection
@@ -255,12 +307,11 @@ Each environment resolves `$OpenAI:ApiKey` from its own configuration, so the sa
 
 Deploy handles dependencies automatically, but it's helpful to understand the order:
 
-1. **Connections** (no dependencies)
-2. **Profiles** (depend on Connections)
-3. **Prompts** (optionally depend on Profiles)
-4. **Agents** (optionally depend on Profiles)
+1. **Connections, Contexts, Guardrails** (no dependencies on other AI entities)
+2. **Profiles** (depend on Connections, plus any referenced Guardrails)
+3. **Prompts, Agents, Settings** (optionally depend on Profiles, plus any referenced Guardrails)
 
-If you deploy a Profile, Deploy ensures its Connection is deployed first. If you deploy an Agent, Deploy ensures its Profile (and its Profile's Connection) are deployed first.
+If you deploy a Profile, Deploy ensures its Connection is deployed first. If you deploy an Agent or Prompt, Deploy ensures its Profile (and the Profile's Connection) are deployed first.
 
 ## Troubleshooting
 
@@ -287,13 +338,13 @@ If the target environment doesn't resolve `$` references:
 2. Check the configuration path matches exactly (case-sensitive)
 3. Restart the application
 
-### User Group Not Found (Agents)
+### User Group Permissions Missing on Agents
 
-If Agent deployment fails because a user group doesn't exist:
+Standard agent `UserGroupPermissions` are keyed by user group GUID but are not tracked as explicit Deploy dependencies. If an agent's user group permissions appear empty or incorrect after deployment:
 
 1. Ensure referenced user groups exist in the target environment
-2. User groups must have the same GUIDs across environments
-3. Deploy user groups before deploying Agents
+2. Confirm user groups have the same GUIDs across environments
+3. Deploy user groups before deploying Agents that reference them
 
 ## Next Steps
 

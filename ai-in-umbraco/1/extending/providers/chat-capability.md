@@ -12,11 +12,16 @@ The chat capability enables conversational AI features. Implement it by extendin
 {% code title="AIChatCapabilityBase<TSettings>" %}
 
 ```csharp
-public abstract class AIChatCapabilityBase<TSettings> : IAIChatCapability
+public abstract class AIChatCapabilityBase<TSettings>(IAIProvider provider)
+    : AICapabilityBase<TSettings>(provider), IAICapability<TSettings>, IAIChatCapability
     where TSettings : class
 {
-    // Implement this: Create an IChatClient
-    protected abstract IChatClient CreateClient(TSettings settings, string? modelId);
+    // Override this (or CreateClientAsync) to create an IChatClient
+    protected virtual IChatClient CreateClient(TSettings settings, string? modelId) { /* ... */ }
+
+    // Override this for an async variant
+    protected virtual Task<IChatClient> CreateClientAsync(
+        TSettings settings, string? modelId, CancellationToken cancellationToken = default) { /* ... */ }
 
     // Implement this: Return available models
     protected abstract Task<IReadOnlyList<AIModelDescriptor>> GetModelsAsync(
@@ -51,8 +56,8 @@ public class MyChatCapability : AIChatCapabilityBase<MyProviderSettings>
     {
         var models = new List<AIModelDescriptor>
         {
-            new("model-v1", "Model Version 1"),
-            new("model-v2", "Model Version 2")
+            new(new AIModelRef(Provider.Id, "model-v1"), "Model Version 1"),
+            new(new AIModelRef(Provider.Id, "model-v2"), "Model Version 2")
         };
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(models);
     }
@@ -310,8 +315,8 @@ public class MyOpenAICompatibleCapability : AIChatCapabilityBase<MyProviderSetti
         // Return models available through your service
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(new List<AIModelDescriptor>
         {
-            new("gpt-4o", "GPT-4o"),
-            new("gpt-4o-mini", "GPT-4o Mini")
+            new(new AIModelRef(Provider.Id, "gpt-4o"), "GPT-4o"),
+            new(new AIModelRef(Provider.Id, "gpt-4o-mini"), "GPT-4o Mini")
         });
     }
 }

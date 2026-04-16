@@ -10,37 +10,21 @@ Removes audit log entries older than the configured retention period.
 ## Request
 
 ```http
-POST /umbraco/ai/management/api/v1/audit-log/cleanup
+POST /umbraco/ai/management/api/v1/audit-logs/cleanup
 ```
 
-### Request Body (Optional)
-
-{% code title="Request" %}
-
-```json
-{
-    "olderThanDays": 90
-}
-```
-
-{% endcode %}
-
-| Property        | Type | Default          | Description                   |
-| --------------- | ---- | ---------------- | ----------------------------- |
-| `olderThanDays` | int  | configured value | Override the retention period |
+This endpoint does not accept a request body. The retention period is taken from the configured `Umbraco:AI:AuditLog:RetentionDays` setting.
 
 ## Response
 
 ### Success
 
+Returns the number of audit log records deleted as an integer.
+
 {% code title="200 OK" %}
 
 ```json
-{
-    "deletedCount": 1542,
-    "oldestRetained": "2024-10-25T00:00:00Z",
-    "retentionDays": 90
-}
+1542
 ```
 
 {% endcode %}
@@ -52,21 +36,8 @@ POST /umbraco/ai/management/api/v1/audit-log/cleanup
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-log/cleanup" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-logs/cleanup" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
-```
-
-{% endcode %}
-
-### Custom Retention Period
-
-{% code title="cURL" %}
-
-```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/audit-log/cleanup" \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{ "olderThanDays": 30 }'
 ```
 
 {% endcode %}
@@ -82,9 +53,8 @@ Configure default retention in `appsettings.json`:
     "Umbraco": {
         "AI": {
             "AuditLog": {
-                "RetentionDays": 90,
-                "AutoCleanupEnabled": true,
-                "AutoCleanupIntervalHours": 24
+                "Enabled": true,
+                "RetentionDays": 14
             }
         }
     }
@@ -93,20 +63,12 @@ Configure default retention in `appsettings.json`:
 
 {% endcode %}
 
-| Setting                    | Default | Description                |
-| -------------------------- | ------- | -------------------------- |
-| `RetentionDays`            | 90      | Days to retain audit logs  |
-| `AutoCleanupEnabled`       | true    | Enable automatic cleanup   |
-| `AutoCleanupIntervalHours` | 24      | Hours between cleanup runs |
+| Setting         | Default | Description                                  |
+| --------------- | ------- | -------------------------------------------- |
+| `Enabled`       | `true`  | Whether audit logging is enabled             |
+| `RetentionDays` | `14`    | Days to retain audit logs before cleanup     |
 
 {% hint style="info" %}
-When `AutoCleanupEnabled` is true, cleanup runs automatically on a background schedule. Manual cleanup is useful for immediate cleanup or using a different retention period.
+When `Enabled` is `true`, cleanup runs automatically on a background schedule. Manual cleanup via this endpoint is useful for immediate cleanup or to override the retention period. See [Audit Logs](../../backoffice/audit-logs.md) for the complete list of audit log configuration options.
 {% endhint %}
 
-## Response Properties
-
-| Property         | Type     | Description                          |
-| ---------------- | -------- | ------------------------------------ |
-| `deletedCount`   | int      | Number of records deleted            |
-| `oldestRetained` | datetime | Timestamp of oldest remaining record |
-| `retentionDays`  | int      | Retention period used for cleanup    |

@@ -327,7 +327,7 @@ var (versions, total) = await _profileService.GetProfileVersionHistoryAsync(
 
 foreach (var version in versions)
 {
-    Console.WriteLine($"Version {version.Version} - {version.DateModified}");
+    Console.WriteLine($"Version {version.Version} - {version.DateCreated}");
 }
 ```
 

@@ -10,14 +10,14 @@ Permanently deletes a test and all its version history.
 ## Request
 
 ```http
-DELETE /umbraco/ai/management/api/v1/tests/{id}
+DELETE /umbraco/ai/management/api/v1/tests/{idOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description             |
-| --------- | ---- | ----------------------- |
-| `id`      | guid | Test unique identifier  |
+| Parameter   | Type   | Description        |
+| ----------- | ------ | ------------------ |
+| `idOrAlias` | string | Test GUID or alias |
 
 ## Response
 
@@ -47,7 +47,7 @@ DELETE /umbraco/ai/management/api/v1/tests/{id}
 {% endcode %}
 
 {% hint style="warning" %}
-Deleting a test also removes all version history. Consider deactivating the test (`isActive: false`) instead if you may need the test again.
+Deleting a test also removes all its version history. This operation cannot be undone.
 {% endhint %}
 
 ## Examples

@@ -9,7 +9,7 @@ Prompt templates support variable interpolation using double curly braces: `{{va
 
 ## Basic Variables
 
-Variables in templates are resolved from the runtime context. When executing a prompt from the backoffice (via property actions), the context is automatically populated with entity data and property values.
+Variables in templates are resolved from the runtime context that is built for each execution. When a prompt runs against an entity (either from a property action in the backoffice or from a server-side call), the context is populated from that entity, so template variables typically map to the entity's property aliases.
 
 ```
 Translate the following text to {{language}}:
@@ -19,9 +19,14 @@ Translate the following text to {{language}}:
 
 Variables can reference:
 
-- Entity properties (name, content type, etc.)
-- Content property values by alias
-- Custom context items passed in the request
+- Request fields (`entityId`, `entityType`, `propertyAlias`, `contentTypeAlias`, `elementId`, `elementType`, `culture`, `segment`)
+- Entity property values by alias (for example `{{pageTitle}}` or `{{bodyText}}`)
+- The special `currentValue` variable, which is the current value of the property identified by `propertyAlias`
+- Values added by registered runtime context contributors (these can be supplied via the `Context` items on the request)
+
+{% hint style="info" %}
+To pass custom data from your frontend, use the `Context` property on `AIPromptExecutionRequest` and rely on a runtime context contributor to map it into the template context.
+{% endhint %}
 
 ## Nested Paths
 
@@ -82,22 +87,24 @@ Image variables require the entity to have a media picker or upload property wit
 
 ### From Property Actions
 
-When prompts execute from property actions in the backoffice, the context is automatically populated:
+When prompts execute from property actions in the backoffice, the runtime context is populated automatically:
 
 - Entity ID and type
 - Property alias being edited
+- Content type alias
 - Culture and segment (if applicable)
-- All property values from the entity
+- Entity property values
+- The current value of the property being edited (available as `{{currentValue}}`)
 
 Templates can reference this context directly:
 
 ```
-You are editing "{{name}}" ({{contentType}}).
+You are editing "{{name}}" ({{contentTypeAlias}}).
 
-Current title: {{pageTitle}}
-Current summary: {{summary}}
+Current value:
+{{currentValue}}
 
-Suggest improvements for SEO.
+Suggest an improved version for SEO.
 ```
 
 ### From Code
@@ -111,53 +118,59 @@ var result = await _promptService.ExecutePromptAsync(
     promptId,
     new AIPromptExecutionRequest
     {
-        EntityId = contentId,
+        EntityId = contentKey,
         EntityType = "document",
         PropertyAlias = "bodyText",
-        Culture = "en-US",
-        Context = new List<AIRequestContextItem>
-        {
-            new() { Description = "Target language", Value = "French" },
-            new() { Description = "Current content", Value = content.GetValue<string>("bodyText") }
-        }
+        ContentTypeAlias = "article",
+        Culture = "en-US"
+    });
+
+Console.WriteLine(result.Content);
+```
+
+{% endcode %}
+
+The `AIPromptExecutionRequest` properties:
+
+| Property           | Type                                    | Required | Description                                                       |
+| ------------------ | --------------------------------------- | -------- | ----------------------------------------------------------------- |
+| `EntityId`         | `Guid`                                  | Yes      | Entity (document, media, etc.) key                                |
+| `EntityType`       | `string`                                | Yes      | Entity type, for example `document` or `media`                    |
+| `PropertyAlias`    | `string`                                | Yes      | Property alias being edited                                       |
+| `ContentTypeAlias` | `string`                                | Yes      | Content type alias (or element type alias for blocks)             |
+| `ElementId`        | `Guid?`                                 | No       | Block content key when executing inside a block element           |
+| `ElementType`      | `string?`                               | No       | Element type when executing inside a block element                |
+| `Culture`          | `string?`                               | No       | Culture/language variant                                          |
+| `Segment`          | `string?`                               | No       | Segment variant                                                   |
+| `Context`          | `IReadOnlyList<AIRequestContextItem>?`  | No       | Frontend context items processed by runtime context contributors  |
+
+### Passing Custom Context
+
+To pass custom data to the template, use the `Context` list. Each item contains a human-readable `Description` and an optional `Value` (a JSON string). Contributors registered with the AI runtime decide how these items are exposed to templates and system messages.
+
+{% code title="ContextExample.cs" %}
+
+```csharp
+var result = await _promptService.ExecutePromptAsync(
+    promptId,
+    new AIPromptExecutionRequest
+    {
+        EntityId = contentKey,
+        EntityType = "document",
+        PropertyAlias = "summary",
+        ContentTypeAlias = "article",
+        Context =
+        [
+            new AIRequestContextItem
+            {
+                Description = "Target audience",
+                Value = "\"marketing professionals\""
+            }
+        ]
     });
 ```
 
 {% endcode %}
-
-The `AIPromptExecutionRequest` requires:
-
-| Property        | Type     | Description                  |
-| --------------- | -------- | ---------------------------- |
-| `EntityId`      | `Guid`   | The content or media item ID |
-| `EntityType`    | `string` | "document" or "media"        |
-| `PropertyAlias` | `string` | The property being edited    |
-
-Optional properties:
-
-| Property  | Type                                   | Description              |
-| --------- | -------------------------------------- | ------------------------ |
-| `Culture` | `string?`                              | Culture variant code     |
-| `Segment` | `string?`                              | Segment variant          |
-| `Context` | `IReadOnlyList<AIRequestContextItem>?` | Additional context items |
-
-## Context Items
-
-Context items provide additional information to the prompt:
-
-{% code title="AIRequestContextItem.cs" %}
-
-```csharp
-public class AIRequestContextItem
-{
-    public required string Description { get; init; }
-    public string? Value { get; init; }
-}
-```
-
-{% endcode %}
-
-The `Description` provides a human-readable label, while `Value` contains the actual data that can be referenced in templates.
 
 ## Combining Variables
 
@@ -172,7 +185,6 @@ Current text:
 {{image:featuredImage}}
 
 Generate a social media post about this content.
-Target language: {{targetLanguage}}
 ```
 
 ## Best Practices
@@ -199,13 +211,13 @@ Add comments to complex templates:
 
 ```
 <!--
-Required variables:
-- topic: Main subject
-- audience: Target readers
-- tone: Writing style
+Required properties on the entity:
+- pageTitle: main subject
+- audience: target readers
+- tone: writing style
 -->
 
-Write about {{topic}} for {{audience}}.
+Write about {{pageTitle}} for {{audience}}.
 Use a {{tone}} tone.
 ```
 
@@ -215,21 +227,17 @@ For complex prompts, use clear sections:
 
 ```
 ## Context
-You are a {{role}} assistant.
+You are a writing assistant.
 
-## Task
-{{taskDescription}}
-
-## Input
-{{inputContent}}
+## Current Value
+{{currentValue}}
 
 ## Requirements
-Respond in {{language}}.
-Keep the response under {{maxWords}} words.
+Respond in {{culture}}.
 ```
 
 ## Related
 
 - [Concepts](concepts.md) - Prompt template concepts
-- [Scoping](scoping.md) - Content type rules
+- [Scoping](scoping.md) - Allow and deny rules
 - [Property Actions](property-actions.md) - Using prompts in the backoffice

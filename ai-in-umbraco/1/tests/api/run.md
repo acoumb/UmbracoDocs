@@ -27,9 +27,9 @@ The request body is optional. Use it to override the profile, contexts, or guard
 
 ```json
 {
-    "profileIdOverride": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
-    "contextIdsOverride": ["f512g3hh-8e76-6d23-b2g8-f923960h2073"],
-    "guardrailIdsOverride": ["g623h4ii-9f87-7e34-c3h9-g034071i3184"]
+    "profileIdOverride": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
+    "contextIdsOverride": ["f512a3aa-8e76-6d23-b2a8-f923960a2073"],
+    "guardrailIdsOverride": ["a623a4aa-9f87-7e34-c3a9-a034071a3184"]
 }
 ```
 
@@ -152,7 +152,7 @@ curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/tests/test-summ
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "profileIdOverride": "e401f2ff-7d65-5c12-a1f7-e812859g1962"
+    "profileIdOverride": "e401f2ff-7d65-5c12-a1f7-e812859a1962"
   }'
 ```
 

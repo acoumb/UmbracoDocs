@@ -5,16 +5,16 @@ description: >-
 
 # Frontend Integration
 
-Umbraco.AI provides TypeScript APIs for integrating AI chat capabilities into custom backoffice elements. The frontend APIs work within the Umbraco backoffice context.
+Umbraco.AI provides TypeScript APIs for integrating AI capabilities into custom backoffice elements. The frontend APIs work within the Umbraco backoffice context.
 
 ## Package
 
-The chat API is exported from the Umbraco.AI client package:
+The AI APIs are exported from the Umbraco.AI client package:
 
 {% code title="Import" %}
 
 ```typescript
-import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/backoffice";
+import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -26,7 +26,7 @@ import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/ba
 ```typescript
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/backoffice";
+import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/core";
 
 @customElement("my-ai-element")
 export class MyAIElement extends LitElement {
@@ -131,6 +131,22 @@ abortController.abort();
 
 {% content-ref url="chat-controller.md" %}
 [Chat Controller](chat-controller.md)
+{% endcontent-ref %}
+
+{% content-ref url="embeddings-controller.md" %}
+[Embeddings Controller](embeddings-controller.md)
+{% endcontent-ref %}
+
+{% content-ref url="speech-to-text-controller.md" %}
+[Speech-to-Text Controller](speech-to-text-controller.md)
+{% endcontent-ref %}
+
+{% content-ref url="tool-controller.md" %}
+[Tool Controller](tool-controller.md)
+{% endcontent-ref %}
+
+{% content-ref url="chat-repository.md" %}
+[Chat Repository](chat-repository.md)
 {% endcontent-ref %}
 
 {% content-ref url="types.md" %}

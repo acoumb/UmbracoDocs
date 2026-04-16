@@ -274,7 +274,7 @@ var (versions, total) = await _connectionService.GetConnectionVersionHistoryAsyn
 
 foreach (var version in versions)
 {
-    Console.WriteLine($"Version {version.Version} at {version.CreatedUtc}");
+    Console.WriteLine($"Version {version.Version} at {version.DateCreated}");
 }
 ```
 

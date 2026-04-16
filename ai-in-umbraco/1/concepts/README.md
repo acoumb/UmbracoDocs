@@ -9,11 +9,11 @@ Umbraco.AI is built around a hierarchical configuration model that separates con
 
 ## The Configuration Hierarchy
 
-```
-Provider (plugin with capabilities)
-    └── Connection (authentication/credentials)
-            └── Profile (use-case configuration)
-                    └── AI Request (the actual call)
+```mermaid
+graph TD
+    A["Provider\n(plugin with capabilities)"] --> B["Connection\n(authentication/credentials)"]
+    B --> C["Profile\n(use-case configuration)"]
+    C --> D["AI Request\n(the actual call)"]
 ```
 
 Each level adds configuration that flows down to the actual AI request.

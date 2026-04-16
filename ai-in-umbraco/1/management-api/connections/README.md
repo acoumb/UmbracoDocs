@@ -9,17 +9,17 @@ The connection endpoints allow you to manage AI provider connections programmati
 
 ## Available Endpoints
 
-| Method | Endpoint                                 | Description                   |
-| ------ | ---------------------------------------- | ----------------------------- |
-| GET    | `/connections`                           | List all connections          |
-| GET    | `/connections/{idOrAlias}`               | Get a specific connection     |
-| POST   | `/connections`                           | Create a connection           |
-| PUT    | `/connections/{id}`                      | Update a connection           |
-| DELETE | `/connections/{id}`                      | Delete a connection           |
-| POST   | `/connections/{idOrAlias}/test`          | Test a connection             |
-| GET    | `/connections/capabilities`              | List available capabilities   |
-| GET    | `/connections/capabilities/{capability}` | Get connections by capability |
-| GET    | `/connections/{idOrAlias}/models`        | Get available models          |
+| Method | Endpoint                                                                             | Description                   |
+| ------ | ------------------------------------------------------------------------------------ | ----------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/connections`                                          | List all connections          |
+| GET    | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}`                    | Get a specific connection     |
+| POST   | `/umbraco/ai/management/api/v1/connections`                                          | Create a connection           |
+| PUT    | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}`                    | Update a connection           |
+| DELETE | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}`                    | Delete a connection           |
+| POST   | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}/test`               | Test a connection             |
+| GET    | `/umbraco/ai/management/api/v1/connections/capabilities`                             | List available capabilities   |
+| GET    | `/umbraco/ai/management/api/v1/connections/capabilities/{capability}`                | Get connections by capability |
+| GET    | `/umbraco/ai/management/api/v1/connections/{connectionIdOrAlias}/models`             | Get available models          |
 
 ## Connection Model
 

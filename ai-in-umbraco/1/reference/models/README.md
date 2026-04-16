@@ -18,13 +18,11 @@ Core domain models used throughout Umbraco.AI.
 
 ## Model Relationships
 
-```
-AIConnection (credentials)
-      │
-      └─► AIProfile (settings)
-              │
-              ├── AICapability (what it does)
-              └── AIModelRef (which model)
+```mermaid
+graph TD
+    A["AIConnection\n(credentials)"] --> B["AIProfile\n(settings)"]
+    B --> C[AICapability]
+    B --> D[AIModelRef]
 ```
 
 A profile references:

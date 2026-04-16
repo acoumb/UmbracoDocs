@@ -15,10 +15,11 @@ GET /umbraco/ai/management/api/v1/guardrails
 
 ### Query Parameters
 
-| Parameter | Type | Default | Description               |
-| --------- | ---- | ------- | ------------------------- |
-| `skip`    | int  | 0       | Number of items to skip   |
-| `take`    | int  | 100     | Number of items to return |
+| Parameter | Type   | Default | Description                                                      |
+| --------- | ------ | ------- | ---------------------------------------------------------------- |
+| `filter`  | string | null    | Filter to search by name or alias (case-insensitive contains)    |
+| `skip`    | int    | 0       | Number of items to skip                                          |
+| `take`    | int    | 100     | Number of items to return                                        |
 
 ## Response
 
@@ -33,21 +34,7 @@ GET /umbraco/ai/management/api/v1/guardrails
             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "alias": "content-safety",
             "name": "Content Safety Policy",
-            "version": 2,
-            "rules": [
-                {
-                    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                    "evaluatorId": "contains",
-                    "name": "Block competitor mentions",
-                    "phase": "PostGenerate",
-                    "action": "Block",
-                    "config": {
-                        "searchPattern": "CompetitorBrand",
-                        "ignoreCase": true
-                    },
-                    "sortOrder": 0
-                }
-            ],
+            "ruleCount": 1,
             "dateCreated": "2024-01-15T10:30:00Z",
             "dateModified": "2024-01-20T14:45:00Z"
         }
@@ -57,6 +44,17 @@ GET /umbraco/ai/management/api/v1/guardrails
 ```
 
 {% endcode %}
+
+### Item Properties
+
+| Property       | Type     | Description                          |
+| -------------- | -------- | ------------------------------------ |
+| `id`           | guid     | Unique identifier                    |
+| `alias`        | string   | Unique alias for code references     |
+| `name`         | string   | Display name                         |
+| `ruleCount`    | int      | Number of rules in the guardrail     |
+| `dateCreated`  | datetime | When the guardrail was created       |
+| `dateModified` | datetime | When the guardrail was last modified |
 
 ## Examples
 

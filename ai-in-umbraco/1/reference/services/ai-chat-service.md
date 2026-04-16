@@ -13,6 +13,7 @@ The primary service for performing chat completions. Acts as a thin layer over M
 
 ```csharp
 using Umbraco.AI.Core.Chat;
+using Umbraco.AI.Core.InlineChat;
 using Microsoft.Extensions.AI;
 ```
 
@@ -50,12 +51,17 @@ All methods accept an `Action<AIChatBuilder>` to configure the request. The buil
 | Method | Description |
 | --- | --- |
 | `.WithAlias(string alias)` | **Required.** Sets an alias for auditing and telemetry. |
+| `.WithName(string name)` | Sets a display name for telemetry purposes. |
+| `.WithDescription(string? description)` | Sets a description for telemetry purposes. |
 | `.WithProfile(Guid profileId)` | Selects a profile by ID. Uses default if omitted. |
 | `.WithProfile(string profileAlias)` | Selects a profile by alias. |
 | `.WithChatOptions(ChatOptions options)` | Overrides profile defaults for temperature, max tokens, etc. |
 | `.WithGuardrails(params Guid[] guardrailIds)` | Applies guardrails by ID. |
 | `.WithGuardrails(params string[] guardrailAliases)` | Applies guardrails by alias. |
 | `.WithContextItems(IEnumerable<AIRequestContextItem> contextItems)` | Attaches context items to the request. |
+| `.WithOutputSchema(AIOutputSchema schema)` | Sets a structured output schema for the response. |
+| `.WithAdditionalProperties(IReadOnlyDictionary<string, object?> properties)` | Attaches additional properties to the request. |
+| `.AsPassThrough()` | Marks the request as pass-through (bypasses some processing). |
 
 {% code title="Builder example" %}
 
@@ -185,7 +191,7 @@ var client = await _chatService.CreateChatClientAsync(
     chat => chat.WithAlias("advanced-client").WithProfile("default-chat"));
 
 // Use M.E.AI methods directly
-var response = await client.GetChatResponseAsync(
+var response = await client.GetResponseAsync(
     messages,
     new ChatOptions { Temperature = 0.5f });
 ```

@@ -41,7 +41,7 @@ GET /umbraco/ai/management/api/v1/test-runs
             "testName": "Summarization Quality",
             "testVersion": 1,
             "runNumber": 1,
-            "profileId": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+            "profileId": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
             "contextIds": [],
             "executedAt": "2024-06-15T11:00:00Z",
             "executedByUserId": "user-guid",

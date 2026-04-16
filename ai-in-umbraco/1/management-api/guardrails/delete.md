@@ -10,20 +10,20 @@ Permanently deletes a guardrail and all its rules.
 ## Request
 
 ```http
-DELETE /umbraco/ai/management/api/v1/guardrails/{id}
+DELETE /umbraco/ai/management/api/v1/guardrails/{guardrailIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description                 |
-| --------- | ---- | --------------------------- |
-| `id`      | guid | Guardrail unique identifier |
+| Parameter             | Type   | Description             |
+| --------------------- | ------ | ----------------------- |
+| `guardrailIdOrAlias`  | string | Guardrail GUID or alias |
 
 ## Response
 
 ### Success
 
-{% code title="204 No Content" %}
+{% code title="200 OK" %}
 
 ```
 (empty response body)
@@ -65,7 +65,7 @@ curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/guardrails/3f
 
 ```csharp
 var response = await httpClient.DeleteAsync("/umbraco/ai/management/api/v1/guardrails/3fa85f64-5717-4562-b3fc-2c963f66afa6");
-if (response.StatusCode == HttpStatusCode.NoContent)
+if (response.IsSuccessStatusCode)
 {
     // Successfully deleted
 }

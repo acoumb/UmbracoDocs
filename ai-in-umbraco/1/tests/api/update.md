@@ -10,14 +10,14 @@ Updates an existing test. A new version is created automatically.
 ## Request
 
 ```http
-PUT /umbraco/ai/management/api/v1/tests/{id}
+PUT /umbraco/ai/management/api/v1/tests/{idOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description             |
-| --------- | ---- | ----------------------- |
-| `id`      | guid | Test unique identifier  |
+| Parameter   | Type   | Description        |
+| ----------- | ------ | ------------------ |
+| `idOrAlias` | string | Test GUID or alias |
 
 ### Request Body
 
@@ -30,7 +30,7 @@ PUT /umbraco/ai/management/api/v1/tests/{id}
     "description": "Validates summarization output with stricter criteria",
     "testFeatureId": "prompt",
     "testTargetId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859g1962",
+    "profileId": "e401f2ff-7d65-5c12-a1f7-e812859a1962",
     "runCount": 5,
     "graders": [
         {
@@ -63,20 +63,15 @@ The request body follows the same structure as [Create Test](create.md). All fie
 
 ### Success
 
-{% code title="200 OK" %}
+{% code title="204 No Content" %}
 
-```json
-{
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "alias": "test-summarize-quality",
-    "name": "Summarization Quality (Updated)",
-    "version": 2,
-    "dateModified": "2024-06-20T14:45:00Z",
-    ...
-}
+```
+(empty response body)
 ```
 
 {% endcode %}
+
+Use [Get Test](get.md) to retrieve the updated test, including the new `version` and `dateModified` values.
 
 ### Not Found
 

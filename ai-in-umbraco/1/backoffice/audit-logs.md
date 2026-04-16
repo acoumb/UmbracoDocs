@@ -22,7 +22,7 @@ The log list shows recent AI operations:
 | ---------- | ------------------------------------- |
 | Time       | When the operation started            |
 | Status     | Outcome (Succeeded, Failed, etc.)     |
-| Capability | Type of operation (Chat, Embedding)   |
+| Capability | Type of operation (Chat, Embedding, Speech-to-Text) |
 | Profile    | Which profile was used                |
 | Provider   | AI provider (OpenAI, Anthropic, etc.) |
 | Model      | Specific model used                   |
@@ -37,8 +37,8 @@ Use the filter options to narrow results:
 | Filter     | Description              |
 | ---------- | ------------------------ |
 | Date Range | From and To dates        |
-| Status     | Success, Failed, Blocked, Running |
-| Capability | Chat, Embedding          |
+| Status     | Succeeded, Failed, Blocked, Running |
+| Capability | Chat, Embedding, Speech-to-Text |
 | Profile    | Specific profile         |
 | Provider   | Specific provider        |
 | User       | Specific user            |

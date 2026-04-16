@@ -12,7 +12,7 @@ Retrieve a paginated list of all connections.
 {% code title="Endpoint" %}
 
 ```
-GET /connections
+GET /umbraco/ai/management/api/v1/connections
 ```
 
 {% endcode %}
@@ -73,7 +73,8 @@ GET /connections
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}
@@ -83,7 +84,8 @@ curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections"
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections?skip=0&take=10"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections?skip=0&take=10" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}
@@ -93,7 +95,8 @@ curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections?sk
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections?filter=prod"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections?filter=prod" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}
@@ -103,7 +106,8 @@ curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections?fi
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/connections?providerId=openai"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/connections?providerId=openai" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}
