@@ -117,24 +117,13 @@ POST /umbraco/ai/management/api/v1/test-runs/compare
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
     "title": "Bad request",
     "status": 400,
-    "detail": "Both runs must belong to the same test."
+    "detail": "Baseline run {id} not found"
 }
 ```
 
 {% endcode %}
 
-{% code title="404 Not Found" %}
-
-```json
-{
-    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-    "title": "Not Found",
-    "status": 404,
-    "detail": "Test run not found"
-}
-```
-
-{% endcode %}
+Returned when either the baseline or comparison run ID does not exist.
 
 ## Compare Variations
 

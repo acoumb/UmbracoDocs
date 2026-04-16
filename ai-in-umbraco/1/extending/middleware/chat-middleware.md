@@ -43,7 +43,7 @@ public class SimpleChatMiddleware : IAIChatMiddleware
 
 ## Creating a Custom Wrapper
 
-To implement custom behavior, create a class that delegates to the inner client:
+To implement custom behavior, create a class that delegates to the inner client. The recommended approach is to derive from `DelegatingChatClient` (provided by `Microsoft.Extensions.AI`), which handles pass-through for any members you don't override:
 
 {% code title="MetricsChatMiddleware.cs" %}
 
@@ -52,6 +52,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
+using Umbraco.AI.Core.Chat;
 
 public class MetricsChatMiddleware : IAIChatMiddleware
 {
@@ -68,20 +69,17 @@ public class MetricsChatMiddleware : IAIChatMiddleware
     }
 }
 
-internal class MetricsChatClient : IChatClient
+internal sealed class MetricsChatClient : DelegatingChatClient
 {
-    private readonly IChatClient _inner;
     private readonly ILogger _logger;
 
-    public MetricsChatClient(IChatClient inner, ILogger logger)
+    public MetricsChatClient(IChatClient innerClient, ILogger logger)
+        : base(innerClient)
     {
-        _inner = inner;
         _logger = logger;
     }
 
-    public ChatClientMetadata Metadata => _inner.Metadata;
-
-    public async Task<ChatResponse> GetResponseAsync(
+    public override async Task<ChatResponse> GetResponseAsync(
         IEnumerable<ChatMessage> messages,
         ChatOptions? options = null,
         CancellationToken cancellationToken = default)
@@ -90,7 +88,7 @@ internal class MetricsChatClient : IChatClient
 
         try
         {
-            var response = await _inner.GetResponseAsync(messages, options, cancellationToken);
+            var response = await base.GetResponseAsync(messages, options, cancellationToken);
             stopwatch.Stop();
 
             _logger.LogInformation(
@@ -109,17 +107,17 @@ internal class MetricsChatClient : IChatClient
         }
     }
 
-    public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
+    public override async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
         IEnumerable<ChatMessage> messages,
         ChatOptions? options = null,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var stopwatch = Stopwatch.StartNew();
-        var tokenCount = 0;
+        var updateCount = 0;
 
-        await foreach (var update in _inner.GetStreamingResponseAsync(messages, options, cancellationToken))
+        await foreach (var update in base.GetStreamingResponseAsync(messages, options, cancellationToken))
         {
-            tokenCount++;
+            updateCount++;
             yield return update;
         }
 
@@ -127,13 +125,8 @@ internal class MetricsChatClient : IChatClient
         _logger.LogInformation(
             "Streaming completed in {ElapsedMs}ms. Updates: {Count}",
             stopwatch.ElapsedMilliseconds,
-            tokenCount);
+            updateCount);
     }
-
-    public object? GetService(Type serviceType, object? serviceKey = null)
-        => _inner.GetService(serviceType, serviceKey);
-
-    public void Dispose() => _inner.Dispose();
 }
 ```
 

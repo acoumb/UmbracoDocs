@@ -79,13 +79,13 @@ public class MyComposer : IComposer
 
 ### Middleware Order Matters
 
-Middleware executes in the order it's registered. The first middleware wraps the original client, the second wraps that result, and so on.
+Middleware is applied to the client in registration order. The first registered middleware wraps the underlying client (innermost), the second wraps that, and so on. As a result, the **last** registered middleware is the **outermost** wrapper and sees requests first.
 
 ```csharp
 builder.AIChatMiddleware()
-    .Append<TracingMiddleware>()     // Runs first (outermost)
-    .Append<CachingMiddleware>()     // Runs second
-    .Append<LoggingMiddleware>();    // Runs third (innermost)
+    .Append<LoggingMiddleware>()     // Innermost (wraps raw client first)
+    .Append<CachingMiddleware>()     // Wraps Logging
+    .Append<TracingMiddleware>();    // Outermost (sees requests first)
 ```
 
 ### Middleware Receives Dependencies

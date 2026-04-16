@@ -9,19 +9,19 @@ Middleware execution order is controlled through the collection builder. The ord
 
 ## Understanding Order
 
-Middleware is applied in registration order, creating nested wrappers:
+Middleware is applied in registration order, creating nested wrappers. Each middleware's `Apply` method is called on the current client, so the first registered middleware wraps the underlying client, and the last registered middleware wraps everything else:
 
 ```
 Registration order: A, B, C
 
-Result: A wraps (B wraps (C wraps Client))
+Result: C wraps (B wraps (A wraps Client))
 
 Execution flow:
-  Request  → A → B → C → Client → Response
-  Response ← A ← B ← C ← Client ←
+  Request  → C → B → A → Client → Response
+  Response ← C ← B ← A ← Client ←
 ```
 
-The **first** registered middleware is the **outermost** wrapper and sees requests first.
+The **last** registered middleware is the **outermost** wrapper and sees requests first.
 
 ## Builder Methods
 
@@ -47,9 +47,9 @@ public class MyComposer : IComposer
     public void Compose(IUmbracoBuilder builder)
     {
         builder.AIChatMiddleware()
-            .Append<TracingMiddleware>()      // Runs first
-            .Append<LoggingMiddleware>()      // Runs second
-            .Append<CachingMiddleware>();     // Runs third
+            .Append<LoggingMiddleware>()      // Innermost (wraps client first)
+            .Append<CachingMiddleware>()      // Wraps Logging
+            .Append<TracingMiddleware>();     // Outermost (sees requests first)
     }
 }
 ```
@@ -67,11 +67,11 @@ public class ExtendingComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        // Insert metrics before logging (so metrics include logging time)
+        // Insert metrics just inside logging (so metrics see the call after logging)
         builder.AIChatMiddleware()
             .InsertBefore<LoggingMiddleware, MetricsMiddleware>();
 
-        // Insert rate limiting after authentication
+        // Insert rate limiting just outside authentication
         builder.AIChatMiddleware()
             .InsertAfter<AuthMiddleware, RateLimitMiddleware>();
     }
@@ -123,7 +123,7 @@ public class MyComposer : IComposer
 
 ## Common Patterns
 
-As a rule of thumb, place logging and error handling middleware early (outermost) so they capture the full request lifecycle, and place caching middleware late (innermost) so cached responses skip other middleware.
+As a rule of thumb, place logging and error handling middleware last (outermost) so they capture the full request lifecycle, and place caching middleware first (innermost) so cached responses skip other middleware.
 
 ## Multiple Composers
 

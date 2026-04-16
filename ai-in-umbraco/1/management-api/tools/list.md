@@ -24,35 +24,32 @@ GET /umbraco/ai/management/api/v1/tools
 {% code title="Response" %}
 
 ```json
-{
-    "items": [
-        {
-            "id": "get-content-by-id",
-            "name": "Get Content By Id",
-            "description": "Retrieves a content item by its unique identifier.",
-            "scopeId": "content-read",
-            "isDestructive": false,
-            "tags": ["content", "read"]
-        },
-        {
-            "id": "update-content",
-            "name": "Update Content",
-            "description": "Updates an existing content item with new property values.",
-            "scopeId": "content-write",
-            "isDestructive": true,
-            "tags": ["content", "write"]
-        },
-        {
-            "id": "search-content",
-            "name": "Search Content",
-            "description": "Searches for content items matching the given query.",
-            "scopeId": "search",
-            "isDestructive": false,
-            "tags": ["search"]
-        }
-    ],
-    "total": 3
-}
+[
+    {
+        "id": "get-content-by-id",
+        "name": "Get Content By Id",
+        "description": "Retrieves a content item by its unique identifier.",
+        "scopeId": "content-read",
+        "isDestructive": false,
+        "tags": ["content", "read"]
+    },
+    {
+        "id": "update-content",
+        "name": "Update Content",
+        "description": "Updates an existing content item with new property values.",
+        "scopeId": "content-write",
+        "isDestructive": true,
+        "tags": ["content", "write"]
+    },
+    {
+        "id": "search-content",
+        "name": "Search Content",
+        "description": "Searches for content items matching the given query.",
+        "scopeId": "search",
+        "isDestructive": false,
+        "tags": ["search"]
+    }
+]
 ```
 
 {% endcode %}
@@ -89,11 +86,11 @@ const response = await fetch("/umbraco/ai/management/api/v1/tools", {
     credentials: "include",
 });
 
-const { items, total } = await response.json();
-console.log(`Found ${total} tools`);
+const tools = await response.json();
+console.log(`Found ${tools.length} tools`);
 
 // Group by scope
-const toolsByScope = items.reduce((acc, tool) => {
+const toolsByScope = tools.reduce((acc, tool) => {
     acc[tool.scopeId] = acc[tool.scopeId] || [];
     acc[tool.scopeId].push(tool);
     return acc;

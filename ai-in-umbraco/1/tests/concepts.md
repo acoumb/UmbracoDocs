@@ -25,7 +25,6 @@ A test is a definition that targets a prompt or agent, runs the target one or mo
 | `Variations`        | A/B testing configuration overrides                  |
 | `RunCount`          | Number of times to run per execution (1 to N)        |
 | `Tags`              | Organization tags for filtering and batch execution  |
-| `IsActive`          | Whether the test runs during batch execution         |
 | `BaselineRunId`     | Baseline run for regression detection                |
 
 ## Test Feature (Harness)

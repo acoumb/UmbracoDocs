@@ -17,44 +17,24 @@ GET /umbraco/ai/management/api/v1/versions/supported-types
 
 ### Success
 
+Returns an array of entity type identifiers.
+
 {% code title="200 OK" %}
 
 ```json
-{
-    "types": [
-        {
-            "type": "connection",
-            "displayName": "Connection",
-            "package": "Umbraco.AI"
-        },
-        {
-            "type": "profile",
-            "displayName": "Profile",
-            "package": "Umbraco.AI"
-        },
-        {
-            "type": "context",
-            "displayName": "Context",
-            "package": "Umbraco.AI"
-        },
-        {
-            "type": "prompt",
-            "displayName": "Prompt",
-            "package": "Umbraco.AI.Prompt"
-        },
-        {
-            "type": "agent",
-            "displayName": "Agent",
-            "package": "Umbraco.AI.Agent"
-        }
-    ]
-}
+[
+    "connection",
+    "profile",
+    "context",
+    "prompt",
+    "agent"
+]
 ```
 
 {% endcode %}
 
 {% hint style="info" %}
-Available types depend on which packages are installed. Prompt and Agent types are only available if those add-on packages are installed.
+Available types depend on which packages are installed. `prompt` and `agent` types are only available if those add-on packages are installed.
 {% endhint %}
 
 ## Examples
@@ -67,11 +47,3 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/versions/support
 ```
 
 {% endcode %}
-
-## Response Properties
-
-| Property      | Type   | Description                          |
-| ------------- | ------ | ------------------------------------ |
-| `type`        | string | Entity type identifier for API calls |
-| `displayName` | string | Human-readable name                  |
-| `package`     | string | Package providing this entity type   |

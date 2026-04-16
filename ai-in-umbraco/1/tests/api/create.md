@@ -107,19 +107,17 @@ POST /umbraco/ai/management/api/v1/tests
 
 ### Success
 
+Returns `201 Created` with the new test's ID in the response body and a `Location` header pointing to the created test.
+
 {% code title="201 Created" %}
 
 ```json
-{
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "alias": "test-summarize-quality",
-    "name": "Summarization Quality",
-    "version": 1,
-    ...
-}
+"3fa85f64-5717-4562-b3fc-2c963f66afa6"
 ```
 
 {% endcode %}
+
+Use [Get Test](get.md) with the returned ID to retrieve the full test details.
 
 ### Validation Error
 

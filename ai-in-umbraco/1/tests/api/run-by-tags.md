@@ -5,7 +5,7 @@ description: >-
 
 # Run Tests by Tags
 
-Executes all active tests that have ALL specified tags. All matching tests share the same batch ID.
+Executes all tests that have ALL specified tags. All matching tests share the same batch ID.
 
 ## Request
 

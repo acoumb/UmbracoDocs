@@ -10,14 +10,14 @@ Updates an existing test. A new version is created automatically.
 ## Request
 
 ```http
-PUT /umbraco/ai/management/api/v1/tests/{id}
+PUT /umbraco/ai/management/api/v1/tests/{idOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description             |
-| --------- | ---- | ----------------------- |
-| `id`      | guid | Test unique identifier  |
+| Parameter   | Type   | Description        |
+| ----------- | ------ | ------------------ |
+| `idOrAlias` | string | Test GUID or alias |
 
 ### Request Body
 
@@ -63,20 +63,15 @@ The request body follows the same structure as [Create Test](create.md). All fie
 
 ### Success
 
-{% code title="200 OK" %}
+{% code title="204 No Content" %}
 
-```json
-{
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "alias": "test-summarize-quality",
-    "name": "Summarization Quality (Updated)",
-    "version": 2,
-    "dateModified": "2024-06-20T14:45:00Z",
-    ...
-}
+```
+(empty response body)
 ```
 
 {% endcode %}
+
+Use [Get Test](get.md) to retrieve the updated test, including the new `version` and `dateModified` values.
 
 ### Not Found
 

@@ -19,13 +19,11 @@ GET /umbraco/ai/management/api/v1/analytics/usage-summary
 
 ### Query Parameters
 
-| Parameter    | Type     | Required | Description                                |
-| ------------ | -------- | -------- | ------------------------------------------ |
-| `from`       | datetime | Yes      | Start of period (inclusive)                |
-| `to`         | datetime | Yes      | End of period (inclusive)                  |
-| `profileId`  | guid     | No       | Filter by specific profile                 |
-| `providerId` | string   | No       | Filter by specific provider                |
-| `capability` | string   | No       | Filter by capability (`Chat`, `Embedding`) |
+| Parameter     | Type     | Required | Description                                                          |
+| ------------- | -------- | -------- | -------------------------------------------------------------------- |
+| `from`        | datetime | Yes      | Start of period (inclusive)                                          |
+| `to`          | datetime | Yes      | End of period (exclusive)                                            |
+| `granularity` | string   | No       | Aggregation granularity: `Hourly` or `Daily` (auto-selected if omitted) |
 
 ## Response
 
@@ -61,12 +59,12 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-
 
 {% endcode %}
 
-### Filtered by Provider
+### With Explicit Granularity
 
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-summary?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&providerId=openai" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-summary?from=2024-01-25T00:00:00Z&to=2024-01-26T00:00:00Z&granularity=Hourly" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -81,7 +79,7 @@ var to = DateTime.UtcNow;
 var response = await httpClient.GetAsync(
     $"/umbraco/ai/management/api/v1/analytics/usage-summary?from={from:O}&to={to:O}");
 
-var summary = await response.Content.ReadFromJsonAsync<AIUsageSummary>();
+var summary = await response.Content.ReadFromJsonAsync<UsageSummaryResponseModel>();
 
 Console.WriteLine($"Total Requests: {summary.TotalRequests}");
 Console.WriteLine($"Total Tokens: {summary.TotalTokens:N0}");

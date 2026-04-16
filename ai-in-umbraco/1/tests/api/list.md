@@ -36,10 +36,10 @@ GET /umbraco/ai/management/api/v1/tests
             "name": "Summarization Quality",
             "description": "Validates summarization output quality and format",
             "testFeatureId": "prompt",
-            "testTargetId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
             "tags": ["quality", "summarization"],
-            "isActive": true,
             "runCount": 3,
+            "dateCreated": "2024-06-15T10:30:00Z",
+            "dateModified": "2024-06-15T10:30:00Z",
             "version": 1
         },
         {
@@ -48,10 +48,10 @@ GET /umbraco/ai/management/api/v1/tests
             "name": "SEO Description Length",
             "description": "Validates meta descriptions are 50-160 characters",
             "testFeatureId": "prompt",
-            "testTargetId": "e512a3aa-7e65-6d12-d2a8-a923960a2073",
             "tags": ["seo", "format"],
-            "isActive": true,
             "runCount": 1,
+            "dateCreated": "2024-06-10T08:00:00Z",
+            "dateModified": "2024-06-12T14:20:00Z",
             "version": 2
         }
     ],

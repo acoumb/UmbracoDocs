@@ -19,7 +19,7 @@ GET /umbraco/ai/management/api/v1/audit-logs?entityId={entityId}
 | ------------ | ------ | ------- | ---------------------------------------------- |
 | `entityId`   | string | -       | Entity identifier to filter audit logs by      |
 | `skip`       | int    | 0       | Number of records to skip                      |
-| `take`       | int    | 100     | Maximum number of records to return            |
+| `take`       | int    | 100     | Number of records to return                     |
 
 ## Response
 
@@ -33,22 +33,22 @@ GET /umbraco/ai/management/api/v1/audit-logs?entityId={entityId}
         {
             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "startTime": "2024-01-25T09:15:00Z",
+            "durationMs": 2345,
             "status": "Succeeded",
-            "capability": "Chat",
-            "profileAlias": "content-assistant",
+            "userId": "admin-user-guid",
             "userName": "admin@example.com",
-            "featureType": "prompt",
-            "totalTokens": 570
-        },
-        {
-            "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-            "startTime": "2024-01-24T14:30:00Z",
-            "status": "Succeeded",
+            "entityId": "content-guid",
             "capability": "Chat",
-            "profileAlias": "translator",
-            "userName": "editor@example.com",
-            "featureType": null,
-            "totalTokens": 890
+            "profileId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "profileAlias": "content-assistant",
+            "profileVersion": 5,
+            "providerId": "openai",
+            "modelId": "gpt-4o",
+            "featureType": "prompt",
+            "featureId": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+            "featureVersion": 2,
+            "inputTokens": 150,
+            "outputTokens": 420
         }
     ],
     "total": 2
@@ -56,6 +56,8 @@ GET /umbraco/ai/management/api/v1/audit-logs?entityId={entityId}
 ```
 
 {% endcode %}
+
+See [List Audit Logs](list.md) for the full list of item properties.
 
 ## Examples
 

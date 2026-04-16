@@ -23,7 +23,7 @@ DELETE /umbraco/ai/management/api/v1/contexts/{contextIdOrAlias}
 
 ### Success
 
-{% code title="204 No Content" %}
+{% code title="200 OK" %}
 
 ```
 (empty response body)
@@ -65,7 +65,7 @@ curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/contexts/3fa8
 
 ```csharp
 var response = await httpClient.DeleteAsync("/umbraco/ai/management/api/v1/contexts/3fa85f64-5717-4562-b3fc-2c963f66afa6");
-if (response.StatusCode == HttpStatusCode.NoContent)
+if (response.IsSuccessStatusCode)
 {
     // Successfully deleted
 }

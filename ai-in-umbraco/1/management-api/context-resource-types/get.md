@@ -31,30 +31,31 @@ GET /umbraco/ai/management/api/v1/context-resource-types/{id}
 
 ```json
 {
-    "id": "content",
-    "name": "Content",
+    "id": "document",
+    "name": "Document",
     "description": "Adds content items as context resources.",
     "icon": "icon-document",
     "settingsSchema": {
-        "type": "object",
-        "properties": {
-            "contentId": {
-                "type": "string",
-                "format": "uuid",
-                "description": "The unique identifier of the content item."
+        "fields": [
+            {
+                "key": "contentId",
+                "label": "Content",
+                "description": "The unique identifier of the content item.",
+                "editorUiAlias": "Umb.PropertyEditorUi.DocumentPicker",
+                "defaultValue": null,
+                "sortOrder": 0,
+                "isRequired": true
             },
-            "includeDescendants": {
-                "type": "boolean",
-                "default": false,
-                "description": "Whether to include descendant content items."
-            },
-            "depth": {
-                "type": "integer",
-                "default": 1,
-                "description": "Maximum depth when including descendants."
+            {
+                "key": "includeDescendants",
+                "label": "Include Descendants",
+                "description": "Whether to include descendant content items.",
+                "editorUiAlias": "Umb.PropertyEditorUi.Toggle",
+                "defaultValue": false,
+                "sortOrder": 1,
+                "isRequired": false
             }
-        },
-        "required": ["contentId"]
+        ]
     }
 }
 ```
@@ -63,13 +64,27 @@ GET /umbraco/ai/management/api/v1/context-resource-types/{id}
 
 ### Properties
 
-| Property         | Type   | Description                                    |
-| ---------------- | ------ | ---------------------------------------------- |
-| `id`             | string | Unique identifier for the type                 |
-| `name`           | string | Display name                                   |
-| `description`    | string | Description of the resource type               |
-| `icon`           | string | Icon identifier for the backoffice UI          |
-| `settingsSchema` | object | JSON Schema defining the resource configuration |
+| Property         | Type   | Description                                           |
+| ---------------- | ------ | ----------------------------------------------------- |
+| `id`             | string | Unique identifier for the type                        |
+| `name`           | string | Display name                                          |
+| `description`    | string | Description of the resource type                      |
+| `icon`           | string | Icon identifier for the backoffice UI                 |
+| `settingsSchema` | object | Settings schema (nullable if type has no settings)    |
+
+### Settings Schema Field Properties
+
+| Property        | Type    | Description                                         |
+| --------------- | ------- | --------------------------------------------------- |
+| `key`           | string  | Unique key identifying the setting                  |
+| `label`         | string  | Display label for the setting                       |
+| `description`   | string  | Help text for the setting                           |
+| `editorUiAlias` | string  | UI alias of the editor used for the setting        |
+| `editorConfig`  | object  | Configuration for the editor                        |
+| `defaultValue`  | object  | Default value for the setting                       |
+| `sortOrder`     | int     | Sort order of the setting in the UI                 |
+| `isRequired`    | boolean | Whether the setting must be provided                |
+| `group`         | string  | Optional group name for visual grouping in the UI   |
 
 ### Not Found (404)
 
@@ -119,5 +134,5 @@ console.log(`Settings schema for ${resourceType.name}:`, resourceType.settingsSc
 {% endcode %}
 
 {% hint style="info" %}
-The `settingsSchema` property returns a [JSON Schema](https://json-schema.org/) object that you can use to dynamically render configuration forms in custom backoffice UIs.
+The `settingsSchema` describes the configurable fields for this resource type. Use the `editorUiAlias` on each field to render the appropriate Umbraco backoffice editor.
 {% endhint %}

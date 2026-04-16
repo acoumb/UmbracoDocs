@@ -59,28 +59,12 @@ POST /umbraco/ai/management/api/v1/contexts
 
 ### Success
 
+Returns the newly created context's ID (as a string) with a `Location` header pointing to the Get Context endpoint.
+
 {% code title="201 Created" %}
 
 ```json
-{
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "alias": "brand-voice",
-    "name": "Brand Voice",
-    "version": 1,
-    "resources": [
-        {
-            "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-            "resourceTypeId": "text",
-            "name": "Tone of Voice",
-            "description": "Writing style guidelines",
-            "sortOrder": 0,
-            "settings": "Always use a friendly, professional tone...",
-            "injectionMode": "Always"
-        }
-    ],
-    "dateCreated": "2024-01-15T10:30:00Z",
-    "dateModified": "2024-01-15T10:30:00Z"
-}
+"3fa85f64-5717-4562-b3fc-2c963f66afa6"
 ```
 
 {% endcode %}
@@ -92,11 +76,9 @@ POST /umbraco/ai/management/api/v1/contexts
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-    "title": "Bad Request",
+    "title": "Duplicate alias",
     "status": 400,
-    "errors": {
-        "alias": ["A context with this alias already exists"]
-    }
+    "detail": "A context with this alias already exists."
 }
 ```
 

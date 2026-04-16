@@ -15,10 +15,11 @@ GET /umbraco/ai/management/api/v1/analytics/usage-by-model
 
 ### Query Parameters
 
-| Parameter | Type     | Required | Description                 |
-| --------- | -------- | -------- | --------------------------- |
-| `from`    | datetime | Yes      | Start of period (inclusive) |
-| `to`      | datetime | Yes      | End of period (inclusive)   |
+| Parameter     | Type     | Required | Description                                                          |
+| ------------- | -------- | -------- | -------------------------------------------------------------------- |
+| `from`        | datetime | Yes      | Start of period (inclusive)                                          |
+| `to`          | datetime | Yes      | End of period (exclusive)                                            |
+| `granularity` | string   | No       | Aggregation granularity: `Hourly` or `Daily` (auto-selected if omitted) |
 
 ## Response
 
@@ -27,41 +28,36 @@ GET /umbraco/ai/management/api/v1/analytics/usage-by-model
 {% code title="200 OK" %}
 
 ```json
-{
-    "items": [
-        {
-            "dimension": "openai/gpt-4o",
-            "dimensionName": "GPT-4o",
-            "requestCount": 8500,
-            "totalTokens": 1950000,
-            "percentage": 0.51
-        },
-        {
-            "dimension": "openai/gpt-4o-mini",
-            "dimensionName": "GPT-4o Mini",
-            "requestCount": 4000,
-            "totalTokens": 520000,
-            "percentage": 0.24
-        },
-        {
-            "dimension": "anthropic/claude-3-5-sonnet-20241022",
-            "dimensionName": "Claude 3.5 Sonnet",
-            "requestCount": 3200,
-            "totalTokens": 890000,
-            "percentage": 0.19
-        },
-        {
-            "dimension": "openai/text-embedding-3-small",
-            "dimensionName": "text-embedding-3-small",
-            "requestCount": 980,
-            "totalTokens": 125000,
-            "percentage": 0.06
-        }
-    ]
-}
+[
+    {
+        "dimension": "openai/gpt-4o",
+        "dimensionName": null,
+        "requestCount": 8500,
+        "totalTokens": 1950000,
+        "percentage": 0.51
+    },
+    {
+        "dimension": "openai/gpt-4o-mini",
+        "dimensionName": null,
+        "requestCount": 4000,
+        "totalTokens": 520000,
+        "percentage": 0.24
+    },
+    {
+        "dimension": "anthropic/claude-3-5-sonnet-20241022",
+        "dimensionName": null,
+        "requestCount": 3200,
+        "totalTokens": 890000,
+        "percentage": 0.19
+    }
+]
 ```
 
 {% endcode %}
+
+{% hint style="info" %}
+For provider and model breakdowns, `dimensionName` is typically `null` because no friendly name mapping is available.
+{% endhint %}
 
 ## Examples
 
@@ -83,11 +79,11 @@ var to = DateTime.UtcNow;
 var response = await httpClient.GetAsync(
     $"/umbraco/ai/management/api/v1/analytics/usage-by-model?from={from:O}&to={to:O}");
 
-var breakdown = await response.Content.ReadFromJsonAsync<AIUsageBreakdownResult>();
+var breakdown = await response.Content.ReadFromJsonAsync<UsageBreakdownItemModel[]>();
 
-foreach (var item in breakdown.Items.OrderByDescending(x => x.TotalTokens))
+foreach (var item in breakdown.OrderByDescending(x => x.TotalTokens))
 {
-    Console.WriteLine($"{item.DimensionName}: {item.TotalTokens:N0} tokens ({item.Percentage:P0})");
+    Console.WriteLine($"{item.Dimension}: {item.TotalTokens:N0} tokens ({item.Percentage:P0})");
 }
 ```
 
