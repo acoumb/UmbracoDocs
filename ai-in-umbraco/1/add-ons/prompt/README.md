@@ -97,25 +97,25 @@ Translate the following text to {{language}}:
 {{text}}
 ```
 
-### Prefixed Variables
+### Image Variables
 
-Use prefixes for special variable sources:
+Use the `image:` prefix to include images from content properties:
 
-| Prefix      | Source               | Example                 |
-| ----------- | -------------------- | ----------------------- |
-| `entity:`   | Current content item | `{{entity:name}}`       |
-| `property:` | Content property     | `{{property:bodyText}}` |
-| `context:`  | Request context      | `{{context:culture}}`   |
+```
+Describe this image: {{image:heroImage}}
+```
 
 ### Example Template
 
+When prompts execute from property actions, entity and property values are available directly:
+
 ```
-You are a content assistant for {{entity:name}}.
+You are a content assistant for {{name}}.
 
 Write a meta description for this content:
 
-Title: {{property:pageTitle}}
-Content: {{property:bodyText}}
+Title: {{pageTitle}}
+Content: {{bodyText}}
 
 Requirements:
 - Maximum 160 characters
