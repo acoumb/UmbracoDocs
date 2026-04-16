@@ -11,8 +11,7 @@ You can also access this page via **Management** > **Baselines** in the left-sid
 
 ![Manage Baseline Children](../../../../.gitbook/assets/baseline-label.png)
 
-From here you can see all Child projects connected to this Baseline project,
-and push updates to any or all of them.
+From here, you can see all Child projects connected to this Baseline project, and push updates to any or all of them.
 
 ![Manage Child Projects](../../../../.gitbook/assets/manage-child-projects.png)
 
