@@ -1,23 +1,23 @@
 ---
 description: >-
-    Run an agent with SSE streaming.
+    Run an agent and get the complete response as JSON.
 ---
 
 # Run Agent
 
-Runs an agent and streams the response using Server-Sent Events (SSE) with the AG-UI protocol.
+Runs an agent and returns the complete response as a single JSON payload. This endpoint is non-streaming - use [Stream Agent](stream.md) or [Stream Agent (AG-UI)](stream-agui.md) when you need incremental updates.
 
 ## Request
 
 ```http
-POST /umbraco/ai/management/api/v1/agent/{idOrAlias}/run
+POST /umbraco/ai/management/api/v1/agents/{agentIdOrAlias}/run
 ```
 
 ### Path Parameters
 
-| Parameter   | Type   | Description         |
-| ----------- | ------ | ------------------- |
-| `idOrAlias` | string | Agent GUID or alias |
+| Parameter        | Type   | Description         |
+| ---------------- | ------ | ------------------- |
+| `agentIdOrAlias` | string | Agent GUID or alias |
 
 ### Request Body
 
@@ -30,19 +30,6 @@ POST /umbraco/ai/management/api/v1/agent/{idOrAlias}/run
             "role": "user",
             "content": "Help me write a blog post about AI"
         }
-    ],
-    "frontendTools": [
-        {
-            "name": "insert_content",
-            "description": "Insert content at the cursor",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "content": { "type": "string" }
-                },
-                "required": ["content"]
-            }
-        }
     ]
 }
 ```
@@ -51,63 +38,59 @@ POST /umbraco/ai/management/api/v1/agent/{idOrAlias}/run
 
 ### Request Properties
 
-| Property             | Type   | Required | Description                                    |
-| -------------------- | ------ | -------- | ---------------------------------------------- |
-| `messages`           | array  | Yes      | Conversation messages                          |
-| `messages[].role`    | string | Yes      | Message role: `user`, `assistant`, or `system` |
-| `messages[].content` | string | Yes      | Message content                                |
-| `frontendTools`      | array  | No       | Frontend tool definitions                      |
+| Property                | Type   | Required | Description                                                      |
+| ----------------------- | ------ | -------- | ---------------------------------------------------------------- |
+| `messages`              | array  | Yes      | Conversation messages (must contain at least one message)        |
+| `messages[].role`       | string | Yes      | Message role: `user`, `assistant`, `system`, `tool`, `developer` |
+| `messages[].content`    | string | No       | Plain-text message content                                       |
+| `messages[].contentParts` | array | No      | Multimodal content parts (takes precedence over `content`)       |
+
+Each content part uses a polymorphic shape with a `type` discriminator:
+
+```json
+{ "type": "text", "text": "Describe this image:" }
+{ "type": "binary", "mimeType": "image/png", "data": "<base64>", "filename": "chart.png" }
+```
 
 ## Response
 
-This endpoint returns an SSE stream. The `Content-Type` is `text/event-stream`.
+### Success
 
-### Event Stream
+Returns the agent's final `AgentRunResponse` as JSON.
 
+{% code title="200 OK" %}
+
+```json
+{
+    "messages": [
+        {
+            "role": "assistant",
+            "contents": [
+                { "$type": "text", "text": "Here's a draft blog post about AI..." }
+            ]
+        }
+    ],
+    "responseId": "...",
+    "usage": {
+        "inputTokenCount": 42,
+        "outputTokenCount": 128,
+        "totalTokenCount": 170
+    }
+}
 ```
-event: run_started
-data: {"type":"run_started","runId":"abc123"}
 
-event: text_message_start
-data: {"type":"text_message_start","messageId":"msg1"}
+{% endcode %}
 
-event: text_message_content
-data: {"type":"text_message_content","content":"Here's a"}
-
-event: text_message_content
-data: {"type":"text_message_content","content":" blog post"}
-
-event: text_message_end
-data: {"type":"text_message_end","messageId":"msg1"}
-
-event: run_finished
-data: {"type":"run_finished","runId":"abc123"}
-```
-
-### Event Types
-
-| Event                  | Description                 |
-| ---------------------- | --------------------------- |
-| `run_started`          | Agent run has begun         |
-| `text_message_start`   | Beginning of a text message |
-| `text_message_content` | Text content chunk          |
-| `text_message_end`     | End of a text message       |
-| `tool_call_start`      | Tool call initiated         |
-| `tool_call_args`       | Tool argument chunk         |
-| `tool_call_end`        | Tool call complete          |
-| `run_finished`         | Agent run completed         |
-| `run_error`            | Agent run failed            |
-
-### Error Response
+### Error Responses
 
 {% code title="404 Not Found" %}
 
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-    "title": "Not Found",
+    "title": "AIAgent not found",
     "status": 404,
-    "detail": "Agent not found"
+    "detail": "The specified agent could not be found."
 }
 ```
 
@@ -118,7 +101,7 @@ data: {"type":"run_finished","runId":"abc123"}
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-    "title": "Bad Request",
+    "title": "Agent execution failed",
     "status": 400,
     "detail": "Agent is not active"
 }
@@ -133,7 +116,7 @@ data: {"type":"run_finished","runId":"abc123"}
 {% code title="cURL" %}
 
 ```bash
-curl -N -X POST "https://your-site.com/umbraco/ai/management/api/v1/agent/content-assistant/run" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/agents/content-assistant/run" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -150,7 +133,7 @@ curl -N -X POST "https://your-site.com/umbraco/ai/management/api/v1/agent/conten
 {% code title="cURL" %}
 
 ```bash
-curl -N -X POST "https://your-site.com/umbraco/ai/management/api/v1/agent/content-assistant/run" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/agents/content-assistant/run" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -164,37 +147,8 @@ curl -N -X POST "https://your-site.com/umbraco/ai/management/api/v1/agent/conten
 
 {% endcode %}
 
-### With Frontend Tools
-
-{% code title="cURL" %}
-
-```bash
-curl -N -X POST "https://your-site.com/umbraco/ai/management/api/v1/agent/content-assistant/run" \
-  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "messages": [
-      { "role": "user", "content": "Insert a greeting" }
-    ],
-    "frontendTools": [
-      {
-        "name": "insert_content",
-        "description": "Insert content at the cursor",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "content": { "type": "string" }
-          },
-          "required": ["content"]
-        }
-      }
-    ]
-  }'
-```
-
-{% endcode %}
-
 ## Related
 
+- [Stream Agent](stream.md) - Stream agent response updates as SSE
+- [Stream Agent (AG-UI)](stream-agui.md) - Stream AG-UI protocol events as SSE
 - [Streaming](../streaming.md) - Event handling details
-- [Frontend Tools](../frontend-tools.md) - Tool definitions

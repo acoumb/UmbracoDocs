@@ -70,8 +70,8 @@ public class MyChatCapability : AIChatCapabilityBase<MyProviderSettings>
         // Return available models
         var models = new List<AIModelDescriptor>
         {
-            new("my-model-1", "My Model 1"),
-            new("my-model-2", "My Model 2")
+            new(new AIModelRef(Provider.Id, "my-model-1"), "My Model 1"),
+            new(new AIModelRef(Provider.Id, "my-model-2"), "My Model 2")
         };
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(models);
     }

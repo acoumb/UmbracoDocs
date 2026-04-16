@@ -12,13 +12,17 @@ The embedding capability enables vector embedding generation. Implement it by ex
 {% code title="AIEmbeddingCapabilityBase<TSettings>" %}
 
 ```csharp
-public abstract class AIEmbeddingCapabilityBase<TSettings> : IAIEmbeddingCapability
+public abstract class AIEmbeddingCapabilityBase<TSettings>(IAIProvider provider)
+    : AICapabilityBase<TSettings>(provider), IAICapability<TSettings>, IAIEmbeddingCapability
     where TSettings : class
 {
-    // Implement this: Create an IEmbeddingGenerator
-    protected abstract IEmbeddingGenerator<string, Embedding<float>> CreateGenerator(
-        TSettings settings,
-        string? modelId);
+    // Override this (or CreateGeneratorAsync) to create an IEmbeddingGenerator
+    protected virtual IEmbeddingGenerator<string, Embedding<float>> CreateGenerator(
+        TSettings settings, string? modelId) { /* ... */ }
+
+    // Override this for an async variant
+    protected virtual Task<IEmbeddingGenerator<string, Embedding<float>>> CreateGeneratorAsync(
+        TSettings settings, string? modelId, CancellationToken cancellationToken = default) { /* ... */ }
 
     // Implement this: Return available models
     protected abstract Task<IReadOnlyList<AIModelDescriptor>> GetModelsAsync(
@@ -55,8 +59,8 @@ public class MyEmbeddingCapability : AIEmbeddingCapabilityBase<MyProviderSetting
     {
         var models = new List<AIModelDescriptor>
         {
-            new("embedding-small", "Embedding Small (1536 dims)"),
-            new("embedding-large", "Embedding Large (3072 dims)")
+            new(new AIModelRef(Provider.Id, "embedding-small"), "Embedding Small (1536 dims)"),
+            new(new AIModelRef(Provider.Id, "embedding-large"), "Embedding Large (3072 dims)")
         };
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(models);
     }
@@ -238,8 +242,8 @@ public class MyOpenAICompatibleEmbeddingCapability : AIEmbeddingCapabilityBase<M
     {
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(new List<AIModelDescriptor>
         {
-            new("text-embedding-3-small", "Text Embedding 3 Small"),
-            new("text-embedding-3-large", "Text Embedding 3 Large")
+            new(new AIModelRef(Provider.Id, "text-embedding-3-small"), "Text Embedding 3 Small"),
+            new(new AIModelRef(Provider.Id, "text-embedding-3-large"), "Text Embedding 3 Large")
         });
     }
 }
@@ -298,8 +302,8 @@ protected override Task<IReadOnlyList<AIModelDescriptor>> GetModelsAsync(
 {
     var models = new List<AIModelDescriptor>
     {
-        new("embedding-small", "Small (1536 dimensions)"),
-        new("embedding-large", "Large (3072 dimensions)")
+        new(new AIModelRef(Provider.Id, "embedding-small"), "Small (1536 dimensions)"),
+        new(new AIModelRef(Provider.Id, "embedding-large"), "Large (3072 dimensions)")
     };
     return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(models);
 }

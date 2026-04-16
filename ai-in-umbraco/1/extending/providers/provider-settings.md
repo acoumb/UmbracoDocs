@@ -18,26 +18,24 @@ The `[AIField]` attribute decorates setting properties with UI metadata:
     Label = "Display Label",           // Shown in the UI
     Description = "Help text",         // Description below the field
     EditorUiAlias = "Umb.PropertyEditorUi.TextBox",  // Umbraco editor
-    DefaultValue = "default",          // Default value
     SortOrder = 1                       // Display order
 )]
-public string? MyProperty { get; set; }
+public string? MyProperty { get; set; } = "default";  // Set defaults on the property itself
 ```
 
 {% endcode %}
 
 ## Properties
 
-| Property        | Type      | Description                                      |
-| --------------- | --------- | ------------------------------------------------ |
-| `Label`         | `string`  | Display label in the UI                          |
-| `Description`   | `string`  | Help text shown below the field                  |
-| `EditorUiAlias` | `string`  | Umbraco property editor UI alias                 |
-| `SortOrder`     | `int`     | Order in which settings are displayed            |
-| `IsSensitive`   | `bool`    | Marks the field as sensitive (value masked in UI) |
-| `Group`         | `string`  | Groups settings under a collapsible heading      |
-| `DefaultValue`  | `object?` | Default value for the field                      |
-| `EditorConfig`  | `string?` | JSON configuration for the editor UI             |
+| Property        | Type     | Description                                       |
+| --------------- | -------- | ------------------------------------------------- |
+| `Label`         | `string` | Display label in the UI                           |
+| `Description`   | `string` | Help text shown below the field                   |
+| `EditorUiAlias` | `string` | Umbraco property editor UI alias                  |
+| `EditorConfig`  | `string` | Configuration for the editor UI                   |
+| `SortOrder`     | `int`    | Order in which settings are displayed             |
+| `IsSensitive`   | `bool`   | Marks the field as sensitive (value masked in UI) |
+| `Group`         | `string` | Groups settings under a collapsible heading       |
 
 ## Automatic Type Inference
 
@@ -70,28 +68,24 @@ public class MyProviderSettings
     [AIField(
         Label = "Base URL",
         Description = "Override the default API endpoint",
-        DefaultValue = "https://api.myprovider.com",
         SortOrder = 2)]
-    public string? BaseUrl { get; set; }
+    public string? BaseUrl { get; set; } = "https://api.myprovider.com";
 
     [AIField(
         Label = "Max Retries",
         Description = "Number of retry attempts for failed requests",
-        DefaultValue = 3,
         SortOrder = 3)]
     public int MaxRetries { get; set; } = 3;
 
     [AIField(
         Label = "Enable Logging",
         Description = "Log all requests and responses",
-        DefaultValue = false,
         SortOrder = 4)]
     public bool EnableLogging { get; set; }
 
     [AIField(
         Label = "Timeout (seconds)",
         Description = "Request timeout in seconds",
-        DefaultValue = 30.0,
         SortOrder = 5)]
     public double TimeoutSeconds { get; set; } = 30.0;
 }

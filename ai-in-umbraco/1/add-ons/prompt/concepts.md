@@ -16,18 +16,21 @@ A prompt is a reusable template that defines instructions for an AI operation. P
 
 ## Prompt Properties
 
-| Property               | Description                           |
-| ---------------------- | ------------------------------------- |
-| `Alias`                | Unique identifier for code references |
-| `Name`                 | Display name in the backoffice        |
-| `Description`          | Optional description                  |
-| `Instructions`         | Prompt template text                  |
-| `ProfileId`            | Associated AI profile (optional)      |
-| `ContextIds`           | AI Contexts to inject                 |
-| `Tags`                 | Organization tags                     |
-| `IsActive`             | Whether the prompt is available       |
-| `IncludeEntityContext` | Include entity info in system message |
-| `Scope`                | Allow/deny rules for where the prompt runs |
+| Property               | Description                                                    |
+| ---------------------- | -------------------------------------------------------------- |
+| `Alias`                | Unique identifier for code references                          |
+| `Name`                 | Display name in the backoffice                                 |
+| `Description`          | Optional description                                           |
+| `Instructions`         | Prompt template text                                           |
+| `ProfileId`            | Associated AI profile (optional)                               |
+| `ContextIds`           | AI Contexts to inject                                          |
+| `GuardrailIds`         | Guardrails to evaluate during execution                        |
+| `Tags`                 | Organization tags                                              |
+| `IsActive`             | Whether the prompt is available                                |
+| `IncludeEntityContext` | Include entity info in system message                          |
+| `OptionCount`          | Number of result options (0 = informational, 1 = single, 2+)   |
+| `DisplayMode`          | Where the prompt is shown (`PropertyAction` or `TipTapTool`)   |
+| `Scope`                | Allow/deny rules for where the prompt runs                     |
 
 ## How Prompts Work
 
@@ -54,21 +57,14 @@ graph TD
 
 ## Variable Resolution
 
-Variables use the `{{variable}}` syntax. At execution time:
+Variables use the `{{variable}}` syntax. At execution time the template context is built from:
 
-1. **Explicit variables** - Provided in the execution request
-2. **Entity variables** - Extracted from the content entity
-3. **Property variables** - Content properties by alias
-4. **Context variables** - Execution context (culture, etc.)
+- Request fields from `AIPromptExecutionRequest` (`entityId`, `entityType`, `propertyAlias`, `contentTypeAlias`, `elementId`, `elementType`, `culture`, `segment`)
+- Entity property values resolved from the target entity
+- The special `currentValue` variable, which mirrors the value of the property identified by `propertyAlias`
+- Values produced by registered runtime context contributors from any `Context` items included in the request
 
-### Resolution Order
-
-When the same variable appears multiple places, explicit variables take precedence:
-
-1. Explicit (from request)
-2. Entity-prefixed
-3. Property-prefixed
-4. Default value (if defined)
+There is no separate "variables" dictionary on the request. To pass custom data from a frontend or calling code, use the `Context` list on `AIPromptExecutionRequest` together with a runtime context contributor that maps the context items into template values. See [Template Syntax](template-syntax.md) for details.
 
 ## Prompt Scoping
 

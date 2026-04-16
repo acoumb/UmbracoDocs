@@ -44,10 +44,10 @@ Restart your application to run database migrations.
 **Instructions:**
 
 ```
-Write a meta description for a web page with the following content.
+Write a meta description for this web page.
 
-Title: {{title}}
-Content: {{content}}
+Title: {{pageTitle}}
+Content: {{bodyText}}
 
 Requirements:
 - Maximum 155 characters
@@ -56,21 +56,19 @@ Requirements:
 - Do not include quotes
 ```
 
+Variables such as `{{pageTitle}}` and `{{bodyText}}` resolve to properties on the entity the prompt is executed against. Replace them with the property aliases used in your own content types.
+
 4. Click **Save**
 
 ## Step 3: Test the Prompt
 
-In the prompt editor, use the **Test** panel:
-
-1. Enter test variables:
-    - `title`: "How to Bake Sourdough Bread"
-    - `content`: "This guide covers everything from creating your starter to achieving the perfect crust..."
-2. Click **Execute**
-3. Review the response
+In the prompt editor, use the **Test** panel to run the prompt against an existing document. The prompt executes using the real entity context, so variables resolve from that document's property values. Review the response in the test output.
 
 ## Step 4: Use in Code
 
 ### Via Service
+
+Prompt templates resolve their variables from the runtime context that is built around the target entity. `{{pageTitle}}` and `{{bodyText}}` in the instructions map to properties on the document identified by `EntityId`.
 
 {% code title="MetaDescriptionGenerator.cs" %}
 
@@ -84,7 +82,7 @@ public class MetaDescriptionGenerator
         _promptService = promptService;
     }
 
-    public async Task<string> GenerateAsync(string title, string content)
+    public async Task<string> GenerateAsync(Guid contentKey)
     {
         var prompt = await _promptService.GetPromptByAliasAsync("meta-description");
 
@@ -92,14 +90,13 @@ public class MetaDescriptionGenerator
             prompt!.Id,
             new AIPromptExecutionRequest
             {
-                Variables = new Dictionary<string, string>
-                {
-                    ["title"] = title,
-                    ["content"] = content
-                }
+                EntityId = contentKey,
+                EntityType = "document",
+                PropertyAlias = "metaDescription",
+                ContentTypeAlias = "article"
             });
 
-        return result.Response;
+        return result.Content;
     }
 }
 ```
@@ -111,14 +108,14 @@ public class MetaDescriptionGenerator
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/prompt/meta-description/execute" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/prompts/meta-description/execute" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "variables": {
-      "title": "How to Bake Sourdough Bread",
-      "content": "This guide covers everything..."
-    }
+    "entityId": "8c9a4e8f-2e89-4b3e-9a6f-1c2d3e4f5a6b",
+    "entityType": "document",
+    "propertyAlias": "metaDescription",
+    "contentTypeAlias": "article"
   }'
 ```
 

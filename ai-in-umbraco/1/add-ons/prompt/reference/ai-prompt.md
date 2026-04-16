@@ -18,7 +18,7 @@ using Umbraco.AI.Prompt.Core.Prompts;
 {% code title="AIPrompt" %}
 
 ```csharp
-public class AIPrompt : IAIVersionableEntity
+public sealed class AIPrompt : IAIVersionableEntity
 {
     public Guid Id { get; internal set; }
     public required string Alias { get; set; }
@@ -26,16 +26,19 @@ public class AIPrompt : IAIVersionableEntity
     public string? Description { get; set; }
     public required string Instructions { get; set; }
     public Guid? ProfileId { get; set; }
-    public IReadOnlyList<Guid> ContextIds { get; set; } = Array.Empty<Guid>();
-    public IReadOnlyList<string> Tags { get; set; } = Array.Empty<string>();
+    public IReadOnlyList<Guid> ContextIds { get; set; } = [];
+    public IReadOnlyList<Guid> GuardrailIds { get; set; } = [];
+    public IReadOnlyList<string> Tags { get; set; } = [];
     public bool IsActive { get; set; } = true;
     public bool IncludeEntityContext { get; set; } = true;
+    public int OptionCount { get; set; } = 1;
+    public AIPromptDisplayMode DisplayMode { get; set; } = AIPromptDisplayMode.PropertyAction;
     public AIPromptScope? Scope { get; set; }
 
     // Audit properties
-    public DateTime DateCreated { get; init; } = DateTime.UtcNow;
-    public DateTime DateModified { get; set; } = DateTime.UtcNow;
-    public Guid? CreatedByUserId { get; init; }
+    public DateTime DateCreated { get; init; }
+    public DateTime DateModified { get; set; }
+    public Guid? CreatedByUserId { get; set; }
     public Guid? ModifiedByUserId { get; set; }
 
     // Versioning
@@ -47,22 +50,41 @@ public class AIPrompt : IAIVersionableEntity
 
 ## Properties
 
-| Property               | Type                    | Description                                 |
-| ---------------------- | ----------------------- | ------------------------------------------- |
-| `Id`                   | `Guid`                  | Unique identifier                           |
-| `Alias`                | `string`                | Unique alias for code references (required) |
-| `Name`                 | `string`                | Display name (required)                     |
-| `Description`          | `string?`               | Optional description                        |
-| `Instructions`         | `string`                | Prompt template text (required)             |
-| `ProfileId`            | `Guid?`                 | Associated AI profile                       |
-| `ContextIds`           | `IReadOnlyList<Guid>`   | AI Contexts to inject                       |
-| `Tags`                 | `IReadOnlyList<string>` | Organization tags                           |
-| `IsActive`             | `bool`                  | Whether prompt is available                 |
-| `IncludeEntityContext` | `bool`                  | Include entity in system message            |
-| `Scope`                | `AIPromptScope?`        | Allow/deny rules defining where the prompt runs |
-| `DateCreated`          | `DateTime`              | When created                                |
-| `DateModified`         | `DateTime`              | When last modified                          |
-| `Version`              | `int`                   | Current version number                      |
+| Property               | Type                    | Description                                                                 |
+| ---------------------- | ----------------------- | --------------------------------------------------------------------------- |
+| `Id`                   | `Guid`                  | Unique identifier                                                           |
+| `Alias`                | `string`                | Unique alias for code references (required)                                 |
+| `Name`                 | `string`                | Display name (required)                                                     |
+| `Description`          | `string?`               | Optional description                                                        |
+| `Instructions`         | `string`                | Prompt template text (required)                                             |
+| `ProfileId`            | `Guid?`                 | Associated AI profile                                                       |
+| `ContextIds`           | `IReadOnlyList<Guid>`   | AI Contexts to inject                                                       |
+| `GuardrailIds`         | `IReadOnlyList<Guid>`   | Guardrails to evaluate during prompt execution                              |
+| `Tags`                 | `IReadOnlyList<string>` | Organization tags                                                           |
+| `IsActive`             | `bool`                  | Whether prompt is available                                                 |
+| `IncludeEntityContext` | `bool`                  | Include entity in system message                                            |
+| `OptionCount`          | `int`                   | Number of result options to generate (0 = informational, 1 = single, 2+ = options) |
+| `DisplayMode`          | `AIPromptDisplayMode`   | Where the prompt is shown (`PropertyAction` or `TipTapTool`)                |
+| `Scope`                | `AIPromptScope?`        | Allow/deny rules defining where the prompt runs                             |
+| `DateCreated`          | `DateTime`              | When created                                                                |
+| `DateModified`         | `DateTime`              | When last modified                                                          |
+| `CreatedByUserId`      | `Guid?`                 | Key of the user who created the prompt                                      |
+| `ModifiedByUserId`     | `Guid?`                 | Key of the user who last modified the prompt                                |
+| `Version`              | `int`                   | Current version number                                                      |
+
+## AIPromptDisplayMode
+
+{% code title="AIPromptDisplayMode" %}
+
+```csharp
+public enum AIPromptDisplayMode
+{
+    PropertyAction = 0,
+    TipTapTool = 1
+}
+```
+
+{% endcode %}
 
 ## Example
 
@@ -76,18 +98,20 @@ var prompt = new AIPrompt
     Description = "Creates SEO-friendly meta descriptions",
     Instructions = @"Write a meta description for this web page.
 
-Title: {{title}}
-Content: {{content}}
+Title: {{pageTitle}}
+Content: {{bodyText}}
 
 Requirements:
 - Maximum 155 characters
 - Include the main topic
 - Be compelling and action-oriented",
     ProfileId = chatProfileId,
-    ContextIds = new[] { brandVoiceContextId },
-    Tags = new[] { "seo", "content" },
+    ContextIds = [brandVoiceContextId],
+    Tags = ["seo", "content"],
     IsActive = true,
     IncludeEntityContext = true,
+    OptionCount = 1,
+    DisplayMode = AIPromptDisplayMode.PropertyAction,
     Scope = new AIPromptScope
     {
         AllowRules = [

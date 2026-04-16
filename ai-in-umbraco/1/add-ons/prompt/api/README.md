@@ -9,14 +9,15 @@ The Prompt Management API provides endpoints for creating, managing, and executi
 
 ## Endpoints
 
-| Method | Endpoint                                    | Description                 |
-| ------ | ------------------------------------------- | --------------------------- |
-| GET    | [`/prompt`](list.md)                        | List all prompts            |
-| GET    | [`/prompt/{idOrAlias}`](get.md)             | Get a prompt by ID or alias |
-| POST   | [`/prompt`](create.md)                      | Create a new prompt         |
-| PUT    | [`/prompt/{id}`](update.md)                 | Update an existing prompt   |
-| DELETE | [`/prompt/{id}`](delete.md)                 | Delete a prompt             |
-| POST   | [`/prompt/{idOrAlias}/execute`](execute.md) | Execute a prompt            |
+| Method | Endpoint                                              | Description                        |
+| ------ | ----------------------------------------------------- | ---------------------------------- |
+| GET    | [`/prompts`](list.md)                                 | List all prompts                   |
+| GET    | [`/prompts/{idOrAlias}`](get.md)                      | Get a prompt by ID or alias        |
+| GET    | [`/prompts/{alias}/exists`](alias-exists.md)          | Check if a prompt alias is in use  |
+| POST   | [`/prompts`](create.md)                               | Create a new prompt                |
+| PUT    | [`/prompts/{idOrAlias}`](update.md)                   | Update an existing prompt          |
+| DELETE | [`/prompts/{idOrAlias}`](delete.md)                   | Delete a prompt                    |
+| POST   | [`/prompts/{idOrAlias}/execute`](execute.md)          | Execute a prompt                   |
 
 ## Base URL
 
@@ -34,12 +35,15 @@ The Prompt Management API provides endpoints for creating, managing, and executi
     "alias": "meta-description",
     "name": "Generate Meta Description",
     "description": "Creates SEO-friendly meta descriptions",
-    "instructions": "Write a meta description for:\n\nTitle: {{title}}\nContent: {{content}}",
+    "instructions": "Write a meta description for:\n\nTitle: {{pageTitle}}\nContent: {{bodyText}}",
     "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
     "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859a1962"],
+    "guardrailIds": [],
     "tags": ["seo", "content"],
     "isActive": true,
     "includeEntityContext": true,
+    "optionCount": 1,
+    "displayMode": "PropertyAction",
     "scope": {
         "allowRules": [
             {
@@ -58,20 +62,25 @@ The Prompt Management API provides endpoints for creating, managing, and executi
 
 ## Properties
 
-| Property               | Type     | Description                      |
-| ---------------------- | -------- | -------------------------------- |
-| `id`                   | guid     | Unique identifier                |
-| `alias`                | string   | Unique alias for code references |
-| `name`                 | string   | Display name                     |
-| `description`          | string   | Optional description             |
-| `instructions`         | string   | Prompt template with variables   |
-| `profileId`            | guid     | Associated AI profile (optional) |
-| `contextIds`           | guid[]   | AI Contexts to inject            |
-| `tags`                 | string[] | Organization tags                |
-| `isActive`             | bool     | Whether the prompt is available  |
-| `includeEntityContext` | bool     | Include entity in system message |
-| `scope`                | object   | Scope rules (allow/deny) defining where the prompt can run |
-| `version`              | int      | Current version number           |
+| Property               | Type     | Description                                                     |
+| ---------------------- | -------- | --------------------------------------------------------------- |
+| `id`                   | guid     | Unique identifier                                               |
+| `alias`                | string   | Unique alias for code references                                |
+| `name`                 | string   | Display name                                                    |
+| `description`          | string   | Optional description                                            |
+| `instructions`         | string   | Prompt template with variables                                  |
+| `profileId`            | guid     | Associated AI profile (optional)                                |
+| `contextIds`           | guid[]   | AI Contexts to inject                                           |
+| `guardrailIds`         | guid[]   | Guardrails evaluated during execution                           |
+| `tags`                 | string[] | Organization tags                                               |
+| `isActive`             | bool     | Whether the prompt is available                                 |
+| `includeEntityContext` | bool     | Include entity in system message                                |
+| `optionCount`          | int      | Number of result options (0 = informational, 1 = single, 2+)    |
+| `displayMode`          | string   | `PropertyAction` or `TipTapTool`                                |
+| `scope`                | object   | Scope rules (allow/deny) defining where the prompt can run      |
+| `version`              | int      | Current version number                                          |
+| `dateCreated`          | string   | Creation timestamp (UTC)                                        |
+| `dateModified`         | string   | Last modification timestamp (UTC)                               |
 
 ## Related
 

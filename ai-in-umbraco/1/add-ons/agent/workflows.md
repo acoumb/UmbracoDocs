@@ -30,6 +30,7 @@ Create a class that extends `AIAgentWorkflowBase` and apply the `[AIAgentWorkflo
 {% code title="SimpleSequentialWorkflow.cs" %}
 
 ```csharp
+using System.Text.Json;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Workflows;
 using Umbraco.AI.Agent.Core.Chat;

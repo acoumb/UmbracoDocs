@@ -10,14 +10,14 @@ Returns the full details of a specific agent, including type-specific configurat
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/agent/{idOrAlias}
+GET /umbraco/ai/management/api/v1/agents/{agentIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter   | Type   | Description         |
-| ----------- | ------ | ------------------- |
-| `idOrAlias` | string | Agent GUID or alias |
+| Parameter        | Type   | Description         |
+| ---------------- | ------ | ------------------- |
+| `agentIdOrAlias` | string | Agent GUID or alias |
 
 ## Response
 
@@ -33,19 +33,22 @@ GET /umbraco/ai/management/api/v1/agent/{idOrAlias}
     "description": "Helps users write and improve content",
     "agentType": "standard",
     "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+    "guardrailIds": [],
     "surfaceIds": ["copilot"],
+    "scope": null,
     "config": {
         "$type": "standard",
         "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859a1962"],
         "instructions": "You are a helpful content assistant...",
-        "allowedToolScopeIds": ["content-read", "search"],
         "allowedToolIds": [],
+        "allowedToolScopeIds": ["content-read", "search"],
+        "outputSchema": null,
         "userGroupPermissions": {}
     },
     "isActive": true,
-    "version": 2,
     "dateCreated": "2024-01-15T10:30:00Z",
-    "dateModified": "2024-01-20T14:45:00Z"
+    "dateModified": "2024-01-20T14:45:00Z",
+    "version": 2
 }
 ```
 
@@ -63,7 +66,9 @@ GET /umbraco/ai/management/api/v1/agent/{idOrAlias}
     "description": "Drafts content then edits it for clarity",
     "agentType": "orchestrated",
     "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+    "guardrailIds": [],
     "surfaceIds": ["copilot"],
+    "scope": null,
     "config": {
         "$type": "orchestrated",
         "workflowId": "write-and-edit",
@@ -73,9 +78,9 @@ GET /umbraco/ai/management/api/v1/agent/{idOrAlias}
         }
     },
     "isActive": true,
-    "version": 1,
     "dateCreated": "2024-01-18T09:00:00Z",
-    "dateModified": "2024-01-18T09:00:00Z"
+    "dateModified": "2024-01-18T09:00:00Z",
+    "version": 1
 }
 ```
 
@@ -88,9 +93,9 @@ GET /umbraco/ai/management/api/v1/agent/{idOrAlias}
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-    "title": "Not Found",
+    "title": "AIAgent not found",
     "status": 404,
-    "detail": "Agent not found"
+    "detail": "The specified agent could not be found."
 }
 ```
 
@@ -102,11 +107,11 @@ GET /umbraco/ai/management/api/v1/agent/{idOrAlias}
 
 ```bash
 # By ID
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/agent/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/agents/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 
 # By alias
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/agent/content-assistant" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/agents/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

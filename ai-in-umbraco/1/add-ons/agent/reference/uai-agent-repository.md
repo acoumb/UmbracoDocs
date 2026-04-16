@@ -12,15 +12,16 @@ The `UaiAgentRepository` is a lightweight, read-only repository for fetching act
 This repository is useful when you need to:
 
 - Display a list of active agents in a dropdown or picker
-- Filter agents by scope (for example "copilot" agents only)
+- Filter agents by surface (for example "copilot" agents only)
 - Build custom UI components that consume agent data
 
 **Key features:**
 
 - Read-only operations (no create/update/delete)
 - Automatic filtering to active agents only
-- Scope-based filtering support
+- Surface-based filtering support
 - Pagination control
+- Observable state that reacts to agent create/update/delete events
 - Type-safe agent item models
 
 ## Installation
@@ -150,13 +151,31 @@ if (result.data) {
 
 // Fetch copilot agents only
 const copilotResult = await repository.fetchActiveAgents({
-    scopeId: "copilot",
+    surfaceId: "copilot",
 });
 
 // Fetch with pagination
 const pagedResult = await repository.fetchActiveAgents({
     take: 10,
-    scopeId: "copilot",
+    surfaceId: "copilot",
+});
+```
+
+#### `initialize()`
+
+Loads the initial set of active agents and primes the observable state. Call this once before subscribing to `agentItems$`. Subsequent updates come automatically via entity action events (`CREATED`/`UPDATED`/`DELETED`).
+
+**Returns:** `Promise<void>`
+
+### Observable
+
+#### `agentItems$`
+
+An observable `Map<string, UaiAgentItemModel>` keyed by the agent's unique ID. Emits a new map whenever agents are added, updated, or removed in the current backoffice session. Only active agents are ever present in the map.
+
+```typescript
+repository.agentItems$.subscribe((items) => {
+    console.log(`Active agents: ${items.size}`);
 });
 ```
 
@@ -169,9 +188,9 @@ Configuration object for filtering and pagination.
 ```typescript
 interface UaiAgentRepositoryOptions {
     /**
-     * Filter agents by scope ID (e.g., "copilot").
+     * Filter agents by surface ID (e.g., "copilot").
      */
-    scopeId?: string;
+    surfaceId?: string;
 
     /**
      * Maximum number of agents to return.
@@ -183,12 +202,12 @@ interface UaiAgentRepositoryOptions {
 
 **Examples:**
 
-{% code title="Filter by Scope" %}
+{% code title="Filter by Surface" %}
 
 ```typescript
 // Fetch only copilot agents
 const result = await repository.fetchActiveAgents({
-    scopeId: "copilot",
+    surfaceId: "copilot",
 });
 ```
 
@@ -210,7 +229,7 @@ const result = await repository.fetchActiveAgents({
 ```typescript
 // Fetch 3 copilot agents
 const result = await repository.fetchActiveAgents({
-    scopeId: "copilot",
+    surfaceId: "copilot",
     take: 3,
 });
 ```
@@ -221,30 +240,48 @@ const result = await repository.fetchActiveAgents({
 
 ### UaiAgentItemModel
 
-The repository returns agents as `UaiAgentItemModel` objects:
+The repository returns agents as `UaiAgentItemModel` objects. This is a lightweight model used for lists and pickers (use `UaiAgentDetailRepository` when the full config is required).
 
 ```typescript
-interface UaiAgentItemModel {
+interface UaiAgentItemModel extends UmbEntityModel {
     /** Unique identifier (GUID as string) */
     unique: string;
 
-    /** Display name */
-    name: string;
+    /** Umbraco entity type (e.g., "uai-agent") */
+    entityType: string;
 
     /** URL-safe alias */
     alias: string;
 
-    /** Optional description */
-    description?: string;
+    /** Display name */
+    name: string;
 
-    /** Scope IDs (e.g., ["copilot"]) */
-    scopeIds?: string[];
+    /** Optional description */
+    description: string | null;
+
+    /** "standard" or "orchestrated" */
+    agentType: UaiAgentType;
+
+    /** Associated profile ID (null if using the default chat profile) */
+    profileId: string | null;
+
+    /** Surface IDs that categorise this agent (e.g., ["copilot"]) */
+    surfaceIds: string[];
+
+    /** Availability scope (null = available in all contexts) */
+    scope: UaiAgentScope | null;
+
+    /** Guardrail IDs applied to this agent */
+    guardrailIds: string[];
 
     /** Active status (always true from this repository) */
     isActive: boolean;
 
-    /** Associated profile ID */
-    profileId?: string;
+    /** ISO timestamp when the agent was created */
+    dateCreated: string | null;
+
+    /** ISO timestamp when the agent was last modified */
+    dateModified: string | null;
 }
 ```
 
@@ -276,7 +313,7 @@ export class UaiAgentPicker extends LitElement {
     #repository = new UaiAgentRepository(this);
 
     @property({ type: String })
-    scopeId?: string;
+    surfaceId?: string;
 
     @property({ type: String })
     value?: string;
@@ -296,7 +333,7 @@ export class UaiAgentPicker extends LitElement {
         this._loading = true;
 
         const result = await this.#repository.fetchActiveAgents({
-            scopeId: this.scopeId,
+            surfaceId: this.surfaceId,
         });
 
         if (result.data) {
@@ -366,12 +403,12 @@ export class UaiAgentList extends LitElement {
         .agent-card h3 {
             margin: 0 0 0.5rem 0;
         }
-        .scope-tags {
+        .surface-tags {
             display: flex;
             gap: 0.5rem;
             margin-top: 0.5rem;
         }
-        .scope-tag {
+        .surface-tag {
             background: #e3f2fd;
             padding: 0.25rem 0.5rem;
             border-radius: 3px;
@@ -385,7 +422,7 @@ export class UaiAgentList extends LitElement {
     private _agents: UaiAgentItemModel[] = [];
 
     @state()
-    private _selectedScope = "";
+    private _selectedSurface = "";
 
     @state()
     private _loading = false;
@@ -399,7 +436,7 @@ export class UaiAgentList extends LitElement {
         this._loading = true;
 
         const result = await this.#repository.fetchActiveAgents({
-            scopeId: this._selectedScope || undefined,
+            surfaceId: this._selectedSurface || undefined,
         });
 
         if (result.data) {
@@ -409,9 +446,9 @@ export class UaiAgentList extends LitElement {
         this._loading = false;
     }
 
-    async #onScopeChange(e: Event) {
+    async #onSurfaceChange(e: Event) {
         const select = e.target as HTMLSelectElement;
-        this._selectedScope = select.value;
+        this._selectedSurface = select.value;
         await this.#loadAgents();
     }
 
@@ -419,9 +456,9 @@ export class UaiAgentList extends LitElement {
         return html`
             <div class="filter">
                 <label>
-                    Filter by scope:
-                    <select @change=${this.#onScopeChange}>
-                        <option value="">All scopes</option>
+                    Filter by surface:
+                    <select @change=${this.#onSurfaceChange}>
+                        <option value="">All surfaces</option>
                         <option value="copilot">Copilot</option>
                         <option value="custom">Custom</option>
                     </select>
@@ -435,10 +472,10 @@ export class UaiAgentList extends LitElement {
                         <h3>${agent.name}</h3>
                         <p>${agent.description || "No description"}</p>
                         <div><strong>Alias:</strong> ${agent.alias}</div>
-                        ${agent.scopeIds?.length
+                        ${agent.surfaceIds?.length
                             ? html`
-                                  <div class="scope-tags">
-                                      ${agent.scopeIds.map((scope) => html` <span class="scope-tag">${scope}</span> `)}
+                                  <div class="surface-tags">
+                                      ${agent.surfaceIds.map((s) => html` <span class="surface-tag">${s}</span> `)}
                                   </div>
                               `
                             : ""}
@@ -470,19 +507,12 @@ export class UaiAgentCounter extends LitElement {
 
     async connectedCallback() {
         super.connectedCallback();
-        await this.#updateCount();
+        await this.#repository.initialize();
 
-        // Listen for agent changes to update count
-        this.addEventListener("uai:agent:created", () => this.#updateCount());
-        this.addEventListener("uai:agent:updated", () => this.#updateCount());
-        this.addEventListener("uai:agent:deleted", () => this.#updateCount());
-    }
-
-    async #updateCount() {
-        const result = await this.#repository.fetchActiveAgents();
-        if (result.data) {
-            this._count = result.data.total;
-        }
+        // Observable emits whenever agents are created, updated, or deleted
+        this.#repository.agentItems$.subscribe((items) => {
+            this._count = items.size;
+        });
     }
 
     render() {
@@ -519,7 +549,7 @@ if (result.error) {
 
 - You need a read-only list of active agents
 - You're building pickers, dropdowns, or read-only lists
-- You want to filter agents by scope
+- You want to filter agents by surface
 - You don't need full CRUD operations
 
 **Use `UaiAgentDetailRepository` instead when:**
@@ -537,7 +567,7 @@ if (result.error) {
 
 | Repository                     | Purpose                  | Use Case                               |
 | ------------------------------ | ------------------------ | -------------------------------------- |
-| `UaiAgentRepository`           | Read-only active agents  | Pickers, dropdowns, lists       |
+| `UaiAgentRepository`           | Read-only active agents  | Pickers, dropdowns, lists              |
 | `UaiAgentDetailRepository`     | Full CRUD operations     | Agent editor, management dashboard     |
 | `UaiAgentCollectionRepository` | Collection view patterns | Agent list view with sorting/filtering |
 
@@ -545,5 +575,5 @@ if (result.error) {
 
 - Agent Detail Repository - Full CRUD repository
 - [UaiAgentClient](../frontend-client.md) - Client for running agents
-- [Agent Concepts](../concepts.md) - Understanding agents and scopes
-- [Scopes](../scopes.md) - Agent categorization system
+- [Agent Concepts](../concepts.md) - Understanding agents and surfaces
+- [Surfaces and Scopes](../scopes.md) - Agent categorisation and availability

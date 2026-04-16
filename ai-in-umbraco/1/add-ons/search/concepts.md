@@ -9,7 +9,7 @@ description: >-
 
 A vector embedding is a list of numbers that represents the meaning of a piece of text. Texts about similar topics produce similar vectors. By comparing vectors, you can find content that is related by meaning rather than matching keywords.
 
-Umbraco.AI.Search uses the configured embedding profile to generate vectors. Any provider that supports the embedding capability works, including OpenAI, Google, and Amazon Bedrock.
+Umbraco.AI.Search uses the configured embedding profile to generate vectors. Any provider that supports the embedding capability works, including OpenAI and Amazon Bedrock.
 
 ## Indexing Pipeline
 
@@ -78,7 +78,11 @@ The agent tool runs in the backoffice and respects the current user's start node
 
 On SQL Server 2025 and Azure SQL, the store uses `VECTOR_DISTANCE()` for server-side similarity search. On older versions, vectors are loaded into memory and compared using cosine similarity in .NET.
 
-The column type is `varbinary(max)` for compatibility across all SQL Server versions. SQL Server 2025 casts to the native `vector` type at query time.
+Vectors are persisted as JSON arrays in an `nvarchar(max)` column for compatibility across all SQL Server versions. On SQL Server 2025, the column value is cast to the native `vector(N)` type at query time.
+
+{% hint style="info" %}
+The SQL Server `vector` type supports a maximum of 1998 dimensions. If the configured embedding model produces more than 1998 dimensions, the store falls back to brute-force cosine similarity in .NET even on SQL Server 2025. To keep native `VECTOR_DISTANCE()` enabled, choose an embedding model within this limit (for example, `text-embedding-3-small` at 1536 dimensions) or reduce the dimensions on a larger model.
+{% endhint %}
 
 ### SQLite
 

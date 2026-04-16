@@ -45,12 +45,14 @@ In the backoffice, navigate to the **AI** section > **Prompts** and create a new
 
 | Field        | Value                                                                |
 | ------------ | -------------------------------------------------------------------- |
-| Alias        | `summarize-article`                                                  |
-| Name         | Summarize Article                                                    |
-| Instructions | `Summarize the following article in 3 bullet points:\n\n{{content}}` |
-| Profile      | (select your chat profile)                                           |
+| Alias        | `summarize-article`                                                       |
+| Name         | Summarize Article                                                         |
+| Instructions | `Summarize the following article in 3 bullet points:\n\n{{bodyText}}`     |
+| Profile      | (select your chat profile)                                                |
 
 ### 2. Execute the Prompt
+
+Template variables like `{{content}}` resolve from the target entity's property values. Execute the prompt against the document you want to summarize:
 
 {% code title="ArticleSummarizer.cs" %}
 
@@ -64,7 +66,7 @@ public class ArticleSummarizer
         _promptService = promptService;
     }
 
-    public async Task<string> SummarizeAsync(string articleContent)
+    public async Task<string> SummarizeAsync(Guid articleKey)
     {
         var prompt = await _promptService.GetPromptByAliasAsync("summarize-article");
 
@@ -72,13 +74,13 @@ public class ArticleSummarizer
             prompt!.Id,
             new AIPromptExecutionRequest
             {
-                Variables = new Dictionary<string, string>
-                {
-                    ["content"] = articleContent
-                }
+                EntityId = articleKey,
+                EntityType = "document",
+                PropertyAlias = "summary",
+                ContentTypeAlias = "article"
             });
 
-        return result.Response;
+        return result.Content;
     }
 }
 ```

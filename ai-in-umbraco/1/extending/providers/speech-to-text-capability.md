@@ -12,11 +12,16 @@ The speech-to-text capability enables audio transcription. Implement it by exten
 {% code title="AISpeechToTextCapabilityBase<TSettings>" %}
 
 ```csharp
-public abstract class AISpeechToTextCapabilityBase<TSettings> : IAISpeechToTextCapability
+public abstract class AISpeechToTextCapabilityBase<TSettings>(IAIProvider provider)
+    : AICapabilityBase<TSettings>(provider), IAICapability<TSettings>, IAISpeechToTextCapability
     where TSettings : class
 {
-    // Implement this: Create an ISpeechToTextClient
-    protected abstract ISpeechToTextClient CreateClient(TSettings settings, string? modelId);
+    // Override this (or CreateClientAsync) to create an ISpeechToTextClient
+    protected virtual ISpeechToTextClient CreateClient(TSettings settings, string? modelId) { /* ... */ }
+
+    // Override this for an async variant
+    protected virtual Task<ISpeechToTextClient> CreateClientAsync(
+        TSettings settings, string? modelId, CancellationToken cancellationToken = default) { /* ... */ }
 
     // Implement this: Return available models
     protected abstract Task<IReadOnlyList<AIModelDescriptor>> GetModelsAsync(
@@ -57,8 +62,8 @@ public class MySpeechToTextCapability : AISpeechToTextCapabilityBase<MyProviderS
     {
         var models = new List<AIModelDescriptor>
         {
-            new("stt-standard", "Standard Transcription"),
-            new("stt-enhanced", "Enhanced Transcription")
+            new(new AIModelRef(Provider.Id, "stt-standard"), "Standard Transcription"),
+            new(new AIModelRef(Provider.Id, "stt-enhanced"), "Enhanced Transcription")
         };
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(models);
     }
@@ -117,9 +122,9 @@ public class MyOpenAICompatibleSTTCapability : AISpeechToTextCapabilityBase<MyPr
     {
         return Task.FromResult<IReadOnlyList<AIModelDescriptor>>(new List<AIModelDescriptor>
         {
-            new("whisper-1", "Whisper"),
-            new("gpt-4o-transcribe", "GPT-4o Transcribe"),
-            new("gpt-4o-mini-transcribe", "GPT-4o Mini Transcribe")
+            new(new AIModelRef(Provider.Id, "whisper-1"), "Whisper"),
+            new(new AIModelRef(Provider.Id, "gpt-4o-transcribe"), "GPT-4o Transcribe"),
+            new(new AIModelRef(Provider.Id, "gpt-4o-mini-transcribe"), "GPT-4o Mini Transcribe")
         });
     }
 }

@@ -5,7 +5,7 @@ description: >-
 
 # Update Agent
 
-Updates an existing agent. A new version is created automatically.
+Updates an existing agent. A new version is created automatically on each save.
 
 {% hint style="warning" %}
 The `agentType` cannot be changed after creation. To switch agent types, delete the agent and create a new one.
@@ -14,14 +14,14 @@ The `agentType` cannot be changed after creation. To switch agent types, delete 
 ## Request
 
 ```http
-PUT /umbraco/ai/management/api/v1/agent/{id}
+PUT /umbraco/ai/management/api/v1/agents/{agentIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter | Type | Description             |
-| --------- | ---- | ----------------------- |
-| `id`      | guid | Agent unique identifier |
+| Parameter        | Type   | Description         |
+| ---------------- | ------ | ------------------- |
+| `agentIdOrAlias` | string | Agent GUID or alias |
 
 ### Request Body
 
@@ -33,13 +33,15 @@ PUT /umbraco/ai/management/api/v1/agent/{id}
     "name": "Content Assistant (Updated)",
     "description": "Helps users write and improve content with AI",
     "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+    "guardrailIds": [],
     "surfaceIds": ["copilot"],
+    "scope": null,
     "config": {
         "$type": "standard",
         "contextIds": ["e401f2ff-7d65-5c12-a1f7-e812859a1962"],
         "instructions": "Updated instructions...",
-        "allowedToolScopeIds": ["content-read", "content-write", "search"],
         "allowedToolIds": [],
+        "allowedToolScopeIds": ["content-read", "content-write", "search"],
         "userGroupPermissions": {}
     },
     "isActive": true
@@ -68,22 +70,30 @@ PUT /umbraco/ai/management/api/v1/agent/{id}
 
 {% endcode %}
 
+### Properties
+
+| Property       | Type     | Required | Description                                       |
+| -------------- | -------- | -------- | ------------------------------------------------- |
+| `alias`        | string   | Yes      | Unique alias (URL-safe, max 100 chars)            |
+| `name`         | string   | Yes      | Display name (max 255 chars)                      |
+| `description`  | string   | No       | Optional description (max 1000 chars)             |
+| `profileId`    | guid     | No       | Associated AI profile (null uses default)         |
+| `guardrailIds` | guid[]   | No       | Guardrail IDs for safety and compliance checks    |
+| `surfaceIds`   | string[] | No       | Surface IDs for categorization                    |
+| `scope`        | object   | No       | Optional scope defining where the agent is available |
+| `config`       | object   | No       | Type-specific configuration (see [Create Agent](create.md)) |
+| `isActive`     | bool     | No       | Whether the agent is available (default: true)    |
+
 ## Response
 
 ### Success
 
+The endpoint returns `200 OK` with an empty body on success. Call [Get Agent](get.md) afterward to retrieve the updated state.
+
 {% code title="200 OK" %}
 
-```json
-{
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "alias": "content-assistant",
-  "name": "Content Assistant (Updated)",
-  "agentType": "standard",
-  "version": 3,
-  "dateModified": "2024-01-25T09:15:00Z",
-  ...
-}
+```
+(empty response body)
 ```
 
 {% endcode %}
@@ -95,9 +105,9 @@ PUT /umbraco/ai/management/api/v1/agent/{id}
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-    "title": "Not Found",
+    "title": "AIAgent not found",
     "status": 404,
-    "detail": "Agent not found"
+    "detail": "The specified agent could not be found."
 }
 ```
 
@@ -108,7 +118,7 @@ PUT /umbraco/ai/management/api/v1/agent/{id}
 {% code title="cURL" %}
 
 ```bash
-curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/agent/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/agents/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -118,7 +128,8 @@ curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/agent/3fa85f64-5
         "$type": "standard",
         "instructions": "Updated instructions...",
         "allowedToolScopeIds": ["content-read", "search"]
-    }
+    },
+    "isActive": true
   }'
 ```
 
