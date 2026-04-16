@@ -5,8 +5,7 @@ description: >-
 
 # Pushing Upgrades to a Child Project
 
-When a Baseline project has one or more Child projects, a **Baseline** label
-appears at the bottom of the left-side menu. Click it to go to the **Manage child projects** page.
+When a Baseline project has one or more Child projects, a **Baseline** label appears at the bottom of the left-side menu. Click it to go to the **Manage child projects** page.
 
 You can also access this page via **Management** > **Baselines** in the left-side menu.
 
