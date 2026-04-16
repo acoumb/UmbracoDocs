@@ -33,7 +33,7 @@ dotnet add package Umbraco.AI.Prompt
 - **Variable Interpolation** - Use `{{variable}}` syntax for dynamic content
 - **Profile Association** - Link prompts to specific AI profiles
 - **Context Injection** - Include AI Contexts for brand voice
-- **Content Scoping** - Control which content types can use each prompt
+- **Scoping** - Control where each prompt can be used using allow and deny rules
 - **Version History** - Track changes with full rollback support
 - **Backoffice Management** - Full UI for creating and managing prompts
 
@@ -130,7 +130,7 @@ Requirements:
 | [Concepts](concepts.md)                             | Prompt templates, variables, scoping |
 | [Getting Started](getting-started.md)               | Step-by-step setup guide             |
 | [Template Syntax](template-syntax.md)               | Variable interpolation details       |
-| [Scoping](scoping.md)                               | Content type allow/deny rules        |
+| [Scoping](scoping.md)                               | Allow and deny rules for prompts     |
 | [API Reference](api/README.md)                      | Management API endpoints             |
 | [Service Reference](reference/ai-prompt-service.md) | IAIPromptService                     |
 

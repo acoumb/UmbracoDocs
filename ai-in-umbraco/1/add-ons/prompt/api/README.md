@@ -41,8 +41,12 @@ The Prompt Management API provides endpoints for creating, managing, and executi
     "isActive": true,
     "includeEntityContext": true,
     "scope": {
-        "mode": "Allow",
-        "contentTypeAliases": ["article", "blogPost"]
+        "allowRules": [
+            {
+                "contentTypeAliases": ["article", "blogPost"]
+            }
+        ],
+        "denyRules": []
     },
     "version": 3,
     "dateCreated": "2024-01-15T10:30:00Z",
@@ -66,7 +70,7 @@ The Prompt Management API provides endpoints for creating, managing, and executi
 | `tags`                 | string[] | Organization tags                |
 | `isActive`             | bool     | Whether the prompt is available  |
 | `includeEntityContext` | bool     | Include entity in system message |
-| `scope`                | object   | Content type scoping rules       |
+| `scope`                | object   | Scope rules (allow/deny) defining where the prompt can run |
 | `version`              | int      | Current version number           |
 
 ## Related

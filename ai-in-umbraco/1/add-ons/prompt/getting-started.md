@@ -133,19 +133,21 @@ To include brand voice in your prompt:
 3. In the **Contexts** section, add your context
 4. The context content will be included in the system message
 
-## Step 6: Configure Scoping (Optional)
+## Step 6: Configure Scoping
 
-To limit which content types can use the prompt:
+Scoping controls where the prompt is allowed to run. A prompt with no allow rules is not available anywhere, so you need at least one allow rule before the prompt appears in the backoffice.
 
 1. Edit your prompt
 2. Expand the **Scope** section
-3. Choose **Allow specific types** or **Deny specific types**
-4. Select the relevant content types
+3. Add an **Allow Rule** and choose the content types, properties, or property editors where the prompt should appear
+4. Optionally add **Deny Rules** to exclude specific places
 5. Save
+
+See [Scoping](scoping.md) for full details on allow and deny rules.
 
 ## Next Steps
 
 - Create more prompts for different use cases
 - Explore [Template Syntax](template-syntax.md) for advanced variables
-- Learn about [Scoping](scoping.md) for content type rules
+- Learn about [Scoping](scoping.md) for allow and deny rules
 - Review the [API Reference](api/README.md) for programmatic access

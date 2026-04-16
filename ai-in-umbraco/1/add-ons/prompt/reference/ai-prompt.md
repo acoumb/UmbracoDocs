@@ -59,7 +59,7 @@ public class AIPrompt : IAIVersionableEntity
 | `Tags`                 | `IReadOnlyList<string>` | Organization tags                           |
 | `IsActive`             | `bool`                  | Whether prompt is available                 |
 | `IncludeEntityContext` | `bool`                  | Include entity in system message            |
-| `Scope`                | `AIPromptScope?`        | Content type scoping rules                  |
+| `Scope`                | `AIPromptScope?`        | Allow/deny rules defining where the prompt runs |
 | `DateCreated`          | `DateTime`              | When created                                |
 | `DateModified`         | `DateTime`              | When last modified                          |
 | `Version`              | `int`                   | Current version number                      |
@@ -90,8 +90,12 @@ Requirements:
     IncludeEntityContext = true,
     Scope = new AIPromptScope
     {
-        Mode = AIPromptScopeMode.Allow,
-        ContentTypeAliases = new[] { "article", "blogPost" }
+        AllowRules = [
+            new AIPromptScopeRule
+            {
+                ContentTypeAliases = ["article", "blogPost"]
+            }
+        ]
     }
 };
 
@@ -104,26 +108,51 @@ var saved = await _promptService.SavePromptAsync(prompt);
 
 ## AIPromptScope
 
-Defines content type scoping rules for a prompt.
+Defines where a prompt is allowed to run. A scope consists of two lists: allow rules (whitelist) and deny rules (blacklist). Deny rules take precedence over allow rules. A prompt with no allow rules is not allowed to run anywhere.
 
 {% code title="AIPromptScope" %}
 
 ```csharp
 public class AIPromptScope
 {
-    public AIPromptScopeMode Mode { get; set; } = AIPromptScopeMode.None;
-    public IReadOnlyList<string> ContentTypeAliases { get; set; } = Array.Empty<string>();
-}
-
-public enum AIPromptScopeMode
-{
-    None = 0,   // No restriction (default)
-    Allow = 1,  // Only listed content types
-    Deny = 2    // All except listed content types
+    public IReadOnlyList<AIPromptScopeRule> AllowRules { get; set; } = [];
+    public IReadOnlyList<AIPromptScopeRule> DenyRules { get; set; } = [];
 }
 ```
 
 {% endcode %}
+
+### Properties
+
+| Property     | Type                              | Description                                           |
+| ------------ | --------------------------------- | ----------------------------------------------------- |
+| `AllowRules` | `IReadOnlyList<AIPromptScopeRule>` | Whitelist of places the prompt is allowed to run      |
+| `DenyRules`  | `IReadOnlyList<AIPromptScopeRule>` | Blacklist of places the prompt is not allowed to run  |
+
+## AIPromptScopeRule
+
+Describes a single match rule. Within a rule, all non-empty properties must match (AND logic). Within each list, any value can match (OR logic).
+
+{% code title="AIPromptScopeRule" %}
+
+```csharp
+public class AIPromptScopeRule
+{
+    public IReadOnlyList<string>? PropertyEditorUiAliases { get; set; }
+    public IReadOnlyList<string>? PropertyAliases { get; set; }
+    public IReadOnlyList<string>? ContentTypeAliases { get; set; }
+}
+```
+
+{% endcode %}
+
+### Properties
+
+| Property                  | Type                        | Description                                                                          |
+| ------------------------- | --------------------------- | ------------------------------------------------------------------------------------ |
+| `PropertyEditorUiAliases` | `IReadOnlyList<string>?`    | Property Editor UI aliases to match (e.g., `Umb.PropertyEditorUi.TextBox`). Null or empty means any. |
+| `PropertyAliases`         | `IReadOnlyList<string>?`    | Property aliases to match (e.g., `pageTitle`). Null or empty means any.              |
+| `ContentTypeAliases`      | `IReadOnlyList<string>?`    | Content type aliases to match (e.g., `blogPost`). Null or empty means any.           |
 
 ## Related
 

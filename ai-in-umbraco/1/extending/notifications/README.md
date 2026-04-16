@@ -34,9 +34,12 @@ All entity operations publish notifications following Umbraco CMS patterns:
 - **AIProfile** - Save/Delete/Rollback
 - **AIConnection** - Save/Delete/Rollback
 - **AIContext** - Save/Delete/Rollback
-- **AIGuardrail** - Save/Delete
+- **AIGuardrail** - Save/Delete/Rollback
+- **AITest** - Save/Delete/Rollback
 - **AISettings** - Save
 - **AIChat** (Inline) - Executing/Executed
+- **AISpeechToText** (Inline) - Executing/Executed
+- **AIEmbedding** (Inline) - Executing/Executed
 
 ### Prompt Add-on (Umbraco.AI.Prompt)
 
@@ -97,7 +100,7 @@ Published **before** an operation executes. Set `Cancel = true` to prevent the o
 {% code title="CancelableNotificationExample.cs" %}
 
 ```csharp
-public Task HandleAsync(AIProfileDeletingNotification notification, CancellationToken ct)
+public async Task HandleAsync(AIProfileDeletingNotification notification, CancellationToken ct)
 {
     if (await HasDependentProfiles(notification.EntityId))
     {
@@ -107,8 +110,6 @@ public Task HandleAsync(AIProfileDeletingNotification notification, Cancellation
             "Cannot delete profile with dependent profiles",
             EventMessageType.Error));
     }
-
-    return Task.CompletedTask;
 }
 ```
 

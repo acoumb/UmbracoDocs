@@ -29,8 +29,12 @@ POST /umbraco/ai/management/api/v1/prompt
     "isActive": true,
     "includeEntityContext": true,
     "scope": {
-        "mode": "Allow",
-        "contentTypeAliases": ["article", "blogPost"]
+        "allowRules": [
+            {
+                "contentTypeAliases": ["article", "blogPost"]
+            }
+        ],
+        "denyRules": []
     }
 }
 ```
@@ -50,7 +54,7 @@ POST /umbraco/ai/management/api/v1/prompt
 | `tags`                 | string[] | No       | Organization tags                                |
 | `isActive`             | bool     | No       | Whether prompt is available (default: true)      |
 | `includeEntityContext` | bool     | No       | Include entity in system message (default: true) |
-| `scope`                | object   | No       | Content type scoping rules                       |
+| `scope`                | object   | No       | Scope rules (allow/deny) defining where the prompt can run |
 
 ## Response
 

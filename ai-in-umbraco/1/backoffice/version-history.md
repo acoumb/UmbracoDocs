@@ -106,9 +106,10 @@ Configure in `appsettings.json`:
 {
     "Umbraco": {
         "AI": {
-            "Versioning": {
+            "VersionCleanupPolicy": {
+                "Enabled": true,
                 "MaxVersionsPerEntity": 50,
-                "CleanupIntervalDays": 7
+                "RetentionDays": 90
             }
         }
     }
@@ -116,6 +117,12 @@ Configure in `appsettings.json`:
 ```
 
 {% endcode %}
+
+| Property               | Default | Description                                                       |
+| ---------------------- | ------- | ----------------------------------------------------------------- |
+| `Enabled`              | `true`  | Whether automatic version cleanup is enabled                      |
+| `MaxVersionsPerEntity` | `50`    | Maximum versions to retain per entity (set to `0` to disable)     |
+| `RetentionDays`        | `90`    | Days to retain version history (set to `0` to disable)            |
 
 ### Manual Cleanup
 

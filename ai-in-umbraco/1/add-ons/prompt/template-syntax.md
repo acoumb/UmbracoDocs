@@ -228,5 +228,5 @@ Keep the response under {{maxWords}} words.
 ## Related
 
 - [Concepts](concepts.md) - Prompt template concepts
-- [Scoping](scoping.md) - Content type rules
+- [Scoping](scoping.md) - Allow and deny rules
 - [Property Actions](property-actions.md) - Using prompts in the backoffice

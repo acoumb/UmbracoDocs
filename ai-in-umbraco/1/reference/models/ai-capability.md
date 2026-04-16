@@ -22,7 +22,7 @@ public enum AICapability
 {
     Chat = 0,
     Embedding = 1,
-    SpeechToText = 2
+    SpeechToText = 4
 }
 ```
 
@@ -34,7 +34,7 @@ public enum AICapability
 | -------------- | --- | ------------------------------------ | --------- |
 | `Chat`         | 0   | Conversational AI / chat completions | Available |
 | `Embedding`    | 1   | Text to vector embeddings            | Available |
-| `SpeechToText` | 2   | Audio transcription and voice input  | Available |
+| `SpeechToText` | 4   | Audio transcription and voice input  | Available |
 
 ## Usage
 

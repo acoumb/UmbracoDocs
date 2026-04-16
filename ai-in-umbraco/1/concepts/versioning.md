@@ -157,9 +157,10 @@ Over time, version history can accumulate. You can configure automatic cleanup:
 {
     "Umbraco": {
         "AI": {
-            "Versioning": {
+            "VersionCleanupPolicy": {
+                "Enabled": true,
                 "MaxVersionsPerEntity": 50,
-                "CleanupIntervalDays": 7
+                "RetentionDays": 90
             }
         }
     }
@@ -167,6 +168,16 @@ Over time, version history can accumulate. You can configure automatic cleanup:
 ```
 
 {% endcode %}
+
+| Property               | Default | Description                                                       |
+| ---------------------- | ------- | ----------------------------------------------------------------- |
+| `Enabled`              | `true`  | Whether automatic version cleanup is enabled                      |
+| `MaxVersionsPerEntity` | `50`    | Maximum versions to retain per entity (set to `0` to disable)     |
+| `RetentionDays`        | `90`    | Days to retain version history (set to `0` to disable)            |
+
+{% hint style="info" %}
+When both `MaxVersionsPerEntity` and `RetentionDays` are set, versions must satisfy **both** conditions to be retained.
+{% endhint %}
 
 ### Manual Cleanup
 

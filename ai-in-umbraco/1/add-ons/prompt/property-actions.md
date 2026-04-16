@@ -46,7 +46,7 @@ Property actions appear on text-based editors:
 
 ## Scoping Property Actions
 
-Control where a prompt appears using its scope mode. The scope's `Mode` determines whether specified content types are allowed or denied, and `ContentTypeAliases` lists the content types.
+Control where a prompt appears using its `Scope`. A scope is made up of `AllowRules` (whitelist) and `DenyRules` (blacklist). Each rule can match against content type aliases, property aliases, and/or property editor UI aliases. See [Scoping](scoping.md) for full details.
 
 ### Allow on Specific Content Types
 
@@ -60,8 +60,12 @@ var prompt = new AIPrompt
     Instructions = "...",
     Scope = new AIPromptScope
     {
-        Mode = AIPromptScopeMode.Allow,
-        ContentTypeAliases = new[] { "blogPost", "article" }
+        AllowRules = [
+            new AIPromptScopeRule
+            {
+                ContentTypeAliases = ["blogPost", "article"]
+            }
+        ]
     }
 };
 ```
@@ -80,17 +84,24 @@ var prompt = new AIPrompt
     Instructions = "...",
     Scope = new AIPromptScope
     {
-        Mode = AIPromptScopeMode.Allow,
-        ContentTypeAliases = new[] { "textPage", "article" }
+        AllowRules = [
+            new AIPromptScopeRule
+            {
+                PropertyEditorUiAliases = [
+                    "Umb.PropertyEditorUi.TextBox",
+                    "Umb.PropertyEditorUi.TextArea"
+                ]
+            }
+        ]
     }
 };
 ```
 
 {% endcode %}
 
-### Deny Specific Content Types
+### Deny Specific Properties
 
-Use the `Deny` mode to exclude specific content types:
+Use deny rules to exclude specific places, even when they are otherwise allowed:
 
 {% code title="DenyScope.cs" %}
 
@@ -102,16 +113,26 @@ var prompt = new AIPrompt
     Instructions = "...",
     Scope = new AIPromptScope
     {
-        Mode = AIPromptScopeMode.Deny,
-        ContentTypeAliases = new[] { "settings", "folder" }
+        AllowRules = [
+            new AIPromptScopeRule
+            {
+                ContentTypeAliases = ["article", "blogPost"]
+            }
+        ],
+        DenyRules = [
+            new AIPromptScopeRule
+            {
+                PropertyAliases = ["legalDisclaimer"]
+            }
+        ]
     }
 };
 ```
 
 {% endcode %}
 
-{% hint style="info" %}
-A prompt with no scope defaults to `AIPromptScopeMode.None`, which means it is available for all content types.
+{% hint style="warning" %}
+A prompt with no scope, or with an empty `AllowRules` list, is not available anywhere. To make a prompt appear in the backoffice you must define at least one allow rule.
 {% endhint %}
 
 ## Rich Text Editor Integration
@@ -277,4 +298,4 @@ Only active prompts appear as property actions. Deactivate a prompt to remove it
 
 - [Concepts](concepts.md) - Prompt fundamentals
 - [Template Syntax](template-syntax.md) - Variable interpolation
-- [Scoping](scoping.md) - Content type rules
+- [Scoping](scoping.md) - Allow and deny rules

@@ -21,7 +21,7 @@ using Umbraco.AI.Core.Settings;
 public class AISettings : IAIAuditableEntity
 {
     // Fixed settings ID (singleton)
-    public static readonly Guid SettingsId = Guid.Parse("672BF83C-97E0-4D04-9D33-23FC2E5EBE42");
+    public static Guid SettingsId = new("672BF83C-97E0-4D04-9D33-23FC2E5EBE42");
 
     public Guid Id => SettingsId;
 
@@ -38,10 +38,10 @@ public class AISettings : IAIAuditableEntity
     public Guid? ClassifierChatProfileId { get; set; }
 
     // Audit properties
-    public DateTime DateCreated { get; init; } = DateTime.UtcNow;
-    public DateTime DateModified { get; set; } = DateTime.UtcNow;
-    public Guid? CreatedByUserId { get; init; }
-    public Guid? ModifiedByUserId { get; set; }
+    public DateTime DateCreated { get; internal set; }
+    public DateTime DateModified { get; internal set; }
+    public Guid? CreatedByUserId { get; internal set; }
+    public Guid? ModifiedByUserId { get; internal set; }
 }
 ```
 

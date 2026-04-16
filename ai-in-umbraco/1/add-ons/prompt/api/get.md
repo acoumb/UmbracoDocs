@@ -38,8 +38,12 @@ GET /umbraco/ai/management/api/v1/prompt/{idOrAlias}
     "isActive": true,
     "includeEntityContext": true,
     "scope": {
-        "mode": "Allow",
-        "contentTypeAliases": ["article", "blogPost"]
+        "allowRules": [
+            {
+                "contentTypeAliases": ["article", "blogPost"]
+            }
+        ],
+        "denyRules": []
     },
     "version": 3,
     "dateCreated": "2024-01-15T10:30:00Z",

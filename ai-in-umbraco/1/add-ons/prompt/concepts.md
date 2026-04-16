@@ -12,7 +12,7 @@ A prompt is a reusable template that defines instructions for an AI operation. P
 - **Instructions** - The actual prompt text with variable placeholders
 - **Profile** - Which AI profile (model/settings) to use
 - **Contexts** - Brand voice and guidelines to inject
-- **Scope** - Which content types can use this prompt
+- **Scope** - Allow and deny rules defining where this prompt can run
 
 ## Prompt Properties
 
@@ -27,7 +27,7 @@ A prompt is a reusable template that defines instructions for an AI operation. P
 | `Tags`                 | Organization tags                     |
 | `IsActive`             | Whether the prompt is available       |
 | `IncludeEntityContext` | Include entity info in system message |
-| `Scope`                | Content type rules                    |
+| `Scope`                | Allow/deny rules for where the prompt runs |
 
 ## How Prompts Work
 
@@ -72,16 +72,15 @@ When the same variable appears multiple places, explicit variables take preceden
 
 ## Prompt Scoping
 
-Scoping controls which content types can use a prompt:
+Scoping controls where a prompt is allowed to run. A scope is made up of two lists:
 
-| Mode           | Description                                   |
-| -------------- | --------------------------------------------- |
-| **Allow All**  | Any content type can use the prompt (default) |
-| **Allow List** | Only specified content types                  |
-| **Deny List**  | All except specified content types            |
+- **Allow Rules** - Whitelist the places the prompt can be used. At least one allow rule must match for the prompt to execute.
+- **Deny Rules** - Blacklist the places the prompt cannot be used. Deny rules take precedence over allow rules.
 
-{% hint style="info" %}
-Scoping is enforced in the backoffice UI but can be bypassed via code. Use scoping for editorial guidance rather than strict security.
+Each rule can match against content type aliases, property aliases, and/or property editor UI aliases.
+
+{% hint style="warning" %}
+A prompt with no scope (or with no allow rules) is not allowed to run anywhere. See [Scoping](scoping.md) for full details.
 {% endhint %}
 
 ## Version History
@@ -103,5 +102,5 @@ Every change to a prompt creates a new version:
 ## Related
 
 - [Template Syntax](template-syntax.md) - Variable interpolation details
-- [Scoping](scoping.md) - Content type rules
+- [Scoping](scoping.md) - Allow and deny rules
 - [Guardrails](../../concepts/guardrails.md) - Safety and compliance rules

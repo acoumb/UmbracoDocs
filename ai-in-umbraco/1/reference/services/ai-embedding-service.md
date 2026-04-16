@@ -5,7 +5,7 @@ description: >-
 
 # IAIEmbeddingService
 
-Service for generating text embeddings (vector representations). Acts as a thin layer over Microsoft.Extensions.AI.
+Service for generating text embeddings (vector representations). Acts as a thin layer over Microsoft.Extensions.AI, adding Umbraco-specific features like profiles and middleware.
 
 ## Namespace
 
@@ -22,31 +22,50 @@ using Microsoft.Extensions.AI;
 public interface IAIEmbeddingService
 {
     Task<Embedding<float>> GenerateEmbeddingAsync(
-        string value,
-        EmbeddingGenerationOptions? options = null,
-        CancellationToken cancellationToken = default);
-
-    Task<Embedding<float>> GenerateEmbeddingAsync(
-        Guid profileId,
-        string value,
-        EmbeddingGenerationOptions? options = null,
+        Action<AIEmbeddingBuilder> configure,
+        string text,
         CancellationToken cancellationToken = default);
 
     Task<GeneratedEmbeddings<Embedding<float>>> GenerateEmbeddingsAsync(
-        IEnumerable<string> values,
-        EmbeddingGenerationOptions? options = null,
+        Action<AIEmbeddingBuilder> configure,
+        IEnumerable<string> texts,
         CancellationToken cancellationToken = default);
 
-    Task<GeneratedEmbeddings<Embedding<float>>> GenerateEmbeddingsAsync(
-        Guid profileId,
-        IEnumerable<string> values,
-        EmbeddingGenerationOptions? options = null,
-        CancellationToken cancellationToken = default);
-
-    Task<IEmbeddingGenerator<string, Embedding<float>>> GetEmbeddingGeneratorAsync(
-        Guid? profileId = null,
+    Task<IEmbeddingGenerator<string, Embedding<float>>> CreateEmbeddingGeneratorAsync(
+        Action<AIEmbeddingBuilder> configure,
         CancellationToken cancellationToken = default);
 }
+```
+
+{% endcode %}
+
+## AIEmbeddingBuilder
+
+All methods accept an `Action<AIEmbeddingBuilder>` to configure the request. The builder provides the following fluent methods:
+
+| Method | Description |
+| --- | --- |
+| `.WithAlias(string alias)` | **Required.** Sets an alias for auditing and telemetry. |
+| `.WithName(string name)` | Sets a display name for telemetry purposes. |
+| `.WithDescription(string? description)` | Sets a description for telemetry purposes. |
+| `.WithProfile(Guid profileId)` | Selects a profile by ID. Uses default if omitted. |
+| `.WithProfile(string profileAlias)` | Selects a profile by alias. |
+| `.WithEmbeddingOptions(EmbeddingGenerationOptions options)` | Overrides profile defaults (model, dimensions, etc.). |
+| `.WithContextItems(IEnumerable<AIRequestContextItem> contextItems)` | Attaches context items to the request. |
+| `.WithGuardrails(params Guid[] guardrailIds)` | Applies guardrails by ID. |
+| `.WithGuardrails(params string[] guardrailAliases)` | Applies guardrails by alias. |
+| `.WithAdditionalProperties(IReadOnlyDictionary<string, object?> properties)` | Attaches additional properties to the request. |
+| `.AsPassThrough()` | Marks the request as pass-through (bypasses some processing). |
+
+{% code title="Builder example" %}
+
+```csharp
+var embedding = await _embeddingService.GenerateEmbeddingAsync(
+    emb => emb
+        .WithAlias("content-search")
+        .WithProfile("ada-embedding"),
+    "Umbraco is a content management system.",
+    cancellationToken);
 ```
 
 {% endcode %}
@@ -61,25 +80,18 @@ Generates an embedding for a single text value.
 
 ```csharp
 Task<Embedding<float>> GenerateEmbeddingAsync(
-    string value,
-    EmbeddingGenerationOptions? options = null,
-    CancellationToken cancellationToken = default);
-
-Task<Embedding<float>> GenerateEmbeddingAsync(
-    Guid profileId,
-    string value,
-    EmbeddingGenerationOptions? options = null,
+    Action<AIEmbeddingBuilder> configure,
+    string text,
     CancellationToken cancellationToken = default);
 ```
 
 {% endcode %}
 
-| Parameter           | Type                          | Description                                     |
-| ------------------- | ----------------------------- | ----------------------------------------------- |
-| `profileId`         | `Guid`                        | (Optional) Profile ID. Uses default if omitted. |
-| `value`             | `string`                      | The text to embed                               |
-| `options`           | `EmbeddingGenerationOptions?` | Generation options                              |
-| `cancellationToken` | `CancellationToken`           | Cancellation token                              |
+| Parameter           | Type                         | Description                                             |
+| ------------------- | ---------------------------- | ------------------------------------------------------- |
+| `configure`         | `Action<AIEmbeddingBuilder>` | Builder action to set alias, profile, options, etc.     |
+| `text`              | `string`                     | The text to embed                                       |
+| `cancellationToken` | `CancellationToken`          | Cancellation token                                      |
 
 **Returns**: `Embedding<float>` containing the vector representation.
 
@@ -87,6 +99,7 @@ Task<Embedding<float>> GenerateEmbeddingAsync(
 
 ```csharp
 var embedding = await _embeddingService.GenerateEmbeddingAsync(
+    emb => emb.WithAlias("content-search"),
     "Umbraco is a content management system.");
 
 // Access the vector
@@ -104,25 +117,18 @@ Generates embeddings for multiple text values in a batch.
 
 ```csharp
 Task<GeneratedEmbeddings<Embedding<float>>> GenerateEmbeddingsAsync(
-    IEnumerable<string> values,
-    EmbeddingGenerationOptions? options = null,
-    CancellationToken cancellationToken = default);
-
-Task<GeneratedEmbeddings<Embedding<float>>> GenerateEmbeddingsAsync(
-    Guid profileId,
-    IEnumerable<string> values,
-    EmbeddingGenerationOptions? options = null,
+    Action<AIEmbeddingBuilder> configure,
+    IEnumerable<string> texts,
     CancellationToken cancellationToken = default);
 ```
 
 {% endcode %}
 
-| Parameter           | Type                          | Description                                     |
-| ------------------- | ----------------------------- | ----------------------------------------------- |
-| `profileId`         | `Guid`                        | (Optional) Profile ID. Uses default if omitted. |
-| `values`            | `IEnumerable<string>`         | The texts to embed                              |
-| `options`           | `EmbeddingGenerationOptions?` | Generation options                              |
-| `cancellationToken` | `CancellationToken`           | Cancellation token                              |
+| Parameter           | Type                         | Description                                             |
+| ------------------- | ---------------------------- | ------------------------------------------------------- |
+| `configure`         | `Action<AIEmbeddingBuilder>` | Builder action to set alias, profile, options, etc.     |
+| `texts`             | `IEnumerable<string>`        | The texts to embed                                      |
+| `cancellationToken` | `CancellationToken`          | Cancellation token                                      |
 
 **Returns**: `GeneratedEmbeddings<Embedding<float>>` containing embeddings for each input.
 
@@ -136,7 +142,9 @@ var texts = new[]
     "Third document content"
 };
 
-var embeddings = await _embeddingService.GenerateEmbeddingsAsync(texts);
+var embeddings = await _embeddingService.GenerateEmbeddingsAsync(
+    emb => emb.WithAlias("batch-index"),
+    texts);
 
 Console.WriteLine($"Generated {embeddings.Count} embeddings");
 Console.WriteLine($"Total tokens: {embeddings.Usage?.InputTokenCount}");
@@ -151,32 +159,33 @@ for (int i = 0; i < embeddings.Count; i++)
 
 {% endcode %}
 
-### GetEmbeddingGeneratorAsync
+### CreateEmbeddingGeneratorAsync
 
-Gets a configured `IEmbeddingGenerator` for advanced scenarios.
+Creates a configured `IEmbeddingGenerator` for advanced scenarios.
 
 {% code title="Signature" %}
 
 ```csharp
-Task<IEmbeddingGenerator<string, Embedding<float>>> GetEmbeddingGeneratorAsync(
-    Guid? profileId = null,
+Task<IEmbeddingGenerator<string, Embedding<float>>> CreateEmbeddingGeneratorAsync(
+    Action<AIEmbeddingBuilder> configure,
     CancellationToken cancellationToken = default);
 ```
 
 {% endcode %}
 
-| Parameter           | Type                | Description                       |
-| ------------------- | ------------------- | --------------------------------- |
-| `profileId`         | `Guid?`             | Profile ID. Uses default if null. |
-| `cancellationToken` | `CancellationToken` | Cancellation token                |
+| Parameter           | Type                         | Description                                         |
+| ------------------- | ---------------------------- | --------------------------------------------------- |
+| `configure`         | `Action<AIEmbeddingBuilder>` | Builder action to set alias, profile, options, etc. |
+| `cancellationToken` | `CancellationToken`          | Cancellation token                                  |
 
 **Returns**: Configured `IEmbeddingGenerator` with middleware applied.
 
 {% code title="Example" %}
 
 ```csharp
-// Get generator for advanced usage
-var generator = await _embeddingService.GetEmbeddingGeneratorAsync();
+// Create generator for advanced usage
+var generator = await _embeddingService.CreateEmbeddingGeneratorAsync(
+    emb => emb.WithAlias("advanced-generator"));
 
 // Use M.E.AI methods directly
 var embeddings = await generator.GenerateAsync(
@@ -196,7 +205,9 @@ var embeddings = await generator.GenerateAsync(
 public async Task<List<Document>> SearchAsync(string query, IEnumerable<Document> documents)
 {
     // Generate query embedding
-    var queryEmbedding = await _embeddingService.GenerateEmbeddingAsync(query);
+    var queryEmbedding = await _embeddingService.GenerateEmbeddingAsync(
+        emb => emb.WithAlias("semantic-search"),
+        query);
 
     // Compare with document embeddings (pre-computed and stored)
     var results = documents
