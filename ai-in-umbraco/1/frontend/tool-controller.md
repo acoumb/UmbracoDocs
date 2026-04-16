@@ -47,7 +47,7 @@ async getToolScopes(): Promise<{ data?: UaiToolScope[]; error?: unknown }>
 
 **Returns**: Promise resolving to `{ data?, error? }` where `data` is an array of tool scopes.
 
-### getTools
+### `getTools`
 
 Gets all available tools.
 

@@ -55,7 +55,7 @@ async generate(
 
 **Returns**: Promise resolving to `{ data?, error? }` where `data` is a `number[]` vector.
 
-### generateMany
+### `generateMany`
 
 Generates embeddings for multiple text values in a batch.
 

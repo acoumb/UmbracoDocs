@@ -127,7 +127,7 @@ The endpoint accepts `multipart/form-data` with the following parameters:
 | ---------------- | ------ | -------- | --------------------------------------------------- |
 | `file`           | file   | Yes      | Audio file to transcribe                            |
 | `profileIdOrAlias` | string | No     | Profile ID or alias (uses default if omitted)       |
-| `language`       | string | No       | Language hint (e.g., `en`, `fr`, `de`)              |
+| `language`       | string | No       | Language hint (for example, `en`, `fr`, `de`)       |
 
 ### Example Request
 
@@ -176,7 +176,7 @@ Create a profile with the **Speech-to-Text** capability. Supported models includ
 
 ## Copilot Voice Input
 
-The Agent Copilot includes a built-in voice input button. When a Speech-to-Text profile is configured, users can click the microphone button in the Copilot chat input to record audio and transcribe it into text.
+The Agent Copilot includes a built-in voice input button. When a Speech-to-Text profile is configured, a microphone button appears in the Copilot chat input. Click it to record and transcribe audio into text.
 
 See [Copilot Usage](../add-ons/agent-copilot/copilot.md) for more details.
 

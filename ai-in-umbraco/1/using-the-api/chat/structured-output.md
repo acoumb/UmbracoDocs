@@ -103,7 +103,7 @@ public class ContentAssistant
 
 ### Reading Results
 
-The `GetResult<T>()` and `TryGetResult<T>()` extension methods on `ChatResponse` handle deserialization:
+The `GetResult<T>()` and `TryGetResult<T>()` extension methods on `ChatResponse` handle parsing:
 
 {% code title="ReadingResults.cs" %}
 
@@ -219,7 +219,7 @@ Not all providers support structured output. When a provider does not support sc
 | Display AI text to users | Standard chat response |
 | Parse AI output in code | `.WithOutputSchema()` + `GetResult<T>()` |
 | Agent pipelines and automation | Agent `OutputSchema` config or runtime override |
-| Simple JSON requests | `ChatResponseFormat.Json` (see [Advanced Options](advanced-options.md)) |
+| Basic JSON requests | `ChatResponseFormat.Json` (see [Advanced Options](advanced-options.md)) |
 
 ## Related
 

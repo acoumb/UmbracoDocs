@@ -89,9 +89,9 @@ public class MyProvider : AIProviderBase<MyProviderSettings>
 
 {% endcode %}
 
-## Using Existing M.E.AI Clients
+## Using Existing `Microsoft.Extensions.AI` Clients
 
-If your AI service has an existing M.E.AI speech-to-text client, use it directly. For example, with OpenAI:
+If your AI service has an existing `Microsoft.Extensions.AI` speech-to-text client, use it directly. For example, with OpenAI:
 
 {% code title="Using OpenAI Client" %}
 
