@@ -4,7 +4,7 @@ description: Get started with the Umbraco CMS Developer Model Context Protocol (
 
 # Developer Model Context Protocol (MCP) Server
 
-The Developer [MCP Server](https://app.gitbook.com/s/NnUDSAShVcdETvjguL9v/model-context-protocol#mcp-servers) makes it straightforward for developers to connect AI tools with Umbraco. It allows you to harness large language models (LLMs) to perform almost any task that can be achieved within the Umbraco backoffice. This includes generating and editing content, managing media, automating workflows, and assisting with complex development tasks.
+The Developer [MCP Server](../../concepts/model-context-protocol#mcp-servers) makes it straightforward for developers to connect AI tools with Umbraco. It allows you to harness large language models (LLMs) to perform almost any task that can be achieved within the Umbraco backoffice. This includes generating and editing content, managing media, automating workflows, and assisting with complex development tasks.
 
 This MCP Server acts as a secure gateway between your Umbraco installation and MCP-compatible AI environments. These include Claude (Desktop or Code), Cursor, GitHub Copilot, and many more.
 
@@ -18,9 +18,9 @@ Think of it as giving your AI tools a secure, structured way to “speak to Umbr
 
 Unlike most Umbraco integrations, the Developer MCP Server is not a plugin that you install into your Umbraco site. Instead, it runs as a standalone Node.js application that acts as an MCP Server.
 
-[MCP clients](https://app.gitbook.com/s/NnUDSAShVcdETvjguL9v/model-context-protocol#mcp-clients) are implemented inside compatible [host applications](https://app.gitbook.com/s/NnUDSAShVcdETvjguL9v/model-context-protocol#host-applications) such as Claude Desktop, Cursor, or Windsurf. These clients connect to the server. When you interact with your chat-based development environment, the client communicates with the MCP Server using the Model Context Protocol (MCP).
+[MCP clients](../../concepts/model-context-protocol.md#mcp-clients) are implemented inside compatible [host applications](../../concepts/model-context-protocol#host-applications) such as Claude Desktop, Cursor, or Windsurf. These clients connect to the server. When you interact with your chat-based development environment, the client communicates with the MCP Server using the Model Context Protocol (MCP).
 
-Learn more about [Model Context Protocol (MCP)](https://app.gitbook.com/s/NnUDSAShVcdETvjguL9v/#model-context-protocol).
+Learn more about [Model Context Protocol (MCP)](../../concepts/model-context-protocol.md).
 
 The MCP Server, in turn, talks directly to Umbraco through the Management API. This is the same API layer that powers the Umbraco backoffice and allows the server to directly read from and modify the CMS.
 
@@ -78,7 +78,7 @@ Additional MCP servers tailored to other roles, such as editors and content mana
 
 ### Umbraco Setup
 
-Before connecting the MCP Server, you need to create an [API User](../../fundamentals/data/users/api-users.md) in Umbraco. This user allows the MCP Server to communicate securely with the Management API.
+Before connecting the MCP Server, you need to create an [API User](https://docs.umbraco.com/umbraco-cms/fundamentals/data/users/api-users) in Umbraco. This user allows the MCP Server to communicate securely with the Management API.
 
 The level of access you assign to this API user determines what actions your AI agent can perform:
 
@@ -93,11 +93,11 @@ Only use a dedicated API user for MCP connections. Do not share or reuse credent
 
 Each MCP-compatible host application has its own setup process. Below you can find dedicated setup guides for the main developer environments seen most often:
 
-* [Claude Desktop](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/claude-desktop)
-* [Claude Code](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/claude-code)
-* [GitHub Copilot](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/github-copilot)
-* [Cursor](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/cursor)
-* [OpenAI Codex](https://app.gitbook.com/s/EuQ7H19kRLMJSurL2nwL/openai-codex)
+* [Claude Desktop](../local-mcp-setup/claude-desktop.md)
+* [Claude Code](../local-mcp-setup/claude-code.md)
+* [GitHub Copilot](../local-mcp-setup/github-copilot.md)
+* [Cursor](../local-mcp-setup/cursor.md)
+* [OpenAI Codex](../local-mcp-setup/openai-codex.md)
 
 Although the details vary slightly, the general pattern is the same across all hosts:
 
@@ -152,7 +152,7 @@ Even with limited user permissions, the scope and power of LLM-driven actions ma
 
 Your first step after setup should be deciding which tools you want to enable. All tools are grouped into collections for easier management and isolation. [Learn more about Tool Collections](available-tools.md).
 
-Choosing the right tools improves how efficiently the AI communicates with Umbraco, making each conversation faster and more context-aware. Learn more about [Context Engineering](https://app.gitbook.com/s/NnUDSAShVcdETvjguL9v/context-enginerring).
+Choosing the right tools improves how efficiently the AI communicates with Umbraco, making each conversation faster and more context-aware. Learn more about [Context Engineering](../../concepts/context-enginerring.md).
 
 ### Using `npx`?
 
@@ -175,7 +175,7 @@ Once your MCP Server is configured and connected, explore these guides to get th
 * [Creating Media](best-practice/creating-media.md) - Learn how to upload and manage media items programmatically.
 * [Available Tools](available-tools.md) - Complete reference of all available tools and collections.
 * [Scenarios](scenarios.md) - Real-world examples and use cases.
-* [Best Practices](best-practice/) - Tips for effective MCP usage.
+* [Best Practices](best-practice/README.md) - Tips for effective MCP usage.
 
 ## Version Compatibility
 

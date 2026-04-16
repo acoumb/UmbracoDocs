@@ -36,9 +36,9 @@ All extension development follows this workflow.
 Before writing any code:
 
 1. **Describe what you want to build:** "A dashboard that shows recent content changes", "A tree in Settings for managing custom data."
-2. **Draw a wireframe:** The AI creates ASCII wireframes showing where UI elements appear in the backoffice
-3. **Identify extension types:** Label each part of the wireframe: section, dashboard, workspace, tree
-4. **Identify Umbraco UI Library (UUI) components:** Map out which `uui-*` components you need (buttons, inputs, boxes, tables)
+2. **Draw a wireframe:** The AI creates ASCII wireframes showing where UI elements appear in the backoffice.
+3. **Identify extension types:** Label each part of the wireframe: section, dashboard, workspace, tree.
+4. **Identify Umbraco UI Library (UUI) components:** Map out which `uui-*` components you need (buttons, inputs, boxes, tables).
 5. **Map data flow:** How does data move? Which contexts, repositories, and APIs are involved?
 
 ```
@@ -60,9 +60,9 @@ Planning prevents building the wrong extension type. You approve the plan before
 
 With the plan approved:
 
-1. **Load the `umbraco-backoffice` skill** for best practices and example blueprints
-2. **Invoke the identified sub-skills:** each extension type has its own skill with correct patterns
-3. **Follow the examples:** Copy from the closest blueprint and adapt
+1. **Load the `umbraco-backoffice` skill** for best practices and example blueprints.
+2. **Invoke the identified sub-skills:** each extension type has its own skill with correct patterns.
+3. **Follow the examples:** Copy from the closest blueprint and adapt.
 
 ### **Validate**
 

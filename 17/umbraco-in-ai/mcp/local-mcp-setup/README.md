@@ -4,12 +4,12 @@ description: "Connect a local Umbraco MCP server to your AI development environm
 
 # Local MCP Setup
 
-These guides show how to connect a local Umbraco MCP server to each host application. The examples use the [Developer MCP](../developer-mcp/README.md) package (`@umbraco-cms/mcp-dev`). If you are using a different Umbraco MCP server, replace the package name in the configuration.
+These guides show how to connect a local Umbraco MCP server to each host application. The examples use the [Developer MCP](../cms-developer-mcp/README.md) package (`@umbraco-cms/mcp-dev`). If you are using a different Umbraco MCP server, replace the package name in the configuration.
 
 ## Before You Start
 
 - **Node.js 22+** is required. Check your version by running `node -v` in your terminal.
-- **Umbraco API User** — You need to create an [API User](../../fundamentals/data/users/api-users.md) in Umbraco before connecting. This user allows the MCP server to communicate securely with the Management API.
+- **Umbraco API User** — You need to create an [API User](https://docs.umbraco.com/umbraco-cms/fundamentals/data/users/api-users) in Umbraco before connecting. This user allows the MCP server to communicate securely with the Management API.
 
 ## Hosts
 

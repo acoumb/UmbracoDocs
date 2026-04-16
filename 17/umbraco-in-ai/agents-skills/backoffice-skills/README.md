@@ -9,7 +9,7 @@ description: >-
 
 Backoffice skills give your AI coding assistant deep knowledge of Umbraco's extension points. Each skill covers one extension type, such as dashboards, trees, property editors, modals, and more, with patterns, code examples, and references to the latest documentation.
 
-Skills use the open [`SKILL.md`](https://agentskills.io/home) format. They load on demand: only the skill relevant to your current task is pulled into context. Installing all skills does not affect performance. For a general introduction to agent skills and how they work, see [Agent Skills](../concepts/agent-skills.md).
+Skills use the open [`SKILL.md`](https://agentskills.io/home) format. They load on demand: only the skill relevant to your current task is pulled into context. Installing all skills does not affect performance. For a general introduction to agent skills and how they work, see [Agent Skills](../../concepts/agent-skills.md).
 
 ## Installation
 

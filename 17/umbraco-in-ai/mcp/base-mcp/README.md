@@ -6,7 +6,7 @@ description: >-
 
 # Base MCP
 
-The Base MCP packages provide the foundation for building Model Context Protocol (MCP) servers that expose Umbraco APIs to AI assistants. The [Developer MCP Server](https://app.gitbook.com/s/q6oQQgn2w0ItzeFlq0Z4/#how-it-works) is built on these packages, and you can use them to build your own.
+The Base MCP packages provide the foundation for building Model Context Protocol (MCP) servers that expose Umbraco APIs to AI assistants. The [Developer MCP Server](../cms-developer-mcp/README.md#how-it-works) is built on these packages, and you can use them to build your own.
 
 These packages are for Umbraco package developers, property editor authors, and anyone who needs to expose custom Umbraco APIs through MCP. If your package has its own Management API endpoints, you can create a dedicated MCP server. This lets AI assistants interact with those APIs directly.
 
