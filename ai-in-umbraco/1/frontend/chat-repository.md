@@ -14,7 +14,7 @@ The `UaiChatRepository` handles server communication for chat operations. Use `U
 {% code title="Example" %}
 
 ```typescript
-import { UaiChatRepository } from "@umbraco-ai/backoffice";
+import { UaiChatRepository } from "@umbraco-ai/core";
 
 const repository = new UaiChatRepository(host);
 ```
@@ -25,11 +25,11 @@ const repository = new UaiChatRepository(host);
 
 | Scenario | Use |
 | --- | --- |
-| Chat UI with streaming and cancellation | `UaiChatController` |
+| Chat completions with cancellation | `UaiChatController` |
 | Direct API calls for chat data | `UaiChatRepository` |
 | Custom chat implementations | `UaiChatRepository` |
 
-For most use cases, prefer `UaiChatController` which wraps the repository with streaming support, cancellation, and state management.
+For most use cases, prefer `UaiChatController` which wraps the repository with a simpler API surface.
 
 ## Related
 

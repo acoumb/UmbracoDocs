@@ -15,10 +15,10 @@ description: >-
 import {
     UaiSpeechToTextController,
     UaiAudioRecorder,
-    UaiTranscriptionOptions,
-    UaiTranscriptionResult,
+    UaiSpeechToTextOptions,
+    UaiSpeechToTextResult,
     UaiAudioRecorderState
-} from "@umbraco-ai/backoffice";
+} from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -139,8 +139,8 @@ Sends an audio blob to the Management API for transcription.
 ```typescript
 async transcribe(
     audioFile: Blob,
-    options?: UaiTranscriptionOptions
-): Promise<{ data?: UaiTranscriptionResult; error?: unknown }>
+    options?: UaiSpeechToTextOptions
+): Promise<{ data?: UaiSpeechToTextResult; error?: unknown }>
 ```
 
 {% endcode %}
@@ -148,16 +148,16 @@ async transcribe(
 | Parameter   | Type                      | Description                    |
 | ----------- | ------------------------- | ------------------------------ |
 | `audioFile` | `Blob`                    | The recorded audio blob        |
-| `options`   | `UaiTranscriptionOptions` | Optional transcription config  |
+| `options`   | `UaiSpeechToTextOptions` | Optional transcription config  |
 
 **Returns**: Promise resolving to `{ data?, error? }`
 
 ## Options
 
-{% code title="UaiTranscriptionOptions" %}
+{% code title="UaiSpeechToTextOptions" %}
 
 ```typescript
-interface UaiTranscriptionOptions {
+interface UaiSpeechToTextOptions {
     /** Profile ID (GUID) or alias. If omitted, uses the default speech-to-text profile. */
     profileIdOrAlias?: string;
     /** BCP-47 language hint (e.g., "en", "de"). */
@@ -171,10 +171,10 @@ interface UaiTranscriptionOptions {
 
 ## Result
 
-{% code title="UaiTranscriptionResult" %}
+{% code title="UaiSpeechToTextResult" %}
 
 ```typescript
-interface UaiTranscriptionResult {
+interface UaiSpeechToTextResult {
     text: string;
 }
 ```
@@ -191,7 +191,7 @@ import { customElement, state } from "lit/decorators.js";
 import {
     UaiSpeechToTextController,
     UaiAudioRecorder,
-} from "@umbraco-ai/backoffice";
+} from "@umbraco-ai/core";
 
 @customElement("voice-input")
 export class VoiceInputElement extends LitElement {

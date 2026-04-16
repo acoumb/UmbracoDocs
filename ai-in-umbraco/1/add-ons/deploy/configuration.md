@@ -13,9 +13,9 @@ By default, Deploy:
 
 - **Excludes encrypted values** - Values starting with `ENC:` are not deployed
 - **Allows configuration references** - Values starting with `$` (e.g., `$OpenAI:ApiKey`) are deployed
-- **Allows sensitive fields** - Fields marked as sensitive can be deployed if they use configuration references
+- **Allows sensitive fields** - Fields marked as sensitive (via `[AIField(IsSensitive = true)]`) are treated like any other field and can be deployed
 
-Encrypted values stay safe while configuration references for sensitive fields are still deployed.
+Encrypted values stay safe while configuration references for sensitive fields are still deployed. To further restrict sensitive fields, enable `IgnoreSensitive` or list specific fields in `IgnoreSettings`.
 
 ## Configuration Settings
 

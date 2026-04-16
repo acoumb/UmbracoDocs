@@ -60,7 +60,7 @@ The approval workflow ensures editors maintain control over content changes.
 
 ## Configuring Copilot Agents
 
-Agents power the Copilot's capabilities. The Copilot does not have a "default agent" setting — instead, any agent in the **AI > Agents** backoffice section that is associated with the **Copilot** surface becomes available inside the sidebar.
+Agents power the Copilot's capabilities. Any agent in the **AI > Agents** backoffice section that is associated with the **Copilot** surface becomes available inside the sidebar.
 
 ### Opting an agent into the Copilot
 

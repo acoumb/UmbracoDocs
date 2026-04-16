@@ -14,7 +14,7 @@ The AI APIs are exported from the Umbraco.AI client package:
 {% code title="Import" %}
 
 ```typescript
-import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/backoffice";
+import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -26,7 +26,7 @@ import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/ba
 ```typescript
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/backoffice";
+import { UaiChatController, UaiChatMessage, UaiChatResult } from "@umbraco-ai/core";
 
 @customElement("my-ai-element")
 export class MyAIElement extends LitElement {

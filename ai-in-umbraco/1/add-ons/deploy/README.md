@@ -11,10 +11,13 @@ Deploy support enables you to version control and deploy your Umbraco.AI configu
 
 With Deploy support installed, these AI entities are automatically deployed:
 
-- **Connections** - API keys and provider settings
-- **Profiles** - Model configurations and chat settings
-- **Prompts** - Template content and scoping rules (requires Umbraco.AI.Prompt.Deploy)
-- **Agents** - Instructions, tools, and permissions (requires Umbraco.AI.Agent.Deploy)
+- **Connections** - Provider settings and connection configuration
+- **Profiles** - Model selection and capability-specific settings (chat, embedding, speech-to-text)
+- **Contexts** - Reusable context resources for AI operations
+- **Guardrails** - Input/output safety and compliance rules
+- **Settings** - Default profile assignments (chat, embedding, classifier)
+- **Prompts** - Prompt templates and scoping (requires Umbraco.AI.Prompt.Deploy)
+- **Agents** - Agent definitions, tool permissions, and workflows (requires Umbraco.AI.Agent.Deploy)
 
 ## How It Works
 
@@ -30,7 +33,7 @@ Your AI configuration follows the same deployment workflow as your content types
 
 | Package | Purpose |
 |---------|---------|
-| **Umbraco.AI.Deploy** | Core Deploy support for Connections and Profiles |
+| **Umbraco.AI.Deploy** | Core Deploy support for Connections, Profiles, Contexts, Guardrails, and Settings |
 | **Umbraco.AI.Prompt.Deploy** | Deploy support for Prompt templates |
 | **Umbraco.AI.Agent.Deploy** | Deploy support for AI Agents |
 
@@ -65,9 +68,10 @@ Use configuration references (e.g., `$OpenAI:ApiKey`) instead of hardcoded value
 
 Deploy automatically resolves dependencies between entities:
 
-- Profiles depend on Connections
-- Prompts can optionally depend on Profiles
-- Agents can optionally depend on Profiles
+- Profiles depend on Connections (and any Guardrails referenced in chat profiles)
+- Prompts can optionally depend on Profiles, plus any referenced Guardrails
+- Agents can optionally depend on Profiles, plus any referenced Guardrails
+- Settings can optionally depend on the Profiles they reference
 
 If you deploy a Profile, Deploy ensures its Connection is deployed first.
 

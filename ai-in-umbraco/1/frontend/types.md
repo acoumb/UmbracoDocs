@@ -23,11 +23,11 @@ import type {
     UaiEmbeddingOptions,
     UaiEmbeddingResult,
     UaiEmbeddingItem,
-    UaiTranscriptionOptions,
-    UaiTranscriptionResult,
+    UaiSpeechToTextOptions,
+    UaiSpeechToTextResult,
     UaiToolScope,
     UaiToolItem,
-} from "@umbraco-ai/backoffice";
+} from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -255,7 +255,7 @@ if (data && hasUsage(data)) {
 {% code title="Conversation Helper" %}
 
 ```typescript
-import type { UaiChatMessage } from "@umbraco-ai/backoffice";
+import type { UaiChatMessage } from "@umbraco-ai/core";
 
 class Conversation {
     #messages: UaiChatMessage[] = [];
@@ -349,14 +349,14 @@ interface UaiEmbeddingItem {
 
 ## Speech-to-Text Types
 
-### UaiTranscriptionOptions
+### UaiSpeechToTextOptions
 
 Options for the `UaiSpeechToTextController.transcribe` method.
 
-{% code title="UaiTranscriptionOptions" %}
+{% code title="UaiSpeechToTextOptions" %}
 
 ```typescript
-interface UaiTranscriptionOptions {
+interface UaiSpeechToTextOptions {
     /** Profile ID (GUID) or alias. If omitted, uses the default speech-to-text profile. */
     profileIdOrAlias?: string;
     /** BCP-47 language hint (e.g., "en", "de"). */
@@ -368,14 +368,14 @@ interface UaiTranscriptionOptions {
 
 {% endcode %}
 
-### UaiTranscriptionResult
+### UaiSpeechToTextResult
 
 The result of a speech-to-text transcription.
 
-{% code title="UaiTranscriptionResult" %}
+{% code title="UaiSpeechToTextResult" %}
 
 ```typescript
-interface UaiTranscriptionResult {
+interface UaiSpeechToTextResult {
     text: string;
 }
 ```

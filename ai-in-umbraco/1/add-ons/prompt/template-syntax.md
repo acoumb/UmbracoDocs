@@ -25,7 +25,7 @@ Variables can reference:
 - Values added by registered runtime context contributors (these can be supplied via the `Context` items on the request)
 
 {% hint style="info" %}
-There is no dictionary of explicit "variables" on the request. To pass custom data from your frontend, use the `Context` property on `AIPromptExecutionRequest` and rely on a runtime context contributor to map it into the template context.
+To pass custom data from your frontend, use the `Context` property on `AIPromptExecutionRequest` and rely on a runtime context contributor to map it into the template context.
 {% endhint %}
 
 ## Nested Paths

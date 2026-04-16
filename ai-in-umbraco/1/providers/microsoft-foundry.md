@@ -57,6 +57,12 @@ When using Microsoft Entra ID with a Project Name, the model picker shows only m
 | Endpoint | Yes      | Your AI Foundry endpoint URL |
 | API Key  | Yes      | Your AI Foundry API key      |
 
+### Advanced Settings
+
+| Setting            | Required | Description                                                                                                          |
+| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| Use Responses API  | No       | When enabled, uses the OpenAI Responses API instead of Chat Completions. Only available in certain Azure regions.    |
+
 ### Getting Your Credentials
 
 #### For Entra ID

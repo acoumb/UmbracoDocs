@@ -64,7 +64,7 @@ Variables use the `{{variable}}` syntax. At execution time the template context 
 - The special `currentValue` variable, which mirrors the value of the property identified by `propertyAlias`
 - Values produced by registered runtime context contributors from any `Context` items included in the request
 
-There is no separate "variables" dictionary on the request. To pass custom data from a frontend or calling code, use the `Context` list on `AIPromptExecutionRequest` together with a runtime context contributor that maps the context items into template values. See [Template Syntax](template-syntax.md) for details.
+To pass custom data from a frontend or calling code, use the `Context` list on `AIPromptExecutionRequest` together with a runtime context contributor that maps the context items into template values. See [Template Syntax](template-syntax.md) for details.
 
 ## Prompt Scoping
 

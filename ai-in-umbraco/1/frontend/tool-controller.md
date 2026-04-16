@@ -12,7 +12,7 @@ description: >-
 {% code title="Import" %}
 
 ```typescript
-import { UaiToolController, UaiToolScope, UaiToolItem } from "@umbraco-ai/backoffice";
+import { UaiToolController, UaiToolScope, UaiToolItem } from "@umbraco-ai/core";
 ```
 
 {% endcode %}
@@ -112,7 +112,7 @@ interface UaiToolItem {
 ```typescript
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { UaiToolController, UaiToolScope, UaiToolItem } from "@umbraco-ai/backoffice";
+import { UaiToolController, UaiToolScope, UaiToolItem } from "@umbraco-ai/core";
 
 @customElement("tool-picker")
 export class ToolPickerElement extends LitElement {

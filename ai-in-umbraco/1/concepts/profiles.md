@@ -14,7 +14,7 @@ A profile is a named configuration that combines a connection with specific mode
 | `Id`           | Unique identifier (GUID)                               |
 | `Alias`        | Unique string for programmatic lookup                  |
 | `Name`         | Display name shown in the backoffice                   |
-| `Capability`   | The type of AI capability (Chat, Embedding, and so on) |
+| `Capability`   | The type of AI capability (Chat, Embedding, Speech-to-Text, and so on) |
 | `ConnectionId` | Which connection provides credentials                  |
 | `Model`        | The specific AI model to use                           |
 | `Settings`     | Capability-specific settings                           |
@@ -32,7 +32,15 @@ A profile is a named configuration that combines a connection with specific mode
 
 ### Embedding Profiles
 
-Embedding profiles currently use model defaults. Additional settings may be added in future releases.
+| Setting      | Description                                                               | Type |
+| ------------ | ------------------------------------------------------------------------- | ---- |
+| `Dimensions` | Number of dimensions for the generated embeddings (model default if null) | int  |
+
+### Speech-to-Text Profiles
+
+| Setting    | Description                                                | Type   |
+| ---------- | ---------------------------------------------------------- | ------ |
+| `Language` | BCP-47 language hint for transcription (e.g., "en", "de") | string |
 
 ## Example Profile Configurations
 
@@ -64,14 +72,13 @@ var response = await _chatService.GetChatResponseAsync(
 
 ### Named Profile
 
-Look up and use a specific profile:
+Pass the profile alias (or ID) to `WithProfile`:
 
 {% code title="Example.cs" %}
 
 ```csharp
-var profile = await _profileService.GetProfileByAliasAsync("code-assistant");
 var response = await _chatService.GetChatResponseAsync(
-    chat => chat.WithAlias("code-assistant").WithProfile(profile!.Id),
+    chat => chat.WithAlias("code-assistant").WithProfile("code-assistant"),
     messages);
 ```
 

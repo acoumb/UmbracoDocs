@@ -66,10 +66,13 @@ See [Managing Settings](../backoffice/managing-settings.md) for more details on 
 {% code title="ContentController.cs" %}
 
 ```csharp
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.AI;
 using Umbraco.AI.Core.Chat;
 
-public class ContentController : UmbracoApiController
+[ApiController]
+[Route("/api/content")]
+public class ContentController : Controller
 {
     private readonly IAIChatService _chatService;
 
@@ -91,7 +94,7 @@ public class ContentController : UmbracoApiController
             chat => chat.WithAlias("content-summary"),
             messages);
 
-        return Ok(response.Message.Text);
+        return Ok(response.Text);
     }
 }
 ```
@@ -100,27 +103,23 @@ public class ContentController : UmbracoApiController
 
 ### Using a Specific Profile
 
-To use a specific profile, look up the profile by alias and pass the profile ID:
+To use a specific profile, pass its alias (or ID) to `WithProfile`:
 
 {% code title="ContentController.cs" %}
 
 ```csharp
-public async Task<IActionResult> GenerateSummary(
-    [FromBody] string content,
-    [FromServices] IAIProfileService profileService)
+public async Task<IActionResult> GenerateSummary([FromBody] string content)
 {
-    var profile = await profileService.GetProfileByAliasAsync("content-assistant");
-
     var messages = new List<ChatMessage>
     {
         new(ChatRole.User, $"Summarize this content:\n\n{content}")
     };
 
     var response = await _chatService.GetChatResponseAsync(
-        chat => chat.WithAlias("content-summary").WithProfile(profile!.Id),
+        chat => chat.WithAlias("content-summary").WithProfile("content-assistant"),
         messages);
 
-    return Ok(response.Message.Text);
+    return Ok(response.Text);
 }
 ```
 
