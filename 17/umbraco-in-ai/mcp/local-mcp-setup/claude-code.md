@@ -81,7 +81,7 @@ Replace the `UMBRACO_CLIENT_ID`, `UMBRACO_CLIENT_SECRET`, `UMBRACO_BASE_URL` and
 }
 ```
 
-For details on `.env` format and supported configuration keys, see the [Configuration guide](../developer-mcp/configuration.md).
+For details on `.env` format and supported configuration keys, see the [Configuration guide](../cms-developer-mcp/configuration.md).
 
 {% hint style="warning" %}
 Never commit live credentials to source control. Always use environment variables or a `.env` file.

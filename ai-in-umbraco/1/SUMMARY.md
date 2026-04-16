@@ -1,13 +1,13 @@
 # Table of contents
 
-* [Umbraco.AI](README.md)
+* [AI in Umbraco](README.md)
 
 ## Getting Started
 
 * [Overview](getting-started/README.md)
 * [Installation](getting-started/installation.md)
-* [Your First Connection](getting-started/first-connection.md)
-* [Your First Profile](getting-started/first-profile.md)
+* [The First Connection](getting-started/first-connection.md)
+* [The First Profile](getting-started/first-profile.md)
 
 ## Concepts
 

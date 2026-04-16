@@ -20,6 +20,7 @@ To view form analytics, you need:
 * The **View Entries** permission for the form.
 
 Users will only see analytics for forms they have permission to manage.
+
 ## Accessing Analytics
 
 There are two ways to access form analytics in the backoffice.
@@ -28,7 +29,7 @@ There are two ways to access form analytics in the backoffice.
 
 In the Forms section, click the **Analytics** menu item in the sidebar. This opens the analytics overview where you can browse data across all your forms.
 
-![Analytics overview showing a submissions chart and forms table](images/analytics-overview.png)
+![Analytics overview showing a submissions chart and forms table](../.gitbook/assets/analytics-overview.png)
 
 ### From a Specific Form
 
@@ -52,7 +53,7 @@ The analytics view provides controls to adjust the data displayed.
 
 Use the date range picker to select the time period for the analytics data. You can choose from preset ranges such as **Last 7 days** or **Last 30 days**, or set a custom date range. You can also enable a comparison date range to compare the current period against a previous one.
 
-![Date range picker with preset options and comparison toggle](images/analytics-date-picker.png)
+![Date range picker with preset options and comparison toggle](../.gitbook/assets/analytics-date-picker.png)
 
 ### Group By
 
@@ -66,7 +67,7 @@ Use the **Group by** control to change how the data is aggregated in the time-se
 
 The overview table lists all forms you have access to with summary statistics for the selected date range. This includes entry counts, workflow counts, workflow errors, and source pages.
 
-![Analytics overview table showing all forms with entry counts and statistics](images/analytics-overview-table.png)
+![Analytics overview table showing all forms with entry counts and statistics](../.gitbook/assets/analytics-overview-table.png)
 
 Click a form name to navigate to its detailed analytics view.
 
@@ -78,13 +79,13 @@ When viewing analytics for a specific form, the view displays four widgets provi
 
 A time-series chart showing the number of form submissions and failed workflows over the selected date range.
 
-![Form analytics showing the submissions chart with entries and workflow errors](images/analytics-form-submissions.png)
+![Form analytics showing the submissions chart with entries and workflow errors](../.gitbook/assets/analytics-form-submissions.png)
 
 ### Submissions by Hour
 
 A chart showing the distribution of form submissions across the 24 hours of the day. This helps identify peak submission times and can inform decisions about when to schedule maintenance or review submissions.
 
-![Hourly distribution chart and workflow statistics table](images/analytics-form-hourly-workflows.png)
+![Hourly distribution chart and workflow statistics table](../.gitbook/assets/analytics-form-hourly-workflows.png)
 
 ### Workflow Statistics
 
@@ -96,8 +97,7 @@ A time-series chart showing form submissions broken down by the page where the f
 
 Below the chart, a table lists each source page with its name, URL, and entry count.
 
-![Origins chart and table showing submissions by source page](images/analytics-form-origins-table.png)
-
+![Origins chart and table showing submissions by source page](../.gitbook/assets/analytics-form-origins-table.png)
 
 ## Data Processing
 
@@ -106,5 +106,5 @@ Analytics data is pre-aggregated by a background process that runs daily. This m
 When forms are first installed or upgraded to a version that includes analytics, the background process will aggregate historical submission data. This may take some time depending on the volume of existing records.
 
 {% hint style="info" %}
-The analytics data processing is enabled by default. It can be configured or disabled via the `AnalyticsProcessing` settings in `appsettings.json`. For more details, see the [Configuration](../developer/configuration/README.md) article.
+The analytics data processing is enabled by default. It can be configured or disabled via the `AnalyticsProcessing` settings in `appsettings.json`. For more details, see the [Configuration](../developer/configuration/) article.
 {% endhint %}

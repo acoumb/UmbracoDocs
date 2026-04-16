@@ -22,9 +22,9 @@ When these parts work together, AI can help with content operations, schema plan
 
 ### Explore each topic
 
-* [Model Context Protocol (MCP)](model-context-protocol.md): explains how LLMs connect to Umbraco tools, APIs, and external systems.
-* [Context Engineering](context-enginerring.md): explains how to improve reliability by controlling what the model sees.
-* [Agent Skills](agent-skills.md): explains how agent skills provide reusable instructions for AI coding tools.
+* [Model Context Protocol (MCP)](concepts/model-context-protocol.md): explains how LLMs connect to Umbraco tools, APIs, and external systems.
+* [Context Engineering](concepts/context-enginerring.md): explains how to improve reliability by controlling what the model sees.
+* [Agent Skills](concepts/agent-skills.md): explains how agent skills provide reusable instructions for AI coding tools.
 
 ### What you will learn
 

@@ -57,10 +57,10 @@ Some types we don't use within the package, but we make available for developers
 
 For example `Forms.PropertyEditorUi.TextWithFieldPicker`. This offers the option of text field entry or the selection of a field from the form. This can be useful in workflows where you need to reference the value of a specific field.
 
-![Text with field picker](./images/text-with-field-picker.png)
+![Text with field picker](../../.gitbook/assets/text-with-field-picker.png)
 
 ## Creating a setting type
 
 It's also possible to define your own setting type using a combination of server and client-side code.
 
-Read how do this in the article on [adding a field type](./adding-a-fieldtype.md#field-settings).
+Read how do this in the article on [adding a field type](adding-a-fieldtype.md#field-settings).
