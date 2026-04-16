@@ -11,7 +11,7 @@ This is currently not possible on projects that run Umbraco 9 and above.
 We are working on making it available for Umbraco Cloud projects using version 9 and above.
 {% endhint %}
 
-When you are doing your normal development process, you would be updating the configuration files in your solution as usual. When you are working with a Baseline setup there are a few things to keep in mind.
+When developing with a Baseline setup, there are a few things to keep in mind when updating configuration files.
 
 When deploying updates from the Baseline to Child projects, all solvable merge conflicts on configuration files are resolved using the Child project's settings.
 
