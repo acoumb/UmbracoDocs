@@ -30,7 +30,7 @@ You can see the used schema of a Property Editor in the backoffice of Umbraco wh
 
 ## A custom schema or not?
 
-Umbraco ships with a collection of [default property editor schemas](../../../tutorials/creating-a-property-editor/default-property-editor-schema-aliases/) that cover most scenarios that are less demanding. Although each situation is different, if you answer yes to any of the following statements, it makes sense to create a custom schema:
+Umbraco ships with a collection of [default property editor schemas](../../../tutorials/creating-a-property-editor/adding-server-side-validation/default-property-editor-schema-aliases/) that cover most scenarios that are less demanding. Although each situation is different, if you answer yes to any of the following statements, it makes sense to create a custom schema:
 
 * You expect the schema to be used by multiple Property Editor UIs.
 * You need a custom [Property Value Converter](../property-value-converters.md) to convert the data going into the cache, or you want the Umbraco ModelsBuilder to have a more specific, strongly-typed model.
