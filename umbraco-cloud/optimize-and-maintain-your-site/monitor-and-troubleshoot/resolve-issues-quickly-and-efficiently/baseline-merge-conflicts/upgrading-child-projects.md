@@ -67,9 +67,7 @@ Once the changes have been deployed, the Child project will be upgraded to the s
 All CMS and Commercial products will be upgraded.
 {% endhint %}
 
-![Minor upgrade labels](../../../../.gitbook/assets/minor-upgrades.png)
-
-Clicking the upgrade button starts an update that applies all files from the Baseline to the Child projects.
+Clicking the Upgrade button starts an update that applies all files from the Baseline to the Child projects.
 
 Once the files are in place, the upgrade process runs to ensure the Child projects are fully upgraded.
 
