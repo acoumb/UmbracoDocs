@@ -1,14 +1,13 @@
 ---
 description: >-
-  Learn how to handle configuration files when working with Baseline and Child projects on Umbraco Cloud.
+  Learn how to handle configuration files when working with Baseline and Child
+  projects on Umbraco Cloud.
 ---
 
 # Handling configuration files
 
 {% hint style="warning" %}
-This is currently not possible on projects that run Umbraco 9 and above.
-
-We are working on making it available for Umbraco Cloud projects using version 9 and above.
+This article only applies to Umbraco Cloud projects running Umbraco versions 7 or 8.
 {% endhint %}
 
 When developing with a Baseline setup, there are a few things to keep in mind when updating configuration files.
@@ -26,11 +25,9 @@ Following this workflow will ensure that when the Child is updated from the Base
 This practice is especially important when the Baseline project receives major new functionality. This includes new code that depends on configuration files, or when upgrades are applied.
 
 {% hint style="warning" %}
-
 When you need a specific configuration on Child projects, always use config transforms.
 
 Editing default config files on the Child project directly may prevent you from pushing changes from your Baseline project in the future.
-
 {% endhint %}
 
 ## Examples

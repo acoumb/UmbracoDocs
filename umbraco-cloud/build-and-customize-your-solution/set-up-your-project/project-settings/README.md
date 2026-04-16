@@ -89,7 +89,7 @@ The Automatic Upgrades section handles minor and patch upgrades for the Umbraco 
 
 You can manage whether your site is automatically upgraded with the latest patch and minor version(s) of Umbraco CMS, Forms, and Deploy.
 
-For information about opting out of automated upgrades, see the [Product Upgrades](../../../optimize-and-maintain-your-site/manage-product-upgrades/product-upgrades/README.md) article.
+For information about opting out of automated upgrades, see the [Product Upgrades](../../../optimize-and-maintain-your-site/manage-product-upgrades/product-upgrades/) article.
 
 ![Automatic Upgrades](../../../.gitbook/assets/automatic-upgrades.png)
 
@@ -123,7 +123,7 @@ The CI/CD Flow section allows you to manage settings related to CI/CD deployment
 * See a list of environments that can be targeted by CI/CD Flow.
 * See a paginated list of artifacts that have been pushed to your project via the CI/CD pipeline.
 
-![CI/CD Flow settings](<../../../.gitbook/assets/cicd-flow-page.png>) ![CI/CD Flow Artifact list](<../../../.gitbook/assets/cicd-artifacts (1).png>)
+![CI/CD Flow settings](../../../.gitbook/assets/cicd-flow-page.png) ![CI/CD Flow Artifact list](../../../.gitbook/assets/cicd-artifacts.png)
 
 ### Advanced
 
