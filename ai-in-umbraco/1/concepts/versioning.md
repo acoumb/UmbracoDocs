@@ -26,16 +26,11 @@ When you save an entity:
 3. The snapshot is stored with metadata (timestamp, user, description).
 4. The current entity is updated in the main table.
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                    Entity Version Flow                       │
-│                                                              │
-│   Save Entity → Increment Version → Create Snapshot → Store  │
-│                                                              │
-│   Version 1 ──► Version 2 ──► Version 3 ──► Version N        │
-│      │             │             │              │            │
-│   Snapshot 1   Snapshot 2   Snapshot 3    Snapshot N         │
-└──────────────────────────────────────────────────────────────┘
+```mermaid
+graph LR
+    A[Save Entity] --> B[Increment Version]
+    B --> C[Create Snapshot]
+    C --> D[Store]
 ```
 
 ## Version Record Properties

@@ -11,20 +11,14 @@ Workflows are code-based extension points that define how orchestrated agents co
 
 When you create an **orchestrated agent** in the backoffice, you select a registered workflow and optionally configure its settings. At runtime, the workflow builds a graph of sub-agents that collaborate to produce a response.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│               Orchestrated Agent Execution                   │
-│                                                              │
-│  Agent Config ──► Workflow.BuildWorkflowAsync()              │
-│                        │                                     │
-│                        ▼                                     │
-│              ┌─── MAF Workflow ───┐                          │
-│              │  Agent A ──► Agent B ──► Agent C              │
-│              └────────────────────┘                          │
-│                        │                                     │
-│                        ▼                                     │
-│                  AG-UI Events (SSE)                          │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    A[Agent Config] --> B["Workflow.BuildWorkflowAsync()"]
+    B --> C[MAF Workflow]
+    C --> D[Agent A]
+    D --> E[Agent B]
+    E --> F[Agent C]
+    C --> G["AG-UI Events (SSE)"]
 ```
 
 ## Creating a Workflow

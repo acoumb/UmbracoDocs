@@ -9,20 +9,16 @@ Frontend tools allow agents to perform actions in the browser. When an agent cal
 
 ## How Frontend Tools Work
 
-```
-┌────────────────────────────────────────────────────────────┐
-│                    Frontend Tool Flow                      │
-│                                                            │
-│  Agent                    Frontend                         │
-│    │                         │                             │
-│    ├── tool_call_start ─────►│                             │
-│    ├── tool_call_args ──────►│                             │
-│    ├── tool_call_end ───────►│ Execute action              │
-│    │                         │      │                      │
-│    │◄── tool_call_result ────│◄─────┘                      │
-│    │                         │                             │
-│    └── Continue generation   │                             │
-└────────────────────────────────────────────────────────────┘
+```mermaid
+sequenceDiagram
+    participant Agent
+    participant Frontend
+    Agent->>Frontend: tool_call_start
+    Agent->>Frontend: tool_call_args
+    Agent->>Frontend: tool_call_end
+    Frontend->>Frontend: Execute action
+    Frontend->>Agent: tool_call_result
+    Agent->>Agent: Continue generation
 ```
 
 ## Defining Tools

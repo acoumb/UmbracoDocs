@@ -11,10 +11,12 @@ Middleware lets you wrap AI client operations to add cross-cutting concerns like
 
 Middleware wraps the underlying AI client, intercepting requests and responses:
 
-```
-Your Code → [Middleware 1] → [Middleware 2] → [AI Client] → AI Service
-              ↓                   ↓                ↓
-           Logging            Caching          Provider
+```mermaid
+graph LR
+    A[Your Code] --> M1["Middleware 1\nLogging"]
+    M1 --> M2["Middleware 2\nCaching"]
+    M2 --> C["AI Client\nProvider"]
+    C --> D[AI Service]
 ```
 
 Each middleware receives a client and returns a wrapped client with additional behavior.

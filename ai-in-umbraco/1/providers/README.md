@@ -85,11 +85,10 @@ All providers follow the same pattern:
 3. **Create a profile** - Select model and configure settings
 4. **Use the profile** - Reference in code or prompts
 
-```
-┌──────────────┐      ┌──────────────┐     ┌──────────────┐
-│   Provider   │────▶│  Connection  │────▶│   Profile    │
-│   (NuGet)    │      │  (API Key)   │     │   (Model)    │
-└──────────────┘      └──────────────┘     └──────────────┘
+```mermaid
+graph LR
+    A["Provider\n(NuGet)"] --> B["Connection\n(API Key)"]
+    B --> C["Profile\n(Model)"]
 ```
 
 ## Custom Providers

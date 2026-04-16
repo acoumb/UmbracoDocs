@@ -16,10 +16,21 @@ Middleware uses the decorator pattern. Each middleware wraps the client and can:
 - Add side effects (logging, metrics).
 - Short-circuit requests (caching).
 
-```
-Request → [Middleware 1] → [Middleware 2] → [Middleware 3] → Provider
-                                                                 ↓
-Response ← [Middleware 1] ← [Middleware 2] ← [Middleware 3] ← Provider
+```mermaid
+sequenceDiagram
+    participant Request
+    participant M1 as Middleware 1
+    participant M2 as Middleware 2
+    participant M3 as Middleware 3
+    participant Provider
+    Request->>M1: 
+    M1->>M2: 
+    M2->>M3: 
+    M3->>Provider: 
+    Provider-->>M3: 
+    M3-->>M2: 
+    M2-->>M1: 
+    M1-->>Request: Response
 ```
 
 ## Middleware Types

@@ -159,23 +159,10 @@ await _notificationPublisher.PublishAsync(savedNotification, ct);
 
 Notifications follow Umbraco CMS patterns exactly:
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                    Your Notification Handlers                │
-│         INotificationAsyncHandler<TNotification>             │
-└──────────────────────────────────────────────────────────────┘
-                           │
-                           ▼ (subscribes to)
-┌──────────────────────────────────────────────────────────────┐
-│                    Umbraco Notification System               │
-│                     IEventAggregator                         │
-└──────────────────────────────────────────────────────────────┘
-                           │
-                           ▼ (publishes from)
-┌──────────────────────────────────────────────────────────────┐
-│                    Umbraco.AI Services                       │
-│   AIProfileService, AIConnectionService, AIAgentService      │
-└──────────────────────────────────────────────────────────────┘
+```mermaid
+graph BT
+    A["Umbraco.AI Services\n(AIProfileService, AIConnectionService, AIAgentService)"] -->|publishes| B["Umbraco Notification System\n(IEventAggregator)"]
+    B -->|subscribes| C["Your Notification Handlers\n(INotificationAsyncHandler)"]
 ```
 
 ## In This Section

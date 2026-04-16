@@ -42,30 +42,14 @@ When you execute a prompt:
 7. **Guardrails evaluated** - Post-generate guardrails check the response
 8. **Response is logged** - Audit log captures the operation
 
-```
-┌─────────────────────────────────────────────┐
-│               Prompt Execution              │
-│                                             │
-│  Template   Variables   Contexts   Profile  │
-│     │           │           │         │     │
-│     └─────────────────────────────────┘     │
-│                     │                       │
-│                     ▼                       │
-│              ┌─────────────┐                │
-│              │  Assembled  │                │
-│              │   Request   │                │
-│              └──────┬──────┘                │
-│                     │                       │
-│                     ▼                       │
-│              ┌─────────────┐                │
-│              │  AI Service │                │
-│              └──────┬──────┘                │
-│                     │                       │
-│                     ▼                       │
-│              ┌─────────────┐                │
-│              │  Response   │                │
-│              └─────────────┘                │
-└─────────────────────────────────────────────┘
+```mermaid
+graph TD
+    A[Template] --> E[Assembled Request]
+    B[Variables] --> E
+    C[Contexts] --> E
+    D[Profile] --> E
+    E --> F[AI Service]
+    F --> G[Response]
 ```
 
 ## Variable Resolution
