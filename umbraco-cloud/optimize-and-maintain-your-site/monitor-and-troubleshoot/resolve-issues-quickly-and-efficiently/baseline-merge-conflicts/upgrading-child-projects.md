@@ -43,7 +43,7 @@ If you completed version-specific steps when upgrading the Baseline project, app
 
 1. Go to the Child projects you are upgrading.
 2. Go to **Configuration** > **Advanced**.
-3. Update the **.NET version** in the **Runtime Settings** section to match the major version you are upgrading to.
+3. Match the **.NET version** under **Runtime Settings** with the major version you are upgrading to.
 4. Go to the Baseline Project.
 5. Click the **Baseline** label at the bottom of the left-side menu.
    * Alternatively, go to **Management** > **Baselines**.
