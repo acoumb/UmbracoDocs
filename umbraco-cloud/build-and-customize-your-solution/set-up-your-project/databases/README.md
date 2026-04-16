@@ -17,3 +17,7 @@ This article will tell you all you need to know to work locally with your Cloud 
 ## [Backups](backups.md)
 
 Here you can learn more about taking backups of your Cloud Database.
+
+## [Blob Storage Backups](blob-storage-backups.md)
+
+Learn how to back up and restore your Umbraco Cloud Blob Storage using AzCopy.

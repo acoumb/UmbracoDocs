@@ -48,6 +48,7 @@
     * [Managing Transport Security](build-and-customize-your-solution/set-up-your-project/security/managing-transport-security.md)
   * [Working with Databases](build-and-customize-your-solution/set-up-your-project/databases/README.md)
     * [Database backups](build-and-customize-your-solution/set-up-your-project/databases/backups.md)
+    * [Blob Storage Backups](build-and-customize-your-solution/set-up-your-project/databases/blob-storage-backups.md)
     * [Database](build-and-customize-your-solution/set-up-your-project/databases/cloud-database/README.md)
       * [Connecting to the Database on Mac](build-and-customize-your-solution/set-up-your-project/databases/cloud-database/connecting-to-the-database-on-mac.md)
       * [Working with a Cloud database locally](build-and-customize-your-solution/set-up-your-project/databases/cloud-database/local-database.md)
