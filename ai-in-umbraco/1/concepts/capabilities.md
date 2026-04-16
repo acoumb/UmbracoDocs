@@ -9,10 +9,11 @@ A capability represents a type of AI operation. Providers implement capabilities
 
 ## Available Capabilities
 
-| Capability     | Description                                     | M.E.AI Interface                                |
-| -------------- | ----------------------------------------------- | ----------------------------------------------- |
-| **Chat**       | Conversational AI, text generation, completions | `IChatClient`                                   |
-| **Embedding**  | Vector embeddings for semantic search           | `IEmbeddingGenerator<string, Embedding<float>>` |
+| Capability          | Description                                     | M.E.AI Interface                                |
+| ------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| **Chat**            | Conversational AI, text generation, completions | `IChatClient`                                   |
+| **Embedding**       | Vector embeddings for semantic search           | `IEmbeddingGenerator<string, Embedding<float>>` |
+| **Speech-to-Text**  | Audio transcription and voice input             | `ISpeechToTextClient`                           |
 
 ## Chat Capability
 
@@ -60,6 +61,27 @@ var embedding = await _embeddingService.GenerateEmbeddingAsync(
 
 {% endcode %}
 
+## Speech-to-Text Capability
+
+The Speech-to-Text capability transcribes audio into text:
+
+- Audio file transcription
+- Real-time streaming transcription
+- Language detection and hints
+- Voice input for the Copilot
+
+{% code title="Example.cs" %}
+
+```csharp
+var response = await _sttService.TranscribeAsync(
+    stt => stt.WithAlias("voice-notes"),
+    audioStream);
+
+// response.Text contains the transcribed text
+```
+
+{% endcode %}
+
 ## Capability and Profile Relationship
 
 Each profile is configured for exactly one capability. This ensures type safety and appropriate settings:
@@ -79,6 +101,12 @@ Embedding Profile
     ├── Connection: OpenAI Prod
     ├── Model: text-embedding-3-small
     └── Settings: AIEmbeddingProfileSettings
+
+Speech-to-Text Profile
+    ├── Capability: Speech-to-Text
+    ├── Connection: OpenAI Prod
+    ├── Model: whisper-1
+    └── Settings: AISpeechToTextProfileSettings
 ```
 
 ## Checking Provider Capabilities
@@ -98,6 +126,11 @@ if (provider.HasCapability<IAIChatCapability>())
 if (provider.HasCapability<IAIEmbeddingCapability>())
 {
     // Provider supports embeddings
+}
+
+if (provider.HasCapability<IAISpeechToTextCapability>())
+{
+    // Provider supports speech-to-text
 }
 ```
 
@@ -135,9 +168,24 @@ public interface IAIEmbeddingCapability : IAICapability
 
 {% endcode %}
 
+{% code title="IAISpeechToTextCapability.cs" %}
+
+```csharp
+public interface IAISpeechToTextCapability : IAICapability
+{
+    Task<ISpeechToTextClient> CreateSpeechToTextClientAsync(
+        object settings,
+        AIProfile profile,
+        CancellationToken cancellationToken = default);
+}
+```
+
+{% endcode %}
+
 ## Related
 
 - [Providers](providers.md) - Implement capabilities
 - [Profiles](profiles.md) - Configure capability-specific settings
 - [Chat API](../using-the-api/chat/README.md) - Use the Chat capability
 - [Embeddings API](../using-the-api/embeddings/README.md) - Use the Embedding capability
+- [Speech-to-Text API](../using-the-api/speech-to-text.md) - Use the Speech-to-Text capability
