@@ -49,7 +49,7 @@ public sealed class AIProfile : IAIVersionableEntity
 | `Id`           | `Guid`                  | Unique identifier (assigned on save)    |
 | `Alias`        | `string`                | Unique alias for code references        |
 | `Name`         | `string`                | Display name                            |
-| `Capability`   | `AICapability`          | Type of AI capability (Chat, Embedding) |
+| `Capability`   | `AICapability`          | Type of AI capability (Chat, Embedding, Speech-to-Text) |
 | `Model`        | `AIModelRef`            | Reference to provider and model         |
 | `ConnectionId` | `Guid`                  | ID of the connection to use             |
 | `Settings`     | `IAIProfileSettings?`   | Capability-specific settings            |
@@ -96,11 +96,32 @@ public class AIChatProfileSettings : IAIProfileSettings
 ```csharp
 public class AIEmbeddingProfileSettings : IAIProfileSettings
 {
-    // Currently no additional settings
+    public int? Dimensions { get; init; }
 }
 ```
 
 {% endcode %}
+
+| Property     | Type   | Description                                                                    |
+| ------------ | ------ | ------------------------------------------------------------------------------ |
+| `Dimensions` | `int?` | Number of dimensions for embeddings; uses the model's default when `null`      |
+
+### AISpeechToTextProfileSettings
+
+{% code title="Speech-to-Text Settings" %}
+
+```csharp
+public class AISpeechToTextProfileSettings : IAIProfileSettings
+{
+    public string? Language { get; init; }
+}
+```
+
+{% endcode %}
+
+| Property   | Type      | Description                                                  |
+| ---------- | --------- | ------------------------------------------------------------ |
+| `Language` | `string?` | BCP-47 language hint for transcription (e.g., `en`, `de`, `ja`) |
 
 ## Creating a Profile
 

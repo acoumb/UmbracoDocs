@@ -1,11 +1,11 @@
 ---
 description: >-
-    Configure OpenAI as an AI provider for chat and embedding capabilities.
+    Configure OpenAI as an AI provider for chat, embedding, and speech-to-text capabilities.
 ---
 
 # OpenAI
 
-OpenAI provides access to GPT and text-embedding models, supporting both Chat and Embedding capabilities.
+OpenAI provides access to GPT and text-embedding models, supporting Chat, Embedding, and Speech-to-Text capabilities.
 
 ## Installation
 

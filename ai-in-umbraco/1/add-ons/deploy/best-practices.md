@@ -127,9 +127,9 @@ Version-controlled deployment files keep all environments in sync.
 
 When deploying related entities, deploy in this order:
 
-1. Connections
-2. Profiles
-3. Prompts/Agents
+1. Connections, Contexts, Guardrails
+2. Profiles (which depend on Connections and any referenced Guardrails)
+3. Prompts, Agents, and Settings (which depend on Profiles and any referenced Guardrails)
 
 While Deploy handles dependencies automatically, deploying in this order makes troubleshooting easier.
 

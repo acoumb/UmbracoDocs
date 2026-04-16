@@ -10,14 +10,14 @@ Returns the full details of a specific profile.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/profile/{idOrAlias}
+GET /umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter   | Type   | Description           |
-| ----------- | ------ | --------------------- |
-| `idOrAlias` | string | Profile GUID or alias |
+| Parameter          | Type   | Description           |
+| ------------------ | ------ | --------------------- |
+| `profileIdOrAlias` | string | Profile GUID or alias |
 
 ## Response
 
@@ -40,7 +40,9 @@ GET /umbraco/ai/management/api/v1/profile/{idOrAlias}
         "$type": "chat",
         "temperature": 0.7,
         "maxTokens": 4096,
-        "systemPromptTemplate": "You are a helpful content assistant for a website."
+        "systemPromptTemplate": "You are a helpful content assistant for a website.",
+        "contextIds": [],
+        "guardrailIds": []
     },
     "tags": ["content", "assistant"],
     "version": 1,
@@ -73,7 +75,7 @@ GET /umbraco/ai/management/api/v1/profile/{idOrAlias}
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profiles/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -84,7 +86,7 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile/3fa85f64
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile/content-assistant" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profiles/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -118,7 +120,9 @@ curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/profile/content-
         "$type": "chat",
         "temperature": 0.7,
         "maxTokens": 4096,
-        "systemPromptTemplate": "You are a helpful assistant."
+        "systemPromptTemplate": "You are a helpful assistant.",
+        "contextIds": [],
+        "guardrailIds": []
     }
 }
 ```

@@ -10,15 +10,16 @@ Returns usage distribution across AI providers.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/analytics/breakdown/provider
+GET /umbraco/ai/management/api/v1/analytics/usage-by-provider
 ```
 
 ### Query Parameters
 
-| Parameter | Type     | Required | Description                 |
-| --------- | -------- | -------- | --------------------------- |
-| `from`    | datetime | Yes      | Start of period (inclusive) |
-| `to`      | datetime | Yes      | End of period (inclusive)   |
+| Parameter     | Type     | Required | Description                                                          |
+| ------------- | -------- | -------- | -------------------------------------------------------------------- |
+| `from`        | datetime | Yes      | Start of period (inclusive)                                          |
+| `to`          | datetime | Yes      | End of period (exclusive)                                            |
+| `granularity` | string   | No       | Aggregation granularity: `Hourly` or `Daily` (auto-selected if omitted) |
 
 ## Response
 
@@ -27,31 +28,29 @@ GET /umbraco/ai/management/api/v1/analytics/breakdown/provider
 {% code title="200 OK" %}
 
 ```json
-{
-    "items": [
-        {
-            "dimension": "openai",
-            "dimensionName": "OpenAI",
-            "requestCount": 12500,
-            "totalTokens": 2850000,
-            "percentage": 0.75
-        },
-        {
-            "dimension": "anthropic",
-            "dimensionName": "Anthropic",
-            "requestCount": 3200,
-            "totalTokens": 890000,
-            "percentage": 0.19
-        },
-        {
-            "dimension": "google",
-            "dimensionName": "Google",
-            "requestCount": 980,
-            "totalTokens": 245000,
-            "percentage": 0.06
-        }
-    ]
-}
+[
+    {
+        "dimension": "openai",
+        "dimensionName": "OpenAI",
+        "requestCount": 12500,
+        "totalTokens": 2850000,
+        "percentage": 0.75
+    },
+    {
+        "dimension": "anthropic",
+        "dimensionName": "Anthropic",
+        "requestCount": 3200,
+        "totalTokens": 890000,
+        "percentage": 0.19
+    },
+    {
+        "dimension": "google",
+        "dimensionName": "Google",
+        "requestCount": 980,
+        "totalTokens": 245000,
+        "percentage": 0.06
+    }
+]
 ```
 
 {% endcode %}
@@ -61,7 +60,7 @@ GET /umbraco/ai/management/api/v1/analytics/breakdown/provider
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/breakdown/provider?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/analytics/usage-by-provider?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -74,11 +73,11 @@ var from = DateTime.UtcNow.AddDays(-30);
 var to = DateTime.UtcNow;
 
 var response = await httpClient.GetAsync(
-    $"/umbraco/ai/management/api/v1/analytics/breakdown/provider?from={from:O}&to={to:O}");
+    $"/umbraco/ai/management/api/v1/analytics/usage-by-provider?from={from:O}&to={to:O}");
 
-var breakdown = await response.Content.ReadFromJsonAsync<AIUsageBreakdownResult>();
+var breakdown = await response.Content.ReadFromJsonAsync<UsageBreakdownItemModel[]>();
 
-foreach (var item in breakdown.Items)
+foreach (var item in breakdown)
 {
     Console.WriteLine($"{item.DimensionName}: {item.Percentage:P0} ({item.TotalTokens:N0} tokens)");
 }

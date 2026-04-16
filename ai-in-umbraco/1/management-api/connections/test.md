@@ -10,7 +10,7 @@ Test a connection by attempting to communicate with the AI provider. This verifi
 ## Endpoint
 
 ```
-POST /connections/{idOrAlias}/test
+POST /umbraco/ai/management/api/v1/connections/{idOrAlias}/test
 ```
 
 ## Path Parameters
@@ -82,7 +82,8 @@ A successful test confirms the API key is valid and the provider is reachable. I
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://localhost:44331/umbraco/ai/management/api/v1/connections/openai-prod/test"
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/connections/openai-prod/test" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}

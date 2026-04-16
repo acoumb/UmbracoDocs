@@ -11,7 +11,7 @@ Umbraco.AI supports multiple AI providers through installable NuGet packages. Ea
 
 | Provider                                     | Package                       | Capabilities    | Best For                         |
 | -------------------------------------------- | ----------------------------- | --------------- | -------------------------------- |
-| [OpenAI](openai.md)                          | `Umbraco.AI.OpenAI`           | Chat, Embedding | General purpose, most models     |
+| [OpenAI](openai.md)                          | `Umbraco.AI.OpenAI`           | Chat, Embedding, Speech-to-Text | General purpose, most models     |
 | [Anthropic](anthropic.md)                    | `Umbraco.AI.Anthropic`        | Chat            | Claude models, long context      |
 | [Google Gemini](google.md)                   | `Umbraco.AI.Google`           | Chat            | Gemini models, multimodal        |
 | [Amazon Bedrock](amazon.md)                  | `Umbraco.AI.Amazon`           | Chat, Embedding | AWS integration, multiple models |
@@ -25,8 +25,9 @@ Consider these factors when selecting a provider:
 
 | Capability | OpenAI | Anthropic | Google | Amazon | MS Foundry |
 | ---------- | ------ | --------- | ------ | ------ | ---------- |
-| Chat       | Yes    | Yes       | Yes    | Yes    | Yes        |
-| Embedding  | Yes    | No        | No     | Yes    | Yes        |
+| Chat           | Yes    | Yes       | Yes    | Yes    | Yes        |
+| Embedding      | Yes    | No        | No     | Yes    | Yes        |
+| Speech-to-Text | Yes    | No        | No     | No     | No         |
 
 ### Use Case Fit
 
@@ -84,11 +85,10 @@ All providers follow the same pattern:
 3. **Create a profile** - Select model and configure settings
 4. **Use the profile** - Reference in code or prompts
 
-```
-┌──────────────┐      ┌──────────────┐     ┌──────────────┐
-│   Provider   │────▶│  Connection  │────▶│   Profile    │
-│   (NuGet)    │      │  (API Key)   │     │   (Model)    │
-└──────────────┘      └──────────────┘     └──────────────┘
+```mermaid
+graph LR
+    A["Provider\n(NuGet)"] --> B["Connection\n(API Key)"]
+    B --> C["Profile\n(Model)"]
 ```
 
 ## Custom Providers

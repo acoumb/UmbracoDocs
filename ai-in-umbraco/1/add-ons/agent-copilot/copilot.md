@@ -56,26 +56,17 @@ For sensitive operations, the Copilot requests confirmation:
 
 The approval workflow ensures editors maintain control over content changes.
 
-![The Human-in-the-Loop approval dialog with Approve and Skip buttons](../../.gitbook/assets/copilot-hitl-approval.png)
+![The Human-in-the-Loop approval dialog with Approve and Deny buttons](../../.gitbook/assets/copilot-hitl-approval.png)
 
 ## Configuring Copilot Agents
 
-Agents power the Copilot's capabilities. Configure which agent handles Copilot interactions:
+Agents power the Copilot's capabilities. Any agent in the **AI > Agents** backoffice section that is associated with the **Copilot** surface becomes available inside the sidebar.
 
-### Default Agent
+### Opting an agent into the Copilot
 
-Set a default agent for Copilot in your application:
+The Copilot package registers an agent surface via `CopilotAgentSurface` with `SurfaceId = "copilot"`. When editing an agent in the backoffice, tick **Copilot** in the **Surfaces** selection to expose it to the sidebar. Internally this adds `"copilot"` to the agent's `SurfaceIds` collection, and the sidebar loads agents filtered by that surface ID.
 
-{% code title="Program.cs" %}
-
-```csharp
-services.Configure<AIAgentOptions>(options =>
-{
-    options.DefaultCopilotAgentAlias = "content-assistant";
-});
-```
-
-{% endcode %}
+If only one agent is associated with the Copilot surface, the sidebar uses it directly. If multiple agents are available, the Copilot uses Auto mode to route each prompt (see below).
 
 ### Agent Instructions
 

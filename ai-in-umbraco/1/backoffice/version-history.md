@@ -83,11 +83,12 @@ After rolling back to version 3:
 
 ## Supported Entities
 
-| Entity      | Package           | Location                    |
-| ----------- | ----------------- | --------------------------- |
+| Entity      | Package           | Location         |
+| ----------- | ----------------- | ---------------- |
 | Connections | Umbraco.AI        | AI > Connections |
 | Profiles    | Umbraco.AI        | AI > Profiles    |
 | Contexts    | Umbraco.AI        | AI > Contexts    |
+| Guardrails  | Umbraco.AI        | AI > Guardrails  |
 | Prompts     | Umbraco.AI.Prompt | AI > Prompts     |
 | Agents      | Umbraco.AI.Agent  | AI > Agents      |
 
@@ -105,9 +106,10 @@ Configure in `appsettings.json`:
 {
     "Umbraco": {
         "AI": {
-            "Versioning": {
+            "VersionCleanupPolicy": {
+                "Enabled": true,
                 "MaxVersionsPerEntity": 50,
-                "CleanupIntervalDays": 7
+                "RetentionDays": 90
             }
         }
     }
@@ -116,15 +118,15 @@ Configure in `appsettings.json`:
 
 {% endcode %}
 
+| Property               | Default | Description                                                       |
+| ---------------------- | ------- | ----------------------------------------------------------------- |
+| `Enabled`              | `true`  | Whether automatic version cleanup is enabled                      |
+| `MaxVersionsPerEntity` | `50`    | Maximum versions to retain per entity (set to `0` to disable)     |
+| `RetentionDays`        | `90`    | Days to retain version history (set to `0` to disable)            |
+
 ### Manual Cleanup
 
-Administrators can trigger cleanup via the Management API:
-
-{% code title="Cleanup Endpoint" %}
-```http
-POST /umbraco/ai/management/api/v1/versions/cleanup
-```
-{% endcode %}
+Administrators can trigger cleanup programmatically via the `IAIEntityVersionService.CleanupVersionsAsync()` method. See the [IAIEntityVersionService](../reference/services/ai-entity-version-service.md) reference for details.
 
 ## Best Practices
 

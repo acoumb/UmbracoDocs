@@ -10,7 +10,7 @@ Returns detailed information about a specific provider, including its settings s
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/provider/{id}
+GET /umbraco/ai/management/api/v1/providers/{id}
 ```
 
 ### Headers
@@ -38,38 +38,37 @@ Returns the provider with its full settings schema.
     "id": "openai",
     "name": "OpenAI",
     "capabilities": ["Chat", "Embedding"],
-    "settings": [
-        {
-            "alias": "apiKey",
-            "name": "API Key",
-            "description": "Your OpenAI API key from platform.openai.com",
-            "type": "string",
-            "isRequired": true,
-            "isSensitive": true,
-            "defaultValue": null,
-            "options": null
-        },
-        {
-            "alias": "organizationId",
-            "name": "Organization ID",
-            "description": "Optional organization identifier",
-            "type": "string",
-            "isRequired": false,
-            "isSensitive": false,
-            "defaultValue": null,
-            "options": null
-        },
-        {
-            "alias": "baseUrl",
-            "name": "Base URL",
-            "description": "Custom API endpoint (for proxies)",
-            "type": "string",
-            "isRequired": false,
-            "isSensitive": false,
-            "defaultValue": "https://api.openai.com/v1",
-            "options": null
-        }
-    ]
+    "settingsSchema": {
+        "fields": [
+            {
+                "key": "apiKey",
+                "label": "API Key",
+                "description": "Your OpenAI API key from platform.openai.com",
+                "editorUiAlias": "Umb.PropertyEditorUi.TextBox",
+                "defaultValue": null,
+                "sortOrder": 0,
+                "isRequired": true
+            },
+            {
+                "key": "organizationId",
+                "label": "Organization ID",
+                "description": "Optional organization identifier",
+                "editorUiAlias": "Umb.PropertyEditorUi.TextBox",
+                "defaultValue": null,
+                "sortOrder": 1,
+                "isRequired": false
+            },
+            {
+                "key": "baseUrl",
+                "label": "Base URL",
+                "description": "Custom API endpoint (for proxies)",
+                "editorUiAlias": "Umb.PropertyEditorUi.TextBox",
+                "defaultValue": "https://api.openai.com/v1",
+                "sortOrder": 2,
+                "isRequired": false
+            }
+        ]
+    }
 }
 ```
 
@@ -77,25 +76,26 @@ Returns the provider with its full settings schema.
 
 ### Response Properties
 
-| Property       | Type     | Description                 |
-| -------------- | -------- | --------------------------- |
-| `id`           | string   | Unique provider identifier  |
-| `name`         | string   | Display name                |
-| `capabilities` | string[] | Supported capabilities      |
-| `settings`     | array    | Settings schema definitions |
+| Property         | Type     | Description                                        |
+| ---------------- | -------- | -------------------------------------------------- |
+| `id`             | string   | Unique provider identifier                         |
+| `name`           | string   | Display name                                       |
+| `capabilities`   | string[] | Supported capabilities                             |
+| `settingsSchema` | object   | Settings schema (nullable if provider has no settings) |
 
-### Setting Definition Properties
+### Settings Schema Field Properties
 
-| Property       | Type      | Description                                    |
-| -------------- | --------- | ---------------------------------------------- |
-| `alias`        | string    | Setting identifier used in connection settings |
-| `name`         | string    | Human-readable display name                    |
-| `description`  | string?   | Help text for the setting                      |
-| `type`         | string    | Data type: `string`, `number`, `boolean`       |
-| `isRequired`   | bool      | Whether the setting must be provided           |
-| `isSensitive`  | bool      | Whether to mask in UI (passwords, keys)        |
-| `defaultValue` | string?   | Default value if not specified                 |
-| `options`      | string[]? | Valid options for dropdown selection           |
+| Property        | Type    | Description                                         |
+| --------------- | ------- | --------------------------------------------------- |
+| `key`           | string  | Unique key identifying the setting                  |
+| `label`         | string  | Display label for the setting                       |
+| `description`   | string  | Help text for the setting                           |
+| `editorUiAlias` | string  | UI alias of the editor used for the setting        |
+| `editorConfig`  | object  | Configuration for the editor                        |
+| `defaultValue`  | object  | Default value for the setting                       |
+| `sortOrder`     | int     | Sort order of the setting in the UI                 |
+| `isRequired`    | boolean | Whether the setting must be provided                |
+| `group`         | string  | Optional group name for visual grouping in the UI   |
 
 ### Not Found (404)
 
@@ -118,7 +118,7 @@ Returned when the provider ID doesn't exist.
 ### cURL
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/provider/openai" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/providers/openai" \
   -H "Authorization: Bearer {token}"
 ```
 
@@ -132,7 +132,7 @@ client.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", token);
 
 var response = await client.GetAsync(
-    "https://localhost:44331/umbraco/ai/management/api/v1/provider/openai");
+    "https://your-site.com/umbraco/ai/management/api/v1/providers/openai");
 
 if (response.IsSuccessStatusCode)
 {
@@ -141,10 +141,10 @@ if (response.IsSuccessStatusCode)
 
     Console.WriteLine($"Provider: {provider.Name}");
     Console.WriteLine("Settings:");
-    foreach (var setting in provider.Settings)
+    foreach (var field in provider.SettingsSchema?.Fields ?? [])
     {
-        var required = setting.IsRequired ? " (required)" : "";
-        Console.WriteLine($"  - {setting.Name}{required}: {setting.Type}");
+        var required = field.IsRequired ? " (required)" : "";
+        Console.WriteLine($"  - {field.Label}{required}");
     }
 }
 ```
@@ -156,7 +156,7 @@ if (response.IsSuccessStatusCode)
 {% code title="Example" %}
 
 ```javascript
-const response = await fetch("/umbraco/ai/management/api/v1/provider/openai", {
+const response = await fetch("/umbraco/ai/management/api/v1/providers/openai", {
     headers: {
         Authorization: `Bearer ${token}`,
     },
@@ -166,8 +166,8 @@ if (response.ok) {
     const provider = await response.json();
     console.log(`Provider: ${provider.name}`);
 
-    provider.settings.forEach((setting) => {
-        console.log(`${setting.name}: ${setting.type}${setting.isRequired ? " (required)" : ""}`);
+    provider.settingsSchema?.fields.forEach((field) => {
+        console.log(`${field.label}${field.isRequired ? " (required)" : ""}`);
     });
 }
 ```
@@ -183,19 +183,17 @@ Use the settings schema to dynamically generate connection configuration forms:
 {% code title="Example" %}
 
 ```javascript
-function renderSettingsForm(settings) {
-    return settings
-        .map((setting) => {
-            const inputType = setting.isSensitive ? "password" : setting.type === "boolean" ? "checkbox" : "text";
-
+function renderSettingsForm(schema) {
+    return (schema?.fields ?? [])
+        .map((field) => {
             return `
       <div class="form-group">
-        <label>${setting.name}${setting.isRequired ? " *" : ""}</label>
-        <input type="${inputType}"
-               name="${setting.alias}"
-               value="${setting.defaultValue || ""}"
-               ${setting.isRequired ? "required" : ""}>
-        ${setting.description ? `<small>${setting.description}</small>` : ""}
+        <label>${field.label}${field.isRequired ? " *" : ""}</label>
+        <input type="text"
+               name="${field.key}"
+               value="${field.defaultValue ?? ""}"
+               ${field.isRequired ? "required" : ""}>
+        ${field.description ? `<small>${field.description}</small>` : ""}
       </div>
     `;
         })
@@ -214,10 +212,10 @@ Use the schema to validate settings before saving:
 ```csharp
 public bool ValidateSettings(ProviderResponseModel provider, Dictionary<string, object> settings)
 {
-    foreach (var definition in provider.Settings.Where(s => s.IsRequired))
+    foreach (var field in (provider.SettingsSchema?.Fields ?? []).Where(f => f.IsRequired))
     {
-        if (!settings.ContainsKey(definition.Alias) ||
-            settings[definition.Alias] == null)
+        if (!settings.ContainsKey(field.Key) ||
+            settings[field.Key] == null)
         {
             return false;
         }

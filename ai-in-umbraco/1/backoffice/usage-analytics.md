@@ -63,6 +63,40 @@ Select the time period to analyze using the picker in the top-right corner:
 
 For custom dashboards or integrations, use the [Analytics API](../management-api/analytics/README.md).
 
+## Configuration
+
+Configure analytics options in `appsettings.json`:
+
+{% code title="appsettings.json" %}
+
+```json
+{
+    "Umbraco": {
+        "AI": {
+            "Analytics": {
+                "Enabled": true,
+                "UsageHourlyRetentionDays": 30,
+                "UsageDailyRetentionDays": 365,
+                "IncludeUsageUserDimension": true,
+                "IncludeUsageEntityTypeDimension": true,
+                "IncludeUsageFeatureTypeDimension": true
+            }
+        }
+    }
+}
+```
+
+{% endcode %}
+
+| Property                           | Default | Description                                                          |
+| ---------------------------------- | ------- | -------------------------------------------------------------------- |
+| `Enabled`                          | `true`  | Whether usage analytics is enabled                                   |
+| `UsageHourlyRetentionDays`         | `30`    | Retention period for hourly aggregated statistics (valid: 30-90)     |
+| `UsageDailyRetentionDays`          | `365`   | Retention period for daily aggregated statistics                     |
+| `IncludeUsageUserDimension`        | `true`  | Include user ID as a dimension in aggregations (privacy consideration) |
+| `IncludeUsageEntityTypeDimension`  | `true`  | Include entity type (for example, `content`, `media`) as a dimension |
+| `IncludeUsageFeatureTypeDimension` | `true`  | Include feature type (for example, `prompt`, `agent`) as a dimension |
+
 ## Related
 
 - [Audit Logs](audit-logs.md) - Individual AI operation records

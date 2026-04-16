@@ -11,7 +11,7 @@ Profiles combine a connection with model settings for specific use cases. Create
 
 1. Navigate to the **AI** section > **Profiles**.
 2. The profile list shows all configured profiles.
-3. Use filters to find profiles by capability (Chat, Embedding).
+3. Use filters to find profiles by capability (Chat, Embedding, Speech-to-Text).
 4. Click a profile to view or edit its details.
 
 ![The profiles list showing the Default Chat profile](../.gitbook/assets/backoffice-profiles-list.png)
@@ -25,7 +25,7 @@ Profiles combine a connection with model settings for specific use cases. Create
 | -------------- | ----------------------------------------------- |
 | **Name**       | Display name for the profile                    |
 | **Alias**      | Unique identifier (used in code and as default) |
-| **Capability** | Type of AI operation (Chat, Embedding)          |
+| **Capability** | Type of AI operation (Chat, Embedding, Speech-to-Text) |
 | **Connection** | Which connection to use                         |
 | **Model**      | The specific AI model                           |
 
@@ -81,6 +81,18 @@ Embedding profiles currently use model defaults. Select the appropriate embeddin
 | text-embedding-3-small | 1536       | Cost-effective, general purpose |
 | text-embedding-3-large | 3072       | Higher accuracy, more storage   |
 
+## Speech-to-Text Profile Settings
+
+For profiles with the **Speech-to-Text** capability:
+
+| Setting      | Description                                                                      | Default       |
+| ------------ | -------------------------------------------------------------------------------- | ------------- |
+| **Language** | Optional BCP-47 language hint for transcription (for example, `en`, `de`, `ja`). | Model default |
+
+{% hint style="info" %}
+Leave the language empty to let the model auto-detect the spoken language.
+{% endhint %}
+
 ## Governance
 
 Chat profiles have a **Governance** tab where you can assign [guardrails](managing-guardrails.md) to enforce safety, compliance, and quality rules on all AI operations using that profile.
@@ -103,7 +115,8 @@ To use a profile as the default when no profile is specified in code:
 1. Navigate to the **AI** section > **Settings**.
 2. Select your chat profile via the **Default Chat Profile** picker.
 3. Select your embedding profile via the **Default Embedding Profile** picker.
-4. Click **Save**.
+4. Select your speech-to-text profile via the **Default Speech-to-Text Profile** picker.
+5. Click **Save**.
 
 {% hint style="info" %}
 See [Managing Settings](managing-settings.md) for more details on configuring default profiles.

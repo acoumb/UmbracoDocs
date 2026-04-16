@@ -54,7 +54,7 @@ The packages install the following components:
 | Package             | Contents                                                          |
 | ------------------- | ----------------------------------------------------------------- |
 | `Umbraco.AI`        | Core services, backoffice UI, Management API, database migrations |
-| `Umbraco.AI.OpenAI` | OpenAI provider with chat and embedding capabilities              |
+| `Umbraco.AI.OpenAI` | OpenAI provider with chat, embedding, and speech-to-text capabilities |
 
 ## Verify Installation
 

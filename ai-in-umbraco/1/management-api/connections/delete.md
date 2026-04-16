@@ -10,7 +10,7 @@ Delete a connection permanently.
 ## Endpoint
 
 ```
-DELETE /connections/{id}
+DELETE /umbraco/ai/management/api/v1/connections/{id}
 ```
 
 ## Path Parameters
@@ -55,7 +55,8 @@ Before deleting a connection:
 {% code title="cURL" %}
 
 ```bash
-curl -X DELETE "https://localhost:44331/umbraco/ai/management/api/v1/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6"
+curl -X DELETE "https://your-site.com/umbraco/ai/management/api/v1/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}

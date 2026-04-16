@@ -11,10 +11,12 @@ Middleware lets you wrap AI client operations to add cross-cutting concerns like
 
 Middleware wraps the underlying AI client, intercepting requests and responses:
 
-```
-Your Code → [Middleware 1] → [Middleware 2] → [AI Client] → AI Service
-              ↓                   ↓                ↓
-           Logging            Caching          Provider
+```mermaid
+graph LR
+    A[Your Code] --> M1["Middleware 1\nLogging"]
+    M1 --> M2["Middleware 2\nCaching"]
+    M2 --> C["AI Client\nProvider"]
+    C --> D[AI Service]
 ```
 
 Each middleware receives a client and returns a wrapped client with additional behavior.
@@ -77,13 +79,13 @@ public class MyComposer : IComposer
 
 ### Middleware Order Matters
 
-Middleware executes in the order it's registered. The first middleware wraps the original client, the second wraps that result, and so on.
+Middleware is applied to the client in registration order. The first registered middleware wraps the underlying client (innermost), the second wraps that, and so on. As a result, the **last** registered middleware is the **outermost** wrapper and sees requests first.
 
 ```csharp
 builder.AIChatMiddleware()
-    .Append<TracingMiddleware>()     // Runs first (outermost)
-    .Append<CachingMiddleware>()     // Runs second
-    .Append<LoggingMiddleware>();    // Runs third (innermost)
+    .Append<LoggingMiddleware>()     // Innermost (wraps raw client first)
+    .Append<CachingMiddleware>()     // Wraps Logging
+    .Append<TracingMiddleware>();    // Outermost (sees requests first)
 ```
 
 ### Middleware Receives Dependencies

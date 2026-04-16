@@ -14,11 +14,14 @@ Umbraco.AI publishes notifications for all entity lifecycle operations. Subscrib
 | **AIProfile** | ✅ | ✅ | - |
 | **AIConnection** | ✅ | ✅ | - |
 | **AIContext** | ✅ | ✅ | - |
-| **AIGuardrail** | ✅ | - | - |
+| **AIGuardrail** | ✅ | ✅ | - |
+| **AITest** | ✅ | ✅ | - |
 | **AISettings** | ✅ (Save only) | - | - |
 | **AIPrompt** | ✅ | - | ✅ |
 | **AIAgent** | ✅ | - | ✅ |
 | **AIChat** (Inline) | - | - | ✅ |
+| **AISpeechToText** (Inline) | - | - | ✅ |
+| **AIEmbedding** (Inline) | - | - | ✅ |
 
 ## AIProfile Notifications
 
@@ -54,9 +57,10 @@ public class ProfileSavingHandler : INotificationAsyncHandler<AIProfileSavingNot
                 EventMessageType.Error));
         }
 
-        // Validate temperature range for specific providers
-        if (profile.Temperature.HasValue &&
-            (profile.Temperature < 0 || profile.Temperature > 2))
+        // Validate temperature range for chat profiles
+        if (profile.Settings is AIChatProfileSettings chatSettings &&
+            chatSettings.Temperature.HasValue &&
+            (chatSettings.Temperature < 0 || chatSettings.Temperature > 2))
         {
             notification.Cancel = true;
             notification.Messages.Add(new EventMessage(
@@ -173,8 +177,8 @@ public class ProfileSavedHandler : INotificationAsyncHandler<AIProfileSavedNotif
 | `AIAgentSavedNotification` | No | `Entity` (AIAgent), `Messages` |
 | `AIAgentDeletingNotification` | Yes | `EntityId` (Guid), `Messages`, `Cancel` |
 | `AIAgentDeletedNotification` | No | `EntityId` (Guid), `Messages` |
-| `AIAgentExecutingNotification` | Yes | `Agent` (AIAgent), `Request` (AGUIRunRequest), `FrontendTools` (IEnumerable\<AIFrontendTool\>?), `Messages`, `Cancel` |
-| `AIAgentExecutedNotification` | No | `Agent` (AIAgent), `Request` (AGUIRunRequest), `FrontendTools` (IEnumerable\<AIFrontendTool\>?), `Duration` (TimeSpan), `IsSuccess` (bool), `Messages` |
+| `AIAgentExecutingNotification` | Yes | `Agent` (AIAgent), `ChatMessages` (IReadOnlyList\<ChatMessage\>), `Messages`, `Cancel` |
+| `AIAgentExecutedNotification` | No | `Agent` (AIAgent), `ChatMessages` (IReadOnlyList\<ChatMessage\>), `Duration` (TimeSpan), `IsSuccess` (bool), `Messages` |
 
 ## AIGuardrail Notifications
 
@@ -186,6 +190,25 @@ public class ProfileSavedHandler : INotificationAsyncHandler<AIProfileSavedNotif
 | `AIGuardrailSavedNotification` | No | `Entity` (AIGuardrail), `Messages` |
 | `AIGuardrailDeletingNotification` | Yes | `EntityId` (Guid), `Messages`, `Cancel` |
 | `AIGuardrailDeletedNotification` | No | `EntityId` (Guid), `Messages` |
+| `AIGuardrailRollingBackNotification` | Yes | `GuardrailId` (Guid), `TargetVersion` (int), `Messages`, `Cancel` |
+| `AIGuardrailRolledBackNotification` | No | `Guardrail` (AIGuardrail), `TargetVersion` (int), `Messages` |
+
+## AITest Notifications
+
+**Namespace:** `Umbraco.AI.Core.Tests`
+
+| Notification | Cancelable | Key Properties |
+|---|---|---|
+| `AITestSavingNotification` | Yes | `Entity` (AITest), `Messages`, `Cancel` |
+| `AITestSavedNotification` | No | `Entity` (AITest), `Messages` |
+| `AITestDeletingNotification` | Yes | `EntityId` (Guid), `Messages`, `Cancel` |
+| `AITestDeletedNotification` | No | `EntityId` (Guid), `Messages` |
+| `AITestRollingBackNotification` | Yes | `TestId` (Guid), `TargetVersion` (int), `Messages`, `Cancel` |
+| `AITestRolledBackNotification` | No | `TestId` (Guid), `TargetVersion` (int), `Messages` |
+
+{% hint style="info" %}
+The `AITestRollingBackNotification` and `AITestRolledBackNotification` expose only `TestId` (not the full entity) because rollback operates on version identifiers. Use `IAITestService` to resolve the test if you need more details.
+{% endhint %}
 
 ## AISettings Notifications
 
@@ -198,12 +221,43 @@ public class ProfileSavedHandler : INotificationAsyncHandler<AIProfileSavedNotif
 
 ## Inline Chat Notifications
 
-**Namespace:** `Umbraco.AI.Core.Chat`
+**Namespace:** `Umbraco.AI.Core.InlineChat`
 
 | Notification | Cancelable | Key Properties |
 |---|---|---|
 | `AIChatExecutingNotification` | Yes | `ChatId` (Guid), `Alias` (string), `Name` (string), `ProfileId` (Guid?), `Messages`, `Cancel` |
 | `AIChatExecutedNotification` | No | `ChatId` (Guid), `Alias` (string), `Name` (string), `ProfileId` (Guid?), `Duration` (TimeSpan), `IsSuccess` (bool), `Messages` |
+
+## Inline Speech-to-Text Notifications
+
+**Namespace:** `Umbraco.AI.Core.SpeechToText`
+
+| Notification | Cancelable | Key Properties |
+|---|---|---|
+| `AISpeechToTextExecutingNotification` | Yes | `TranscriptionId` (Guid), `Alias` (string), `Name` (string), `ProfileId` (Guid?), `Messages`, `Cancel` |
+| `AISpeechToTextExecutedNotification` | No | `TranscriptionId` (Guid), `Alias` (string), `Name` (string), `ProfileId` (Guid?), `Duration` (TimeSpan), `IsSuccess` (bool), `Messages` |
+
+## Inline Embedding Notifications
+
+**Namespace:** `Umbraco.AI.Core.Embeddings`
+
+| Notification | Cancelable | Key Properties |
+|---|---|---|
+| `AIEmbeddingExecutingNotification` | Yes | `EmbeddingId` (Guid), `Alias` (string), `Name` (string), `ProfileId` (Guid?), `Messages`, `Cancel` |
+| `AIEmbeddingExecutedNotification` | No | `EmbeddingId` (Guid), `Alias` (string), `Name` (string), `ProfileId` (Guid?), `Duration` (TimeSpan), `IsSuccess` (bool), `Messages` |
+
+## Base Notification Classes
+
+Most Save/Delete notifications inherit from generic base classes defined in the `Umbraco.AI.Core.Models.Notifications` namespace. You can use these base types to write cross-entity handlers (for example, an audit logger that reacts to every entity save).
+
+| Base Class | Kind | Key Properties |
+|---|---|---|
+| `AIEntitySavingNotification<T>` | Cancelable | `Entity` (T), `Messages`, `Cancel` |
+| `AIEntitySavedNotification<T>` | Stateful | `Entity` (T), `Messages` |
+| `AIEntityDeletingNotification<T>` | Cancelable | `EntityId` (Guid), `Messages`, `Cancel` |
+| `AIEntityDeletedNotification<T>` | Stateful | `EntityId` (Guid), `Messages` |
+
+For example, `AIProfileSavingNotification` is declared as `AIEntitySavingNotification<AIProfile>` and inherits the `Entity`, `Messages`, and `Cancel` members from the base class.
 
 ## Registration
 

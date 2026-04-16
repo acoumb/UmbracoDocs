@@ -31,7 +31,7 @@ AI responds: "Product SKU-123 has 47 units in stock at Warehouse A."
 
 A tool consists of:
 
-1. **Metadata** - ID, name, description, category via `[AITool]` attribute
+1. **Metadata** - ID, name, description, scope via `[AITool]` attribute
 2. **Arguments** - Optional input parameters as a typed class
 3. **Implementation** - The `ExecuteAsync` method
 
@@ -81,7 +81,7 @@ using Umbraco.AI.Core.Tools;
 public record InventoryArgs(
     [property: Description("The product SKU to look up")] string Sku);
 
-[AITool("lookup_inventory", "Lookup Inventory", Category = "Products")]
+[AITool("lookup_inventory", "Lookup Inventory", ScopeId = "products")]
 public class InventoryTool : AIToolBase<InventoryArgs>
 {
     private readonly IProductService _productService;

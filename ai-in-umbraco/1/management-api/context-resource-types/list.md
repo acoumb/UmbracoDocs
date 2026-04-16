@@ -12,7 +12,7 @@ Retrieve a list of all available context resource types. Resource types define w
 {% code title="Endpoint" %}
 
 ```
-GET /context-resource-types
+GET /umbraco/ai/management/api/v1/context-resource-types
 ```
 
 {% endcode %}
@@ -24,29 +24,26 @@ GET /context-resource-types
 {% code title="Response" %}
 
 ```json
-{
-    "items": [
-        {
-            "id": "content",
-            "name": "Content",
-            "description": "Adds content items as context resources.",
-            "icon": "icon-document"
-        },
-        {
-            "id": "media",
-            "name": "Media",
-            "description": "Adds media items as context resources.",
-            "icon": "icon-picture"
-        },
-        {
-            "id": "url",
-            "name": "URL",
-            "description": "Adds web page content from a URL as a context resource.",
-            "icon": "icon-link"
-        }
-    ],
-    "total": 3
-}
+[
+    {
+        "id": "text",
+        "name": "Text",
+        "description": "Plain text content.",
+        "icon": "icon-document"
+    },
+    {
+        "id": "document",
+        "name": "Document",
+        "description": "Document/content node reference.",
+        "icon": "icon-picture"
+    },
+    {
+        "id": "url",
+        "name": "URL",
+        "description": "Web URL resource.",
+        "icon": "icon-link"
+    }
+]
 ```
 
 {% endcode %}
@@ -60,6 +57,10 @@ GET /context-resource-types
 | `description` | string | Description of the resource type      |
 | `icon`        | string | Icon identifier for the backoffice UI |
 
+{% hint style="info" %}
+The list endpoint returns basic info only. Use the [Get Context Resource Type](get.md) endpoint to retrieve the settings schema for a specific resource type.
+{% endhint %}
+
 ## Examples
 
 ### List All Resource Types
@@ -67,7 +68,8 @@ GET /context-resource-types
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://localhost:44331/umbraco/ai/management/api/v1/context-resource-types"
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/context-resource-types" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 {% endcode %}
@@ -81,8 +83,8 @@ const response = await fetch("/umbraco/ai/management/api/v1/context-resource-typ
     credentials: "include",
 });
 
-const { items, total } = await response.json();
-console.log(`Found ${total} resource types`);
+const resourceTypes = await response.json();
+console.log(`Found ${resourceTypes.length} resource types`);
 ```
 
 {% endcode %}

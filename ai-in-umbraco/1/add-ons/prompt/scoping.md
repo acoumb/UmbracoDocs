@@ -1,31 +1,46 @@
 ---
 description: >-
-    Control which content types can use each prompt.
+    Control where a prompt is allowed to run using allow and deny rules.
 ---
 
 # Prompt Scoping
 
-Scoping allows you to control which content types can use a prompt and helps to organize prompts for specific editorial workflows.
+Scoping controls where a prompt is allowed to run. You can restrict prompts to specific content types, property editors, or properties, and use a combination of allow and deny rules to shape editorial workflows.
 
-## Scope Modes
+## How Scoping Works
 
-| Mode      | Description                                     |
-| --------- | ----------------------------------------------- |
-| **None**  | Any content type can use the prompt (default)   |
-| **Allow** | Only specified content types can use the prompt |
-| **Deny**  | All content types except those specified        |
+A prompt's scope is made up of two lists:
+
+- **Allow rules** - Whitelist the places where a prompt **can** be used. At least one allow rule must match for the prompt to execute.
+- **Deny rules** - Blacklist the places where a prompt **cannot** be used. If any deny rule matches, execution is blocked. Deny rules take precedence over allow rules.
+
+Each rule is an `AIPromptScopeRule` that can match against one or more of the following:
+
+| Property                  | Description                                                      |
+| ------------------------- | ---------------------------------------------------------------- |
+| `ContentTypeAliases`      | Document, media, member, or element type aliases to match        |
+| `PropertyAliases`         | Property aliases to match (for example `pageTitle`, `summary`)   |
+| `PropertyEditorUiAliases` | Property Editor UI aliases (for example `Umb.PropertyEditorUi.TextBox`) |
+
+{% hint style="info" %}
+Within a single rule, every non-empty property must match (AND logic). Within each list, any value can match (OR logic). Between rules, any rule matching is enough (OR logic).
+{% endhint %}
+
+{% hint style="warning" %}
+A prompt with no scope, or with an empty `AllowRules` list, is **not allowed to run anywhere**. To make a prompt available, you must add at least one allow rule.
+{% endhint %}
 
 ## Configuring Scope
 
 ### Via Backoffice
 
-1. Edit the prompt
-2. Expand the **Scope** section
-3. Select the scope mode
-4. For Allow/Deny modes, select content types
-5. Save
+1. Edit the prompt.
+2. Expand the **Scope** section.
+3. Add one or more **Allow Rules** describing where the prompt should be available.
+4. Optionally add **Deny Rules** to exclude specific places.
+5. Save.
 
-![Prompt scope configuration showing content types, properties, and editor rules](../../.gitbook/assets/prompt-availability-scopes.png)
+![Prompt scope configuration showing allow and deny rules](../../.gitbook/assets/prompt-availability-scopes.png)
 
 ### Via Code
 
@@ -39,8 +54,12 @@ var prompt = new AIPrompt
     Instructions = "Write a product description...",
     Scope = new AIPromptScope
     {
-        Mode = AIPromptScopeMode.Allow,
-        ContentTypeAliases = new[] { "product", "productVariant" }
+        AllowRules = [
+            new AIPromptScopeRule
+            {
+                ContentTypeAliases = ["product", "productVariant"]
+            }
+        ]
     }
 };
 
@@ -59,8 +78,12 @@ await _promptService.SavePromptAsync(prompt);
     "name": "Product Description",
     "instructions": "Write a product description...",
     "scope": {
-        "mode": "Allow",
-        "contentTypeAliases": ["product", "productVariant"]
+        "allowRules": [
+            {
+                "contentTypeAliases": ["product", "productVariant"]
+            }
+        ],
+        "denyRules": []
     }
 }
 ```
@@ -74,83 +97,99 @@ await _promptService.SavePromptAsync(prompt);
 ```csharp
 public class AIPromptScope
 {
-    public AIPromptScopeMode Mode { get; set; } = AIPromptScopeMode.None;
-    public IReadOnlyList<string> ContentTypeAliases { get; set; } = Array.Empty<string>();
+    public IReadOnlyList<AIPromptScopeRule> AllowRules { get; set; } = [];
+    public IReadOnlyList<AIPromptScopeRule> DenyRules { get; set; } = [];
 }
 
-public enum AIPromptScopeMode
+public class AIPromptScopeRule
 {
-    None = 0,   // No restriction
-    Allow = 1,  // Only specified types
-    Deny = 2    // All except specified types
+    public IReadOnlyList<string>? PropertyEditorUiAliases { get; set; }
+    public IReadOnlyList<string>? PropertyAliases { get; set; }
+    public IReadOnlyList<string>? ContentTypeAliases { get; set; }
 }
 ```
 
 {% endcode %}
 
-## Use Cases
+## Examples
 
-### Editorial Specialization
+### Allow on specific content types
 
-Create prompts specific to content types:
+Make the prompt available on any property of two content types:
 
-| Prompt              | Scope Mode | Content Types         |
-| ------------------- | ---------- | --------------------- |
-| Product Description | Allow      | `product`             |
-| Blog Summary        | Allow      | `blogPost`, `article` |
-| Press Release       | Allow      | `pressRelease`        |
-| Generic Rewrite     | None       | (all types)           |
+```csharp
+Scope = new AIPromptScope
+{
+    AllowRules = [
+        new AIPromptScopeRule
+        {
+            ContentTypeAliases = ["blogPost", "article"]
+        }
+    ]
+}
+```
 
-### Excluding Types
+### Allow on specific property editors
 
-Prevent certain prompts from being used on sensitive content:
+Make the prompt available on any textbox or textarea, regardless of content type:
 
-| Prompt        | Scope Mode | Content Types                   |
-| ------------- | ---------- | ------------------------------- |
-| Auto-Generate | Deny       | `legalNotice`, `termsOfService` |
+```csharp
+Scope = new AIPromptScope
+{
+    AllowRules = [
+        new AIPromptScopeRule
+        {
+            PropertyEditorUiAliases = [
+                "Umb.PropertyEditorUi.TextBox",
+                "Umb.PropertyEditorUi.TextArea"
+            ]
+        }
+    ]
+}
+```
+
+### Combine constraints within a rule
+
+Require both a content type and a property alias match (AND logic):
+
+```csharp
+Scope = new AIPromptScope
+{
+    AllowRules = [
+        new AIPromptScopeRule
+        {
+            ContentTypeAliases = ["blogPost"],
+            PropertyAliases = ["summary", "excerpt"]
+        }
+    ]
+}
+```
+
+### Allow and deny combined
+
+Allow the prompt for all blog posts, but exclude a sensitive property:
+
+```csharp
+Scope = new AIPromptScope
+{
+    AllowRules = [
+        new AIPromptScopeRule
+        {
+            ContentTypeAliases = ["blogPost"]
+        }
+    ],
+    DenyRules = [
+        new AIPromptScopeRule
+        {
+            PropertyAliases = ["legalDisclaimer"]
+        }
+    ]
+}
+```
 
 ## Enforcement
 
-{% hint style="warning" %}
-Scoping is enforced in the backoffice UI but **not** when executing prompts via code or API. It's designed for editorial guidance, not security.
-{% endhint %}
-
-### Backoffice Behavior
-
-- Prompts outside scope won't appear in content editors
-- Editors see only relevant prompts for each content type
-- Improves UX by reducing prompt lists
-
-### Code/API Behavior
-
-- Scoping is not enforced programmatically
-- You can execute any prompt on any content
-- Implement your own checks if needed:
-
-{% code title="ScopeCheckService.cs" %}
-
-```csharp
-public async Task<string?> ExecuteWithScopeCheckAsync(
-    Guid promptId,
-    string contentTypeAlias,
-    AIPromptExecutionRequest request)
-{
-    var prompt = await _promptService.GetPromptAsync(promptId);
-    if (prompt == null) return null;
-
-    // Check scope
-    if (!prompt.Scope.IsAllowed(contentTypeAlias))
-    {
-        throw new InvalidOperationException(
-            $"Prompt '{prompt.Alias}' is not allowed for content type '{contentTypeAlias}'");
-    }
-
-    var result = await _promptService.ExecutePromptAsync(promptId, request);
-    return result.Response;
-}
-```
-
-{% endcode %}
+Scope validation runs both in the backoffice (to decide which prompts appear on a given property) and server-side when a prompt is executed. A prompt execution request that does not match any allow rule, or that matches a deny rule, is rejected by the `AIPromptScopeValidator`.
 
 ## Related
 

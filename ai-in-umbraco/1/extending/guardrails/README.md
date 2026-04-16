@@ -190,11 +190,13 @@ public class BrandComplianceEvaluator
             };
 
             var response = await _chatService.GetChatResponseAsync(
-                messages, null, cancellationToken);
+                chat => chat.WithAlias("guardrail-evaluation"),
+                messages,
+                cancellationToken);
 
             // Parse the score from the response
             // (simplified - add robust JSON parsing in production)
-            var text = response.Text ?? string.Empty;
+            var text = response.Message.Text ?? string.Empty;
             var score = ParseScore(text);
             var flagged = score < evalConfig.Threshold;
 

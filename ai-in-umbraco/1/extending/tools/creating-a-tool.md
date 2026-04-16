@@ -167,7 +167,8 @@ public class ContentSearchToolTests
         var tool = new ContentSearchTool(contextFactory);
 
         // Act
-        var result = await tool.ExecuteAsync(
+        // The protected ExecuteAsync is invoked via the IAITool interface
+        var result = await ((IAITool)tool).ExecuteAsync(
             new ContentSearchArgs("test"),
             CancellationToken.None);
 

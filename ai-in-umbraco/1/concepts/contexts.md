@@ -70,6 +70,8 @@ public class ContextExample
 {% code title="Example.cs" %}
 
 ```csharp
+using Umbraco.AI.Core.Contexts.ResourceTypes.BuiltIn;
+
 public async Task<AIContext> CreateContext()
 {
     var context = new AIContext
@@ -84,7 +86,10 @@ public async Task<AIContext> CreateContext()
                 Name = "Tone of Voice",
                 Description = "Writing style guidelines",
                 SortOrder = 0,
-                Settings = "Always use a friendly, professional tone..."
+                Settings = new TextResourceSettings
+                {
+                    Content = "Always use a friendly, professional tone..."
+                }
             }
         }
     };

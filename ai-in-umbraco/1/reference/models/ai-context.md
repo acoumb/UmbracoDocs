@@ -18,7 +18,7 @@ using Umbraco.AI.Core.Contexts;
 {% code title="AIContext" %}
 
 ```csharp
-public class AIContext : IAIVersionableEntity
+public sealed class AIContext : IAIVersionableEntity
 {
     public Guid Id { get; internal set; }
     public required string Alias { get; set; }
@@ -101,7 +101,7 @@ Represents a single resource within a context.
 {% code title="AIContextResource" %}
 
 ```csharp
-public class AIContextResource
+public sealed class AIContextResource
 {
     public Guid Id { get; internal set; }
     public required string ResourceTypeId { get; init; }

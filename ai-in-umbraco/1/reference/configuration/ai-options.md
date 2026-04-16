@@ -31,6 +31,7 @@ public class AIOptions
     public string? DefaultChatProfileAlias { get; set; }
     public string? DefaultEmbeddingProfileAlias { get; set; }
     public string? ClassifierChatProfileAlias { get; set; }
+    public string? DefaultSpeechToTextProfileAlias { get; set; }
 }
 ```
 
@@ -38,11 +39,12 @@ public class AIOptions
 
 ## Properties
 
-| Property                       | Type      | Description                                        |
-| ------------------------------ | --------- | -------------------------------------------------- |
-| `DefaultChatProfileAlias`      | `string?` | Fallback default profile alias for chat operations |
-| `DefaultEmbeddingProfileAlias` | `string?` | Fallback default profile alias for embeddings      |
-| `ClassifierChatProfileAlias`   | `string?` | Fallback profile alias for classification tasks    |
+| Property                          | Type      | Description                                             |
+| --------------------------------- | --------- | ------------------------------------------------------- |
+| `DefaultChatProfileAlias`         | `string?` | Fallback default profile alias for chat operations      |
+| `DefaultEmbeddingProfileAlias`    | `string?` | Fallback default profile alias for embeddings           |
+| `ClassifierChatProfileAlias`      | `string?` | Fallback profile alias for classification tasks         |
+| `DefaultSpeechToTextProfileAlias` | `string?` | Fallback default profile alias for speech-to-text       |
 
 ## Configuration
 
@@ -54,7 +56,8 @@ public class AIOptions
         "AI": {
             "DefaultChatProfileAlias": "content-assistant",
             "DefaultEmbeddingProfileAlias": "document-embeddings",
-            "ClassifierChatProfileAlias": "fast-classifier"
+            "ClassifierChatProfileAlias": "fast-classifier",
+            "DefaultSpeechToTextProfileAlias": "voice-transcription"
         }
     }
 }
@@ -141,6 +144,7 @@ Override configuration via environment variables:
 export Umbraco__AI__DefaultChatProfileAlias=production-chat
 export Umbraco__AI__DefaultEmbeddingProfileAlias=production-embedding
 export Umbraco__AI__ClassifierChatProfileAlias=fast-classifier
+export Umbraco__AI__DefaultSpeechToTextProfileAlias=production-speech
 ```
 
 {% endcode %}

@@ -33,7 +33,7 @@ dotnet add package Umbraco.AI.Prompt
 - **Variable Interpolation** - Use `{{variable}}` syntax for dynamic content
 - **Profile Association** - Link prompts to specific AI profiles
 - **Context Injection** - Include AI Contexts for brand voice
-- **Content Scoping** - Control which content types can use each prompt
+- **Scoping** - Control where each prompt can be used using allow and deny rules
 - **Version History** - Track changes with full rollback support
 - **Backoffice Management** - Full UI for creating and managing prompts
 
@@ -45,12 +45,14 @@ In the backoffice, navigate to the **AI** section > **Prompts** and create a new
 
 | Field        | Value                                                                |
 | ------------ | -------------------------------------------------------------------- |
-| Alias        | `summarize-article`                                                  |
-| Name         | Summarize Article                                                    |
-| Instructions | `Summarize the following article in 3 bullet points:\n\n{{content}}` |
-| Profile      | (select your chat profile)                                           |
+| Alias        | `summarize-article`                                                       |
+| Name         | Summarize Article                                                         |
+| Instructions | `Summarize the following article in 3 bullet points:\n\n{{bodyText}}`     |
+| Profile      | (select your chat profile)                                                |
 
 ### 2. Execute the Prompt
+
+Template variables like `{{content}}` resolve from the target entity's property values. Execute the prompt against the document you want to summarize:
 
 {% code title="ArticleSummarizer.cs" %}
 
@@ -64,7 +66,7 @@ public class ArticleSummarizer
         _promptService = promptService;
     }
 
-    public async Task<string> SummarizeAsync(string articleContent)
+    public async Task<string> SummarizeAsync(Guid articleKey)
     {
         var prompt = await _promptService.GetPromptByAliasAsync("summarize-article");
 
@@ -72,13 +74,13 @@ public class ArticleSummarizer
             prompt!.Id,
             new AIPromptExecutionRequest
             {
-                Variables = new Dictionary<string, string>
-                {
-                    ["content"] = articleContent
-                }
+                EntityId = articleKey,
+                EntityType = "document",
+                PropertyAlias = "summary",
+                ContentTypeAlias = "article"
             });
 
-        return result.Response;
+        return result.Content;
     }
 }
 ```
@@ -97,25 +99,25 @@ Translate the following text to {{language}}:
 {{text}}
 ```
 
-### Prefixed Variables
+### Image Variables
 
-Use prefixes for special variable sources:
+Use the `image:` prefix to include images from content properties:
 
-| Prefix      | Source               | Example                 |
-| ----------- | -------------------- | ----------------------- |
-| `entity:`   | Current content item | `{{entity:name}}`       |
-| `property:` | Content property     | `{{property:bodyText}}` |
-| `context:`  | Request context      | `{{context:culture}}`   |
+```
+Describe this image: {{image:heroImage}}
+```
 
 ### Example Template
 
+When prompts execute from property actions, entity and property values are available directly:
+
 ```
-You are a content assistant for {{entity:name}}.
+You are a content assistant for {{name}}.
 
 Write a meta description for this content:
 
-Title: {{property:pageTitle}}
-Content: {{property:bodyText}}
+Title: {{pageTitle}}
+Content: {{bodyText}}
 
 Requirements:
 - Maximum 160 characters
@@ -130,7 +132,7 @@ Requirements:
 | [Concepts](concepts.md)                             | Prompt templates, variables, scoping |
 | [Getting Started](getting-started.md)               | Step-by-step setup guide             |
 | [Template Syntax](template-syntax.md)               | Variable interpolation details       |
-| [Scoping](scoping.md)                               | Content type allow/deny rules        |
+| [Scoping](scoping.md)                               | Allow and deny rules for prompts     |
 | [API Reference](api/README.md)                      | Management API endpoints             |
 | [Service Reference](reference/ai-prompt-service.md) | IAIPromptService                     |
 

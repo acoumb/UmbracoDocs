@@ -10,18 +10,18 @@ Profiles combine a connection with model-specific settings for use cases. They d
 ## Base URL
 
 ```
-/umbraco/ai/management/api/v1/profile
+/umbraco/ai/management/api/v1/profiles
 ```
 
 ## Endpoints
 
-| Method | Endpoint               | Description                   |
-| ------ | ---------------------- | ----------------------------- |
-| GET    | `/profile`             | [List all profiles](list.md)  |
-| GET    | `/profile/{idOrAlias}` | [Get a profile](get.md)       |
-| POST   | `/profile`             | [Create a profile](create.md) |
-| PUT    | `/profile/{idOrAlias}` | [Update a profile](update.md) |
-| DELETE | `/profile/{idOrAlias}` | [Delete a profile](delete.md) |
+| Method | Endpoint                                                              | Description                   |
+| ------ | --------------------------------------------------------------------- | ----------------------------- |
+| GET    | `/umbraco/ai/management/api/v1/profiles`                              | [List all profiles](list.md)  |
+| GET    | `/umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}`           | [Get a profile](get.md)       |
+| POST   | `/umbraco/ai/management/api/v1/profiles`                              | [Create a profile](create.md) |
+| PUT    | `/umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}`           | [Update a profile](update.md) |
+| DELETE | `/umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}`           | [Delete a profile](delete.md) |
 
 ## Profile Object
 
@@ -108,10 +108,10 @@ Most endpoints accept either a GUID or alias to identify profiles:
 
 ```bash
 # By ID
-GET /umbraco/ai/management/api/v1/profile/3fa85f64-5717-4562-b3fc-2c963f66afa6
+GET /umbraco/ai/management/api/v1/profiles/3fa85f64-5717-4562-b3fc-2c963f66afa6
 
 # By alias
-GET /umbraco/ai/management/api/v1/profile/content-assistant
+GET /umbraco/ai/management/api/v1/profiles/content-assistant
 ```
 
 This flexibility allows referencing profiles by memorable aliases in configuration while using GUIDs internally.

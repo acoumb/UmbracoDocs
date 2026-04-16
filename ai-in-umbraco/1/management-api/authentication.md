@@ -5,32 +5,38 @@ description: >-
 
 # Authentication
 
-The Management API uses Umbraco's backoffice authentication. All endpoints require an authenticated backoffice user with appropriate permissions.
+The Management API uses Umbraco's backoffice authentication. All endpoints require an authenticated backoffice user with access to the AI section.
 
 ## Authentication Method
 
-The API uses cookie-based authentication through Umbraco's backoffice authentication system. Users must:
+The API uses the same authentication model as the Umbraco CMS Management API: Bearer tokens issued by Umbraco's OpenIddict-based backoffice authentication. Tokens are acquired through the standard backoffice login flow and validated on each request.
 
-1. Be logged in to the Umbraco backoffice
-2. Have access to the Settings section
+Users must:
+
+1. Be authenticated backoffice users (policy: `BackOfficeAccess`).
+2. Have access to the **AI** section (policy: `SectionAccessAI`).
 
 ## Required Permissions
 
-All Management API endpoints require the **Settings section access** policy. Users need to have access to the Settings section in the backoffice to use the API.
+All Management API endpoints require the `SectionAccessAI` authorization policy. Internally this policy checks that the user's allowed applications claim includes the AI section (`"ai"`). Out of the box, the AI section is granted to the Administrators group; other groups must be given access explicitly.
 
 ## Making Authenticated Requests
 
 ### From Backoffice JavaScript
 
-When calling from backoffice components (Lit elements, controllers), authentication is handled automatically through the browser's cookies:
+When calling from backoffice extensions (Lit elements, controllers, workspaces), use the generated API client that ships with the Umbraco backoffice. It automatically attaches the current user's Bearer token to every request.
+
+If you need to call the endpoints directly, include the Bearer token in the `Authorization` header:
 
 {% code title="backoffice-example.ts" %}
 
 ```typescript
+import { umbHttpClient } from "@umbraco-cms/backoffice/http-client";
+
 const response = await fetch("/umbraco/ai/management/api/v1/connections", {
     method: "GET",
-    credentials: "include", // Include cookies
     headers: {
+        "Authorization": `Bearer ${await umbHttpClient.getToken()}`,
         "Content-Type": "application/json",
     },
 });
@@ -38,12 +44,14 @@ const response = await fetch("/umbraco/ai/management/api/v1/connections", {
 
 {% endcode %}
 
+In practice, prefer the generated OpenAPI client over hand-rolled `fetch` calls so that tokens, versioning, and error handling are taken care of for you.
+
 ### From Server-Side Code
 
-For server-to-server calls or background processes, use `IBackOfficeSecurityAccessor` to get the current user's context, or consider using a service account pattern.
+For server-side code that needs access to the current backoffice user, inject `IBackOfficeSecurityAccessor` to get the authenticated user context. The Management API is designed to be called by an authenticated backoffice user; it is not intended for server-to-server or public integrations.
 
 {% hint style="warning" %}
-The Management API is designed for backoffice integration, not for public-facing applications. For external integrations, consider creating your own API that wraps the Umbraco.AI services.
+The Management API is designed for backoffice integration, not for public-facing applications. For external integrations, create your own API that wraps the Umbraco.AI services.
 {% endhint %}
 
 ## Authorization Errors
@@ -52,16 +60,16 @@ The Management API is designed for backoffice integration, not for public-facing
 
 Returned when:
 
-- No authentication credentials provided
-- Session has expired
-- User is not logged in
+- No Bearer token is provided.
+- The token is invalid or has expired.
+- The user is not authenticated.
 
 ### 403 Forbidden
 
 Returned when:
 
-- User lacks Settings section access
-- User doesn't have required permissions
+- The authenticated user does not have access to the AI section.
+- The user does not satisfy the `SectionAccessAI` policy.
 
 ## Example Error Response
 
@@ -72,7 +80,7 @@ Returned when:
     "type": "https://tools.ietf.org/html/rfc7231#section-6.5.3",
     "title": "Forbidden",
     "status": 403,
-    "detail": "User does not have access to the Settings section"
+    "detail": "User does not have access to the AI section"
 }
 ```
 
@@ -80,10 +88,10 @@ Returned when:
 
 ## Best Practices
 
-1. **Use from backoffice only** - The Management API is intended for backoffice use
-2. **Check permissions** - Ensure users have Settings access before relying on the API
-3. **Handle auth errors** - Gracefully handle 401/403 responses in your UI
-4. **Don't expose externally** - Don't proxy the Management API to public endpoints without additional security
+1. **Use from the backoffice only** - The Management API is intended for backoffice use.
+2. **Check permissions** - Ensure users have AI section access before relying on the API.
+3. **Handle auth errors** - Gracefully handle 401/403 responses in your UI.
+4. **Don't expose externally** - Don't proxy the Management API to public endpoints without additional security.
 
 ## Creating a Public API
 

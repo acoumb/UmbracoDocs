@@ -63,9 +63,11 @@ Register your implementation in a Composer to replace the built-in store:
 
 ```csharp
 using Umbraco.AI.Search.Core.VectorStore;
+using Umbraco.AI.Search.Startup;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 
+[ComposeAfter(typeof(UmbracoAISearchComposer))]
 public class CustomVectorStoreComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
@@ -78,14 +80,25 @@ public class CustomVectorStoreComposer : IComposer
 {% endcode %}
 
 {% hint style="info" %}
-The built-in SQL Server and SQLite stores are registered as transient services. Your replacement registration takes precedence as the last-registered implementation.
+The built-in SQL Server and SQLite stores are registered as singleton services by `UmbracoAISearchComposer`. Using `[ComposeAfter(typeof(UmbracoAISearchComposer))]` on your composer guarantees your registration runs last so it becomes the resolved implementation of `IAIVectorStore`.
 {% endhint %}
+
+### In-memory store for testing
+
+An `InMemoryAIVectorStore` is available in `Umbraco.AI.Search.Core.VectorStore`. It is intended for development and automated testing and is not suitable for production use.
 
 ## Parameters
 
 ### Culture
 
-The `culture` parameter supports multilingual content. Pass `null` for invariant content. When searching, pass a culture to filter results to that language, or `null` to search across all cultures.
+The `culture` parameter supports multilingual content. Pass `null` when indexing invariant content.
+
+Search-time culture filtering follows the CMS Search conventions used by the built-in stores:
+
+- When `culture` is a specific value, return entries for that culture **plus** invariant (`null`) entries.
+- When `culture` is `null`, return **only** invariant (`null`) entries.
+
+A `null` culture does not mean "all cultures". Custom implementations should mirror this behaviour so results remain consistent across vector stores.
 
 ### Metadata
 
@@ -96,6 +109,11 @@ The indexer stores metadata with each chunk:
 | `objectType` | `string` | Umbraco object type, for example `Document` or `Media` |
 | `chunkIndex` | `int` | Zero-based position of the chunk within the document |
 | `totalChunks` | `int` | Total number of chunks for the document |
+| `accessIds` | `string` | Comma-separated access IDs for protected content. Only present when the document has `ContentProtection.AccessIds`. Used by the searcher to filter results for public members and group membership. |
+
+{% hint style="warning" %}
+Custom stores must persist and return the `accessIds` metadata value unchanged. The searcher uses it to enforce member access control: public content (no `accessIds`) is always returned; protected content is only returned when the caller's principal or group IDs match.
+{% endhint %}
 
 ## Related
 

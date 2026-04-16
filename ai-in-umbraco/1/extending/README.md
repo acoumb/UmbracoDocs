@@ -80,26 +80,11 @@ Umbraco.AI is designed to be extensible. You can add support for new AI provider
 
 ## Architecture Overview
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        Your Code                            │
-│         IAIChatService / IAIEmbeddingService                │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     Middleware Pipeline                     │
-│    [Your Middleware] → [Logging] → [Caching] → ...          │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                        Provider                             │
-│         OpenAI / Azure / [Your Provider]                    │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-                        AI Service API
+```mermaid
+graph TD
+    A["Your Code\n(IAIChatService / IAIEmbeddingService)"] --> B[Middleware Pipeline]
+    B --> C["Provider\n(OpenAI / Azure / Your Provider)"]
+    C --> D[AI Service API]
 ```
 
 ## In This Section

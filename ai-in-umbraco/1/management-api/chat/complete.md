@@ -9,10 +9,10 @@ Get a complete (non-streaming) chat response from an AI model.
 
 ## Endpoints
 
-| Method | Endpoint                            | Description              |
-| ------ | ----------------------------------- | ------------------------ |
-| POST   | `/chat/complete`                    | Use default chat profile |
-| POST   | `/chat/{profileIdOrAlias}/complete` | Use specific profile     |
+| Method | Endpoint                                                              | Description              |
+| ------ | --------------------------------------------------------------------- | ------------------------ |
+| POST   | `/umbraco/ai/management/api/v1/chat/complete`                         | Use default chat profile |
+| POST   | `/umbraco/ai/management/api/v1/chat/{profileIdOrAlias}/complete`      | Use specific profile     |
 
 ## Request
 
@@ -153,7 +153,7 @@ Profile not found:
 {% code title="cURL" %}
 
 ```bash
-curl -X POST "https://localhost:44331/umbraco/ai/management/api/v1/chat/complete" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/chat/complete" \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [
@@ -169,7 +169,7 @@ curl -X POST "https://localhost:44331/umbraco/ai/management/api/v1/chat/complete
 {% code title="cURL with Profile" %}
 
 ```bash
-curl -X POST "https://localhost:44331/umbraco/ai/management/api/v1/chat/content-assistant/complete" \
+curl -X POST "https://your-site.com/umbraco/ai/management/api/v1/chat/content-assistant/complete" \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [

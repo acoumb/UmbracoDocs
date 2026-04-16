@@ -10,17 +10,17 @@ Returns a paginated list of all prompts.
 ## Request
 
 ```http
-GET /umbraco/ai/management/api/v1/prompt
+GET /umbraco/ai/management/api/v1/prompts
 ```
 
 ### Query Parameters
 
-| Parameter   | Type   | Default | Description                  |
-| ----------- | ------ | ------- | ---------------------------- |
-| `skip`      | int    | 0       | Number of items to skip      |
-| `take`      | int    | 100     | Number of items to return    |
-| `filter`    | string | null    | Filter by name (contains)    |
-| `profileId` | guid   | null    | Filter by associated profile |
+| Parameter   | Type   | Default | Description                      |
+| ----------- | ------ | ------- | -------------------------------- |
+| `skip`      | int    | 0       | Number of items to skip          |
+| `take`      | int    | 100     | Number of items to return        |
+| `filter`    | string | null    | Filter by name or alias (contains) |
+| `profileId` | guid   | null    | Filter by associated profile     |
 
 ## Response
 
@@ -37,9 +37,9 @@ GET /umbraco/ai/management/api/v1/prompt
             "name": "Generate Meta Description",
             "description": "Creates SEO-friendly meta descriptions",
             "profileId": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-            "tags": ["seo", "content"],
             "isActive": true,
-            "version": 3
+            "dateCreated": "2024-01-15T10:30:00Z",
+            "dateModified": "2024-01-20T14:45:00Z"
         }
     ],
     "total": 15
@@ -48,12 +48,27 @@ GET /umbraco/ai/management/api/v1/prompt
 
 {% endcode %}
 
+### Response Properties
+
+Each item in `items` contains:
+
+| Property       | Type   | Description                        |
+| -------------- | ------ | ---------------------------------- |
+| `id`           | guid   | Unique identifier                  |
+| `alias`        | string | Unique alias                       |
+| `name`         | string | Display name                       |
+| `description`  | string | Optional description               |
+| `profileId`    | guid   | Associated AI profile (optional)   |
+| `isActive`     | bool   | Whether the prompt is available    |
+| `dateCreated`  | string | Creation timestamp (UTC)           |
+| `dateModified` | string | Last modification timestamp (UTC)  |
+
 ## Examples
 
 {% code title="cURL" %}
 
 ```bash
-curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/prompt?skip=0&take=10" \
+curl -X GET "https://your-site.com/umbraco/ai/management/api/v1/prompts?skip=0&take=10" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

@@ -26,9 +26,9 @@ public interface IAIPromptService
 
     Task<IEnumerable<AIPrompt>> GetPromptsAsync(CancellationToken cancellationToken = default);
 
-    Task<PagedModel<AIPrompt>> GetPromptsPagedAsync(
-        int skip = 0,
-        int take = 100,
+    Task<(IEnumerable<AIPrompt> Items, int Total)> GetPromptsPagedAsync(
+        int skip,
+        int take,
         string? filter = null,
         Guid? profileId = null,
         CancellationToken cancellationToken = default);
@@ -37,11 +37,19 @@ public interface IAIPromptService
 
     Task<bool> DeletePromptAsync(Guid id, CancellationToken cancellationToken = default);
 
+    Task<bool> PromptsExistWithProfileAsync(Guid profileId, CancellationToken cancellationToken = default);
+
     Task<bool> PromptAliasExistsAsync(string alias, Guid? excludeId = null, CancellationToken cancellationToken = default);
 
     Task<AIPromptExecutionResult> ExecutePromptAsync(
         Guid promptId,
         AIPromptExecutionRequest request,
+        CancellationToken cancellationToken = default);
+
+    Task<AIPromptExecutionResult> ExecutePromptAsync(
+        Guid promptId,
+        AIPromptExecutionRequest request,
+        AIPromptExecutionOptions options,
         CancellationToken cancellationToken = default);
 }
 ```
@@ -86,15 +94,15 @@ Gets prompts with pagination and filtering.
 | ------------------- | ------------------- | ------------------ |
 | `skip`              | `int`               | Items to skip      |
 | `take`              | `int`               | Items to take      |
-| `filter`            | `string?`           | Filter by name     |
+| `filter`            | `string?`           | Filter by name or alias |
 | `profileId`         | `Guid?`             | Filter by profile  |
 | `cancellationToken` | `CancellationToken` | Cancellation token |
 
-**Returns**: Paged result with items and total count.
+**Returns**: A tuple `(IEnumerable<AIPrompt> Items, int Total)` containing the filtered page and the total count.
 
 ### SavePromptAsync
 
-Creates or updates a prompt.
+Creates or updates a prompt. If `Id` is `Guid.Empty`, a new GUID is generated.
 
 | Parameter           | Type                | Description        |
 | ------------------- | ------------------- | ------------------ |
@@ -114,6 +122,17 @@ Deletes a prompt by ID.
 
 **Returns**: `true` if deleted, `false` if not found.
 
+### PromptsExistWithProfileAsync
+
+Checks whether any prompts reference the specified profile.
+
+| Parameter           | Type                | Description            |
+| ------------------- | ------------------- | ---------------------- |
+| `profileId`         | `Guid`              | The profile ID         |
+| `cancellationToken` | `CancellationToken` | Cancellation token     |
+
+**Returns**: `true` if one or more prompts reference the profile.
+
 ### PromptAliasExistsAsync
 
 Checks if an alias is in use.
@@ -128,15 +147,16 @@ Checks if an alias is in use.
 
 ### ExecutePromptAsync
 
-Executes a prompt with variables.
+Executes a prompt and returns the AI response. Two overloads are available: one that uses the prompt's configured profile, contexts, and scope enforcement, and one that accepts an `AIPromptExecutionOptions` argument to override these.
 
-| Parameter           | Type                       | Description          |
-| ------------------- | -------------------------- | -------------------- |
-| `promptId`          | `Guid`                     | The prompt ID        |
-| `request`           | `AIPromptExecutionRequest` | Execution parameters |
-| `cancellationToken` | `CancellationToken`        | Cancellation token   |
+| Parameter           | Type                       | Description                                   |
+| ------------------- | -------------------------- | --------------------------------------------- |
+| `promptId`          | `Guid`                     | The prompt ID                                 |
+| `request`           | `AIPromptExecutionRequest` | Execution parameters                          |
+| `options`           | `AIPromptExecutionOptions` | (Second overload) Validation and overrides    |
+| `cancellationToken` | `CancellationToken`        | Cancellation token                            |
 
-**Returns**: Execution result with response.
+**Returns**: An `AIPromptExecutionResult` with the generated content, optional usage information, the chat messages that were sent, and the list of result options.
 
 {% code title="ExecutePromptAsync.cs" %}
 
@@ -145,15 +165,17 @@ var result = await _promptService.ExecutePromptAsync(
     promptId,
     new AIPromptExecutionRequest
     {
-        Variables = new Dictionary<string, string>
-        {
-            ["title"] = "Article Title",
-            ["content"] = "Article content..."
-        }
+        EntityId = contentId,
+        EntityType = "document",
+        PropertyAlias = "metaDescription",
+        ContentTypeAlias = "article"
     });
 
-Console.WriteLine($"Response: {result.Response}");
-Console.WriteLine($"Tokens used: {result.Usage.TotalTokens}");
+Console.WriteLine($"Content: {result.Content}");
+if (result.Usage is not null)
+{
+    Console.WriteLine($"Tokens used: {result.Usage.TotalTokenCount}");
+}
 ```
 
 {% endcode %}
@@ -167,14 +189,31 @@ Console.WriteLine($"Tokens used: {result.Usage.TotalTokens}");
 ```csharp
 public class AIPromptExecutionRequest
 {
-    public IDictionary<string, string> Variables { get; set; }
-    public string? EntityId { get; set; }
-    public string? EntityType { get; set; }
-    public string? EntityContext { get; set; }
+    public required Guid EntityId { get; init; }
+    public required string EntityType { get; init; }
+    public required string PropertyAlias { get; init; }
+    public required string ContentTypeAlias { get; init; }
+    public Guid? ElementId { get; init; }
+    public string? ElementType { get; init; }
+    public string? Culture { get; init; }
+    public string? Segment { get; init; }
+    public IReadOnlyList<AIRequestContextItem>? Context { get; init; }
 }
 ```
 
 {% endcode %}
+
+| Property           | Type                                    | Required | Description                                                                                  |
+| ------------------ | --------------------------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `EntityId`         | `Guid`                                  | Yes      | The entity (document, media, etc.) key. Used for scope validation and entity context lookup. |
+| `EntityType`       | `string`                                | Yes      | The entity type (for example `document` or `media`).                                         |
+| `PropertyAlias`    | `string`                                | Yes      | The property alias being edited.                                                             |
+| `ContentTypeAlias` | `string`                                | Yes      | The content type alias (or element type alias when editing a block).                         |
+| `ElementId`        | `Guid?`                                 | No       | Block content key when executing inside a block element.                                     |
+| `ElementType`      | `string?`                               | No       | Element type identifier when executing inside a block element.                               |
+| `Culture`          | `string?`                               | No       | Culture/language variant (for example `en-US`).                                              |
+| `Segment`          | `string?`                               | No       | Segment variant.                                                                             |
+| `Context`          | `IReadOnlyList<AIRequestContextItem>?` | No       | Additional context items passed from the frontend. Processed by runtime context contributors to populate template variables and system messages. |
 
 ### AIPromptExecutionResult
 
@@ -183,17 +222,53 @@ public class AIPromptExecutionRequest
 ```csharp
 public class AIPromptExecutionResult
 {
-    public string Response { get; set; }
-    public Guid PromptId { get; set; }
-    public int PromptVersion { get; set; }
-    public Guid ProfileId { get; set; }
-    public AIModelRef Model { get; set; }
-    public AITokenUsage Usage { get; set; }
-    public Guid AuditLogId { get; set; }
+    public required string Content { get; init; }
+    public UsageDetails? Usage { get; init; }
+    public IReadOnlyList<ChatMessage>? Messages { get; init; }
+    public required IReadOnlyList<AIPromptResultOption> ResultOptions { get; init; }
 }
 ```
 
 {% endcode %}
+
+| Property        | Type                                    | Description                                                                                      |
+| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `Content`       | `string`                                | The generated response content.                                                                  |
+| `Usage`         | `UsageDetails?`                         | Token usage information from `Microsoft.Extensions.AI`.                                          |
+| `Messages`      | `IReadOnlyList<ChatMessage>?`           | The chat messages sent to the AI model (system messages, processed user template).               |
+| `ResultOptions` | `IReadOnlyList<AIPromptResultOption>`   | Result options. Empty for informational prompts, a single entry for single-value prompts, multiple entries when the prompt is configured to generate options. |
+
+Each `AIPromptResultOption` exposes:
+
+| Property       | Type              | Description                                                       |
+| -------------- | ----------------- | ----------------------------------------------------------------- |
+| `Label`        | `string`          | Short title for the option.                                       |
+| `DisplayValue` | `string`          | Value displayed in the UI.                                        |
+| `Description`  | `string?`         | Optional explanation for the option.                              |
+| `ValueChange`  | `AIValueChange?`  | The change to apply when the option is selected (null when the option is informational only). |
+
+### AIPromptExecutionOptions
+
+{% code title="AIPromptExecutionOptions" %}
+
+```csharp
+public class AIPromptExecutionOptions
+{
+    public bool ValidateScope { get; init; } = true;
+    public Guid? ProfileIdOverride { get; init; }
+    public IReadOnlyList<Guid>? ContextIdsOverride { get; init; }
+    public IReadOnlyList<Guid>? GuardrailIdsOverride { get; init; }
+}
+```
+
+{% endcode %}
+
+| Property               | Type                       | Description                                                                                    |
+| ---------------------- | -------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ValidateScope`        | `bool`                     | Whether to enforce the prompt's scope rules before execution (default `true`).                 |
+| `ProfileIdOverride`    | `Guid?`                    | Overrides the prompt's configured profile (useful for cross-model testing).                    |
+| `ContextIdsOverride`   | `IReadOnlyList<Guid>?`     | Overrides the prompt's configured context IDs.                                                 |
+| `GuardrailIdsOverride` | `IReadOnlyList<Guid>?`     | Overrides the guardrail IDs evaluated during execution.                                        |
 
 ## Related
 

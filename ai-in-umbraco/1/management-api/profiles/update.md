@@ -10,14 +10,14 @@ Updates an existing profile with new settings.
 ## Request
 
 ```http
-PUT /umbraco/ai/management/api/v1/profile/{idOrAlias}
+PUT /umbraco/ai/management/api/v1/profiles/{profileIdOrAlias}
 ```
 
 ### Path Parameters
 
-| Parameter   | Type   | Description           |
-| ----------- | ------ | --------------------- |
-| `idOrAlias` | string | Profile GUID or alias |
+| Parameter          | Type   | Description           |
+| ------------------ | ------ | --------------------- |
+| `profileIdOrAlias` | string | Profile GUID or alias |
 
 ### Request Body
 
@@ -115,7 +115,7 @@ The `capability` cannot be changed after creation. To change capability, delete 
 {% code title="cURL" %}
 
 ```bash
-curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
+curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profiles/3fa85f64-5717-4562-b3fc-2c963f66afa6" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -142,7 +142,7 @@ curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/3fa85f64
 {% code title="cURL" %}
 
 ```bash
-curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/content-assistant" \
+curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profiles/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -163,7 +163,7 @@ curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/content-
 {% code title="cURL" %}
 
 ```bash
-curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/content-assistant" \
+curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profiles/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -189,7 +189,7 @@ curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/content-
 {% code title="cURL" %}
 
 ```bash
-curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profile/content-assistant" \
+curl -X PUT "https://your-site.com/umbraco/ai/management/api/v1/profiles/content-assistant" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{

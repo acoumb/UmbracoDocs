@@ -53,10 +53,13 @@ Create custom providers, middleware, and tools:
 {% code title="ChatController.cs" %}
 
 ```csharp
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.AI;
 using Umbraco.AI.Core.Chat;
 
-public class ChatController : UmbracoApiController
+[ApiController]
+[Route("/api/chat")]
+public class ChatController : Controller
 {
     private readonly IAIChatService _chatService;
 
@@ -77,7 +80,7 @@ public class ChatController : UmbracoApiController
             chat => chat.WithAlias("quick-chat"),
             messages);
 
-        return Ok(response.Message.Text);
+        return Ok(response.Text);
     }
 }
 ```
@@ -86,6 +89,6 @@ public class ChatController : UmbracoApiController
 
 ## Requirements
 
-- Umbraco CMS 17.0 or later
+- Umbraco CMS 17.1 or later
 - .NET 10.0 or later
 - At least one AI provider package (for example, `Umbraco.AI.OpenAI`)

@@ -5,16 +5,15 @@ description: >-
 
 # Agent Copilot
 
-The Agent Copilot add-on (`Umbraco.AI.Agent.Copilot`) provides an interactive AI assistant sidebar in the Umbraco backoffice. It requires the Agent Runtime (`Umbraco.AI.Agent`) for backend functionality.
+The Agent Copilot add-on (`Umbraco.AI.Agent.Copilot`) provides an interactive AI assistant sidebar in the Umbraco backoffice. It depends on `Umbraco.AI.Agent.UI` (shared chat components), which in turn depends on the Agent Runtime (`Umbraco.AI.Agent`).
 
 ## Installation
 
-Install both the Agent Runtime and Copilot packages:
+Install the Copilot package — `Umbraco.AI.Agent.UI` and `Umbraco.AI.Agent` are pulled in transitively:
 
 {% code title="Package Manager Console" %}
 
 ```powershell
-Install-Package Umbraco.AI.Agent
 Install-Package Umbraco.AI.Agent.Copilot
 ```
 
@@ -25,14 +24,13 @@ Or via .NET CLI:
 {% code title="Terminal" %}
 
 ```bash
-dotnet add package Umbraco.AI.Agent
 dotnet add package Umbraco.AI.Agent.Copilot
 ```
 
 {% endcode %}
 
 {% hint style="info" %}
-The `Umbraco.AI.Agent.Copilot` package depends on `Umbraco.AI.Agent` for agent definitions and streaming APIs.
+`Umbraco.AI.Agent.Copilot` depends on `Umbraco.AI.Agent.UI`, which depends on `Umbraco.AI.Agent`. Installing Copilot installs all three packages.
 {% endhint %}
 
 ## Features
@@ -46,63 +44,63 @@ The `Umbraco.AI.Agent.Copilot` package depends on `Umbraco.AI.Agent` for agent d
 
 ## Quick Start
 
-### 1. Install Both Packages
+### 1. Install the Copilot Package
 
 ```bash
-dotnet add package Umbraco.AI.Agent
 dotnet add package Umbraco.AI.Agent.Copilot
 ```
 
-### 2. Create an Agent
+### 2. Create an Agent for the Copilot Surface
 
-In the backoffice, navigate to the **AI** section > **Agents** and create an agent configured for Copilot use.
+In the backoffice, navigate to the **AI** section > **Agents** and create an agent. To make it available in the Copilot sidebar, tick **Copilot** in the agent's **Surfaces** selection.
 
-### 3. Configure Default Copilot Agent
+The Copilot surface is registered by `CopilotAgentSurface` with `SurfaceId = "copilot"`. At runtime the sidebar loads only agents whose `SurfaceIds` contains `"copilot"`. If more than one agent matches, the Copilot uses Auto mode (see [Copilot Usage](copilot.md)) to route each prompt to the most relevant agent.
 
-{% code title="Program.cs" %}
+### 3. Access the Copilot
 
-```csharp
-services.Configure<AIAgentOptions>(options =>
-{
-    options.DefaultCopilotAgentAlias = "content-assistant";
-});
-```
-
-{% endcode %}
-
-### 4. Access the Copilot
-
-The Copilot sidebar appears in the Content and Media sections. Click the **AI Assistant** button in the header to open it.
+The Copilot sidebar appears in sections that declare compatibility with it (Content and Media out of the box). Click the **AI Assistant** button in the backoffice header to toggle the sidebar.
 
 ## Package Architecture
 
 ```
 ┌───────────────────────────────────────────────────┐
 │                 Umbraco.AI.Agent                   │
-│  (Backend APIs, Agent Definitions, Streaming)     │
+│  (Backend APIs, Agent Definitions, AG-UI streaming)│
 └───────────────────────────────────────────────────┘
+                        ▲
+                        │ depends on
                         │
-                        │ uses
-                        ▼
 ┌───────────────────────────────────────────────────┐
-│            Umbraco.AI.Agent.Copilot               │
-│  (Chat UI, Tool System, HITL Approval)            │
+│               Umbraco.AI.Agent.UI                  │
+│  (Shared chat components, frontend tool manager)   │
+└───────────────────────────────────────────────────┘
+                        ▲
+                        │ depends on
+                        │
+┌───────────────────────────────────────────────────┐
+│            Umbraco.AI.Agent.Copilot                │
+│  (Sidebar, Copilot surface, example tools)         │
 └───────────────────────────────────────────────────┘
 ```
 
 The Agent package provides:
 
 - Agent CRUD operations
-- AG-UI streaming endpoints
+- AG-UI streaming endpoints (`StreamAgentAGUIAsync`)
 - Backend tool execution
 - Management API
 
+The Agent UI package provides:
+
+- Shared chat element (`<uai-chat>`)
+- Frontend tool manager and executor
+- HITL approval infrastructure and the `uaiAgentFrontendTool` / `uaiAgentToolRenderer` manifest types
+
 The Copilot package provides:
 
-- Sidebar chat interface
-- Frontend tool framework
-- HITL approval elements
-- Content context injection
+- Sidebar host and backoffice header app
+- The `copilot` agent surface (`CopilotAgentSurface`)
+- Example frontend tools
 
 ## Documentation
 

@@ -192,7 +192,9 @@ During streaming responses:
 ```csharp
 try
 {
-    var response = await chatService.GetChatResponseAsync(profileAlias, messages);
+    var response = await chatService.GetChatResponseAsync(
+        chat => chat.WithAlias("guardrail-example").WithProfile(profileAlias),
+        messages);
 }
 catch (AIGuardrailBlockedException ex)
 {
