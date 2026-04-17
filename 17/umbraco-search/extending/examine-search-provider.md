@@ -5,7 +5,7 @@ description: >-
 
 # Extending the Examine search provider
 
-The Examine search provider is built with extensibility in mind. It provides extensibility points for indexing and searching custom data formats that go beyond standard Umbraco Search data format.
+The Examine search provider is built with extensibility in mind. It provides extensibility points for indexing and searching custom data formats that go beyond the standard Umbraco Search data format.
 
 This is useful when you need to:
 
@@ -282,7 +282,7 @@ The `Searcher` class provides additional virtual methods for extending faceting 
 
 | Method | Purpose |
 |--------|---------|
-| `AddCustomFacet` | Add custom facet operations to the search query |
-| `ExtractCustomFacetResult` | Extract custom facet results from the search results |
-| `AddCustomSorter` | Handle custom sorter types |
+| `AddCustomFacet` | Add custom facet operations to the search query. |
+| `ExtractCustomFacetResult` | Extract custom facet results from the search results. |
+| `AddCustomSorter` | Handle custom sorter types. |
 
