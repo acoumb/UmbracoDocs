@@ -7,20 +7,20 @@ description: >-
 
 All content index data gathered by the [content indexers](gathering-data-with-content-indexers.md) is cached in the database. This allows for efficient index rebuilding when required.
 
-By default, the cache should be transparent to you as a developer. It is solely an optimization initiative, to limit the resources spent when rebuilding indexes.
+By default, the cache should be transparent to you as a developer. It is solely an optimization initiative to limit the resources spent when rebuilding indexes.
 
 However, if you change the implementations of custom content indexers or [property value handlers](index-values-for-property-editors.md), you might need to pay attention the cache.
 
 If those changes should be applied to already indexed content, you can either:
 
-1. Manually save and publish (if applicable) the affected content from the Umbraco backoffice, or
-2. Programmatically trigger an index refresh for the affected content, or 
-3. Programmatically flush the entire index data cache, and trigger an index rebuild - either manually or programmatically.
+* Manually save and publish (if applicable) the affected content from the Umbraco backoffice, or
+* Programmatically trigger an index refresh for the affected content, or
+* Programmatically flush the entire index data cache, and trigger an index rebuild - either manually or programmatically.
 
-The list above is ordered in magnitude of (expected) operational cost. If at all possible, use one of the first options, rather than triggering a complete cache rebuild. However, there is no decisively "wrong" approach here. It all depends on the scenario, you're facing.
+The list above is ordered in magnitude of (expected) operational cost. If at all possible, use one of the first options, rather than triggering a complete cache rebuild. However, there is no decisively "wrong" approach here. It all depends on the scenario you're facing.
 
 {% hint style="info" %}
-Some search providers (including the [default provider](../getting-started/examine-search-provider.md)) operate on a per-instance basis in a load balanced setup. Therefore, it's crucial to trigger indexing operations across all instances.
+Some search providers (including the [default provider](../getting-started/examine-search-provider.md)) operate on a per-instance basis in a load-balanced setup. Therefore, it's crucial to trigger indexing operations across all instances.
 
 The code samples below use "distributed" services to that end.
 {% endhint %}
