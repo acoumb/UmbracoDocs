@@ -12,7 +12,7 @@ While Umbraco Cloud provides database backups through the Cloud Portal, you may 
 ## Prerequisites
 
 - A project on Umbraco Cloud with access to the Cloud Portal.
-- AzCopy installed on your local machine.
+- AzCopy is installed on your local machine.
 - Access to the **Connections** page under **Configuration** in the Cloud Portal.
 
 ## Download AzCopy
@@ -21,7 +21,7 @@ While Umbraco Cloud provides database backups through the Cloud Portal, you may 
 2. Extract the binary to a directory on your local machine.
 3. Verify that AzCopy runs from the command line by running:
 
-```
+```bash
 azcopy --version
 ```
 
@@ -43,7 +43,7 @@ SAS tokens expire after a set period. Ensure the token is valid before running t
 
 Use the following AzCopy command to download the Blob Storage contents to a local directory:
 
-```
+```bash
 azcopy copy "<SAS-URL>" "C:\BlobBackup" --recursive
 ```
 
@@ -59,7 +59,7 @@ On macOS or Linux, use a path like `/Users/yourname/BlobBackup` instead.
 
 List the files in your Blob Storage container using the following command:
 
-```
+```bash
 azcopy list "<SAS-URL>"
 ```
 
@@ -69,7 +69,7 @@ Compare the output with the contents of your local backup directory to confirm t
 
 You can also copy the Blob Storage contents to another Azure Storage account. Use the following command:
 
-```
+```bash
 azcopy copy "<Source-SAS-URL>" "<Destination-SAS-URL>" --recursive
 ```
 
@@ -81,7 +81,7 @@ azcopy copy "<Source-SAS-URL>" "<Destination-SAS-URL>" --recursive
 
 If you need to restore the Blob Storage from a local backup, use the following command:
 
-```
+```bash
 azcopy copy "C:\BlobBackup\*" "<SAS-URL>" --recursive
 ```
 
