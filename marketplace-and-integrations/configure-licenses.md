@@ -92,7 +92,7 @@ You can verify that your license is successfully installed by logging into your 
 2. Look for the **Licenses** dashboard.
 3. Verify the license status displayed on the dashboard.
 
-<img width="1899" height="340" alt="license-dashboard" src="https://github.com/user-attachments/assets/8b5f848a-74d9-4800-8a2e-53fcfa69e458" />
+![The Content dashboard showing three published pages](.gitbook/assets/license-dashboard.png)
 
 The dashboard will show the status of all installed commercial product licenses.
 
