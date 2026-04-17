@@ -31,7 +31,7 @@ interface MetaSearchIndexDetailBox {
 ```
 
 - `label` - The box heading. Supports localization keys (for example `#myPackage_myLabel`).
-- `column` - Which column to place the box in. `'left'` places it in the main content column; omitting or setting `'right'` places it in the sidebar column.
+- `column` - Which column to place the box in. Use `'left'` to place it in the main content column, or omit or use `'right'` to place it in the sidebar column.
 
 ### Registering a detail box manifest
 
@@ -102,14 +102,14 @@ The `UMB_SEARCH_WORKSPACE_CONTEXT` provides the following observables and method
 
 | Property / Method | Type | Description |
 |-------------------|------|-------------|
-| `documentCount` | Observable | Number of documents in the index |
-| `healthStatus` | Observable | Current health status string |
-| `state` | Observable | UI state (`'idle'`, `'loading'`, `'error'`) |
-| `selectedCulture` | Observable | Currently selected culture |
-| `getUnique()` | Method | Returns the index alias |
-| `getSelectedCulture()` | Method | Returns the current culture string |
-| `setSelectedCulture(culture)` | Method | Sets the selected culture |
-| `setState(state)` | Method | Sets the UI state |
+| `documentCount` | Observable | Number of documents in the index. |
+| `healthStatus` | Observable | Current health status string. |
+| `state` | Observable | UI state (`'idle'`, `'loading'`, `'error'`). |
+| `selectedCulture` | Observable | Currently selected culture. |
+| `getUnique()` | Method | Returns the index alias. |
+| `getSelectedCulture()` | Method | Returns the current culture string. |
+| `setSelectedCulture(culture)` | Method | Sets the selected culture. |
+| `setState(state)` | Method | Sets the UI state. |
 
 ### Two-column layout
 
@@ -121,7 +121,9 @@ The detail view renders two columns:
 ## Adding an entity action to search documents
 
 {% hint style="info" %}
-`entityAction` is a standard Umbraco extension type. See the [official Umbraco documentation](https://docs.umbraco.com/umbraco-cms/customizing/extending-overview/extension-types/entity-actions) for the full API. This section covers what is specific to Umbraco Search.
+`entityAction` is a standard Umbraco extension type. This section covers what is specific to Umbraco Search.
+
+See the [official Umbraco documentation](https://docs.umbraco.com/umbraco-cms/customizing/extending-overview/extension-types/entity-actions) for the full API. 
 {% endhint %}
 
 ### Search entity types
@@ -130,8 +132,8 @@ Umbraco Search defines two entity types for entity actions:
 
 | Entity type | Constant | Used for                                         |
 |-------------|----------|--------------------------------------------------|
-| `search-document` | `UMB_SEARCH_DOCUMENT_ENTITY_TYPE` | Per-document actions in the search results table |
-| `search-index` | `UMB_SEARCH_INDEX_ENTITY_TYPE` | Per-index actions (for example Rebuild Index)    |
+| `search-document` | `UMB_SEARCH_DOCUMENT_ENTITY_TYPE` | Per-document actions in the search results table. |
+| `search-index` | `UMB_SEARCH_INDEX_ENTITY_TYPE` | Per-index actions (for example, Rebuild Index).  |
 
 These constants are exported from `@umbraco-cms/search/global`.
 
@@ -213,7 +215,9 @@ The Examine provider's "Show Fields" action ([`show-fields.entity-action.ts`](ht
 ## Adding a workspace view to the search workspace
 
 {% hint style="info" %}
-`workspaceView` is a standard Umbraco extension type. See the [official Umbraco documentation](https://docs.umbraco.com/umbraco-cms) for the full API. This section covers what is specific to Umbraco Search.
+`workspaceView` is a standard Umbraco extension type. This section covers what is specific to Umbraco Search.
+
+See the [official Umbraco documentation](https://docs.umbraco.com/umbraco-cms) for the full API.
 {% endhint %}
 
 A workspace view adds an entirely new tab to the search workspace. Use this when you need a full-page view rather than a box within the existing "Details" tab.
@@ -282,13 +286,13 @@ export class MyAnalyticsViewElement extends UmbLitElement {
 
 | Aspect | Workspace View | Detail Box |
 |--------|---------------|------------|
-| Appears as | A new tab in the workspace | A box within the "Details" tab |
-| Extension type | `workspaceView` | `searchIndexDetailBox` |
-| Use when | You need a full-page layout | You need a compact summary widget |
+| Appears as | A new tab in the workspace | A box within the "Details" tab. |
+| Extension type | `workspaceView` | `searchIndexDetailBox`. |
+| Use when | You need a full-page layout | You need a compact summary widget. |
 
 ## Routable modals
 
-For provider developers who need deep-linkable modals (for example viewing detailed document information), Umbraco Search supports a routable modal pattern. This uses a non-visual `searchIndexDetailBox` as a route registration host, combined with an entity action that provides navigable URLs.
+For provider developers who need deep-linkable modals (for example, viewing detailed document information), Umbraco Search supports a routable modal pattern. This uses a non-visual `searchIndexDetailBox` as a route registration host, combined with an entity action that provides navigable URLs.
 
 ### The three pieces
 
@@ -377,7 +381,7 @@ export const manifests: Array<UmbExtensionManifest> = [
 ];
 ```
 
-The route provider is registered as a `searchIndexDetailBox` so it loads inside the detail view, where it has access to the workspace context.
+The route provider is registered as a `searchIndexDetailBox`, so it loads inside the detail view, where it has access to the workspace context.
 
 #### 3. Entity action with `getHref()`
 
@@ -409,7 +413,7 @@ The entity action imports `myRouteBuilder` directly from the route provider modu
 
 ### Why this pattern?
 
-- **Deep linking**: Modal URLs include parameters, so users can bookmark or share links directly to a document's detail view.
+- **Deep linking**: Modal URLs include parameters, allowing users to bookmark or share links directly to a document's detail view.
 - **Module-level route builder**: The route builder is exported at module level (not via a context or event bus) because the entity action and route provider are always loaded together as part of the same bundle. This is the simplest way to share the builder.
 - **Non-visual `searchIndexDetailBox`**: Registering the route provider as a detail box ensures it loads inside the workspace context, where it has access to the index alias via `UMB_ENTITY_WORKSPACE_CONTEXT`.
 
@@ -465,7 +469,6 @@ To import from `@umbraco-cms/search/settings` (for example `UMB_SEARCH_WORKSPACE
 }
 ```
 
-Both `settings` and `global` paths are required because `settings` depends on `global` transitively. Adjust the relative paths to match your project layout.
+Both `settings` and `global` paths are required because `settings` depend on `global` transitively. Adjust the relative paths to match your project layout.
 
 At build time, Vite externalizes `@umbraco-cms/*` imports (they are not bundled). At runtime, the browser resolves them via the Core Client's importmap.
-
