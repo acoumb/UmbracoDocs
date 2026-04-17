@@ -5,13 +5,13 @@ description: >-
 
 # Indexing and searching data from other sources
 
-Umbraco Search is built for handling Umbraco content (documents, media and members). However, it is entirely possible to use Umbraco Search for other kinds of data as well.
+Umbraco Search is built for handling Umbraco content (documents, media, and members). However, it is entirely possible to use Umbraco Search for other kinds of data as well.
 
 This article explores how to index and search for bespoke data.
 
 {% hint style="info" %}
 
-If your site does not own the data, please consider if your site should really be responsible for searching the data. Perhaps that responsibility would be better placed at the data source.
+If your site does not own the data, please consider whether your site should really be responsible for searching the data. Perhaps that responsibility would be better placed at the data source.
 
 {% endhint %}
 
@@ -25,7 +25,7 @@ If you need management UI for index maintenance (for example, rebuilding the ind
 
 ## Example: A collection of books
 
-The following example illustrates how to use Umbraco Search with a `Book` entity which looks like this:
+The following example illustrates how to use Umbraco Search with a `Book` entity, which looks like this:
 
 {% code title="Book.cs" %}
 ```csharp
@@ -130,7 +130,7 @@ public class MyComposer : IComposer
 }
 ```
 
-Also keep in mind that additional, field level configuration may be needed to suit your search requirements. See the [Examine search provider](../getting-started/examine-search-provider.md) documentation for details.
+Also, keep in mind that additional field-level configuration may be needed to suit your search requirements. See the [Examine search provider](../getting-started/examine-search-provider.md) documentation for details.
 {% endhint %}
 
 ### The `ISearcher`
