@@ -2,8 +2,6 @@
 description: >-
   Umbraco.AI is a provider-agnostic AI integration layer for Umbraco CMS, built
   on Microsoft.Extensions.AI.
-tags:
-  - generated-by-ai
 ---
 
 # AI in Umbraco
