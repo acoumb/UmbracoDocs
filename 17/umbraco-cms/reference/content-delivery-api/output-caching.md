@@ -16,7 +16,7 @@ This article covers output caching for the Content Delivery API. For output cach
 
 Output caching is designed to increase performance. While the Delivery API is performant on its own, output caching takes the performance to another level.
 
-Another aspect to consider is the overall server load. Uncached requests require more processing time than cached requests. For high traffic sites, even a short-lived output cache makes a significant difference in the server load. This can result in a lesser need to scale instances, and thus a greener footprint for the site.
+Another aspect to consider is the overall server load. Uncached requests require more processing time than cached requests. For high-traffic sites, even a short-lived output cache makes a significant difference in the server load. This can result in a lesser need to scale instances, and thus a greener footprint for the site.
 
 However, output caching does come with trade-offs:
 
@@ -94,7 +94,7 @@ These tags enable eviction at multiple levels:
 
 ## Load balancing considerations
 
-The default output caching mechanism is based on the individual server instance memory. When hosting in a load balanced environment, the memory cache is not synchronized across instances.
+The default output caching mechanism is based on the individual server instance's memory. When hosting in a load-balanced environment, the memory cache is not synchronized across instances.
 
 Instead, use a distributed caching solution like Redis cache. Starting with .NET 8, Microsoft supports output caching with Redis cache as backing store. Read more in the [Microsoft documentation on Redis output cache](https://learn.microsoft.com/en-us/aspnet/core/performance/caching/output#redis-cache).
 
@@ -187,7 +187,7 @@ public class SkipContactCachingFilter : DefaultDeliveryApiOutputCacheRequestFilt
 
 ### Custom cache tags and eviction
 
-**Interfaces:** `IDeliveryApiOutputCacheTagProvider` and `IDeliveryApiOutputCacheEvictionProvider`
+**Interfaces:** `IDeliveryApiOutputCacheTagProvider` and `IDeliveryApiOutputCacheEvictionProvider`.
 **Registration:** Multiple — add with `builder.Services.AddSingleton<>()`. Multiple providers of each type are additive.
 
 These two interfaces work as a pair to support cross-content eviction scenarios:
@@ -391,4 +391,4 @@ If you experience performance issues while querying the Delivery API, your first
 - An inexpedient content architecture.
 - ...or something else entirely.
 
-Hiding such problems behind output caching should only ever be considered as a short-term solution. In the long run it will not be a sustainable fix.
+Hiding such problems behind output caching should only ever be considered as a short-term solution. In the long run, it will not be a sustainable fix.
