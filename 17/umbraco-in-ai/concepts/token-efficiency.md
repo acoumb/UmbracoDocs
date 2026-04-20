@@ -8,7 +8,7 @@ Token efficiency is the practice of controlling how many tokens your agent sends
 
 ## Why Tokens Accumulate in Agent Sessions
 
-LLMs are stateless. When you work with an agent, the full session context is sent to the LLM on every interaction. This includes message history, tool definitions, and injected system data.
+LLMs are stateless. When you work with an agent, the agent sends the full session context to the LLM. The full session context includes message history, tool definitions, and injected system data.
 
 For more on why context composition matters, see [Context Engineering](context-engineering.md).
 
