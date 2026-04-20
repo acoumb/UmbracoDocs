@@ -83,17 +83,17 @@ Downgrading your plan is handled through the same **Change Plan** interface. How
 
 Before downgrading, review the following rules:
 
-**Hard Block — Too Many Environments**
+* **Hard Block — Too Many Environments**
 
 If your project has more environments than the target plan supports, the downgrade is blocked entirely. Remove environments until your project meets the target plan's environment limit, then retry the downgrade.
 
 Example message: "Your project has 4 environments but this plan only supports up to 3. Please remove 1 environment before downgrading."
 
-**Warning — Losing Dedicated Resources**
+* **Warning — Losing Dedicated Resources**
 
 If you're downgrading from dedicated to shared hosting, you'll see a warning that your dedicated resources will switch to shared hosting.
 
-**Warning — Extra Environment Costs**
+* **Warning — Extra Environment Costs**
 
 If your project has paid extra environments beyond the plan's included count, you'll see a warning about additional monthly costs.
 
