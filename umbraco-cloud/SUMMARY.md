@@ -39,7 +39,7 @@
     * [Config Transforms](build-and-customize-your-solution/set-up-your-project/project-settings/config-transforms.md)
     * [Best Practice for Working in Teams](build-and-customize-your-solution/set-up-your-project/project-settings/team-workflow-on-cloud.md)
     * [Dedicated Resources](build-and-customize-your-solution/set-up-your-project/project-settings/dedicated-resources.md)
-    * [Upgrade your Plan](build-and-customize-your-solution/set-up-your-project/project-settings/upgrade-your-plan.md)
+    * [Change your Plan](build-and-customize-your-solution/set-up-your-project/project-settings/change-your-plan.md)
     * [SMTP Settings](build-and-customize-your-solution/set-up-your-project/project-settings/smtp-settings.md)
     * [Proactive Auto-Heal](build-and-customize-your-solution/set-up-your-project/project-settings/proactive-auto-heal.md)
     * [Application Settings](build-and-customize-your-solution/set-up-your-project/project-settings/application-settings.md)
