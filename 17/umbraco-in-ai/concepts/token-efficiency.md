@@ -27,5 +27,7 @@ Platforms without active context management require you to configure which tools
 For the Umbraco MCP Server SDK, see [Tool Filtering](../mcp/base-mcp/sdk/tool-filtering.md) for the full list of filtering options.
 
 {% hint style="warning" %}
-If your platform does not manage context and you do not filter tools, token usage grows quickly. Costs rise and subscription limits are reached sooner. Managing context and tools well is critical to efficient agent use.
+If your platform does not manage context and you do not filter tools, token usage grows quickly. Costs rise and subscription limits are reached sooner.
 {% endhint %}
+
+Active context management and manual tool filtering are the most effective ways to control how many tokens your session consumes. Applying one or both is the reliable path to efficient token use and predictable agent output.
