@@ -152,7 +152,7 @@ Even with limited user permissions, the scope and power of LLM-driven actions ma
 
 Your first step after setup should be deciding which tools you want to enable. All tools are grouped into collections for easier management and isolation. [Learn more about Tool Collections](available-tools.md).
 
-Choosing the right tools improves how efficiently the AI communicates with Umbraco, making each conversation faster and more context-aware. Learn more about [Context Engineering](../../concepts/context-enginerring.md).
+Choosing the right tools improves how efficiently the AI communicates with Umbraco, making each conversation faster and more context-aware. Learn more about [Context Engineering](../../concepts/context-engineering.md).
 
 ### Using `npx`?
 

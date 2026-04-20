@@ -5,7 +5,7 @@
 ## Concepts
 
 * [Model Context Protocol (MCP)](concepts/model-context-protocol.md)
-* [Context Engineering](concepts/context-enginerring.md)
+* [Context Engineering](concepts/context-engineering.md)
 * [Token Efficiency](concepts/token-efficiency.md)
 * [Agent Skills](concepts/agent-skills.md)
 

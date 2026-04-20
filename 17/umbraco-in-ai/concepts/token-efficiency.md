@@ -10,7 +10,7 @@ Token efficiency is the practice of controlling how many tokens your agent sends
 
 LLMs are stateless. When you work with an agent, the full session context is sent to the LLM on every interaction. This includes message history, tool definitions, and injected system data.
 
-For more on why context composition matters, see [Context Engineering](context-enginerring.md).
+For more on why context composition matters, see [Context Engineering](context-engineering.md).
 
 Each tool added to an MCP server contributes to this context. By default, every registered tool adds its schema, description, and metadata to every request. A large tool set inflates token usage and drives up cost.
 
