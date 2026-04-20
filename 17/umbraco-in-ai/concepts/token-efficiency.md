@@ -18,7 +18,7 @@ Each tool added to an MCP server contributes to this context. By default, every 
 
 Some platforms address this problem with active context management. The platform loads only the tools needed for the current task, rather than all registered tools.
 
-Claude Code applies this pattern with its MCP tool search feature. The agent queries the search to find tools relevant to the current task, then loads only those tools into the active context.
+Claude Code applies this pattern with its MCP tool search feature. The agent queries to find tools relevant to the current task, then loads only those tools into the active context.
 
 ## Manual Tool Management
 
