@@ -27,14 +27,14 @@ You can also refer to the tutorial [Custom Views for Block List](../../../tutori
   "name": "My.CustomViewPackage",
   "version": "0.1.0",
   "extensions": [
-    {
-      "type": "blockEditorCustomView",
-      "alias": "my.blockEditorCustomView.Example",
-      "name": "My Example Custom View",
-      "element": "/App_Plugins/block-custom-view/dist/example-block-custom-view.js",
-      "forContentTypeAlias": "myElementTypeAlias", // insert element type alias here
-      "forBlockEditor": "block-list" // insert block type(s) here
-    }
+	{
+	  "type": "blockEditorCustomView",
+	  "alias": "my.blockEditorCustomView.Example",
+	  "name": "My Example Custom View",
+	  "element": "/App_Plugins/block-custom-view/dist/example-block-custom-view.js",
+	  "forContentTypeAlias": "myElementTypeAlias", // insert element type alias here
+	  "forBlockEditor": "block-list" // insert block type(s) here
+	}
   ]
 }
 ```
