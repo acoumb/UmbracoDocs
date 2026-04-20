@@ -153,7 +153,7 @@ Once you commit your code in the Umbraco Cloud Git repository, your C# source co
 {% tab title="Legacy Umbraco 7 and 8" %}
 **Code Deployment Summary**
 
-<figure><img src="../../.gitbook/assets/UCP_v8 (1).png" alt=""><figcaption><p>Umbraco cloud overview Legacy versions</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/UCP_v8.png" alt=""><figcaption><p>Umbraco cloud overview Legacy versions</p></figcaption></figure>
 
 In the above diagram, the external git repository contains the source code of a class library CS project with a class library project.
 
