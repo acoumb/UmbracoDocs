@@ -23,8 +23,6 @@ You will find relevant examples using `Curl` and `Powershell` in the sections be
 
 To authenticate with the Umbraco Cloud API, you'll need your Project ID and API Key. These credentials can be found under **Configuration > CI/CD Flow** in the Umbraco Cloud portal.
 
-![Umbraco CI/CD Flow](../../../.gitbook/assets/Advanced-Section.png)
-
 The two elements to be used for the authentication are:
 
 * **Cloud Project ID**: The ID of your Umbraco project.

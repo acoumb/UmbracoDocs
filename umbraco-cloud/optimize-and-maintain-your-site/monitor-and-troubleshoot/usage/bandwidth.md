@@ -22,3 +22,4 @@ To avoid upgrades to higher Umbraco Cloud Tiers and improve performance, conside
 
 * **Optimize Images**: Compress images and use modern formats like WebP to reduce their size without losing quality.
 * **Cache Static Content**: Leverage caching mechanisms to reduce the number of times static assets (like images, CSS, and JavaScript) are requested from the server. You can control your caching configuration here.
+* **Video Files**: Host videos on a dedicated platform such as [Vimeo](https://vimeo.com) or [YouTube](https://youtube.com) and embed them using an `<iframe>`. This means video playback is streamed from the external platform's infrastructure.

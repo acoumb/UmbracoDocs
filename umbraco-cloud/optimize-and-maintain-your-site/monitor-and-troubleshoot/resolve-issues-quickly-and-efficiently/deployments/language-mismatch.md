@@ -10,7 +10,7 @@ This error occurs when a language is deleted from the backoffice after you have 
 
 The issue will show up as an extraction error on your Umbraco Cloud environment with a red indicator.
 
-<figure><img src="../../../../.gitbook/assets/image (54) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
 
 Upon closer inspection, a more detailed error will reveal itself: `Languages in source and destination site do not match.`
 
