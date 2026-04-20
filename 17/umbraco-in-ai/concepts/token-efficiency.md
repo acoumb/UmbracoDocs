@@ -22,7 +22,7 @@ Claude Code applies this pattern with its tool search feature. The agent queries
 
 ## Manual Tool Management
 
-Platforms without active context management require you to configure which tools are exposed to the agent. You do this through environment variables when starting the MCP server.
+If your platform does not offer active context management, you must manually engineer the context to get the most efficient session. You do this through environment variables when starting the MCP server, choosing which tools are exposed to the agent.
 
 For the Umbraco MCP Server SDK, see [Tool Filtering](../mcp/base-mcp/sdk/tool-filtering.md) for the full list of filtering options.
 
