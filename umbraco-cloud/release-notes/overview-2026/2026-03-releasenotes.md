@@ -9,7 +9,7 @@
 * **Start and stop environments** - You can now start and stop your Cloud environments directly from the project overview, giving you more control over your hosting resources.
 * **Release Umbraco.Cloud.Cms 17.1.0** - Preparation for the upcoming Load Balancing feature.
 * **Proactive Auto-Heal toggle for Dedicated plans** - Projects on a Dedicated plan can now disable Proactive Auto-Heal. This prevents automatic restarts during high-resource workloads such as content imports, index rebuilds, and schema migrations.
-* **Downgrade plan from UI** - The "Change plan" feature now supports both upgrades and downgrades for all admin users with self-service plan changes, including environment limit validation and downgrade warnings.
+* **Downgrade plan Support** - The "Change plan" feature now supports both upgrades and downgrades for all admin users with self-service plan changes, including environment limit validation and downgrade warnings.
 
 ## Show Windows event logs on the log page
 
@@ -74,7 +74,7 @@ With this release, Dedicated plan customers have full control over whether Proac
 
 For more details, see the [Proactive Auto-Heal](../../build-and-customize-your-solution/set-up-your-project/project-settings/proactive-auto-heal.md) documentation.
 
-## Downgrade plan from UI
+## Downgrade plan Support
 
 The "Upgrade project" feature has been renamed to "Change plan" and now supports both upgrades and downgrades. All admin users can change plans via the Cloud Portal with a self-service flow.
 
