@@ -72,4 +72,4 @@ Each Umbraco Cloud plan supports a specific number of included environments. You
 | Professional | 3 |
 | Enterprise | 3 |
 
-Heartcore does not support extra environments. If your project has more environments than the target plan allows, downgrades are blocked until you remove environments.
+If your project has more environments than the target plan allows, downgrades are blocked until you remove environments.
