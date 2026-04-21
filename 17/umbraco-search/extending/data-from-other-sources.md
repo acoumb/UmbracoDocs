@@ -1,18 +1,15 @@
-﻿---
-description: >-
-  Indexing and searching data that does not originate from Umbraco
+---
+description: Learn how to Index and search data that does not originate from Umbraco.
 ---
 
-# Indexing and searching data from other sources
+# Using other sources
 
 Umbraco Search is built for handling Umbraco content (documents, media, and members). However, it is entirely possible to use Umbraco Search for other kinds of data as well.
 
 This article explores how to index and search for bespoke data.
 
 {% hint style="info" %}
-
 If your site does not own the data, please consider whether your site should really be responsible for searching the data. Perhaps that responsibility would be better placed at the data source.
-
 {% endhint %}
 
 ## You are in control

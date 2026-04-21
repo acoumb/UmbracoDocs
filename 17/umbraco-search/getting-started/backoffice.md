@@ -1,9 +1,8 @@
-﻿---
-description: >-
-  A guide for interacting with Umbraco Search in the Umbraco backoffice
+---
+description: A guide for interacting with Umbraco Search in the Umbraco backoffice
 ---
 
-# The backoffice
+# The Backoffice
 
 Umbraco Search adds a Search section to the Umbraco backoffice, providing tools for inspecting and managing search indexes.
 
@@ -15,11 +14,7 @@ The Search section is available to users with access to the Settings section in 
 
 The root view displays a table of all registered search indexes. Each row shows:
 
-| Column | Description                                                                                      |
-|--------|--------------------------------------------------------------------------------------------------|
-| **Alias** | The index alias (for example `Umb_PublishedContent`, `Umb_Content`, `Umb_Media`, `Umb_Members`) |
-| **Health** | The current health status of the index                                                           |
-| **Documents** | The number of documents currently in the index                                                   |
+<table><thead><tr><th width="261.390625">Column</th><th>Description</th></tr></thead><tbody><tr><td><strong>Alias</strong></td><td>The index alias (for example <code>Umb_PublishedContent</code>, <code>Umb_Content</code>, <code>Umb_Media</code>, <code>Umb_Members</code>)</td></tr><tr><td><strong>Health</strong></td><td>The current health status of the index</td></tr><tr><td><strong>Documents</strong></td><td>The number of documents currently in the index</td></tr></tbody></table>
 
 Each row also has an entity action dropdown for per-index operations like rebuilding.
 
@@ -27,8 +22,8 @@ Each row also has an entity action dropdown for per-index operations like rebuil
 
 Click an index row to open its detail view. The detail view uses a two-column layout with extensible boxes:
 
-- **Left column**: The search box for testing queries against the index.
-- **Right column**: The stats box showing the index alias, document count, and health status.
+* **Left column**: The search box for testing queries against the index.
+* **Right column**: The stats box showing the index alias, document count, and health status.
 
 Search providers can add additional boxes to either column. See [Extending the search backoffice](../extending/backoffice-extensions.md) for more information.
 
@@ -48,12 +43,12 @@ For multilingual sites, a set of culture tabs appears above the search box. Sele
 
 Each result row displays:
 
-| Column | Description |
-|--------|-------------|
+| Column          | Description                                               |
+| --------------- | --------------------------------------------------------- |
 | **Document ID** | The content key (clickable link to open the content item) |
-| **Name** | The document name |
-| **Object type** | The content type (for example "Document", "Media") |
-| **Score** | The relevance score for the search query |
+| **Name**        | The document name                                         |
+| **Object type** | The content type (for example "Document", "Media")        |
+| **Score**       | The relevance score for the search query                  |
 
 An entity action dropdown on each row provides per-document actions. The available actions depend on which search providers are installed. For example, the Examine provider adds a "Show Fields" action.
 
@@ -61,12 +56,12 @@ An entity action dropdown on each row provides per-document actions. The availab
 
 Each index reports a health status:
 
-| Status | Meaning |
-|--------|---------|
-| **Healthy** | The index is operational and up to date |
-| **Rebuilding** | The index is currently being rebuilt |
-| **Empty** | The index contains no documents |
-| **Corrupted** | The index is in a bad state and needs rebuilding |
+| Status         | Meaning                                          |
+| -------------- | ------------------------------------------------ |
+| **Healthy**    | The index is operational and up to date          |
+| **Rebuilding** | The index is currently being rebuilt             |
+| **Empty**      | The index contains no documents                  |
+| **Corrupted**  | The index is in a bad state and needs rebuilding |
 
 ## Rebuilding an index
 
@@ -76,6 +71,7 @@ To rebuild an index:
 2. **From the detail view**: Click the entity action dropdown in the workspace header and select "Rebuild Index".
 
 During a rebuild:
-- The detail view shows a loading indicator.
-- The collection view shows a "Rebuilding" health status for the index.
-- When the rebuild completes, the server sends a notification via SignalR and the UI updates automatically.
+
+* The detail view shows a loading indicator.
+* The collection view shows a "Rebuilding" health status for the index.
+* When the rebuild completes, the server sends a notification via SignalR, and the UI updates automatically.

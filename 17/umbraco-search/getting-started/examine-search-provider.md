@@ -1,13 +1,12 @@
-﻿---
-description: >-
-  How to configure the Examine search provider
+---
+description: How to configure the Examine search provider
 ---
 
-# The Examine search provider
+# The Examine Search Provider
 
-Umbraco Search uses a provider based approach to the underlying search technology. The default search provider is powered by [Examine](https://github.com/Shazwazza/Examine).
+Umbraco Search uses a provider-based approach to the underlying search technology. The default search provider is powered by [Examine](https://github.com/Shazwazza/Examine).
 
-In this article you'll learn how to configure the Examine search provider, so it produces the results you're expecting.
+In this article, you'll learn how to configure the Examine search provider to produce the results you're expecting.
 
 {% hint style="info" %}
 This article _only_ applies to the default Examine search provider. Alternative search providers might be available, and they might require a different configuration.
@@ -17,7 +16,7 @@ This article _only_ applies to the default Examine search provider. Alternative 
 
 Fields that will be used for faceting and/or sorting must be explicitly configured for the Examine search provider. This is done by configuring the `FieldOptions` using the options pattern, and _must_ be done prior to indexing any content.
 
-The field configuration is a mapping between the Umbraco property aliases that hold the values, and the expected field index type of those properties. For example, the `genre` and `releaseYear` fields used throughout this article should be configured like this:
+The field configuration is a mapping between the Umbraco property aliases that hold the values and the expected field index type of those properties. For example, the `genre` and `releaseYear` fields used throughout this article should be configured like this:
 
 {% code title="FieldOptionsComposer.cs" %}
 ```csharp
@@ -86,9 +85,9 @@ public class SearcherOptionsComposer : IComposer
 
 Certain Umbraco properties yield different textual relevance values. The Examine search provider automatically performs relevance boosting accordingly, but the boost levels can be tweaked if required. Use:
 
-- `SearcherOptions.BoostFactorTextR1` to control the relevance of highest relevance text (for example document names and H1 tags).
-- `SearcherOptions.BoostFactorTextR2` to control the relevance of second-highest relevance text (for example H2 tags).
-- `SearcherOptions.BoostFactorTextR3` to control the relevance of third-highest relevance text (for example H3 tags).
+* `SearcherOptions.BoostFactorTextR1` to control the relevance of the highest relevance text (for example, document names and H1 tags).
+* `SearcherOptions.BoostFactorTextR2` to control the relevance of the second-highest relevance text (for example, H2 tags).
+* `SearcherOptions.BoostFactorTextR3` to control the relevance of the third-highest relevance text (for example, H3 tags).
 
 See also the [built-in property editors](built-in-property-editors.md) article.
 
@@ -103,9 +102,7 @@ The default behavior for facet results is to _exclude_ the facet values that are
 If all (applicable) facet values should be _included_ for all groups in the search result, configure `SearcherOptions.ExpandFacetValues` as `true`.
 
 {% hint style="warning" %}
-
 This incurs a performance penalty, which is linear to the number of active facet groups in the query.
-
 {% endhint %}
 
 ### Max facet values
@@ -116,9 +113,9 @@ The Examine search provider limits the number of resulting facet values within a
 
 The default Examine indexes from Umbraco CMS are no longer in use, if Umbraco Search powers all things search - that is:
 
-- Frontend search.
-- Backoffice search.
-- The Delivery API (if applicable on your site).
+* Frontend search.
+* Backoffice search.
+* The Delivery API (if applicable on your site).
 
 However, Umbraco CMS continues to keep them up-to-date with content changes. Since this is a waste of server resources, the default Examine indexes can be explicitly disabled by means of composition:
 

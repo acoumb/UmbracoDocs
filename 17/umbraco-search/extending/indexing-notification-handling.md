@@ -1,9 +1,10 @@
-﻿---
+---
 description: >-
-  Describes the notification system of Umbraco Search and how to interact with it as a developer
+  Describes the notification system of Umbraco Search and how to interact with
+  it as a developer
 ---
 
-# Indexing notification handling
+# Indexing Notification Handling
 
 Before content is pushed to any content index, Umbraco Search fires the `ContentIndexingNotification`. This notification lets you manipulate the data going into an index, or entirely prevent it from being indexed.
 
@@ -13,13 +14,13 @@ The `ContentIndexingNotification` fires for _all_ content index updates, and the
 
 If a notification handler performs expensive operations, this can introduce a large performance overhead. Consider creating [content indexers](gathering-data-with-content-indexers.md) for tasks like:
 
-- Complex value calculation.
-- Content look-ups, for example through the published cache.
-- Out-of-process operations, including database lookups and external service calls.
+* Complex value calculation.
+* Content look-ups, for example, through the published cache.
+* Out-of-process operations, including database lookups and external service calls.
 
 ## Manipulating data going into an index
 
-The notification contains a `Fields` collection with the fields aggregated from all the [content indexers](gathering-data-with-content-indexers.md). These fields can be manipulated by the notification handler.
+The notification contains a `Fields` collection of fields aggregated from all the [content indexers](gathering-data-with-content-indexers.md). These fields can be manipulated by the notification handler.
 
 {% hint style="warning" %}
 Be careful if you change or remove any of the [system fields](../getting-started/system-fields.md), as this might corrupt the index.
@@ -27,7 +28,7 @@ Be careful if you change or remove any of the [system fields](../getting-started
 
 In the following example, the content being indexed might contain a `length` field. This is a radio button list property, and thus it [produces keywords](../getting-started/built-in-property-editors.md) for filtering and faceting.
 
-Keywords are not available for full text querying by default. You can use a notification handler to amend this for the `length` field:
+Keywords are not available for full-text querying by default. You can use a notification handler to amend this for the `length` field:
 
 {% code title="MakeLengthSearchableNotificationHandler.cs" %}
 ```csharp
@@ -75,7 +76,7 @@ public class MakeLengthSearchableNotificationHandler
 {% hint style="info" %}
 The example works if you need to target a specific property value (the `length` property in this case).
 
-If you want to change the indexing of _all_ property values for a given property editor, use a [property value handler](index-values-for-property-editors.md) instead. 
+If you want to change the indexing of _all_ property values for a given property editor, use a [property value handler](index-values-for-property-editors.md) instead.
 {% endhint %}
 
 ## Preventing content from being indexed

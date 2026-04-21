@@ -1,19 +1,20 @@
-﻿---
+---
 description: >-
-  How to provide index values for Umbraco Search, and how to replace the built-in values
+  How to provide index values for Umbraco Search, and how to replace the
+  built-in values
 ---
 
-# Index values for property editors
+# Index Values: Property Editors
 
-In the world of search, a full-text searchable string behaves a lot differently than a keyword for filtering. Integer and decimals values also have their own special traits, and dates add yet another layer of complexity.
+In the world of search, a full-text searchable string behaves a lot differently than a keyword for filtering. Integer and decimal values also have their own special traits, and dates add yet another layer of complexity.
 
 To understand the intent of the Umbraco property editor values, Umbraco Search employs a concept called _property value handlers_.
 
 ## The property value handler
 
-A property value handler for search is analogue to a property value converter for rendering. With one crucial exception: If a property editor does _not_ supply a property value handler, properties of that type will be skipped when indexing.
+A property value handler for search is analogous to a property value converter for rendering. With one crucial exception: If a property editor does _not_ supply a property value handler, properties of that type will be skipped when indexing.
 
-In other words: If you have built a custom property editor that should supply index values, you must create a property value handler for it.
+If you have built a custom property editor that should supply index values, you must create a property value handler for it.
 
 The property value handler is created by implementing the `IPropertyValueHandler` interface:
 
@@ -69,7 +70,7 @@ Umbraco Search automatically detects property value handlers, so you do not need
 
 You can change this by replacing the default property value handlers you require to work differently.
 
-The following example makes the radio button list produce _both_ searchable `Texts` _and_ `Keywords` for filtering and faceting:  
+The following example makes the radio button list produce _both_ searchable `Texts` _and_ `Keywords` for filtering and faceting:
 
 {% code title="MyRadioButtonListPropertyValueHandler.cs" %}
 ```csharp
@@ -114,4 +115,4 @@ The property value handlers are invoked when the [content indexers](gathering-da
 
 Effectively, this means any changes to property value handlers won't be reflected in an index rebuild. Only explicit reindexing of single content items will trigger content gathering again.
 
-You can read more about the index value cache and how to work with it in [this article](database-cache-for-index-values.md).
+You can read more about the index value cache and how to work with it in [the Database Cache for Index Values article](database-cache-for-index-values.md).

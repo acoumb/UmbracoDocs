@@ -1,29 +1,28 @@
-﻿---
-description: >-
-  Getting started on searching with Umbraco Search
+---
+description: Getting started on searching with Umbraco Search
 ---
 
-# Getting started with Umbraco Search
+# Getting Started
 
-The fundamental purpose of Umbraco Search is to build search experience. The `ISearcher` interface is your main entry point for searching.
+The fundamental purpose of Umbraco Search is to build a search experience. The `ISearcher` interface is your main entry point for searching.
 
-`ISearcher` features multiple different approaches to search, all of which you can combine into single queries. Each of these are described below.
+`ISearcher` features multiple different approaches to search, all of which you can combine into single queries. Each of these is described below.
 
 ## Indexed values
 
-Umbraco Search indexes all relevant content properties alongside system fields like the content ID (key), name, type and so on.
+Umbraco Search indexes all relevant content properties alongside system fields like the content ID (key), name, type, and so on.
 
-An overview of the indexed system fields can be found in [system fields](system-fields.md) article.
+An overview of the indexed system fields is found in the [system fields](system-fields.md) article.
 
 ## Property editor data in Umbraco Search
 
-Different [Umbraco property editors](../../umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors) yield different index value types; some yield searchable `Text`, some yield filterable `Keyword`, and some yield numeric or date field types. This is important to keep in mind when searching with Umbraco Search, because the way property values are indexed directly affects the search results.
+Different [Umbraco property editors](../../umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors/) yield different index value types; some yield searchable `Text`, some yield filterable `Keyword`, and some yield numeric or date field types. This is important to keep in mind when searching with Umbraco Search, because the way property values are indexed directly affects the search results.
 
 A list of the built-in Umbraco property editors and their corresponding index value types can be found in the [built-in property editors](built-in-property-editors.md) article.
 
 ## Search by query (full text search)
 
-Searching by query yields results where one or more fields indexed as `Text` contains the search query.
+Searching by query yields results where one or more fields are indexed as `Text` contains the search query.
 
 {% code title="MySearchService.cs" %}
 ```csharp
@@ -138,12 +137,12 @@ filters:
 {% endcode %}
 
 {% hint style="info" %}
-Ranges include the lower interval and excludes the upper. The example above translates into: _`releaseYear` either between 1950 and 1959 (both inclusive) or between 1980 and 1989 (both inclusive)_.
+Ranges include the lower interval and exclude the upper. The example above translates into: _`releaseYear` either between 1950 and 1959 (both inclusive) or between 1980 and 1989 (both inclusive)_.
 {% endhint %}
 
 ## Facets in search results
 
-Umbraco Search can create facets for fields indexed as type `Keyword`, `Integer`, `Decimal` or `DateTimeOffset`.
+Umbraco Search can create facets for fields indexed as a type `Keyword`, `Integer`, `Decimal` or `DateTimeOffset`.
 
 You must pay attention to the expected field value type when defining facets. Mismatched combinations of facets and value types will most likely yield zero facet results.
 

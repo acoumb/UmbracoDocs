@@ -1,15 +1,16 @@
-﻿---
+---
 description: >-
-  A brief description of the database cache for index values, and how that affects you as a developer
+  A brief description of the database cache for index values, and how that
+  affects you as a developer
 ---
 
-# Database cache for index values
+# Database Cache for Index Values
 
 All content index data gathered by the [content indexers](gathering-data-with-content-indexers.md) is cached in the database. This allows for efficient index rebuilding when required.
 
 By default, the cache should be transparent to you as a developer. It is solely an optimization initiative to limit the resources spent when rebuilding indexes.
 
-However, if you change the implementations of custom content indexers or [property value handlers](index-values-for-property-editors.md), you might need to pay attention the cache.
+However, if you change the implementations of custom content indexers or [property value handlers](index-values-for-property-editors.md), you might need to pay attention to the cache.
 
 If those changes should be applied to already indexed content, you can either:
 
@@ -27,7 +28,7 @@ The code samples below use "distributed" services to that end.
 
 ## Triggering an index refresh for specific content
 
-You can use the `IDistributedContentIndexRefresher` to refresh specific content in all relevant content indexes.
+You can use `IDistributedContentIndexRefresher` to refresh specific content in all relevant content indexes.
 
 The following example demonstrates how this could be used to refresh all content of a given content type:
 

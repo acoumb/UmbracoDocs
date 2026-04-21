@@ -1,11 +1,10 @@
-﻿---
-description: >-
-  Installing Umbraco Search into your Umbraco CMS
+---
+description: Installing Umbraco Search into your Umbraco CMS
 ---
 
 # Installation
 
-In this article, you will learn how to install Umbraco Search into your Umbraco CMS.
+Learn how to install Umbraco Search into your Umbraco CMS.
 
 ## Requirements
 
@@ -15,12 +14,12 @@ Umbraco Search is compatible with Umbraco 17.
 
 Umbraco Search is installed from NuGet.
 
-There are multiple NuGet packages which cover different aspects of search:
+Multiple NuGet packages cover different aspects of search:
 
-- [`Umbraco.Cms.Search.Core`](https://nuget.org/packages/Umbraco.Cms.Search.Core) contains the core functionality.
-- [`Umbraco.Cms.Search.BackOffice`](https://nuget.org/packages/Umbraco.Cms.Search.BackOffice) allows Umbraco Search to power the backoffice content search.
-- [`Umbraco.Cms.Search.DeliveryApi`](https://nuget.org/packages/Umbraco.Cms.Search.DeliveryApi) allows Umbraco Search to power the [Content Delivery API](../../umbraco-cms/reference/content-delivery-api).
-- [`Umbraco.Cms.Search.Provider.Examine`](https://www.nuget.org/packages/Umbraco.Cms.Search.Provider.Examine) is the default search provider implementation.
+* [`Umbraco.Cms.Search.Core`](https://nuget.org/packages/Umbraco.Cms.Search.Core) contains the core functionality.
+* [`Umbraco.Cms.Search.BackOffice`](https://nuget.org/packages/Umbraco.Cms.Search.BackOffice) allows Umbraco Search to power the backoffice content search.
+* [`Umbraco.Cms.Search.DeliveryApi`](https://nuget.org/packages/Umbraco.Cms.Search.DeliveryApi) allows Umbraco Search to power the [Content Delivery API](../../umbraco-cms/reference/content-delivery-api/).
+* [`Umbraco.Cms.Search.Provider.Examine`](https://www.nuget.org/packages/Umbraco.Cms.Search.Provider.Examine) is the default search provider implementation.
 
 ## Basic functionality
 
@@ -70,12 +69,9 @@ To include the backoffice search:
     ```
 2.  Enable the package in the composer:
 
-    {% code title="SiteComposer.cs" %}
-    ```csharp
-    // use Umbraco Search for backoffice search
+    <pre class="language-csharp" data-title="SiteComposer.cs"><code class="lang-csharp">// use Umbraco Search for backoffice search
     builder.AddBackOfficeSearch();
-    ```
-    {% endcode %}
+    </code></pre>
 
 ### The Content Delivery API
 
@@ -88,9 +84,6 @@ To include the Content Delivery API:
     ```
 2.  Enable the package in the composer:
 
-    {% code title="SiteComposer.cs" %}
-    ```csharp
-    // use Umbraco Search for the Content Delivery API
+    <pre class="language-csharp" data-title="SiteComposer.cs"><code class="lang-csharp">// use Umbraco Search for the Content Delivery API
     builder.AddDeliveryApiSearch();
-    ```
-    {% endcode %}
+    </code></pre>
