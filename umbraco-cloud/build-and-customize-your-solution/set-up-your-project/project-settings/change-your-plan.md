@@ -41,9 +41,10 @@ Each plan supports a specific number of environments. If your project exceeds th
 
 **Heartcore** (no extra environments allowed):
 
-* **Mini:** 1 included
-* **Starter:** 2 included
+* **Starter:** 1 included
+* **Standard:** 2 included
 * **Professional:** 3 included
+* **Enterprise:** 3 included
 
 If a Heartcore project exceeds the target plan's limit, the downgrade is blocked entirely.
 
