@@ -95,6 +95,6 @@ Restoring overwrites existing files with the same name. Verify that you are targ
 
 ## Related Articles
 
-- [Azure Blob Storage](../../handle-deployments-and-environments/media/azure-blob-storage/)
-- [Connect to Azure Storage Explorer](../../handle-deployments-and-environments/media/azure-blob-storage/connect-to-azure-storage-explorer.md)
-- [Database backups](backups.md)
+- [Azure Blob Storage](README.md)
+- [Connect to Azure Storage Explorer](connect-to-azure-storage-explorer.md)
+- [Database backups](../../../build-and-customize-your-solution/set-up-your-project/databases/backups.md))
