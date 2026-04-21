@@ -17,7 +17,7 @@ This article _only_ applies to the default Examine search provider. Alternative 
 
 Fields that will be used for faceting and/or sorting must be explicitly configured for the Examine search provider. This is done by configuring the `FieldOptions` using the options pattern, and _must_ be done prior to indexing any content.
 
-The field configuration is a mapping between the Umbraco property aliases that hold the values, and the expected field index type of those properties. For example, the "genre" and "releaseYear" fields used throughout this article should be configured like this:
+The field configuration is a mapping between the Umbraco property aliases that hold the values, and the expected field index type of those properties. For example, the `genre` and `releaseYear` fields used throughout this article should be configured like this:
 
 {% code title="FieldOptionsComposer.cs" %}
 ```csharp
@@ -55,7 +55,7 @@ public class FieldOptionsComposer : IComposer
 {% endcode %}
 
 {% hint style="warning" %}
-The field configurations must be known at index time. Any changes made to this configuration only takes effect for newly indexed content.
+The field configurations must be known at index time. Any changes made to this configuration only take effect for newly indexed content.
 
 If an index is already populated, it might be necessary to rebuild it for changes to take effect.
 {% endhint %}
@@ -90,11 +90,11 @@ Certain Umbraco properties yield different textual relevance values. The Examine
 - `SearcherOptions.BoostFactorTextR2` to control the relevance of second-highest relevance text (for example H2 tags).
 - `SearcherOptions.BoostFactorTextR3` to control the relevance of third-highest relevance text (for example H3 tags).
 
-See also the [built-in property editors](system-fields.md) article.
+See also the [built-in property editors](built-in-property-editors.md) article.
 
 ### Facet result behavior
 
-The available facet values are grouped by the `FieldName` passed to the facet definition when searching. In the examples above, this would be "genre" and "releaseYear".
+The available facet values are grouped by the `FieldName` passed to the facet definition when searching. In the examples above, this would be `genre` and `releaseYear`.
 
 When an end user picks a facet value from a search result, the subsequent search should contain a filter for the picked value. For example, the `KeywordFilter` in the examples above.
 

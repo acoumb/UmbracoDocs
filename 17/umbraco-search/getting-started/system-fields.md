@@ -24,6 +24,7 @@ The following fields are explicitly indexed for all content.
 
 System fields can be used like any other fields for searching. The system field names are defined in [`Constants.FieldNames`](https://github.com/umbraco/Umbraco.Cms.Search/blob/main/src/Umbraco.Cms.Search.Core/Constants.cs).
 
+{% code title="MySearchService.cs" %}
 ```csharp
 using Umbraco.Cms.Search.Core.Models.Searching;
 using Umbraco.Cms.Search.Core.Models.Searching.Filtering;
@@ -50,3 +51,4 @@ public class MySearchService(ISearcher searcher)
     }
 }
 ```
+{% endcode %}

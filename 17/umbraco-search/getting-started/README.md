@@ -87,6 +87,7 @@ public class MySearchService(ISearcher searcher)
 
 Filters can be negated, in which case Umbraco Search will perform an `AND NOT`:
 
+{% code title="MySearchService.cs" %}
 ```csharp
 // "genre" must be either "rock" or "pop", and "releaseYear" must NOT be any of 1984, 1985 or 1986
 filters:
@@ -103,9 +104,11 @@ filters:
     )
 ]
 ```
+{% endcode %}
 
 Numeric and date filters also exist in a range version - for example, the `IntegerRangeFilter`:
 
+{% code title="MySearchService.cs" %}
 ```csharp
 // "genre" must be either "rock" or "pop", and "releaseYear" must either be in the range [1950,1960) or [1980,1990)
 filters:
@@ -132,9 +135,10 @@ filters:
     )
 ]
 ```
+{% endcode %}
 
 {% hint style="info" %}
-Ranges include the lower interval and excludes the upper. The example above translates into: _"releaseYear" either between 1950 and 1959 (both inclusive) or between 1980 and 1989 (both inclusive)_.
+Ranges include the lower interval and excludes the upper. The example above translates into: _`releaseYear` either between 1950 and 1959 (both inclusive) or between 1980 and 1989 (both inclusive)_.
 {% endhint %}
 
 ## Facets in search results
@@ -174,6 +178,7 @@ public class MySearchService(ISearcher searcher)
 
 Numeric and date facets also exist in a range version - for example, the `IntegerRangeFacet`:
 
+{% code title="MySearchService.cs" %}
 ```csharp
 facets:
 [
@@ -198,6 +203,7 @@ facets:
     )
 ]
 ```
+{% endcode %}
 
 ## Sorting search results
 

@@ -8,7 +8,7 @@ hidden: true
 
 The following list shows how the [built-in Umbraco property editors](../../umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors) are indexed for Umbraco Search.
 
-Some property editors have deliberately been left out, because it was deemed that they would generate more noise than value in the index. These include for example color pickers and media pickers.
+Some property editors are excluded because they generate more noise than value in the index. These include the color picker and media pickers.
 
 | Property editor               | Indexed as       | Notes                                                                                                                                                                                         |
 |-------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -32,7 +32,7 @@ Some property editors have deliberately been left out, because it was deemed tha
 | `Umbraco.RadioButtonList`     | `Keyword`        |
 | `Umbraco.RichText`            | `Text`           | Headings (H1, H2, H3) are indexed with individual relevance, all other tags as lowest relevance text. If the property contains blocks, they are indexed in the same way as the block editors. |
 | `Umbraco.Slider`              | `Decimal`        | For range slides, both the lower and upper bounds are indexed.                                                                                                                                |
-| `Umbraco.Tags`                | `Keyword`        | In addition, all tags for all properties are accumulated into a dedicated system field (see [system fields](system-fields.md).                                                                |
+| `Umbraco.Tags`                | `Keyword`        | In addition, all tags for all properties are accumulated into a dedicated system field (see [system fields](system-fields.md)).                                                               |
 | `Umbraco.TextArea`            | `Text`           | Indexed as lowest relevance text.                                                                                                                                                             |
 | `Umbraco.TextBox`             | `Text`           | Indexed as lowest relevance text.                                                                                                                                                             |
 | `Umbraco.TrueFalse`           | `Integer`        | Indexed as 1 for `true`, 0 for `false`.                                                                                                                                                       |

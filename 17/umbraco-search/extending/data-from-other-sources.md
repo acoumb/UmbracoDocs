@@ -17,7 +17,7 @@ If your site does not own the data, please consider whether your site should rea
 
 ## You are in control
 
-Umbraco Search does perform any active handling for custom indexes - you are in complete control.
+Umbraco Search does not perform any active handling for custom indexes; you are in complete control.
 
 It's your responsibility to create the index and to keep it up to date with changes.
 
@@ -137,7 +137,7 @@ Also, keep in mind that additional field-level configuration may be needed to su
 
 To search the index, inject the `ISearcher` in your search services:
 
-{% code title="BookIndexService.cs" %}
+{% code title="BookSearchService.cs" %}
 ```csharp
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
@@ -184,8 +184,8 @@ internal sealed class BookSearchService(ISearcher searcher, IBookService bookSer
             // Publish year is an integer field in the index.
             filters.Add(
                 new IntegerRangeFilter(
-                    FieldName: "published",
-                    Ranges: [new IntegerRangeFilterRange(publishYear.Maximum, publishYear.Maximum)],
+                    FieldName: "publishYear",
+                    Ranges: [new IntegerRangeFilterRange(publishYear.Minimum, publishYear.Maximum)],
                     Negate: false
                 )
             );
