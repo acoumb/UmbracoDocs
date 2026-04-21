@@ -448,7 +448,7 @@ export const manifests: Array<UmbExtensionManifest> = [
 ];
 ```
 
-This is a minimal declaration &mdash; it does not import Core Client types, it only tells TypeScript that `'searchIndexDetailBox'` is a valid extension type.
+This is a minimal declaration; it does not import Core Client types, it only tells TypeScript that `'searchIndexDetailBox'` is a valid extension type.
 
 ### `tsconfig` path mappings
 

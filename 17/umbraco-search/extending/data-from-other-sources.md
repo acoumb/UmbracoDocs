@@ -17,7 +17,7 @@ If your site does not own the data, please consider whether your site should rea
 
 ## You are in control
 
-Umbraco Search does not perform any active handling for custom indexes - you are in complete control.
+Umbraco Search does not perform any active handling for custom indexes; you are in complete control.
 
 It's your responsibility to create the index and to keep it up to date with changes.
 
