@@ -24,7 +24,7 @@ If you need to retain log history, download and back up the log files before cha
 
 **Heartcore:**
 
-* Starter → Professional → Enterprise
+* Starter → Standard → Professional → Enterprise
 
 Enterprise plans require contact through [Umbraco Support](mailto:contact@umbraco.com) and are not available for self-service changes.
 
