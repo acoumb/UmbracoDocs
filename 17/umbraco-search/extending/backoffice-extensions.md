@@ -450,7 +450,7 @@ export const manifests: Array<UmbExtensionManifest> = [
 
 This is a minimal declaration &mdash; it does not import Core Client types, it only tells TypeScript that `'searchIndexDetailBox'` is a valid extension type.
 
-### tsconfig path mappings
+### `tsconfig` path mappings
 
 To import from `@umbraco-cms/search/settings` (for example `UMB_SEARCH_WORKSPACE_CONTEXT`) in your provider package, add path mappings in your `tsconfig.json`:
 

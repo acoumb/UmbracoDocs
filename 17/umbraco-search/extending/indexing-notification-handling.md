@@ -29,7 +29,7 @@ In the following example, the content being indexed might contain a `length` fie
 
 Keywords are not available for full text querying by default. You can use a notification handler to amend this for the `length` field:
 
-{% code title="OmitSettingsFromPublishedContentIndexNotificationHandler.cs" %}
+{% code title="MakeLengthSearchableNotificationHandler.cs" %}
 ```csharp
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Search.Core.Models.Indexing;

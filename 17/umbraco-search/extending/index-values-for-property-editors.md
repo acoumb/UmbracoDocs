@@ -55,7 +55,7 @@ public class MyPropertyEditorPropertyValueHandler : IPropertyValueHandler
 
 {% hint style="info" %}
 The property value handler can produce multiple index fields. Each index field can contain any combination of data in its index value.
-{% endcode %}
+{% endhint %}
 
 For example, a complex property editor might yield an index value with data in both the `Texts` and `Integers` collections.
 
