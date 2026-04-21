@@ -51,7 +51,7 @@ IPublishedContentQuery query = serviceScope.ServiceProvider.GetRequiredService<I
 By default, `IPublishedContentQuery` will search on Umbraco's 'External' search index for any published content matching the provided search term.
 
 {% hint style="warning" %}
-This method carrys out simple searches acrosss Umbraco. For more advanced options such as fuzzy, boosting search see https://docs.umbraco.com/umbraco-cms/reference/searching/examine  
+This method carries out basic searches across Umbraco. For more advanced options, such as fuzzy, boosting search, see [the Examine documentation](../reference/searching/examine).
 {% endhint %}
 
 ```csharp
