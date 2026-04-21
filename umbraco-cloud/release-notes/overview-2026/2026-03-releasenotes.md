@@ -81,7 +81,7 @@ The "Upgrade project" feature has been renamed to "Change plan" and now supports
 The flow validates project state before allowing downgrades:
 
 * **Environment limits** — If your project exceeds the target plan's environment limit, the downgrade is blocked. You must remove environments first.
-* **Dedicated resources** — If downgrading from dedicated to shared hosting, you receive a warning that dedicated resources will switch to shared hosting.
+* **Dedicated resources** — If downgrading from dedicated to shared hosting, you receive a warning that dedicated resources will be switched to shared hosting.
 * **Extra environment costs** — If your project has paid extra environments, you see a warning about ongoing costs for those extra environments.
 
 Downgrades take effect immediately with no refund for the remaining month. From the next billing period, you are charged at the new plan's rate.

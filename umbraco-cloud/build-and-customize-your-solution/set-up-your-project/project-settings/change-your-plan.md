@@ -41,6 +41,7 @@ Each plan supports a specific number of environments. If your project exceeds th
 
 **Heartcore** (no extra environments allowed):
 
+* **Mini:** 1 included
 * **Starter:** 2 included
 * **Professional:** 3 included
 
@@ -63,11 +64,11 @@ To upgrade your plan, follow these steps:
     * **Standard** → **Professional**
 7. _[Optional]_ Choose a **dedicated option** in the next step.
 
-    <div align="left"><figure><img src="../../../.gitbook/assets/dedicated-option.png" alt=""><figcaption><p>Dedicated option on Cloud</p></figcaption></figure></div>
+<figure><img src="../../../.gitbook/assets/dedicated-option.png" alt=""><figcaption><p>Dedicated option on Cloud</p></figcaption></figure>
 
 8. Review the **Summary** to confirm your selections.
 
-    <figure><img src="../../../.gitbook/assets/upgrade-summary.png" alt=""><figcaption><p>Summary of project upgrade.</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/upgrade-summary.png" alt=""><figcaption><p>Summary of project upgrade.</p></figcaption></figure>
 
 9. Click **Upgrade Project** to apply the new plan.
 
@@ -83,17 +84,17 @@ Downgrading your plan is handled through the same **Change Plan** interface. How
 
 Before downgrading, review the following rules:
 
-* **Hard Block — Too Many Environments**
+#### **Too many environments → Hard block**
 
 If your project has more environments than the target plan supports, the downgrade is blocked entirely. Remove environments until your project meets the target plan's environment limit, then retry the downgrade.
 
 Example message: "Your project has 4 environments but this plan only supports up to 3. Please remove 1 environment before downgrading."
 
-* **Warning — Losing Dedicated Resources**
+#### **Losing dedicated resources → Warning**
 
-If you're downgrading from dedicated to shared hosting, you'll see a warning that your dedicated resources will switch to shared hosting.
+If you're downgrading from dedicated to shared hosting, you'll see a warning that your dedicated resources will be switched to shared hosting.
 
-* **Warning — Extra Environment Costs**
+#### **Extra environment costs → Warning**
 
 If your project has paid extra environments beyond the plan's included count, you'll see a warning about additional monthly costs.
 
