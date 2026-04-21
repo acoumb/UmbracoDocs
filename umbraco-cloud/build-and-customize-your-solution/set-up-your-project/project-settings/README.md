@@ -16,24 +16,6 @@ The Environments section provides an overview of your project’s environments. 
 
 ![Environments Overview](../../../.gitbook/assets/environments-overview-new.png)
 
-#### Environment error log
-
-Each environment has an error log that appears only if there are any unread errors in that specific environment. You can view the errors by clicking on **Error logs** in the environment menu.
-
-In the Error logs page, you can manually mark each error as read which will move it from the "New" section to the "Read" section. Errors marked as read will be permanently deleted after 30 days.
-
-During development, too many errors can slow down the error page. To fix this, connect to the environment's database locally and delete the errors. Learn how to connect to the database in the [Database on Umbraco Cloud](../databases/cloud-database/) section.
-
-Environment errors are stored in the `UCErrorLog` table.
-
-The query below deletes 90% of the errors. The query always deletes the oldest errors first. You can tweak the query to delete any percentage of errors by changing the number in the first row.
-
-```sql
-DELETE TOP(90) PERCENT
-  FROM [dbo].[UCErrorLog]
-  WHERE [Read] = 0
-```
-
 ### Team
 
 The Team section allows you to:
@@ -59,6 +41,10 @@ In the Project History section, you can view a list of high-level activities for
 
 ![Project History](../../../.gitbook/assets/project-history.png)
 
+### [Hostname Monitoring](../../../optimize-and-maintain-your-site/monitor-and-troubleshoot/hostname-monitoring.md)
+
+Hostname monitoring allows you to track the availability and response times of your websites. You can configure monitors for multiple hostnames, set check frequency and locations, and view historical ping results. This helps ensure optimal website performance and alerts you to potential downtime or performance issues.
+
 ### [Availability & Performance](../../../optimize-and-maintain-your-site/monitor-and-troubleshoot/availability-performance.md)
 
 You can see metrics related to the overall health and performance of the Azure app service hosting the different environments of your solution.
@@ -74,6 +60,22 @@ The Usage section allows you to:
 * View the top 10 bandwidth usage paths, referrers, and the top 50 media files.
 
 ![Usage](../../../.gitbook/assets/usage-new.png)
+
+### Environment Logs
+
+Each environment has an error log that appears only if there are any unread errors in that specific environment. You can view the errors by clicking on **Environment logs** in the **Insights** menu.
+
+During development, too many errors can slow down the error page. To fix this, connect to the environment's database locally and delete the errors. Learn how to connect to the database in the [Database on Umbraco Cloud](../databases/cloud-database/) section.
+
+Environment errors are stored in the `UCErrorLog` table.
+
+The query below deletes 90% of the errors. The query always deletes the oldest errors first. You can tweak the query to delete any percentage of errors by changing the number in the first row.
+
+```sql
+DELETE TOP(90) PERCENT
+  FROM [dbo].[UCErrorLog]
+  WHERE [Read] = 0
+```
 
 ## Configuration
 
@@ -176,6 +178,10 @@ You can enable or disable this setting on the Public access page. Access to mana
 
 ![Public Access](../../../.gitbook/assets/public-access.png)
 
+### [External Login Providers](../../../begin-your-cloud-journey/project-features/external-login-providers.md)
+
+External Login Providers allow you to integrate third-party authentication systems to manage backoffice user logins securely. Using OpenID Connect, you can connect providers like Microsoft Entra ID, Auth0, and Google to simplify login management and improve security for your teams.
+
 ### [Transport Security](../security/managing-transport-security.md)
 
 The Transport Security section enables you to manage transport security settings for your project. You can configure specific transport security options for all hostnames or individual hostnames within your project.
@@ -188,16 +194,6 @@ The Management API Security section allows you to secure access to the backend s
 
 ![Management API Security](../../../.gitbook/assets/management-api-security.png)
 
-### [Certificates](../../../go-live/manage-hostnames/security-certificates.md)
-
-{% hint style="info" %}
-This feature is only available on **Professional** or **Enterprise** plan.
-{% endhint %}
-
-If you have a custom certificate, you can upload and bind it to your custom hostnames. This can be done instead of using the TLS: Transport Layer Security (HTTPS) certificates provided by the Umbraco Cloud service.
-
-![Certificates](../../../.gitbook/assets/certificates.png)
-
 ### [Secrets](../../../begin-your-cloud-journey/project-features/secrets-management.md)
 
 The Secrets Management section is used for storing sensitive information such as API keys, encryption keys, and connection strings used by your Umbraco Cloud project.
@@ -205,6 +201,12 @@ The Secrets Management section is used for storing sensitive information such as
 ![Secrets](../../../.gitbook/assets/secrets.png)
 
 ## Management
+
+### [Baselines](../../../begin-your-cloud-journey/creating-a-cloud-project/baselines.md)
+
+A Baseline is a project that serves as a template for creating child projects. When you set up a baseline project, you can quickly spin up new projects with the same packages, components, and configuration. Any changes you make to the baseline can be pushed to all connected child projects, keeping them in sync.
+
+![Baselines](../../../.gitbook/assets/manage-child-projects.png)
 
 ### [Dedicated Resources](dedicated-resources.md)
 
