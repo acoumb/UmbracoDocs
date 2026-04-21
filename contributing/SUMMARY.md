@@ -12,6 +12,7 @@
   * [Submit a Pull Request](documentation/getting-started/pull-request.md)
   * [Submit Feedback](documentation/getting-started/issues.md)
   * [Create a New Version of an Article](documentation/getting-started/how-to-add-a-new-version.md)
+  * [Review Documentation Locally](documentation/getting-started/review-docs.md)
 * [Style Guide](documentation/style-guide/README.md)
   * [Markdown Conventions](documentation/style-guide/markdown-conventions.md)
   * [Code Samples](documentation/style-guide/code-samples.md)
