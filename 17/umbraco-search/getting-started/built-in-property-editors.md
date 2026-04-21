@@ -6,7 +6,7 @@ hidden: true
 
 # Indexed values of built-in property editors
 
-The following list shows how the [built-in Umbraco property editors](../../umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors) are indexed for Umbraco Search.
+The following list shows how the [built-in Umbraco property editors](https://docs.umbraco.com/umbraco-cms/fundamentals/backoffice/property-editors/built-in-umbraco-property-editors) are indexed for Umbraco Search.
 
 Some property editors are excluded because they generate more noise than value in the index. These include the color picker and media pickers.
 
