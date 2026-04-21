@@ -39,7 +39,7 @@ Each plan supports a specific number of environments. If your project exceeds th
 * **Professional:** 3 included, max 4
 * **Enterprise:** 3 included, max 4
 
-**Heartcore** (no extra environments allowed):
+**Heartcore** (extra environments allowed):
 
 * **Starter:** 1 included
 * **Standard:** 2 included
