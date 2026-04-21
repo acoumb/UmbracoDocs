@@ -51,7 +51,7 @@ The TypeScript component (`ExampleBlockCustomView`) implements `UmbBlockEditorCu
 - `content` — the block's content data (for example, `this.content?.headline`)
 - `settings` — the block's settings data, if a Settings Model is configured (for example, `this.settings?.theme`)
 
-These map directly to the properties defined on the Element Type and its Settings Model (if configured).
+These map directly to the properties defined on the Element Type and its Settings Model (if configured). The component renders them in a styled container using Lit and standard CSS.
 
 {% code title="example-custom-view.ts" %}
 
