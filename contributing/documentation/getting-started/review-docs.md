@@ -10,8 +10,8 @@ The `review-docs` skill runs inside [Claude Code](https://claude.ai/code) and gi
 
 The skill works in two modes:
 
-* **File mode** — review one or more specific files
-* **PR mode** — review all markdown files changed on the current branch
+* **File mode**: Review one or more specific files.
+* **PR mode**: Review all markdown files changed on the current branch.
 
 ## Prerequisites
 
@@ -46,10 +46,10 @@ Replace `path/to/your/file.md` with the path to the file you want to review.
 
 Claude will read the file and give you:
 
-1. A one-sentence summary of what the page covers
-2. An overall verdict — whether the page is useful as-is, needs trimming, or needs reworking
-3. The most important issues, with a recommended action for each
-4. What works well and should stay
+1. A one-sentence summary of what the page covers.
+2. An overall verdict — whether the page is useful as-is, needs trimming, or needs reworking.
+3. The most important issues, with a recommended action for each.
+4. What works well and should stay.
 
 You can also review multiple files at once by passing more paths:
 
@@ -79,7 +79,7 @@ Vale flags style and spelling errors against the Umbraco documentation style rul
 
 ### Internal links
 
-The skill checks that all internal links in the reviewed files point to existing targets. It checks relative links, anchor links, and `content-ref` links. It does not check external links — these are verified in CI.
+The skill checks that all internal links in the reviewed files point to existing targets. It checks relative links, anchor links, and `content-ref` links. It does not check external links.
 
 ### Content quality
 
@@ -94,4 +94,4 @@ The skill also evaluates each page for:
 
 The skill does not make any edits to your files. Once you agree on the changes, apply them yourself and run the review again to verify the result.
 
-If the review leads to moving, renaming, or deleting files, follow the [File Names and Structure](../style-guide/structure.md) guide and add any required redirects to the relevant `.gitbook.yaml`.
+If the review leads to moving, renaming, or deleting files, follow the [File Names and Structure](../style-guide/structure.md) guide and add any required redirects to the relevant `.gitbook.yaml` file.
