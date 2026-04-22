@@ -98,7 +98,7 @@ Keep the following in mind when using `Forced-Segment`:
 * **Empty values are ignored.** A `Forced-Segment` header with an empty string is treated as if no header was sent.
 * **Respects the legacy naming toggle.** If your installation sets `UseLegacySegmentNames` to `true`, aliases use the `umarketingsuite_personalization_` and `umarketingsuite_ab-testing_` prefixes instead of `engage_*`. Supply the alias that matches your configured naming.
 * **Does not override property-level exclusions.** Properties listed in the Engage property alias exclusion list are not segment-aware and remain unchanged.
-* **Scoped to the Engage API v1 and both versions of the Content Delivery API.** The header has no effect on other routes.
+* **Scoped to the Engage API v1 and both versions of the Content Delivery API.** The header does not affect other routes.
 
 {% hint style="warning" %}
 
