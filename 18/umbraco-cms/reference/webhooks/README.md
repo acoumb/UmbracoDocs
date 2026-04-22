@@ -69,9 +69,9 @@ Extended payloads include all relevant information for an event, where available
 
 #### Legacy
 
-Legacy payloads follow the format used before version 16. They are inconsistent and may include data that should not be exposed or has been superseded (e.g., use of `int` instead of `Guid`).
+Legacy payloads follow the format used before version 16. They are inconsistent and may include data that should not be exposed or has been superseded (for example, use of `int` instead of `Guid`).
 
-This payload type exists for backwards compatability, and will be removed in a future version.
+This payload type exists for backwards compatibility, and will be removed in a future version.
 
 ### Configuring Payload Types
 
