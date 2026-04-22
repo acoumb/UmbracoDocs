@@ -18,24 +18,24 @@ Even when an external provider is used, Umbraco creates a local, synchronized me
 
 When the external provider is the source of truth for identity, the content overhead adds less value. You might still want to augment member profile data in Umbraco, so it's still a valid option. The content overhead also creates a bottleneck under high-concurrency registrations and logins. Every write contends for locks on the content tables and the search index.
 
-Lightweight external members store only the minimal records fields needed for authentication (`umbracoExternalMember`) and role membership (`umbracoExternalMember2MemberGroup`).
+Lightweight external members store only the minimal record fields needed for authentication (`umbracoExternalMember`) and role membership (`umbracoExternalMember2MemberGroup`).
 
 ## Trade-offs
 
-Choose lightweight external members when the external provider owns the profile and you want to scale registration and login throughput.
+Choose lightweight external members when the external provider owns the profile, and you want to scale registration and login throughput.
 
 Choose content-based members when you need more than identity from the provider. Typical cases include editing member profiles in the backoffice, storing member-specific content properties, or augmenting the external identity with data managed in Umbraco. Content-based members also support auto-linking to an external provider, so you get single sign-on alongside editable profile fields.
 
 | Area | Content-based member | Lightweight external member |
 | --- | --- | --- |
-| Backoffice editing | Full edit surface | Read-only view with an **External** badge |
-| Member Type properties | Stored as content properties | Not used — profile data is stored as JSON |
-| Password and local login | Supported | Not supported — external authentication only |
-| Two-factor authentication | Supported | Not supported — external provider feature |
-| Relation tracking | Available | Not available — no `umbracoNode` entry |
-| Public access rules | Type-based and group-based | Group-based only |
-| Management API | Full read and write | Read-only; creation via auto-link or `IExternalMemberService` |
-| Write cost per save | Multiple tables, versioning, full re-index | Single row update and deferred index entry |
+| Backoffice editing | Full edit surface | Read-only view with an **External** badge. |
+| Member Type properties | Stored as content properties | Not used — profile data is stored as JSON. |
+| Password and local login | Supported | Not supported — external authentication only. |
+| Two-factor authentication | Supported | Not supported — external provider feature. |
+| Relation tracking | Available | Not available — no `umbracoNode` entry. |
+| Public access rules | Type-based and group-based | Group-based only. |
+| Management API | Full read and write | Read-only; creation via auto-link or `IExternalMemberService`. |
+| Write cost per save | Multiple tables, versioning, full re-index | Single row update and deferred index entry. |
 
 {% hint style="info" %}
 You can promote a lightweight external member to a full content-based member later. See [Converting to a content member](lightweight-external-members.md#converting-to-a-content-member) below.
