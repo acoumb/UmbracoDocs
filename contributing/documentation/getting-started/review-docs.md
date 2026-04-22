@@ -8,6 +8,8 @@ description: >-
 
 The `review-docs` skill runs inside [Claude Code](https://claude.ai/code) and gives you feedback on documentation before you submit a pull request. Use it to catch style issues, unclear writing, and broken links.
 
+Running a review locally before opening a PR means issues are found and fixed in your own workflow rather than discovered during the review phase. This keeps the PR review focused on the content itself, rather than formatting and style corrections. It also reduces the back-and-forth needed before a contribution can be merged.
+
 The skill works in two modes:
 
 * **File mode**: Review one or more specific files.
@@ -85,10 +87,10 @@ The skill checks that all internal links in the reviewed files point to existing
 
 The skill also evaluates each page for:
 
-* **Reader value** — whether each section helps a reader use the feature
-* **Clarity** — whether the language is direct and concrete
-* **Completeness** — whether anything is missing that a reader needs to get started
-* **Structure** — whether the page flows logically from concepts to practical usage
+* **Reader value** — whether each section helps a reader use the feature.
+* **Clarity** — whether the language is direct and concrete.
+* **Completeness** — whether anything is missing that a reader needs to get started.
+* **Structure** — whether the page flows logically from concepts to practical usage.
 
 ## After the Review
 
