@@ -10,13 +10,13 @@ The [development workflow](./development-workflow.md) generates everything you n
 
 This page covers the third leg: **manual, exploratory testing**. You drive your tools through real natural-language prompts to spot rough edges while iterating on descriptions and behavior.
 
-The project template ships with a `.mcp.json` file that makes the MCP server immediately available in Claude Code. No extra `claude mcp add` step, no copying config between files — open the project directory in Claude Code and the server is connected.
+The project template ships with a `.mcp.json` file that makes the MCP server immediately available in Claude Code. No extra `claude mcp add` step, no copying config between files — open the project directory in Claude Code, and the server is connected.
 
 | Kind of testing | How | When to use |
 |---|---|---|
-| **Integration tests** | `npm run test` | Verify each tool works against a real Umbraco instance |
-| **LLM eval tests** | `npm run test:evals` | Verify an LLM can use your tools together to complete workflows |
-| **Manual exploration** | `.mcp.json` in Claude Code (this page) | Try prompts, watch tool selection, spot surprising behavior |
+| **Integration tests** | `npm run test` | Verify each tool works against a real Umbraco instance. |
+| **LLM eval tests** | `npm run test:evals` | Verify an LLM can use your tools together to complete workflows. |
+| **Manual exploration** | `.mcp.json` in Claude Code (this page) | Try prompts, watch tool selection, spot surprising behavior. |
 
 ## The shipped `.mcp.json`
 
@@ -41,7 +41,7 @@ Claude Code reads project-scoped `.mcp.json` files on startup and launches the l
 No secrets are baked into `.mcp.json`. Credentials live only in `.env`, which is listed in `.gitignore`.
 
 {% hint style="info" %}
-`.mcp.json` is safe to commit. It contains no secrets — only the command used to start the server. Teammates who clone the project get the same launch configuration automatically.
+`.mcp.json` is safe to commit. It only contains the command used to start the server. Teammates who clone the project get the same launch configuration automatically.
 {% endhint %}
 
 ## Prerequisites
@@ -80,7 +80,7 @@ Claude Code calls the relevant tool, shows the request and response, and summari
 
 ## Iterating on changes
 
-The MCP server runs from the built bundle, so after editing a tool you must rebuild:
+The MCP server runs from the built bundle, so after editing a tool, you must rebuild:
 
 ```bash
 npm run build
@@ -106,8 +106,8 @@ The Inspector launches a local web UI that connects to the same built server. Us
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Claude Code does not list the `umbraco` server | `.mcp.json` not found or malformed | Verify the file exists at the project root and is valid JSON |
-| Server fails to start with `Cannot find module './dist/index.js'` | Project not built | Run `npm run build` |
-| Server starts but every tool call returns 401 | `.env` missing or stale | Re-run `init`, or populate `UMBRACO_CLIENT_ID` / `UMBRACO_CLIENT_SECRET` / `UMBRACO_BASE_URL` by hand |
-| Tool calls fail with TLS errors against a local Umbraco | Self-signed certificate | Ensure `NODE_TLS_REJECT_UNAUTHORIZED=0` is set in `.env` (default for scaffolded projects) |
-| Changes to a tool are not reflected | Server is running stale code | Rebuild with `npm run build` and reconnect the server in Claude Code |
+| Claude Code does not list the `umbraco` server. | `.mcp.json` not found or malformed. | Verify the file exists at the project root and is valid JSON. |
+| Server fails to start with `Cannot find module './dist/index.js'`. | Project not built. | Run `npm run build`. |
+| Server starts but every tool call returns 401. | `.env` missing or stale. | Re-run `init`, or populate `UMBRACO_CLIENT_ID` / `UMBRACO_CLIENT_SECRET` / `UMBRACO_BASE_URL` by hand. |
+| Tool calls fail with TLS errors against a local Umbraco. | Self-signed certificate. | Ensure `NODE_TLS_REJECT_UNAUTHORIZED=0` is set in `.env` (default for scaffolded projects). |
+| Changes to a tool are not reflected. | Server is running stale code. | Rebuild with `npm run build` and reconnect the server in Claude Code. |
