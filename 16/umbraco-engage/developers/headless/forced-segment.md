@@ -48,7 +48,7 @@ The value of the `Forced-Segment` header is a segment alias. Engage generates al
 | Personalization      | `engage_personalization_{segmentId}`              |
 | A/B testing          | `engage_ab-testing_{segmentId}`                   |
 
-For example, a personalization with ID `1` has alias `engage_personalization_1`.
+For example, a personalization with ID `1` has an alias `engage_personalization_1`.
 
 You can retrieve the alias for a page programmatically by calling the [segment information API](../personalization/segment-information.md) or the segmentation content endpoint:
 
