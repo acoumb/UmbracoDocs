@@ -176,7 +176,7 @@ The `ContentTypeRebuildMode` setting controls whether the database cache rebuild
 }
 ```
 
-When `Deferred` is set, the content cache is still evicted immediately during the save. The next request reads the previous serialized data from the database. Once the background rebuild completes, the content cache is evicted again and subsequent requests pick up the fresh data. Content continues to be served throughout the rebuild without errors, but may be temporarily stale.
+When `Deferred` is set, the content cache is still evicted immediately during the save. The next request reads the previously serialized data from the database. Once the background rebuild completes, the content cache is evicted again, and subsequent requests pick up the fresh data. Content continues to be served throughout the rebuild without errors, but may be temporarily stale.
 
 If multiple content types are saved in quick succession, the affected content type IDs are accumulated and processed together in a single batch. This avoids overlapping rebuild work between related types.
 
