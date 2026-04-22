@@ -28,9 +28,9 @@ The documentation team reviews for style and consistency, but technical accuracy
 
 Any feedback we receive on articles you've generated with AI will be directed back to you. This includes feedback via PR, issue, or directly from our documentation platform.
 
-## 3. Use the umbraco-docs-content skill
+## 3. Use the `umbraco-docs-content` skill
 
-The repo includes the **[umbraco-docs-content skill](https://github.com/umbraco/UmbracoDocs/blob/main/.claude/skills/umbraco-docs-content/SKILL.md)** built for our structure, tone, and formatting. We recommend using it exclusively.
+The repo includes the **[`umbraco-docs-content` skill](https://github.com/umbraco/UmbracoDocs/blob/main/.claude/skills/umbraco-docs-content/SKILL.md)** built for our structure, tone, and formatting. We recommend using it exclusively.
 
 Using other prompts, custom skills, or third-party templates is **not recommended**, as it risks inconsistency across the documentation. If you spot something the skill does poorly, suggest an improvement — don't work around it.
 
