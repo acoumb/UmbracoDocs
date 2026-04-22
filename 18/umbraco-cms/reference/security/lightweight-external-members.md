@@ -228,6 +228,98 @@ Each top-level key in the profile JSON surfaces as a published property on the m
 ```
 {% endcode %}
 
+## Handling member groups
+
+External providers often manage group or role membership alongside identity. Use `OnExternalLogin` to mirror that membership to Umbraco member groups so the assignment stays in sync on every login.
+
+For external-only members, group membership is managed through `IExternalMemberService.AssignRolesAsync` and `RemoveRolesAsync`. The example below reads a `groups` claim, compares the values to the member's current groups, and applies the delta.
+
+{% code title="ProviderMembersExternalLoginProviderOptions.cs" lineNumbers="true" %}
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Security;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Web.Common.Security;
+
+namespace MyUmbracoProject.CustomAuthentication;
+
+public class ProviderMembersExternalLoginProviderOptions : IConfigureNamedOptions<MemberExternalLoginProviderOptions>
+{
+    public const string SchemeName = "OpenIdConnect";
+
+    private readonly IServiceScopeFactory _scopeFactory;
+
+    public ProviderMembersExternalLoginProviderOptions(IServiceScopeFactory scopeFactory)
+        => _scopeFactory = scopeFactory;
+
+    public void Configure(string? name, MemberExternalLoginProviderOptions options)
+    {
+        if (name != Constants.Security.MemberExternalAuthenticationTypePrefix + SchemeName)
+        {
+            return;
+        }
+
+        Configure(options);
+    }
+
+    public void Configure(MemberExternalLoginProviderOptions options)
+    {
+        options.AutoLinkOptions = new MemberExternalSignInAutoLinkOptions(
+            autoLinkExternalAccount: true,
+            defaultIsApproved: true,
+            defaultMemberTypeAlias: Constants.Security.DefaultMemberTypeAlias,
+            defaultMemberGroups: ["ExternalMembers"])
+        {
+            ExternalOnly = true,
+            OnExternalLogin = (user, loginInfo) =>
+            {
+                SyncMemberGroupsAsync(user, loginInfo).GetAwaiter().GetResult();
+                return true;
+            },
+        };
+    }
+
+    private async Task SyncMemberGroupsAsync(MemberIdentityUser user, ExternalLoginInfo loginInfo)
+    {
+        var desiredGroups = loginInfo.Principal
+            .FindAll("groups")
+            .Select(claim => claim.Value)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        using IServiceScope scope = _scopeFactory.CreateScope();
+        IExternalMemberService externalMemberService =
+            scope.ServiceProvider.GetRequiredService<IExternalMemberService>();
+
+        var currentGroups = (await externalMemberService.GetRolesAsync(user.Key))
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        string[] toAdd = desiredGroups.Except(currentGroups).ToArray();
+        string[] toRemove = currentGroups.Except(desiredGroups).ToArray();
+
+        if (toAdd.Length > 0)
+        {
+            await externalMemberService.AssignRolesAsync(user.Key, toAdd);
+        }
+
+        if (toRemove.Length > 0)
+        {
+            await externalMemberService.RemoveRolesAsync(user.Key, toRemove);
+        }
+    }
+}
+```
+{% endcode %}
+
+The example above focuses on member group synchronization. You can combine the group sync call with the `ProfileData` assignment shown in [Handling profile data](lightweight-external-members.md#handling-profile-data) inside a single `OnExternalLogin` callback.
+
+{% hint style="info" %}
+The member groups referenced by the claims must already exist in Umbraco. Unknown names are silently ignored. Pre-create them in the backoffice under **Members** > **Member Groups**, or provision them in code with `IMemberGroupService`.
+{% endhint %}
+
+If the provider should only add groups and not remove them, drop the `toRemove` branch and call `AssignRolesAsync` only. Existing memberships are not duplicated.
+
 ## Converting to a content member
 
 Use `IExternalMemberService.ConvertToContentMemberAsync` when a member needs the full content-based model. For example, you might want to enable member type properties or two-factor authentication. The optional `mapProfileData` callback lets you copy fields from the JSON profile onto the new member's content properties.
