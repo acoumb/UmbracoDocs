@@ -438,6 +438,7 @@
 * [Response Caching](reference/response-caching.md)
 * [Website Output Caching](reference/website-output-caching.md)
 * [Security](reference/security/README.md)
+  * [Basic Authentication](reference/security/basic-authentication.md)
   * [API rate limiting](reference/security/api-rate-limiting.md)
   * [BackOfficeUserManager and Events](reference/security/backofficeusermanager-and-notifications.md)
   * [Cookies](reference/security/cookies.md)
