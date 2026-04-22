@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Umbraco Document PATCH Endpoint Specification
 
 Machine-readable reference for tooling, LLMs, and AI agents constructing PATCH payloads.
