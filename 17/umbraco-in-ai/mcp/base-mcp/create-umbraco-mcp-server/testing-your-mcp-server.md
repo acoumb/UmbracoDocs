@@ -1,7 +1,6 @@
 ---
 description: >-
-  How to run and exercise a scaffolded MCP server in Claude Code using the
-  shipped .mcp.json, with MCP Inspector as a fallback.
+  How to run and exercise a scaffolded MCP server in Claude Code using the shipped .mcp.json, with MCP Inspector as a fallback.
 ---
 
 # Testing Your MCP Server
