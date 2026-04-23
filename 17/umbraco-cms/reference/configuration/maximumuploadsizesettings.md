@@ -48,7 +48,7 @@ To increase the upload limit:
 
 ## Hosting on Umbraco Cloud
 
-Umbraco Cloud uses IIS for hosting, so you must apply this setting in your `web.config` file. Please note that the maximum permitted upload size on Umbraco Cloud is `500 MB`.
+Umbraco Cloud uses IIS for hosting, so you must apply this setting in your `web.config` file. The maximum permitted upload size on Umbraco Cloud is `500 MB`.
 
 To change the limit, update the `maxAllowedContentLength` value in your `web.config` file accordingly.
 
