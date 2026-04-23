@@ -3,7 +3,7 @@ description: >-
   Guidelines for Umbraco employees contributing documentation using AI tools, covering disclosure, content ownership, tooling, and PR size.
 ---
 
-# AI Contribution Guidelines for UmbracoDocs
+# AI Contribution Guidelines for Umbraco Documentation
 
 We encourage using AI tools to contribute documentation. These guidelines exist to keep the review process smooth and ensure AI-generated content meets the same quality bar as anything else we publish.
 
@@ -15,7 +15,7 @@ We are not currently accepting AI-generated or AI-assisted documentation contrib
 
 Tell us whether the content is **fully AI-generated** or **AI-assisted** (for example, AI expanded an outline, rewrote sections, or suggested phrasing). Apply the **AI-generated PR label**.
 
-The documentation team will add a transparency tag to published articles.
+The documentation team will add a tag (`AI-generated`) to published articles.
 
 If AI use isn't disclosed, we'll reach out before the review begins so we know which approach to take.
 
@@ -36,10 +36,10 @@ Using other prompts, custom skills, or third-party templates is **not recommende
 
 ## 4. Maximum 10 files per PR
 
-We ask that AI-generated PRs stay within **10 article files**. This isn't an arbitrary number — it comes down to two practical limitations:
+We ask that AI-generated PRs stay within **10 article files**. This isn't an arbitrary number. It comes down to two practical limitations:
 
 - **Vale linting** — GitHub Actions caps annotations at 50 per job. In a larger PR, violations in later files won't surface, meaning automated feedback becomes incomplete.
-- **AI review reliability** — We've found that AI-assisted review becomes less thorough when evaluating a large number of articles at once, and things slip through that we'd rather catch early.
+- **AI review reliability** — AI-assisted review tend to become less thorough when evaluating a large number of articles at once, and things slip through.
 
 Keeping PRs smaller means better automated coverage, more reliable review, and less back-and-forth for everyone.
 
