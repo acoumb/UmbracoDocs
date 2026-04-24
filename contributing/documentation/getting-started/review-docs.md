@@ -6,9 +6,9 @@ description: >-
 
 # Review Documentation Locally
 
-The `review-docs` skill runs inside [Claude Code](https://claude.ai/code) and gives you feedback on documentation before you submit a pull request. Use it to catch style issues, unclear writing, and broken links.
+The `review-docs` skill runs inside [Claude Code](https://claude.ai/code) and gives you feedback on documentation before you submit a pull request. Use it to catch style issues, unclear writing, and broken links. The skill uses the documentation contribution guidelines as well as the rules defined using a Vale linter.
 
-Running a review locally before opening a PR means issues are found and fixed in your own workflow rather than discovered during the review phase. This keeps the PR review focused on the content itself, rather than formatting and style corrections. It also reduces the back-and-forth needed before a contribution can be merged.
+Running a review locally before opening a PR means issues are found and fixed in your own workflow rather than discovered during the review phase.
 
 The skill works in two modes:
 
@@ -19,7 +19,7 @@ The skill works in two modes:
 
 Before you can run the full review, install Vale on your machine. Vale checks for style and spelling errors.
 
-```console
+```sh
 # macOS
 brew install vale
 
@@ -32,7 +32,7 @@ snap install vale
 
 After installing Vale, run the following command from the repository root to download the style packages:
 
-```console
+```sh
 vale sync
 ```
 
@@ -40,7 +40,7 @@ vale sync
 
 To review a single file, open Claude Code in the repository root and run:
 
-```
+```sh
 /review-docs path/to/your/file.md
 ```
 
@@ -55,7 +55,7 @@ Claude will read the file and give you:
 
 You can also review multiple files at once by passing more paths:
 
-```
+```sh
 /review-docs path/to/file-one.md path/to/file-two.md
 ```
 
@@ -63,7 +63,7 @@ You can also review multiple files at once by passing more paths:
 
 To review everything changed on the current branch, run:
 
-```
+```sh
 /review-docs pr
 ```
 
@@ -96,4 +96,4 @@ The skill also evaluates each page for:
 
 The skill does not make any edits to your files. Once you agree on the changes, apply them yourself and run the review again to verify the result.
 
-If the review leads to moving, renaming, or deleting files, follow the [File Names and Structure](../style-guide/structure.md) guide and add any required redirects to the relevant `.gitbook.yaml` file.
+If the review leads to moving, renaming, or deleting files, follow the [File Names and Structure](../style-guide/structure.md) guide. Add any required redirects to the relevant `.gitbook.yaml` file.
