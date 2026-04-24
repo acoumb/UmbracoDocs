@@ -6,14 +6,14 @@ This health check only runs on SQL Server. It is not applicable when Umbraco is 
 
 ## What is an "untrusted" constraint?
 
-On SQL Server every foreign key and check constraint has a **trust flag** (`is_not_trusted` in `sys.foreign_keys` / `sys.check_constraints`). A constraint is trusted when SQL Server has verified that every existing row satisfies it. It becomes _untrusted_ when a constraint is added or re-enabled without validation — typically via `WITH NOCHECK` or `NOCHECK CONSTRAINT` — or when a bulk operation inserts rows that bypass constraint checking.
+On SQL Server every foreign key and check constraint has a **trust flag**. The flag is tracked in the `sys.foreign_keys` and `sys.check_constraints` system catalog views. A constraint is trusted when SQL Server has verified that every existing row satisfies it. It becomes _untrusted_ when a constraint is added or re-enabled without validation. This typically happens via `WITH NOCHECK` or `NOCHECK CONSTRAINT`, or when a bulk operation inserts rows that bypass constraint checking.
 
 Untrusted constraints are a problem for two reasons:
 
 1. **The query optimizer cannot use them.** SQL Server relies on trusted constraints for join elimination, cardinality estimation, and index selection. Untrusted constraints force the optimizer to assume the worst case, resulting in slower queries — particularly visible on sites with large content trees.
 2. **Data integrity is not guaranteed.** Because SQL Server has not verified existing rows, orphaned or invalid rows may be present in the database even though the constraint is (nominally) active.
 
-Umbraco includes an upgrade-time migration (`RetrustForeignKeyAndCheckConstraints`, v17.3) that tries to re-trust all untrusted constraints on Umbraco tables automatically. If existing data violates a constraint the migration cannot re-trust it, so it logs a warning and moves on — leaving the issue for manual resolution. This health check surfaces that state.
+Umbraco includes an upgrade-time migration (`RetrustForeignKeyAndCheckConstraints`, v17.3) that tries to re-trust all untrusted constraints on Umbraco tables automatically. If existing data violates a constraint, the migration cannot re-trust it. In that case it logs a warning and moves on, leaving the issue for manual resolution. This health check surfaces that state.
 
 ## How to fix this health check
 
@@ -89,7 +89,7 @@ LEFT JOIN [umbracoNode] parent ON parent.id = child.parentId
 WHERE parent.id IS NULL;
 ```
 
-Inspect the results. Decide whether the offending rows represent data you want to keep (in which case restore the missing parent rows) or stale rows that can be deleted.
+Inspect the results. Decide whether the offending rows represent data you want to keep or stale rows that can be deleted. If the data should be kept, restore the missing parent rows instead.
 
 ### 4. Remove the offending rows
 
@@ -130,4 +130,4 @@ Open the backoffice → **Settings → Health Check → Data Integrity** → **U
 
 ## Check constraints
 
-The steps above focus on foreign keys, which are by far the most common case. The same approach applies to untrusted check constraints: identify the rows that violate the expression defined by the constraint (visible in `sys.check_constraints.definition`), resolve or delete them, and re-run `ALTER TABLE ... WITH CHECK CHECK CONSTRAINT`.
+The steps above focus on foreign keys, which are by far the most common case. The same approach applies to untrusted check constraints. Find the expression defined by the constraint in `sys.check_constraints.definition`. Identify the rows that violate it, resolve or delete them, then re-run `ALTER TABLE ... WITH CHECK CHECK CONSTRAINT`.
