@@ -49,7 +49,7 @@ public class PublishContentDemo
 ```
 
 {% hint style="info" %}
-Always call `Save()` before `Publish()`, as publishing without saving first will not persistthe changes.
+Always call `Save()` before `Publish()`, as publishing without saving first will not persist the changes.
 {% endhint %}
 
 In a multi-language setup, it is necessary to set the name of the content item for a specified culture:
