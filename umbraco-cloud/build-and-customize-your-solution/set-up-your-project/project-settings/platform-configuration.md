@@ -48,11 +48,11 @@ The option to disable Proactive Auto-Heal is only available for projects on a **
 
 If you downgrade your project from a **Dedicated** plan to a **Shared** plan, Proactive Auto-Heal is automatically re-enabled. This ensures that projects on shared infrastructure benefit from the automatic recovery behavior.
 
-You do not need to take any action. The setting is applied automatically as part of the downgrade process.
+You do not need to take any action. The setting is applied automatically during the downgrade process.
 
 ## Always On
 
-Always On keeps your application loaded at all times so it does not unload after periods of inactivity. Without Always On, an idle application is unloaded to free resources. The next incoming request then has to wait for the application to start again.
+Always On keeps your application loaded, so it does not unload after periods of inactivity. Without Always On, an idle application is unloaded to free resources. The next incoming request then has to wait for the application to start again.
 
 Keeping the application loaded removes this warm-up delay and helps ensure consistent response times.
 
