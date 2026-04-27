@@ -152,7 +152,14 @@ Each extension in the `extensions` array can include an optional `conditions` pr
 
 Each condition object requires at minimum an `alias` identifying which condition to evaluate. Many conditions also accept a `match` value specifying what to match against.
 
-Common aliases include `Umb.Condition.WorkspaceAlias`, `Umb.Condition.SectionAlias`, `Umb.Condition.WorkspaceEntityType`, and `Umb.Condition.UserPermission.Document`. For a full list and details, see the [Extension Conditions](extending-overview/extension-types/condition.md) article.
+Common aliases include:
+
+- `Umb.Condition.WorkspaceAlias`
+- `Umb.Condition.SectionAlias`
+- `Umb.Condition.WorkspaceEntityType`
+- `Umb.Condition.UserPermission.Document`.
+
+For a full list and details, see the [Extension Conditions](extending-overview/extension-types/condition.md) article.
 
 ## Package Manifest IntelliSense
 
