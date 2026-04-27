@@ -57,7 +57,7 @@ Always On keeps your application loaded at all times so it does not unload after
 Keeping the application loaded removes this warm-up delay and helps ensure consistent response times.
 
 {% hint style="info" %}
-Changing the Always On toggle is only available for environments on a **Dedicated** plan. Environments on Shared plans use the default value for Always On.
+Changing the Always On toggle is only available for environments on a **Dedicated** plan. Environments on Shared plans use the default value for Always On. This restriction exists for sustainability reasons. Keeping idle applications loaded consumes resources that could otherwise be released on shared infrastructure.
 {% endhint %}
 
 ### Default Value on Plan Downgrade
