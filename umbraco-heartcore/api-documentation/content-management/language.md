@@ -123,7 +123,7 @@ Gets all languages available for content creation.
 
 ## Get by ISO code
 
-Get a specific langauge by its ISO code.
+Get a specific language by its ISO code.
 
 **URL**: `/language/{id}`
 
