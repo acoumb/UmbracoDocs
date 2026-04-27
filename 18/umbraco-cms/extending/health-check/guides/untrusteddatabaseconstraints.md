@@ -1,19 +1,21 @@
-# Untrusted Database Constraints
+---
+description: Checks that all Umbraco foreign key and check constraints on SQL Server are trusted.
+---
 
-_Checks that all Umbraco foreign key and check constraints on SQL Server are trusted._
+# Untrusted Database Constraints
 
 This health check only runs on SQL Server. It is not applicable when Umbraco is configured to use SQLite.
 
 ## What is an "untrusted" constraint?
 
-On SQL Server every foreign key and check constraint has a **trust flag**. The flag is tracked in the `sys.foreign_keys` and `sys.check_constraints` system catalog views. A constraint is trusted when SQL Server has verified that every existing row satisfies it. It becomes _untrusted_ when a constraint is added or re-enabled without validation. This typically happens via `WITH NOCHECK` or `NOCHECK CONSTRAINT`, or when a bulk operation inserts rows that bypass constraint checking.
+On SQL Server, every foreign key and check constraint has a **trust flag**. The flag is tracked in the `sys.foreign_keys` and `sys.check_constraints` system catalog views. A constraint is trusted when SQL Server has verified that every existing row satisfies it. It becomes _untrusted_ when a constraint is added or re-enabled without validation. This typically happens via `WITH NOCHECK` or `NOCHECK CONSTRAINT`, or when a bulk operation inserts rows that bypass constraint checking.
 
 Untrusted constraints are a problem for two reasons:
 
-1. **The query optimizer cannot use them.** SQL Server relies on trusted constraints for join elimination, cardinality estimation, and index selection. Untrusted constraints force the optimizer to assume the worst case, resulting in slower queries — particularly visible on sites with large content trees.
+1. **The query optimizer cannot use them.** SQL Server relies on trusted constraints for join elimination, cardinality estimation, and index selection. Untrusted constraints force the optimizer to assume the worst case, resulting in slower queries. This is particularly visible on sites with large content trees.
 2. **Data integrity is not guaranteed.** Because SQL Server has not verified existing rows, orphaned or invalid rows may be present in the database even though the constraint is (nominally) active.
 
-Umbraco includes an upgrade-time migration (`RetrustForeignKeyAndCheckConstraints`, v17.3) that tries to re-trust all untrusted constraints on Umbraco tables automatically. If existing data violates a constraint, the migration cannot re-trust it. In that case it logs a warning and moves on, leaving the issue for manual resolution. This health check surfaces that state.
+Umbraco includes an upgrade-time migration (`RetrustForeignKeyAndCheckConstraints`, v17.3) that tries to re-trust all untrusted constraints on Umbraco tables automatically. If existing data violates a constraint, the migration cannot re-trust it. In that case, it logs a warning and moves on, leaving the issue for manual resolution. This health check surfaces that state.
 
 ## How to fix this health check
 
@@ -53,16 +55,16 @@ For example:
 ALTER TABLE [dbo].[umbracoRelation] WITH CHECK CHECK CONSTRAINT [FK_umbracoRelation_umbracoNode];
 ```
 
-If the constraint holds for all existing data, the `ALTER TABLE` completes silently and the constraint is trusted again. Re-run the health check to confirm; you are done.
+If the constraint holds for all existing data, the `ALTER TABLE` completes silently and the constraint is trusted again. Re-run the health check to confirm you are done.
 
 If the data violates the constraint, SQL Server raises an error similar to:
 
 ```
 The ALTER TABLE statement conflicted with the FOREIGN KEY constraint "FK_umbracoRelation_umbracoNode".
-The conflict occurred in database "Umbraco", table "dbo.umbracoNode", column 'id'.
+The conflict occurred in the database "Umbraco", table "dbo.umbracoNode", column 'id'.
 ```
 
-In that case continue with the steps below.
+In that case, continue with the steps below.
 
 ### 3. Find the offending rows
 
@@ -79,7 +81,7 @@ INNER JOIN sys.foreign_keys fk ON fk.object_id = fkc.constraint_object_id
 WHERE fk.name = 'FK_umbracoRelation_umbracoNode';
 ```
 
-Then write a `LEFT JOIN` to list the orphaned rows — rows in the child table whose parent is missing:
+Then write a `LEFT JOIN` to list the orphaned rows. These are rows in the child table whose parent is missing:
 
 ```sql
 -- Example using the columns reported above
@@ -94,7 +96,7 @@ Inspect the results. Decide whether the offending rows represent data you want t
 ### 4. Remove the offending rows
 
 {% hint style="warning" %}
-Always take a database backup before deleting data. The exact `DELETE` statement depends on your investigation above — these are examples, not a prescription.
+Always take a database backup before deleting data. The exact `DELETE` statement depends on your investigation above. The following are examples, not a prescription.
 {% endhint %}
 
 ```sql
