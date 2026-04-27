@@ -35,7 +35,7 @@ If an error occours you will receive a HTTP status code along with an API error 
 | 401         | Unauthorized         | Authorization has been denied for this request.                          |
 | 403         | Forbidden            | You are not authorized to access the given resource.                     |
 | 404         | NotFound             | Relation with id '{id}' could not be found.                              |
-| 422         | ValidationFailed     | Validation error occured when trying to save or update the relation.     |
+| 422         | ValidationFailed     | Validation error occurred when trying to save or update the relation.     |
 | 500         | InternalServerError  | Internal server error.                                                   |
 
 **JSON example**:
