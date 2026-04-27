@@ -80,8 +80,10 @@ To update Proactive Auto-Heal or Always On for your project:
 <figure><img src="../../../.gitbook/assets/platform-configuration-toggles.png" alt="Platform Configuration toggles in Advanced Configuration"><figcaption><p>Platform Configuration toggles</p></figcaption></figure>
 
 4. Toggle **Proactive Auto-Heal** and **Always On** to the desired state.
-5. Select **Save** to apply the changes, or **Cancel** to discard them.
-6. On the confirmation dialog, select **Save** to confirm the change. The environment restarts to apply the new settings. Select **Cancel** on the dialog to keep the environment running and discard the pending changes.
+5. Select **Save** to apply the changes.
+    * Select **Cancel** to discard the changes.
+6. On the confirmation dialog, select **Save** to confirm the change. The environment restarts to apply the new settings. 
+    * Select **Cancel** on the dialog to keep the environment running and discard the pending changes.
 
 <figure><img src="../../../.gitbook/assets/platform-configuration-dialog.png" alt="Platform Configuration confirmation dialog"><figcaption><p>Platform Configuration confirmation dialog</p></figcaption></figure>
 
