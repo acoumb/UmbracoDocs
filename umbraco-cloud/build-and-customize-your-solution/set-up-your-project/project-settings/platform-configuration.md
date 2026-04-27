@@ -2,6 +2,8 @@
 description: >-
   Learn how to manage Platform Configuration on Umbraco Cloud, including
   Proactive Auto-Heal and Always On.
+tags:
+  - ai-generated
 ---
 
 # Platform Configuration
@@ -24,7 +26,6 @@ Proactive Auto-Heal is **enabled by default** on all Umbraco Cloud projects and 
 Proactive Auto-Heal monitors your environment and triggers a restart depending on the following factors:
 
 * **Memory usage**: If the environment's memory consumption exceeds 90% of the available limit for more than 30 seconds, an overlapping restart is triggered. The exact memory limit depends on the worker size and process architecture.
-
 * **Slow requests**: If 80% or more of all requests take longer than 200 seconds within a 2-minute rolling window, a restart is triggered. This rule requires a minimum of 5 requests in the window before it activates. The rule is not applied during the initial warm-up period after a process start.
 
 ### When to Disable Proactive Auto-Heal
@@ -81,9 +82,9 @@ To update Proactive Auto-Heal or Always On for your project:
 
 4. Toggle **Proactive Auto-Heal** and **Always On** to the desired state.
 5. Select **Save** to apply the changes.
-    * Select **Cancel** to discard the changes.
-6. On the confirmation dialog, select **Save** to confirm the change. The environment restarts to apply the new settings. 
-    * Select **Cancel** to keep the environment running and discard the pending changes.
+   * Select **Cancel** to discard the changes.
+6. On the confirmation dialog, select **Save** to confirm the change. The environment restarts to apply the new settings.
+   * Select **Cancel** to keep the environment running and discard the pending changes.
 
 <figure><img src="../../../.gitbook/assets/platform-configuration-dialog.png" alt="Platform Configuration confirmation dialog"><figcaption><p>Platform Configuration confirmation dialog</p></figcaption></figure>
 
