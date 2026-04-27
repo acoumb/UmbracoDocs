@@ -7,7 +7,7 @@
 
 ## Always On toggle for Dedicated plans
 
-The Platform Configuration section now includes an **Always On** toggle alongside the Proactive Auto-Heal toggle. Always On keeps your application loaded at all times so it does not unload after periods of inactivity. Without Always On, an idle application is unloaded to free resources, and the next incoming request has to wait for it to start again.
+The Platform Configuration section now includes an **Always On** toggle alongside the Proactive Auto-Heal toggle. Always On keeps your application loaded, so it does not unload after periods of inactivity. Without Always On, an idle application is unloaded to free resources, and the next incoming request has to wait for it to start again.
 
 Changes to either toggle take effect after you select **Save** and confirm the change in the dialog. The environment restarts to apply the new settings.
 
