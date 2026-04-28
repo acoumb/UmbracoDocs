@@ -22,6 +22,6 @@ For more details, see the [Platform Configuration](../../build-and-customize-you
 
 ## Release Umbraco.Cloud.Identity v13.2.7 and Umbraco.Cloud.Cms v13.0.2, v16.0.4, v17.1.1, v17.1.2
 
-This release fixes a MsalUiRequiredException that could occur when performing B2C-authenticated backoffice actions, such as sending user invites. The MSAL token cache now expires in sync with Umbraco's session configuration. When KeepUserLoggedIn is enabled, the token cache refreshes alongside the backoffice cookie [Related GitHub issue](https://github.com/umbraco/Umbraco.Cloud.Issues/issues/1016).
+This release fixes a `MsalUiRequiredException` that could occur when performing B2C-authenticated backoffice actions, such as sending user invites. The Microsoft Authentication Library (MSAL) token cache now expires in sync with Umbraco's session configuration. When `KeepUserLoggedIn` is enabled, the token cache refreshes alongside the backoffice cookie [Related GitHub issue](https://github.com/umbraco/Umbraco.Cloud.Issues/issues/1016).
 
 The warm and cold boot tracking feature now properly awaits its async HTTP call instead of discarding it.
