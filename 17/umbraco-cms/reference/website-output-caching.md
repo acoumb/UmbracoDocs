@@ -123,7 +123,7 @@ The trade-offs of this approach:
 - **Per-server warm-up**: A visitor routed to a server that has not yet served a particular page experiences a cache miss, even if other servers have it cached.
 - **Cache lost on restart**: When a server process restarts (deployment, app pool recycle), its cache starts empty until requests rebuild it.
 
-This is a reasonable choice for many load-balanced sites. It requires no additional infrastructure, and the cost of per-server warm-up is small relative to the saving over uncached rendering.
+This is a reasonable choice for many load-balanced sites. It requires no additional infrastructure, and the cost of per-server warm-up is small relative to the savings over uncached rendering.
 
 ### Shared distributed cache (Redis)
 
@@ -145,8 +145,8 @@ For full configuration details, see the [Microsoft documentation on Redis output
 
 The trade-offs of this approach:
 
-- **Network round-trip per request**: Each cache lookup reads from Redis over the network. Redis is fast but there is a small added latency on every cached response compared to in-process memory.
-- **External dependency**: A Redis outage stops cached responses being served on every server. Requests fall back to the uncached rendering pipeline, so the site remains available, but the performance benefits disappear until Redis recovers.
+- **Network round-trip per request**: Each cache lookup reads from Redis over the network. Redis is fast, but there is a small added latency on every cached response compared to in-process memory.
+- **External dependency**: A Redis outage stops cached responses from being served on every server. Requests fall back to the uncached rendering pipeline, so the site remains available, but the performance benefits disappear until Redis recovers.
 - **Operational cost**: A managed Redis service is an additional running cost, and a self-hosted Redis cluster requires monitoring and maintenance.
 - **Lower total memory**: Cached content is stored once, regardless of how many servers are in the cluster.
 - **Single shared warm-up**: A new server joining the cluster benefits immediately from the existing cache, and the cache survives individual server restarts and deployments.
