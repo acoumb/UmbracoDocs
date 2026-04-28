@@ -24,4 +24,4 @@ For more details, see the [Platform Configuration](../../build-and-customize-you
 
 This release fixes a MsalUiRequiredException that could occur when performing B2C-authenticated backoffice actions, such as sending user invites. The MSAL token cache now expires in sync with Umbraco's session configuration. When KeepUserLoggedIn is enabled, the token cache refreshes alongside the backoffice cookie [Related GitHub issue](https://github.com/umbraco/Umbraco.Cloud.Issues/issues/1016).
 
-TrackBootStateNotificationHandler now properly awaits its async HTTP call instead of discarding it.
+The warm and cold boot tracking feature now properly awaits its async HTTP call instead of discarding it.
