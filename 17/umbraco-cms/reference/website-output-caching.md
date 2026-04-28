@@ -111,11 +111,56 @@ These tags enable eviction at multiple levels:
 
 ## Load balancing considerations
 
-Eviction is distributed across servers through `ContentCacheRefresherNotification`. In a load-balanced setup, each server evicts from its own cache when content changes. The default in-memory cache store works correctly in this scenario.
+Output caching works in load-balanced setups through one of two approaches. Either keep a separate in-memory cache on each server, or share a single cache across all servers via a distributed store. Each comes with trade-offs around memory, latency, and operational complexity.
 
-The trade-off with in-memory caching across multiple servers is that each server maintains a separate cache. This means slightly more total memory usage. A visitor routed to a different server may also experience a cache miss until that server's cache warms up.
+### Per-instance in-memory cache (the default)
 
-For a single shared cache that avoids this duplication, you can use a distributed store like Redis. Read more in the [Microsoft documentation on Redis output cache](https://learn.microsoft.com/en-us/aspnet/core/performance/caching/output#redis-cache).
+The default `IOutputCacheStore` implementation is in-process memory. Each server maintains its own cache, and eviction is distributed across the cluster through `ContentCacheRefresherNotification`. When content changes on one server, every server in the cluster receives the notification and evicts the relevant entries from its local cache. This keeps cached content consistent without requiring any shared infrastructure.
+
+The trade-offs of this approach:
+
+- **Memory duplication**: Each server holds its own copy of the same cached pages. Total memory across the cluster scales with the number of servers, although per-server memory is unaffected.
+- **Per-server warm-up**: A visitor routed to a server that has not yet served a particular page experiences a cache miss, even if other servers have it cached.
+- **Cache lost on restart**: When a server process restarts (deployment, app pool recycle), its cache starts empty until requests rebuild it.
+
+This is a reasonable choice for many load-balanced sites. It requires no additional infrastructure, and the cost of per-server warm-up is small relative to the saving over uncached rendering.
+
+### Shared distributed cache (Redis)
+
+For a single shared cache across all instances, you can swap the default in-memory store for any `IOutputCacheStore` implementation. The most common option is [Redis](https://redis.io/), via Microsoft's [Microsoft.AspNetCore.OutputCaching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.OutputCaching.StackExchangeRedis) package. Hosted Redis offerings include [Azure Cache for Redis](https://learn.microsoft.com/azure/azure-cache-for-redis/) and [Azure Managed Redis](https://learn.microsoft.com/azure/redis/), with equivalents available from other cloud providers.
+
+To use Redis as the backing store, install the package and register it in `Program.cs` before `AddOutputCache`:
+
+{% code title="Program.cs" %}
+```csharp
+builder.Services.AddStackExchangeRedisOutputCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "umbraco-output-cache:";
+});
+```
+{% endcode %}
+
+For full configuration details, see the [Microsoft documentation on Redis output cache](https://learn.microsoft.com/aspnet/core/performance/caching/output#redis-cache).
+
+The trade-offs of this approach:
+
+- **Network round-trip per request**: Each cache lookup reads from Redis over the network. Redis is fast but there is a small added latency on every cached response compared to in-process memory.
+- **External dependency**: A Redis outage stops cached responses being served on every server. Requests fall back to the uncached rendering pipeline, so the site remains available, but the performance benefits disappear until Redis recovers.
+- **Operational cost**: A managed Redis service is an additional running cost, and a self-hosted Redis cluster requires monitoring and maintenance.
+- **Lower total memory**: Cached content is stored once, regardless of how many servers are in the cluster.
+- **Single shared warm-up**: A new server joining the cluster benefits immediately from the existing cache, and the cache survives individual server restarts and deployments.
+
+### Choosing between the two
+
+Defaulting to the in-memory approach unless you have a specific reason to switch is a reasonable first step. It is simpler, faster on a per-request basis, and works without any extra moving parts.
+
+Consider Redis when one or more of the following apply:
+
+- The cluster has many servers (typically four or more), so the duplicated memory cost across instances becomes significant.
+- Cached pages are large enough that holding a copy on each server is expensive — for example, long content-heavy pages cached for extended durations.
+- New servers join the cluster frequently (auto-scaling), and starting with an empty cache on each new instance produces noticeable load spikes on origins or downstream systems.
+- You want cached content to survive deployments and restarts.
 
 ## Extending output caching
 

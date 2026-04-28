@@ -94,9 +94,12 @@ These tags enable eviction at multiple levels:
 
 ## Load balancing considerations
 
-The default output caching mechanism is based on the individual server instance's memory. When hosting in a load-balanced environment, the memory cache is not synchronized across instances.
+The Delivery API's output caching supports the same two approaches available for the website rendering pipeline:
 
-Instead, use a distributed caching solution like Redis cache. Starting with .NET 8, Microsoft supports output caching with Redis cache as backing store. Read more in the [Microsoft documentation on Redis output cache](https://learn.microsoft.com/en-us/aspnet/core/performance/caching/output#redis-cache).
+- **Per-instance in-memory cache (the default)**: each server maintains its own cache, with eviction notifications distributed across the cluster so cached responses stay consistent.
+- **Shared distributed cache**: a single cache shared across all servers, typically backed by [Redis](https://redis.io/) via the [Microsoft.AspNetCore.OutputCaching.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.OutputCaching.StackExchangeRedis) package.
+
+The trade-offs and the guidance on when to choose one over the other are the same as for website rendering. For a full discussion, see [Load balancing considerations](../website-output-caching.md#load-balancing-considerations) in the Website Output Caching article.
 
 ## Extending output caching
 
