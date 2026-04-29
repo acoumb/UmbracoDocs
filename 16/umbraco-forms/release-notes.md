@@ -20,7 +20,7 @@ This section contains the release notes for Umbraco Forms 16 including all chang
 
 ### [16.5.3](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F16.5.3) (April 30th 2026)
 * Allow editing hidden fields on submitted form entries [#1605](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1605) [#1693](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1693)
-* Fix Danish casing for 'Ved afvisning' label [#1696](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1696)
+* Fix casing for "On Reject" label [#1696](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1696)
 * Localize **Change Record State** action dropdown labels
 * Update design of **Form Picker (Single)** to match CMS style
 

@@ -23,7 +23,7 @@ This section contains the release notes for Umbraco Forms 17 including all chang
 * Fix Rich Text field type not allowing blocks [#1194](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1194)
 * Allow editing hidden fields on submitted form entries [#1605](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1605) [#1693](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1693)
 * Reveal workflow action bar on keyboard focus [#1692](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1692)
-* Fix Danish casing for 'Ved afvisning' label [#1696](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1696)
+* Fix casing for "On Reject" label [#1696](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1696)
 * Resolve variant-aware title in the preview modal [#1699](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1699)
 * Prevent `MigrateSystemDatesToUtc` failure on SQL datetime underflow [#1703](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1703)
 * Add **View entries** entity action for submitted records [#1704](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1704)
