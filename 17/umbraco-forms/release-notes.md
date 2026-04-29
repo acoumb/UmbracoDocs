@@ -18,7 +18,7 @@ If you are upgrading to a new major version, you can find information about the 
 
 This section contains the release notes for Umbraco Forms 17 including all changes for this version.
 
-### [17.3.1](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F17.3.1) (April 29th 2026)
+### [17.3.1](https://github.com/umbraco/Umbraco.Forms.Issues/issues?q=is%3Aissue+label%3Arelease%2F17.3.1) (April 30th 2026)
 
 * Fix Rich Text field type not allowing blocks [#1194](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1194)
 * Allow editing hidden fields on submitted form entries [#1605](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1605) [#1693](https://github.com/umbraco/Umbraco.Forms.Issues/issues/1693)
