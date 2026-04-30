@@ -2,7 +2,7 @@
 
 ## What is the PATCH Endpoint
 
-The Document PATCH endpoint lets you make **partial updates** to an Umbraco document. Instead of sending the entire document back (like a PUT), you describe only the changes you want to make.
+The Document PATCH endpoint lets you make **partial updates** to an Umbraco document. Instead of sending the entire document back (like a PUT), you describe only the changes you want to make. 
 
 This is useful when you need to:
 
