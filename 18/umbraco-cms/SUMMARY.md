@@ -443,6 +443,7 @@
   * [Cookies](reference/security/cookies.md)
   * [Replacing the basic username/password check](reference/security/custom-password-check.md)
   * [External login providers](reference/security/external-login-providers.md)
+  * [Lightweight external members](reference/security/lightweight-external-members.md)
   * [Locking of Users and password reset](reference/security/password-reset.md)
   * [Reset admin password](reference/security/reset-admin-password.md)
   * [Umbraco Security Hardening](reference/security/security-hardening.md)
